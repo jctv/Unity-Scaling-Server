@@ -1,0 +1,22 @@
+<?xml version="1.0"?><!-- Automation Test Version 1.1.3 -->
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TestSuite" parallel="false">
+<parameter name="browser" value="Chrome"/>
+<parameter name="filePath" value="C:\SeleniumDrivers\chromedriver.exe"/>
+<parameter name="url" value="http://54.67.49.151:8080/"/>
+<parameter name="platform" value="Any"/>
+<parameter name="type" value="Local"/>
+<parameter name="hubAddress" value="localhost"/>
+<parameter name="userName" value="bil/ctribin"/>
+<parameter name="password" value="ctribin1"/>
+<parameter name="waitingTime" value="30"/>
+
+ <test name="Unity">
+    <classes>
+     <class name="tests.HappyPathTest">
+     </class>
+
+    </classes>
+     
+  </test>
+</suite> <!-- Suite -->
