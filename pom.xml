@@ -20,6 +20,7 @@
 			<version>2.45.0</version>
 		</dependency>
 		
+		
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-server</artifactId>
