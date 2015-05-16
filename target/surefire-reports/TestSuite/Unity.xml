@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite hostname="juan-tribin" name="tests.HappyPathTest" tests="1" failures="1" timestamp="15 May 2015 22:27:44 GMT" time="166.785" errors="0">
-  <testcase name="runPath" time="140.261" classname="tests.HappyPathTest">
-    <failure type="org.openqa.selenium.ElementNotVisibleException" message="element not visible: Element is not currently visible and may not be manipulated
+<testsuite hostname="juan-tribin" name="tests.HappyPathTest" tests="1" failures="0" timestamp="16 May 2015 00:16:13 GMT" time="31.307" errors="0">
+  <testcase name="@BeforeMethod setUp" time="0.0" classname="tests.HappyPathTest">
+    <failure type="org.openqa.selenium.WebDriverException" message="chrome not reachable
   (Session info: chrome=42.0.2311.135)
   (Driver info: chromedriver=2.12.301325 (962dea43ddd90e7e4224a03fa3c36a421281abb7),platform=Windows NT 6.1 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 25 milliseconds
+Command duration or timeout: 2.01 seconds
 Build info: version: &amp;apos;2.45.0&amp;apos;, revision: &amp;apos;5017cb8e7ca8e37638dc3091b2440b90a1d8686f&amp;apos;, time: &amp;apos;2015-02-27 09:10:26&amp;apos;
 System info: host: &amp;apos;juan-tribin&amp;apos;, ip: &amp;apos;192.168.24.130&amp;apos;, os.name: &amp;apos;Windows 7&amp;apos;, os.arch: &amp;apos;amd64&amp;apos;, os.version: &amp;apos;6.1&amp;apos;, java.version: &amp;apos;1.7.0_09&amp;apos;
-Session ID: c9c423844c002045b2410066a8be06c0
+*** Element info: {Using=xpath, value=//*[@id=&amp;apos;region-navigation&amp;apos;]/div/span[1]}
+Session ID: e338e50c00c51f50a4dc47c19e064130
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities [{platform=XP, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, chrome={userDataDir=C:\Users\JUAN~1.TRI\AppData\Local\Temp\scoped_dir14808_3620}, rotatable=false, locationContextEnabled=true, mobileEmulationEnabled=false, version=42.0.2311.135, takesHeapSnapshot=true, cssSelectorsEnabled=true, databaseEnabled=false, handlesAlerts=true, browserConnectionEnabled=false, webStorageEnabled=true, nativeEvents=true, applicationCacheEnabled=false, takesScreenshot=true}]">
-      <![CDATA[org.openqa.selenium.ElementNotVisibleException: element not visible: Element is not currently visible and may not be manipulated
+Capabilities [{platform=XP, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, chrome={userDataDir=C:\Users\JUAN~1.TRI\AppData\Local\Temp\scoped_dir13052_32041}, rotatable=false, locationContextEnabled=true, mobileEmulationEnabled=false, version=42.0.2311.135, takesHeapSnapshot=true, cssSelectorsEnabled=true, databaseEnabled=false, handlesAlerts=true, browserConnectionEnabled=false, webStorageEnabled=true, nativeEvents=true, applicationCacheEnabled=false, takesScreenshot=true}]">
+      <![CDATA[org.openqa.selenium.WebDriverException: chrome not reachable
   (Session info: chrome=42.0.2311.135)
   (Driver info: chromedriver=2.12.301325 (962dea43ddd90e7e4224a03fa3c36a421281abb7),platform=Windows NT 6.1 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 25 milliseconds
+Command duration or timeout: 2.01 seconds
 Build info: version: '2.45.0', revision: '5017cb8e7ca8e37638dc3091b2440b90a1d8686f', time: '2015-02-27 09:10:26'
 System info: host: 'juan-tribin', ip: '192.168.24.130', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.7.0_09'
-Session ID: c9c423844c002045b2410066a8be06c0
+*** Element info: {Using=xpath, value=//*[@id='region-navigation']/div/span[1]}
+Session ID: e338e50c00c51f50a4dc47c19e064130
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities [{platform=XP, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, chrome={userDataDir=C:\Users\JUAN~1.TRI\AppData\Local\Temp\scoped_dir14808_3620}, rotatable=false, locationContextEnabled=true, mobileEmulationEnabled=false, version=42.0.2311.135, takesHeapSnapshot=true, cssSelectorsEnabled=true, databaseEnabled=false, handlesAlerts=true, browserConnectionEnabled=false, webStorageEnabled=true, nativeEvents=true, applicationCacheEnabled=false, takesScreenshot=true}]
+Capabilities [{platform=XP, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, chrome={userDataDir=C:\Users\JUAN~1.TRI\AppData\Local\Temp\scoped_dir13052_32041}, rotatable=false, locationContextEnabled=true, mobileEmulationEnabled=false, version=42.0.2311.135, takesHeapSnapshot=true, cssSelectorsEnabled=true, databaseEnabled=false, handlesAlerts=true, browserConnectionEnabled=false, webStorageEnabled=true, nativeEvents=true, applicationCacheEnabled=false, takesScreenshot=true}]
 	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
 	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
-	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:268)
-	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:79)
-	at org.openqa.selenium.support.ui.Select.setSelected(Select.java:325)
-	at org.openqa.selenium.support.ui.Select.selectByVisibleText(Select.java:118)
-	at generic.BasePage.selectOption(BasePage.java:239)
-	at pages.Users.createUser(Users.java:188)
-	at tests.HappyPathTest.runPath(HappyPathTest.java:80)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:352)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:449)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:357)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:59)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:37)
+	at $Proxy10.getText(Unknown Source)
+	at generic.BasePage.waitForElementAndClick(BasePage.java:205)
+	at pages.DashBoard.addTiles(DashBoard.java:262)
+	at tests.HappyPathTest.setUp(HappyPathTest.java:56)
 	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:122)
 	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:92)
 	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:101)
@@ -37,7 +42,10 @@ Capabilities [{platform=XP, acceptSslCerts=true, javascriptEnabled=true, browser
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:172)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:104)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:70)
-... Removed 30 stack frames]]>
+... Removed 32 stack frames]]>
     </failure>
+  </testcase>
+  <testcase name="runPath" time="0.001" classname="tests.HappyPathTest">
+    <skipped/>
   </testcase>
 </testsuite>

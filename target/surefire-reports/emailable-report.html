@@ -29,26 +29,29 @@ div.shootout {padding:2em;border:3px #4854A8 solid}
 <body>
 <table cellspacing=0 cellpadding=0 class="param">
 <tr><th>Test</th><th class="numi">Methods<br/>Passed</th><th class="numi">Scenarios<br/>Passed</th><th class="numi"># skipped</th><th class="numi"># failed</th><th class="numi">Total<br/>Time</th><th class="numi">Included<br/>Groups</th><th class="numi">Excluded<br/>Groups</th></tr>
-<tr><td style="text-align:left;padding-right:2em">Unity</td><td class="numi">0</td><td class="numi">0</td><td class="numi">0</td><td class="numi_attn">1</td><td class="numi">166.8 seconds</td><td class="numi"></td><td class="numi"></td></tr>
+<tr><td style="text-align:left;padding-right:2em">Unity</td><td class="numi">0</td><td class="numi">0</td><td class="numi_attn">1</td><td class="numi">0</td><td class="numi">31.3 seconds</td><td class="numi"></td><td class="numi"></td></tr>
 </table>
 <a id="summary"></a>
 <table cellspacing=0 cellpadding=0 class="passed">
 <tr><th>Class</th><th>Method</th><th># of<br/>Scenarios</th><th>Time<br/>(Msecs)</th></tr>
-<tr><th colspan="4">Unity &#8212; failed</th></tr>
-<tr class="failedodd"><td rowspan="1">tests.HappyPathTest<td><a href="#m1"><b>runPath</b>  </a></td><td class="numi">1</td><td class="numi">140261</td></tr>
+<tr><th colspan="4">Unity &#8212; failed (configuration methods)</th></tr>
+<tr class="failedodd"><td rowspan="1">tests.HappyPathTest<td><a href="#m1"><b>setUp</b>  </a></td><td class="numi">1</td><td class="numi">0</td></tr>
+<tr><th colspan="4">Unity &#8212; skipped</th></tr>
+<tr class="skippedodd"><td rowspan="1">tests.HappyPathTest<td><a href="#m2"><b>runPath</b>  </a></td><td class="numi">1</td><td class="numi">1</td></tr>
 </table>
 <h1>Unity</h1>
-<a id="m1"></a><h2>tests.HappyPathTest:runPath</h2>
+<a id="m1"></a><h2>tests.HappyPathTest:setUp</h2>
 <div style="padding-left:3em">
-<p>element not visible: Element is not currently visible and may not be manipulated
+<p>chrome not reachable
   (Session info: chrome=42.0.2311.135)
   (Driver info: chromedriver=2.12.301325 (962dea43ddd90e7e4224a03fa3c36a421281abb7),platform=Windows NT 6.1 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 25 milliseconds
+Command duration or timeout: 2.01 seconds
 Build info: version: &apos;2.45.0&apos;, revision: &apos;5017cb8e7ca8e37638dc3091b2440b90a1d8686f&apos;, time: &apos;2015-02-27 09:10:26&apos;
 System info: host: &apos;juan-tribin&apos;, ip: &apos;192.168.24.130&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.7.0_09&apos;
-Session ID: c9c423844c002045b2410066a8be06c0
+*** Element info: {Using=xpath, value=//*[@id=&apos;region-navigation&apos;]/div/span[1]}
+Session ID: e338e50c00c51f50a4dc47c19e064130
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities [{platform=XP, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, chrome={userDataDir=C:\Users\JUAN~1.TRI\AppData\Local\Temp\scoped_dir14808_3620}, rotatable=false, locationContextEnabled=true, mobileEmulationEnabled=false, version=42.0.2311.135, takesHeapSnapshot=true, cssSelectorsEnabled=true, databaseEnabled=false, handlesAlerts=true, browserConnectionEnabled=false, webStorageEnabled=true, nativeEvents=true, applicationCacheEnabled=false, takesScreenshot=true}]</p>
+Capabilities [{platform=XP, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, chrome={userDataDir=C:\Users\JUAN~1.TRI\AppData\Local\Temp\scoped_dir13052_32041}, rotatable=false, locationContextEnabled=true, mobileEmulationEnabled=false, version=42.0.2311.135, takesHeapSnapshot=true, cssSelectorsEnabled=true, databaseEnabled=false, handlesAlerts=true, browserConnectionEnabled=false, webStorageEnabled=true, nativeEvents=true, applicationCacheEnabled=false, takesScreenshot=true}]</p>
 sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 <br/>at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
 <br/>at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
@@ -56,14 +59,19 @@ sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 <br/>at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
 <br/>at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
 <br/>at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
-<br/>at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:268)
-<br/>at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:79)
-<br/>at org.openqa.selenium.support.ui.Select.setSelected(Select.java:325)
-<br/>at org.openqa.selenium.support.ui.Select.selectByVisibleText(Select.java:118)
-<br/>at generic.BasePage.selectOption(BasePage.java:239)
-<br/>at pages.Users.createUser(Users.java:188)
-<br/>at tests.HappyPathTest.runPath(HappyPathTest.java:80)
-<br/>35 lines not shown
+<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:352)
+<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:449)
+<br/>at org.openqa.selenium.By$ByXPath.findElement(By.java:357)
+<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
+<br/>at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:59)
+<br/>at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:37)
+<br/>at $Proxy10.getText(Unknown Source)
+<br/>at generic.BasePage.waitForElementAndClick(BasePage.java:205)
+<br/>at pages.DashBoard.addTiles(DashBoard.java:262)
+<br/>at tests.HappyPathTest.setUp(HappyPathTest.java:56)
+<br/>37 lines not shown
 </div>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m2"></a><h2>tests.HappyPathTest:runPath</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
 </body></html>
