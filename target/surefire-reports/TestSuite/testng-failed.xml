@@ -9,28 +9,17 @@
   <parameter name="userName" value="bil/ctribin"/>
   <parameter name="type" value="Local"/>
   <parameter name="password" value="ctribin1"/>
-  <parameter name="url" value="http://54.67.49.151:8080/"/>
-  <test name="Unity(failed)" preserve-order="false">
-    <parameter name="platform" value="Any"/>
-    <parameter name="hubAddress" value="localhost"/>
-    <parameter name="waitingTime" value="30"/>
-    <parameter name="filePath" value="C:\SeleniumDrivers\chromedriver.exe"/>
-    <parameter name="browser" value="Chrome"/>
-    <parameter name="userName" value="bil/ctribin"/>
-    <parameter name="type" value="Local"/>
-    <parameter name="password" value="ctribin1"/>
-    <parameter name="url" value="http://54.67.49.151:8080/"/>
+  <parameter name="url" value="http://uat.8pnds.com/"/>
+  <test name="Unity(failed)">
     <classes>
       <class name="tests.HappyPathTest">
         <methods>
-          <include name="tearDown"/>
           <include name="classSetUp"/>
-          <include name="classTearDown"/>
           <include name="runPath"/>
-          <include name="suiteSetUp"/>
           <include name="setUp"/>
+          <include name="suiteSetUp"/>
         </methods>
-      </class>
+      </class> <!-- tests.HappyPathTest -->
     </classes>
-  </test>
-</suite>
+  </test> <!-- Unity(failed) -->
+</suite> <!-- Failed suite [TestSuite] -->

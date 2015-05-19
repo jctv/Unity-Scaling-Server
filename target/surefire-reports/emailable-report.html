@@ -1,77 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>TestNG:  Unit Test</title>
-<style type="text/css">
-table caption,table.info_table,table.param,table.passed,table.failed {margin-bottom:10px;border:1px solid #000099;border-collapse:collapse;empty-cells:show;}
-table.info_table td,table.info_table th,table.param td,table.param th,table.passed td,table.passed th,table.failed td,table.failed th {
-border:1px solid #000099;padding:.25em .5em .25em .5em
-}
-table.param th {vertical-align:bottom}
-td.numi,th.numi,td.numi_attn {
-text-align:right
-}
-tr.total td {font-weight:bold}
-table caption {
-text-align:center;font-weight:bold;
-}
-table.passed tr.stripe td,table tr.passedodd td {background-color: #00AA00;}
-table.passed td,table tr.passedeven td {background-color: #33FF33;}
-table.passed tr.stripe td,table tr.skippedodd td {background-color: #cccccc;}
-table.passed td,table tr.skippedodd td {background-color: #dddddd;}
-table.failed tr.stripe td,table tr.failedodd td,table.param td.numi_attn {background-color: #FF3333;}
-table.failed td,table tr.failedeven td,table.param tr.stripe td.numi_attn {background-color: #DD0000;}
-tr.stripe td,tr.stripe th {background-color: #E6EBF9;}
-p.totop {font-size:85%;text-align:center;border-bottom:2px black solid}
-div.shootout {padding:2em;border:3px #4854A8 solid}
-</style>
-</head>
-<body>
-<table cellspacing=0 cellpadding=0 class="param">
-<tr><th>Test</th><th class="numi">Methods<br/>Passed</th><th class="numi">Scenarios<br/>Passed</th><th class="numi"># skipped</th><th class="numi"># failed</th><th class="numi">Total<br/>Time</th><th class="numi">Included<br/>Groups</th><th class="numi">Excluded<br/>Groups</th></tr>
-<tr><td style="text-align:left;padding-right:2em">Unity</td><td class="numi">0</td><td class="numi">0</td><td class="numi_attn">1</td><td class="numi">0</td><td class="numi">31.3 seconds</td><td class="numi"></td><td class="numi"></td></tr>
-</table>
-<a id="summary"></a>
-<table cellspacing=0 cellpadding=0 class="passed">
-<tr><th>Class</th><th>Method</th><th># of<br/>Scenarios</th><th>Time<br/>(Msecs)</th></tr>
-<tr><th colspan="4">Unity &#8212; failed (configuration methods)</th></tr>
-<tr class="failedodd"><td rowspan="1">tests.HappyPathTest<td><a href="#m1"><b>setUp</b>  </a></td><td class="numi">1</td><td class="numi">0</td></tr>
-<tr><th colspan="4">Unity &#8212; skipped</th></tr>
-<tr class="skippedodd"><td rowspan="1">tests.HappyPathTest<td><a href="#m2"><b>runPath</b>  </a></td><td class="numi">1</td><td class="numi">1</td></tr>
-</table>
-<h1>Unity</h1>
-<a id="m1"></a><h2>tests.HappyPathTest:setUp</h2>
-<div style="padding-left:3em">
-<p>chrome not reachable
-  (Session info: chrome=42.0.2311.135)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>TestNG Report</title><style type="text/css">table {margin-bottom:10px;border-collapse:collapse;empty-cells:show}th,td {border:1px solid #009;padding:.25em .5em}th {vertical-align:bottom}td {vertical-align:top}table a {font-weight:bold}.stripe td {background-color: #E6EBF9}.num {text-align:right}.passedodd td {background-color: #3F3}.passedeven td {background-color: #0A0}.skippedodd td {background-color: #DDD}.skippedeven td {background-color: #CCC}.failedodd td,.attn {background-color: #F33}.failedeven td,.stripe .attn {background-color: #D00}.stacktrace {white-space:pre;font-family:monospace}.totop {font-size:85%;text-align:center;border-bottom:2px solid #000}</style></head><body><table><tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr><tr><th colspan="7">TestSuite</th></tr><tr><td><a href="#t0">Unity</a></td><td class="num">0</td><td class="num attn">1</td><td class="num">0</td><td class="num">10,049</td><td></td><td></td></tr></table><table><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">TestSuite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Unity &#8212; failed (configuration methods)</th></tr><tr class="failedeven"><td rowspan="1">tests.HappyPathTest</td><td><a href="#m0">setUp</a></td><td rowspan="1">1432078828184</td><td rowspan="1">0</td></tr><tr><th colspan="4">Unity &#8212; skipped (configuration methods)</th></tr><tr class="skippedeven"><td rowspan="2">tests.HappyPathTest</td><td><a href="#m1">classTearDown</a></td><td rowspan="1">1432078830222</td><td rowspan="1">0</td></tr><tr class="skippedeven"><td><a href="#m2">tearDown</a></td><td rowspan="1">1432078830222</td><td rowspan="1">0</td></tr><tr><th colspan="4">Unity &#8212; skipped</th></tr><tr class="skippedeven"><td rowspan="1">tests.HappyPathTest</td><td><a href="#m3">runPath</a></td><td rowspan="1">1432078830220</td><td rowspan="1">1</td></tr></tbody></table><h2>Unity</h2><h3 id="m0">tests.HappyPathTest#setUp</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.WebDriverException: chrome not reachable
+  (Session info: chrome=42.0.2311.152)
   (Driver info: chromedriver=2.12.301325 (962dea43ddd90e7e4224a03fa3c36a421281abb7),platform=Windows NT 6.1 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
 Command duration or timeout: 2.01 seconds
 Build info: version: &apos;2.45.0&apos;, revision: &apos;5017cb8e7ca8e37638dc3091b2440b90a1d8686f&apos;, time: &apos;2015-02-27 09:10:26&apos;
-System info: host: &apos;juan-tribin&apos;, ip: &apos;192.168.24.130&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.7.0_09&apos;
-*** Element info: {Using=xpath, value=//*[@id=&apos;region-navigation&apos;]/div/span[1]}
-Session ID: e338e50c00c51f50a4dc47c19e064130
+System info: host: &apos;juan-tribin&apos;, ip: &apos;192.168.24.64&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.7.0_09&apos;
+Session ID: 11d6135e6cc6710a00f2a70d43fedadc
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities [{platform=XP, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, chrome={userDataDir=C:\Users\JUAN~1.TRI\AppData\Local\Temp\scoped_dir13052_32041}, rotatable=false, locationContextEnabled=true, mobileEmulationEnabled=false, version=42.0.2311.135, takesHeapSnapshot=true, cssSelectorsEnabled=true, databaseEnabled=false, handlesAlerts=true, browserConnectionEnabled=false, webStorageEnabled=true, nativeEvents=true, applicationCacheEnabled=false, takesScreenshot=true}]</p>
-sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-<br/>at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
-<br/>at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
-<br/>at java.lang.reflect.Constructor.newInstance(Unknown Source)
-<br/>at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
-<br/>at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
-<br/>at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
-<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:352)
-<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:449)
-<br/>at org.openqa.selenium.By$ByXPath.findElement(By.java:357)
-<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
-<br/>at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:59)
-<br/>at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:37)
-<br/>at $Proxy10.getText(Unknown Source)
-<br/>at generic.BasePage.waitForElementAndClick(BasePage.java:205)
-<br/>at pages.DashBoard.addTiles(DashBoard.java:262)
-<br/>at tests.HappyPathTest.setUp(HappyPathTest.java:56)
-<br/>37 lines not shown
-</div>
-<p class="totop"><a href="#summary">back to summary</a></p>
-<a id="m2"></a><h2>tests.HappyPathTest:runPath</h2>
-<p class="totop"><a href="#summary">back to summary</a></p>
-</body></html>
+Capabilities [{platform=XP, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, chrome={userDataDir=C:\Users\JUAN~1.TRI\AppData\Local\Temp\scoped_dir13716_10475}, rotatable=false, locationContextEnabled=true, mobileEmulationEnabled=false, version=42.0.2311.152, takesHeapSnapshot=true, cssSelectorsEnabled=true, databaseEnabled=false, handlesAlerts=true, browserConnectionEnabled=false, webStorageEnabled=true, nativeEvents=true, applicationCacheEnabled=false, takesScreenshot=true}]
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:304)
+	at tests.HappyPathTest.setUp(HappyPathTest.java:50)
+... Removed 39 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p><h3 id="m1">tests.HappyPathTest#classTearDown</h3><table class="result"></table><p class="totop"><a href="#summary">back to summary</a></p><h3 id="m2">tests.HappyPathTest#tearDown</h3><table class="result"></table><p class="totop"><a href="#summary">back to summary</a></p><h3 id="m3">tests.HappyPathTest#runPath</h3><table class="result"></table><p class="totop"><a href="#summary">back to summary</a></p></body></html>

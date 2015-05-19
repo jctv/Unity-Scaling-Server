@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="1" time="80.729" errors="0" skipped="1" tests="2" name="TestSuite">
+<testsuite failures="1" time="10.547" errors="0" skipped="3" tests="4" name="TestSuite">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jre7\bin"/>
@@ -26,7 +26,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 7"/>
-    <property name="classworlds.conf" value="C:\Workspaceluna\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf3337885357360428769.tmp"/>
+    <property name="classworlds.conf" value="C:\Workspaceluna\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf2045023828927955987.tmp"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.library.path" value="C:\Program Files\Java\jre7\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;c:\Program Files\Intel\DMIX;c:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files (x86)\NTRU Cryptosystems\NTRU TCG Software Stack\bin\;C:\Program Files\NTRU Cryptosystems\NTRU TCG Software Stack\bin\;C:\Program Files (x86)\Intel\Services\IPT\;C:\Program Files\Dell\Dell Data Protection\Access\Advanced\Wave\Gemalto\Access Client\v5\;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files (x86)\Common Files\Roxio Shared\OEM\DLLShared\;C:\Program Files (x86)\Common Files\Roxio Shared\OEM\DLLShared\;C:\Program Files (x86)\Common Files\Roxio Shared\OEM\12.0\DLLShared\;C:\Program Files (x86)\Roxio\OEM\AudioCore\;C:\Program Files (x86)\OpenSSH\bin;D:\Java\apache-maven-3.0.4\bin;D:\Java\jaxws-ri;C:\Program Files\TortoiseSVN\bin;C:\Program Files\OpenVPN\bin;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;C:\Program Files (x86)\Skype\Phone\;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -63,24 +63,22 @@
   </properties>
   <testcase time="0" classname="tests.HappyPathTest" name="setUp">
     <failure message="chrome not reachable
-  (Session info: chrome=42.0.2311.135)
+  (Session info: chrome=42.0.2311.152)
   (Driver info: chromedriver=2.12.301325 (962dea43ddd90e7e4224a03fa3c36a421281abb7),platform=Windows NT 6.1 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 2.00 seconds
+Command duration or timeout: 2.01 seconds
 Build info: version: &apos;2.45.0&apos;, revision: &apos;5017cb8e7ca8e37638dc3091b2440b90a1d8686f&apos;, time: &apos;2015-02-27 09:10:26&apos;
-System info: host: &apos;juan-tribin&apos;, ip: &apos;192.168.24.130&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.7.0_09&apos;
-*** Element info: {Using=xpath, value=//*[@id=&apos;region-navigation&apos;]/div/span[1]}
-Session ID: 10cd667dd32c2bb7c544b071f8c05849
+System info: host: &apos;juan-tribin&apos;, ip: &apos;192.168.24.64&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.7.0_09&apos;
+Session ID: 11d6135e6cc6710a00f2a70d43fedadc
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities [{platform=XP, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, chrome={userDataDir=C:\Users\JUAN~1.TRI\AppData\Local\Temp\scoped_dir14460_11911}, rotatable=false, locationContextEnabled=true, mobileEmulationEnabled=false, version=42.0.2311.135, takesHeapSnapshot=true, cssSelectorsEnabled=true, databaseEnabled=false, handlesAlerts=true, browserConnectionEnabled=false, webStorageEnabled=true, nativeEvents=true, applicationCacheEnabled=false, takesScreenshot=true}]" type="org.openqa.selenium.WebDriverException">org.openqa.selenium.WebDriverException: chrome not reachable
-  (Session info: chrome=42.0.2311.135)
+Capabilities [{platform=XP, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, chrome={userDataDir=C:\Users\JUAN~1.TRI\AppData\Local\Temp\scoped_dir13716_10475}, rotatable=false, locationContextEnabled=true, mobileEmulationEnabled=false, version=42.0.2311.152, takesHeapSnapshot=true, cssSelectorsEnabled=true, databaseEnabled=false, handlesAlerts=true, browserConnectionEnabled=false, webStorageEnabled=true, nativeEvents=true, applicationCacheEnabled=false, takesScreenshot=true}]" type="org.openqa.selenium.WebDriverException">org.openqa.selenium.WebDriverException: chrome not reachable
+  (Session info: chrome=42.0.2311.152)
   (Driver info: chromedriver=2.12.301325 (962dea43ddd90e7e4224a03fa3c36a421281abb7),platform=Windows NT 6.1 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 2.00 seconds
+Command duration or timeout: 2.01 seconds
 Build info: version: &apos;2.45.0&apos;, revision: &apos;5017cb8e7ca8e37638dc3091b2440b90a1d8686f&apos;, time: &apos;2015-02-27 09:10:26&apos;
-System info: host: &apos;juan-tribin&apos;, ip: &apos;192.168.24.130&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.7.0_09&apos;
-*** Element info: {Using=xpath, value=//*[@id=&apos;region-navigation&apos;]/div/span[1]}
-Session ID: 10cd667dd32c2bb7c544b071f8c05849
+System info: host: &apos;juan-tribin&apos;, ip: &apos;192.168.24.64&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.7.0_09&apos;
+Session ID: 11d6135e6cc6710a00f2a70d43fedadc
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities [{platform=XP, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, chrome={userDataDir=C:\Users\JUAN~1.TRI\AppData\Local\Temp\scoped_dir14460_11911}, rotatable=false, locationContextEnabled=true, mobileEmulationEnabled=false, version=42.0.2311.135, takesHeapSnapshot=true, cssSelectorsEnabled=true, databaseEnabled=false, handlesAlerts=true, browserConnectionEnabled=false, webStorageEnabled=true, nativeEvents=true, applicationCacheEnabled=false, takesScreenshot=true}]
+Capabilities [{platform=XP, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, chrome={userDataDir=C:\Users\JUAN~1.TRI\AppData\Local\Temp\scoped_dir13716_10475}, rotatable=false, locationContextEnabled=true, mobileEmulationEnabled=false, version=42.0.2311.152, takesHeapSnapshot=true, cssSelectorsEnabled=true, databaseEnabled=false, handlesAlerts=true, browserConnectionEnabled=false, webStorageEnabled=true, nativeEvents=true, applicationCacheEnabled=false, takesScreenshot=true}]
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
@@ -88,27 +86,22 @@ Capabilities [{platform=XP, acceptSslCerts=true, javascriptEnabled=true, browser
 	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
 	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:352)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:449)
-	at org.openqa.selenium.By$ByXPath.findElement(By.java:357)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
-	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:59)
-	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:37)
-	at $Proxy10.getText(Unknown Source)
-	at generic.BasePage.waitForElementAndClick(BasePage.java:205)
-	at pages.DashBoard.addTiles(DashBoard.java:262)
-	at tests.HappyPathTest.setUp(HappyPathTest.java:56)
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:304)
+	at tests.HappyPathTest.setUp(HappyPathTest.java:50)
 </failure>
     <system-out>executionType=Local
-Unable to Send Keys  jarredondo
-Unable to Send Keys  12345
-Unable to login
 </system-out>
-    <system-err>Starting ChromeDriver 2.12.301325 (962dea43ddd90e7e4224a03fa3c36a421281abb7) on port 39028
+    <system-err>Starting ChromeDriver 2.12.301325 (962dea43ddd90e7e4224a03fa3c36a421281abb7) on port 44007
 Only local connections are allowed.
 </system-err>
   </testcase>
   <testcase time="0" classname="tests.HappyPathTest" name="runPath">
+    <skipped/>
+  </testcase>
+  <testcase time="0.001" classname="tests.HappyPathTest" name="tearDown">
+    <skipped/>
+  </testcase>
+  <testcase time="0.005" classname="tests.HappyPathTest" name="classTearDown">
     <skipped/>
   </testcase>
 </testsuite>
