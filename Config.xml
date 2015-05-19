@@ -3,7 +3,7 @@
 <suite name="TestSuite" parallel="false">
 <parameter name="browser" value="Chrome"/>
 <parameter name="filePath" value="C:\SeleniumDrivers\chromedriver.exe"/>
-<parameter name="url" value="http://54.67.49.151:8080/"/>
+<parameter name="url" value="http://uat.8pnds.com/"/>
 <parameter name="platform" value="Any"/>
 <parameter name="type" value="Local"/>
 <parameter name="hubAddress" value="localhost"/>
