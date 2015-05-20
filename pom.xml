@@ -50,7 +50,7 @@
 					<suiteXmlFiles>
 						<suiteXmlFile>
 							
-							/var/lib/jenkins/workspace/Unity Automated Script/Config.xml
+						Config.xml
 
 						</suiteXmlFile>
 					</suiteXmlFiles>
