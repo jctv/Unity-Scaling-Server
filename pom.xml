@@ -49,7 +49,8 @@
 				<configuration>
 					<suiteXmlFiles>
 						<suiteXmlFile>
-							C:/Workspaceluna/Unity Scaling Server/Config.xml
+							
+							/var/lib/jenkins/workspace/Unity Automated Script/Config.xml
 
 						</suiteXmlFile>
 					</suiteXmlFiles>
