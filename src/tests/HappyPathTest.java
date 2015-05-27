@@ -23,7 +23,7 @@ import pages.Users;
 public class HappyPathTest extends BaseTest {
 
 	HappyPathTest Nav;
-	public String user = "jarredondo";
+	public String user = "ctribin";
 	public String genericPassword = "12345";
 	Login loginPageObject;
 	DashBoard dashBoardPageObject;
