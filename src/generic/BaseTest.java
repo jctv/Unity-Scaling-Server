@@ -127,7 +127,14 @@ public class BaseTest {
 																// additional
 																// config info
 				System.setProperty("webdriver.chrome.driver", filePath);
-				driver = new ChromeDriver();
+				//driver = new ChromeDriver();
+				DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
+desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
+desiredCapabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
+WebDriver driver = new RemoteWebDriver(new URL("http://juantribin:2b76906e-2109-47e3-9fb8-2683022d47b1@ondemand.saucelabs.com:80/wd/hub"),desiredCapabilities);
+            
+                
 				driver.manage().window().maximize();
 
 			} else if (browser.equalsIgnoreCase("Safari")) { // Refer to
