@@ -33,10 +33,10 @@ public class Reports extends BasePage {
 
 	@FindBy(xpath = "//*[@id='testType']/option[2]")
 	public WebElement testTypeOption;
-	
+
 	@FindBy(id = "className")
-	public WebElement classNameField;
-					 
+	public WebElement className;
+
 	@FindBy(xpath = "//*[@id='className']/option[2]")
 	public WebElement classNameOption;
 
@@ -51,41 +51,33 @@ public class Reports extends BasePage {
 
 	@FindBy(xpath = "//*[@id='name']/option[2]")
 	public WebElement nameOption;
-	
-	
+
 	@FindBy(id = "studentName")
 	public WebElement studentNameField;
-					 
+
 	@FindBy(xpath = "//*[@id='studentName']/option[2]")
 	public WebElement studentNameOption;
 
 	@FindBy(id = "testName")
 	public WebElement testNameField;
-	
+
 	@FindBy(xpath = "//*[@id='testName']/option[2]")
 	public WebElement testNameOption;
-	
-	
-	
+
 	@FindBy(id = "viewReport")
 	public WebElement viewReportButton;
 
 	public String viewReport() {
-		try{
-		System.out.println("Reports " + classNameField.isEnabled());
-		waitForElementAndClick(testTypeField);
-		waitForElementAndClick(testTypeOption);
-		waitForElementAndClick(classNameField);
-		waitForElementAndClick(classNameOption);
-		waitForElementAndClick(contentLevelField);
-		waitForElementAndClick(contentLevelOption);
-		waitForElementAndClick(namelField);
-		waitForElementAndClick(nameOption);
-
-		waitForElementAndClick(viewReportButton);
-		takeScreenShot();
-		waitForElementAndClick(backLink);
-		}catch (Exception e) {
+		try {
+			selectOption(className, "Auto test Roster #1");
+			selectOption(className, "N/A");
+			selectOption(className, "Automation test");
+			waitTime();
+			waitForElementAndClick(viewReportButton);
+			waitTime();
+			takeScreenShot();
+			waitForElementAndClick(backLink);
+		} catch (Exception e) {
 			System.out.print("Report revision Failed " + e.getMessage());
 		}
 		return "wiew report done";

@@ -98,8 +98,8 @@ public class TestCreation extends BasePage {
 
 	@FindBy(id = "sortable2")
 	public WebElement target;
-
-	@FindBy(xpath = "//*[@id='region-workspace']/div/div[2]/div[3]/div/div[1]/div/div[2]/button[3]")
+	
+	@FindBy(xpath = "//*[@id='region-workspace']/div/div[2]/div[3]/div/div[1]/div/div[2]/span/button[3]")
 	public WebElement saveTestButton;
 
 	@FindBy(xpath = "//*[@id='testSaved']/div/div/div[1]/button")
@@ -128,6 +128,7 @@ public class TestCreation extends BasePage {
 	
 	public void createTest(String testName) {
 		try {
+			waitTime();
 			waitForElementAndClick(createTestLink);
 			waitForElementAndSendKeys(bankDropDown, "My Tests");
 			waitForElementAndSendKeys(contentCreateInputName, testName);
@@ -138,7 +139,7 @@ public class TestCreation extends BasePage {
 			waitForElementAndClick(item1);
 
 			for (int x = 0; x < 1; x++) {
-				String items = "item 1";
+				String items = "item 2";
 				String[] itemsArray ;
 				//itemsArray[0] = items;
 				waitForElementAndSendKeys(searchAutoCompleteField,
@@ -150,11 +151,12 @@ public class TestCreation extends BasePage {
 			}
 			System.out.println("Items added to the test " + testName);
 			
-			waitForElementAndSendKeys(testContentField, "Any");
+			waitForElementAndSendKeys(testContentField, "N/A");
 			selectOption(testContentField, "N/A");
 
 			waitForElementAndSendKeys(testGradeField, "05");
 			selectOption(testGradeField, "05");
+			testGradeField.click();
 			
 			waitForElementAndClick(saveTestButton);
 			waitForElementAndClick(xbutton);

@@ -1,0 +1,192 @@
+[TestNG] Running:
+  C:\Workspaceluna\Local Unity Scaling Server\Config.xml
+
+executionType=Local
+Starting ChromeDriver 2.12.301325 (962dea43ddd90e7e4224a03fa3c36a421281abb7) on port 4195
+Only local connections are allowed.
+******** logging as super administrator ********
+Keys send  admin
+Keys send  @simple1
+Button clicked 
+User logged
+******** Creating a new organization ********
+************************************************
+***** Student and teacher creation started *****
+Users Tile is enable true
+Button double clicked 
+Button double clicked 
+Button clicked 
+Keys send  teacher
+Keys send  17_13_53
+Keys send  12345
+Keys send  12345
+Button clicked 
+Keys send  West
+Button clicked 
+T17_13_53  Created
+Button clicked 
+Button clicked 
+Keys send  student
+Keys send  17_13_53
+Keys send  12345
+Keys send  12345
+Button clicked 
+Keys send  West
+Button clicked 
+S17_13_53  Created
+Button clicked 
+Button clicked 
+************************************************
+******** logging as the created teacher ********
+Keys send  T17_13_53
+Keys send  12345
+Button clicked 
+User logged
+Button double clicked 
+Button double clicked 
+******** Item bank creation ********
+Button clicked 
+Keys send  My item bank
+Keys send  QA
+Button clicked 
+Bank created
+Button clicked 
+Is the test class items tile enable true
+Button double clicked 
+Button double clicked 
+******** Items creation ********
+Button clicked 
+Keys send  item 2
+Keys send  Description
+Button clicked 
+Keys send  Text Entry
+Button clicked 
+Button clicked 
+Button clicked 
+Keys send  Handscoring
+Button clicked 
+Button clicked 
+Button clicked 
+The Item has been created
+Button clicked 
+Button clicked 
+Is the test class roster tile enable true
+Button double clicked 
+******** Class Roster creation ********
+Button clicked 
+Keys send  West Sacramento School
+Keys send  Auto test Roster #1
+Button clicked 
+Button clicked 
+Keys send  QA roster
+Keys send  West Sacramento School
+Keys send  S17_13_53
+Button clicked 
+Button clicked 
+Student added to the rosters
+Button clicked 
+Button clicked 
+Button clicked 
+Class Roster Created
+Button clicked 
+Button double clicked 
+******** test bank creation ********
+Button clicked 
+Keys send  My test bank
+Keys send  QA
+Button clicked 
+Test Bank Created
+Button clicked 
+Is the test creation tile enable true
+Button double clicked 
+Button double clicked 
+******** Test creation ********
+Button clicked 
+Keys send  My Tests
+Keys send  Automation test
+Keys send  Automation test
+Button clicked 
+Button clicked 
+Keys send  item 2
+Button clicked 
+Items added to the test Automation test
+Keys send  N/A
+Keys send  05
+Button clicked 
+Button clicked 
+Button clicked 
+Test created success
+Button clicked 
+Button clicked 
+Is the schedule tile enable true
+Button double clicked 
+Button double clicked 
+******** Event creation ********
+Button clicked 
+click on calendar
+Keys send  West Sacramento School
+Keys send  Auto test Roster #1
+Keys send  N/A
+Keys send  Automation test
+Keys send  Red
+Keys send  120
+Keys send  100%
+Keys send  Yes
+Button clicked 
+event created
+Button clicked 
+click on event
+Button clicked 
+Button clicked 
+Event Created success
+************************************************
+********** Starting  mobile emulation **********
+Starting ChromeDriver 2.12.301325 (962dea43ddd90e7e4224a03fa3c36a421281abb7) on port 19401
+Only local connections are allowed.
+******** logging as the first created student ********
+Keys send  S17_13_53
+Keys send  12345
+Button clicked 
+User logged
+The tiles has been added
+Is delivery tile enable true
+Button double clicked 
+******** Taking the scheduled test ********
+Button clicked 
+Sarting test
+Keys send  test QA
+Button clicked 
+Button clicked 
+Button clicked 
+Button clicked 
+Button clicked 
+Test done as student
+************************************************
+Starting ChromeDriver 2.12.301325 (962dea43ddd90e7e4224a03fa3c36a421281abb7) on port 29685
+Only local connections are allowed.
+******** logging as the created teacher ********
+Keys send  T17_13_53
+Keys send  12345
+Button clicked 
+User logged
+Is the handscoring tile enable true
+Button double clicked 
+Button double clicked 
+Button clicked 
+Button double clicked 
+Button double clicked 
+Button clicked 
+Button clicked 
+Is the reports tile enable true
+Button double clicked 
+Reports Verify success
+******** logging as super administrator ********
+Keys send  admin
+Keys send  @simple1
+Button clicked 
+User logged
+Users Tile is enable true
+Button double clicked 
+Button double clicked 
+******** Deleting the created users ********
+************************************************

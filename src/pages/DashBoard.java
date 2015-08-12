@@ -153,10 +153,10 @@ public class DashBoard extends BasePage {
 
 	public Users goToUsers() {
 		System.out.println("Users Tile is enable " + usersTile.isEnabled());
-		waitForElementAndClick(usersTile);
+		waitForElementAndDoubleClick(usersTile);
 		
 		try {
-			waitForElementAndClick(usersTile);
+			waitForElementAndDoubleClick(usersTile);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -168,7 +168,7 @@ public class DashBoard extends BasePage {
 	public ClassRoster goToClassRoster() {
 		System.out.println("Is the test class roster tile enable "
 				+ classRosterTile.isEnabled());
-		waitForElementAndClick(classRosterTile);
+		waitForElementAndDoubleClick(classRosterTile);
 		try {
 			classRosterTile.click();
 		} catch (Exception e) {
@@ -183,11 +183,12 @@ public class DashBoard extends BasePage {
 		System.out.println("Is the test creation tile enable "
 				+ testCreationTile.isEnabled());
 
-		waitForElementAndClick(testCreationTile);
+		waitForElementAndDoubleClick(testCreationTile);
 		try {
-			testCreationTile.click();
+			waitForElementAndDoubleClick(testCreationTile);
+			
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 		return new TestCreation(driver);
 
@@ -197,7 +198,16 @@ public class DashBoard extends BasePage {
 		System.out.println("Is the schedule tile enable "
 				+ scheduleTile.isEnabled());
 
-		scheduleTile.click();
+		
+		
+		waitForElementAndDoubleClick(scheduleTile);
+		try {
+			waitForElementAndDoubleClick(scheduleTile);
+			
+		} catch (Exception e) {
+			
+		}
+		
 		return new Schedule(driver);
 
 	}
@@ -205,7 +215,7 @@ public class DashBoard extends BasePage {
 	public Delivery goToDelivery() {
 		System.out.println("Is delivery tile enable "
 				+ deliveryTile.isEnabled());
-		waitForElementAndClick(deliveryTile);
+		waitForElementAndDoubleClick(deliveryTile);
 		try {
 			deliveryTile.click();
 		} catch (Exception e) {
@@ -219,11 +229,12 @@ public class DashBoard extends BasePage {
 		System.out.println("Is the handscoring tile enable "
 				+ handScoringTile.isEnabled());
 
-		waitForElementAndClick(handScoringTile);
+		waitForElementAndDoubleClick(handScoringTile);
 		try {
-			handScoringTile.click();
+			
+			waitForElementAndDoubleClick(handScoringTile);
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 		
 		
@@ -234,8 +245,13 @@ public class DashBoard extends BasePage {
 	public Reports goToReports() {
 		System.out.println("Is the reports tile enable "
 				+ reportsTile.isEnabled());
-
-		reportsTile.click();
+		try{
+		waitForElementAndDoubleClick(reportsTile);
+		}catch(Exception e){
+			waitForElementAndDoubleClick(reportsTile);
+			
+		}
+		
 		return new Reports(driver);
 
 	}
@@ -244,12 +260,12 @@ public class DashBoard extends BasePage {
 		waitTime();
 		System.out.println("Is the test class items tile enable "
 				+ ItemsTile.isEnabled());
-		waitForElementAndClick(ItemsTile);
+		waitForElementAndDoubleClick(ItemsTile);
 		try{
-			waitForElementAndClick(ItemsTile);
+			waitForElementAndDoubleClick(ItemsTile);
 			
 		}catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 		
 		
@@ -259,7 +275,7 @@ public class DashBoard extends BasePage {
 
 	public String addTiles() {
 		//*[@id="tileSelectionContainer"]/div[1]
-		waitForElementAndClick(addTile);
+		waitForElementAndDoubleClick(addTile);
 		waitTime();
 		for (int x = 1; x < 26; x++) {
 			try {
@@ -334,7 +350,7 @@ public class DashBoard extends BasePage {
 	public Organization goToOrganization() {
 		waitTime();		
 		try {
-			waitForElementAndClick(organizationTile);		
+			waitForElementAndDoubleClick(organizationTile);		
 		} catch (Exception e) {
 			System.out.println("Unable to go to the organizationTile page");
 		}
@@ -345,7 +361,7 @@ public class DashBoard extends BasePage {
 	public ItemsBank goToItemsBank() {
 		waitTime();		
 		try {
-			waitForElementAndClick(itemBankTile);		
+			waitForElementAndDoubleClick(itemBankTile);		
 		} catch (Exception e) {
 			System.out.println("Unable to go to the items bank page");
 		}
@@ -355,7 +371,7 @@ public class DashBoard extends BasePage {
 	public TestsBank goToTestsBank() {
 		waitTime();		
 		try {
-			waitForElementAndClick(testbankTile);		
+			waitForElementAndDoubleClick(testbankTile);		
 		} catch (Exception e) {
 			System.out.println("Unable to go to the tests bank page");
 		}

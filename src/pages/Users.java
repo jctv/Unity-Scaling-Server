@@ -37,7 +37,7 @@ public class Users extends BasePage {
 
 	@FindBy(id = "globalModalDeleteButton")
 	public WebElement globalModalDeleteButton;
-					
+
 	@FindBy(xpath = "//*[@id='region-navigation']/div/span[1]")
 	public WebElement createUserLink;
 
@@ -52,29 +52,27 @@ public class Users extends BasePage {
 
 	@FindBy(id = "userCreateInputPW2")
 	public WebElement retypePassword;
-	
+
 	@FindBy(id = "userCreateInputRoles")
 	public WebElement role;
-		
+
 	@FindBy(id = "userEditInputPW1")
 	public WebElement userEditInputPW1;
-	
+
 	@FindBy(id = "userEditInputPW2")
 	public WebElement userEditInputPW2;
-	
-			      
+
 	@FindBy(id = "userCreateInputSubmit")
 	public WebElement submit;
 
 	@FindBy(id = "userCreateInputCancel")
 	public WebElement userCreateInputCancel;
-	
+
 	@FindBy(id = "genericUserEditModelUpdateButton")
 	public WebElement genericUserEditModelUpdateButton;
-	
+
 	@FindBy(id = "genericUserEditModelCancelButton")
 	public WebElement genericUserEditModelCancelButton;
-	
 
 	@FindBy(id = "globalModalInfoOkButton")
 	public WebElement modalOk;
@@ -83,11 +81,10 @@ public class Users extends BasePage {
 
 	@FindBy(xpath = "//*[@id='region-workspace']/div/div/div[2]/div/div/div[3]/table/tbody/tr[1]")
 	public WebElement rowOneGrid;
-	
-	
+
 	@FindBy(xpath = "//*[@id='region-workspace']/div/div/div[2]/div/div/div[3]/table/tbody/tr[1]/td[2]/div/button[1]/i")
 	public WebElement editIcon;
-	
+
 	@FindBy(xpath = "//*[@id='searchFilter']/ul/li[1]/div/a")
 	public List<WebElement> groupsFilter;
 
@@ -106,15 +103,22 @@ public class Users extends BasePage {
 	@FindBy(xpath = "//*[@id='region-workspace']/div/div/div[2]/div/div/div[3]/table/tbody/tr[1]/td[5]")
 	public WebElement lastNameColumn;
 
-	@FindBy(id = "userCreateOrg")
+	@FindBy(xpath = "//*[@id='quickViewUserCreate']/div/div/div[3]/div[3]/div/div/button")
 	public WebElement userCreateOrg;
-	
+
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
 	public WebElement homeLink;
+
+	@FindBy(xpath = "//*[@id='quickViewUserCreate']/div/div/div[3]/div[3]/div/div/button")
+	public WebElement searchOrgField;
+
+	@FindBy(xpath = "/html/body/div[20]/div/div/input")
+	public WebElement searchOrgFieldInput;
 
 	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 	String createdUsers = "";
 	String statusMessage;
+	private int usersToCreate = 2;
 
 	public boolean searchUser(String criteria) {
 		try {
@@ -157,45 +161,51 @@ public class Users extends BasePage {
 	}
 
 	public String createUser() {
-		for (int x = 0; x < 2; x++) {
+		for (int x = 0; x <= usersToCreate; x++) {
 			waitTime();
 			waitForElementAndClick(createUserLink);
 			waitTime();
 			Date date = new Date();
 			String datevalue = date.toString().substring(8, 16)
 					.replace(" ", "_").replace(":", "_");
-
-			switch (x) {
-			case 0:
-				
+			if (x == 0) {
 				waitForElementAndSendKeys(firstNameField, "teacher");
 				waitForElementAndSendKeys(lastNameField, datevalue);
 				waitForElementAndSendKeys(password, "12345");
 				waitForElementAndSendKeys(retypePassword, "12345");
 				selectOption(role, "Teacher");
-				selectOption(userCreateOrg, "West Sacramento School");
+
+				waitForElementAndClick(searchOrgField);
+				waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
+				waitTime();
 				waitForElementAndClick(submit);
 				waitTime();
 				System.out.println("T" + datevalue + "  Created");
 				createdUsers = createdUsers + "T" + datevalue + ",";
-				break;
-			case 1:
+			} else {
 
 				waitForElementAndSendKeys(firstNameField, "student");
-				waitForElementAndSendKeys(lastNameField, datevalue);
+				waitForElementAndSendKeys(lastNameField, datevalue + x );
 				waitForElementAndSendKeys(password, "12345");
 				waitForElementAndSendKeys(retypePassword, "12345");
 				selectOption(role, "Student");
-				selectOption(userCreateOrg, "West Sacramento School");
+
+				waitForElementAndClick(searchOrgField);
+				waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
+				waitTime();
 				waitForElementAndClick(submit);
 				waitTime();
-				System.out.println("S" + datevalue + "  Created");
-				createdUsers = createdUsers + "S" + datevalue;
-				break;
+				System.out.println("S" + datevalue + x + "  Created");
+				if (x < usersToCreate) {
+					createdUsers = createdUsers + "S" + datevalue + x + ",";
+				} else {
+					createdUsers = createdUsers + "S" + datevalue + x;
+
+				}
 			}
-		
+
 			try {
-				
+
 				waitForElementAndClick(modalOk);
 			} catch (Exception e) {
 				System.out.println("Modal not found");
@@ -207,42 +217,36 @@ public class Users extends BasePage {
 		return createdUsers;
 	}
 
-	public boolean createSpecificUser(String firstName, String lastName,
-			String newPassword, String newRole, String Organization,
-			String button) {
-		try {			
+	public String createSpecificUser(String firstName, String lastName,
+			String newPassword, String newRole, String organization) {
+		try {
+			waitTime();
 			waitForElementAndClick(createUserLink);
+			waitTime();
 			waitForElementAndSendKeys(firstNameField, firstName);
 			waitForElementAndSendKeys(lastNameField, lastName);
 			waitForElementAndSendKeys(password, newPassword);
 			waitForElementAndSendKeys(retypePassword, newPassword);
 			waitForElementAndSendKeys(role, newRole);
-			waitForElementAndSendKeys(userCreateOrg,Organization);
+
+			waitForElementAndClick(searchOrgField);
+			waitForElementAndSendKeys(searchOrgFieldInput, organization);
+			waitTime();
 			waitForElementAndClick(submit);
 
 			System.out.println(firstName + " " + lastName + "  Created");
-			if (button.contains("submit")) {
-				submit.click();
-				try {
-					waitTime();
-					driver.switchTo().alert().accept();
-					validador = false;
-				} catch (Exception e) {
-					System.out.println("User creation done ");
-					validador = true;
-				}
+			try {
 
-			} else {
-				waitForElementAndClick(userCreateInputCancel);
-				System.out.println("Creation canceled ");
-				validador = false;
+				waitForElementAndClick(modalOk);
+			} catch (Exception e) {
+				System.out.println("Modal not found");
 			}
 
 		} catch (Exception e) {
 			System.out.println("User creation Failed");
 		}
 
-		return validador;
+		return firstName.substring(0, 1) + lastName;
 	}
 
 	public String DeleteCreatedUsers(String[] createdUsers) {
@@ -250,6 +254,7 @@ public class Users extends BasePage {
 		try {
 
 			for (String user : createdUsers) {
+				waitTime();
 				waitForElementAndSendKeys(searchAutoComplete, user);
 				waitForElementAndClick(searchButton);
 				waitForElementAndClick(deleteIcon);
@@ -264,8 +269,8 @@ public class Users extends BasePage {
 
 		return statusMessage;
 	}
-	
-	public boolean editUserSucess(String User, String newPassword ){
+
+	public boolean editUserSucess(String User, String newPassword) {
 		waitTime();
 		searchUser(User);
 		waitForElementAndClick(editIcon);
@@ -274,8 +279,8 @@ public class Users extends BasePage {
 		waitForElementAndClick(genericUserEditModelUpdateButton);
 		return validador;
 	}
-	
-	public boolean editUserCancel(String User, String newPassword ){
+
+	public boolean editUserCancel(String User, String newPassword) {
 		waitTime();
 		searchUser(User);
 		waitForElementAndClick(editIcon);

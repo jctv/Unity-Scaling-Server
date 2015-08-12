@@ -18,7 +18,7 @@ public class Delivery extends BasePage {
 		PageFactory.initElements(driver, this);
 	}
 	
-	@FindBy(xpath = "//*[@id='playground']/div/div[2]/div/div[1]/div[2]/div[3]/label/input")
+	@FindBy(xpath = "//*[@id='playground']/div/div[2]/div/div[1]/input")
 	public WebElement item0;
 
 

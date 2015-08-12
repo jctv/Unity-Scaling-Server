@@ -5,17 +5,13 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -25,8 +21,6 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -76,99 +70,11 @@ public class BaseTest {
 		// driver.quit();
 	}
 
-	public boolean waitForElementVisible(WebElement element) {
+	
 
-		try {
-			WebDriverWait wait = new WebDriverWait(driver,
-					Integer.parseInt(waitingTime));
 
-			wait.until(ExpectedConditions.visibilityOf(element));
-			return true;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println("[ERROR] Issue waiting for element"
-					+ e.getMessage());
-			return false;
-		}
-	}
 
-	public void waitForLoadElement(WebElement element) {
 
-		try {
-			WebDriverWait wait = new WebDriverWait(driver, 30);
-
-			wait.until(ExpectedConditions.elementToBeClickable(element));
-
-		} catch (Exception e) {
-			System.out
-					.println("[ERROR] Issue loading element" + e.getMessage());
-		}
-	}
-
-	public boolean selectDropDown(String dropbox, String textbox, String option) {
-		try {
-			driver.findElement(By.xpath(dropbox)).click();
-			driver.findElement(By.xpath(textbox)).sendKeys(option);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-
-	}
-
-	public boolean clikOnElement(String locator, String Identifier) {
-		try {
-			WebElement element = null;
-			switch (Identifier) {
-			case "xpath":
-				element = driver.findElement(By.xpath(locator));
-
-				break;
-			case "id":
-
-				element = driver.findElement(By.id(locator));
-				break;
-			}
-
-			element.click();
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-
-	}
-
-	public boolean typeOnTextBox(String locator, String identifier, String value) {
-
-		try {
-			WebElement element = null;
-			switch (identifier) {
-			case "xpath":
-				element = driver.findElement(By.xpath(locator));
-
-				break;
-			case "id":
-
-				element = driver.findElement(By.id(locator));
-				break;
-			}
-
-			element.sendKeys(value);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public void dragAndDrop(String source, String target) throws IOException {
-
-		String dnd = readFile("js\\dnd.js", StandardCharsets.UTF_8);
-
-		String scriptToExecute = dnd + "$('#" + source
-				+ "').simulateDragDrop({ dropTarget: '#" + target + "'});";
-		((JavascriptExecutor) driver).executeScript(scriptToExecute);
-
-	}
 
 	static String readFile(String path, Charset encoding) throws IOException {
 		byte[] encoded = Files.readAllBytes(Paths.get(path));

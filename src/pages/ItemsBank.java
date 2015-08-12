@@ -14,8 +14,8 @@ public class ItemsBank extends BasePage {
 		super(driver);
 		PageFactory.initElements(driver, this);
 	}
-
-	// Tabs Ids
+	
+	// Tabs Ids      
 	@FindBy(xpath = "//*[@id='region-navigation']/div/span[1]")
 	public WebElement createItemBank;
 	
@@ -37,7 +37,9 @@ public class ItemsBank extends BasePage {
 
 	public void createBank(String bank, String description) {
 		try {
+			waitTime();
 			waitForElementAndClick(createItemBank);
+			
 			waitForElementAndSendKeys(bankCreateInputName, bank);
 			waitForElementAndSendKeys(bankCreateInputDescription, description);
 			waitForElementAndClick(bankCreateInputSubmit);

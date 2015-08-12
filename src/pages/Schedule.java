@@ -65,12 +65,13 @@ public class Schedule extends BasePage {
 
 	@FindBy(id = "startNow")
 	public WebElement startNowEventClick;
-	
+					 
 	@FindBy(xpath = "//*[@id='region-workspace']/div/div[1]/div[1]/div[1]/div/button[2]")
 	public WebElement nextWeekButton;
 
-	public String scheduleTest() {
+	public void scheduleTest() {
 		try {
+			waitTime();
 			waitForElementAndClick(nextWeekButton);
 			waitTime();
 			(new Actions(driver)).doubleClick(calendar).build().perform();
@@ -78,8 +79,8 @@ public class Schedule extends BasePage {
 			System.out.println("click on calendar");
 
 			
-			waitForElementAndSendKeys(schoolName, "West Sacramento School");
-			selectOption(schoolName, "West Sacramento School");
+			waitForElementAndSendKeys(schoolName, "Automated Schoool");
+			selectOption(schoolName, "Automated School");
 			
 			waitForElementAndSendKeys(className, "Auto test Roster #1");
 			selectOption(className, "Auto test Roster #1");
@@ -111,11 +112,12 @@ public class Schedule extends BasePage {
 			waitForElementAndClick(startNowEventClick);
 			waitTime();
 			waitForElementAndClick(homeLink);
+			System.out.println("Event Created success");
 		} catch (Exception e) {
 			System.out.println("Event creation failed");
 		}
 
-		return "Test Scheduled Success";
+		
 	}
 
 }

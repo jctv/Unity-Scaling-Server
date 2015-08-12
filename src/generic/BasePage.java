@@ -11,19 +11,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-
 
 
 import pages.DashBoard;
@@ -31,6 +21,8 @@ import pages.DashBoard;
 public class BasePage {
 
 	protected WebDriver driver;
+	
+	
 
 	@FindBy(xpath = "//*[@id='quickViewHelp']/a")
 	public WebElement addHelpContent;
@@ -73,7 +65,7 @@ public class BasePage {
 
 	public void waitTime() {
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -190,11 +182,14 @@ public class BasePage {
 	}
 
 	public void waitForElementAndClick(WebElement element) {
-		WebDriverWait wait = new WebDriverWait(driver, 15);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		try {
+			waitTime();
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 			element.click();
+						
 			System.out.println("Button clicked ");
+			waitTime();
 		} catch (Exception e) {
 			try{
 				wait.until(ExpectedConditions.elementToBeClickable(element));
@@ -209,8 +204,32 @@ public class BasePage {
 
 	}
 
+	public void waitForElementAndDoubleClick(WebElement element){
+		
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(element));
+			(new Actions(driver)).doubleClick(element).perform();
+						
+			System.out.println("Button double clicked ");
+			waitTime();
+		} catch (Exception e) {
+			try{
+				wait.until(ExpectedConditions.elementToBeClickable(element));
+				(new Actions(driver)).doubleClick(element).perform();
+				}catch (Exception e2){
+			
+			System.out.println("Unable to perform the double click on element "
+					+ element.getText());
+			
+				}
+		}
+		
+	}
+	
+	
 	public void waitForElementAndSendKeys(WebElement element, String keys) {
-		WebDriverWait wait = new WebDriverWait(driver, 15);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		try {
 
 			wait.until(ExpectedConditions.visibilityOf(element));

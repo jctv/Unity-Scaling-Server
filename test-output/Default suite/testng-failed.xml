@@ -3,28 +3,13 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="tests.PermissionsPath">
-        <methods>
-          <include name="runPath"/>
-          <include name="suiteSetUp"/>
-        </methods>
-      </class> <!-- tests.PermissionsPath -->
       <class name="tests.HappyPathTest">
         <methods>
           <include name="classSetUp"/>
           <include name="runPath"/>
+          <include name="suiteSetUp"/>
         </methods>
       </class> <!-- tests.HappyPathTest -->
-      <class name="tests.LoginTests">
-        <methods>
-          <include name="login"/>
-        </methods>
-      </class> <!-- tests.LoginTests -->
-      <class name="tests.DashBoardTests">
-        <methods>
-          <include name="selectUsers"/>
-        </methods>
-      </class> <!-- tests.DashBoardTests -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

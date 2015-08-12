@@ -58,10 +58,16 @@ public class Items extends BasePage{
 	@FindBy(id = "textEditorSaveButton")
 	public WebElement textEditorSaveButton;
 	
-					 
+					
 	@FindBy(xpath = "//*[@id='itemSaved']/div/div/div[1]/button")
 	public WebElement confirmationMessage;
 	
+	
+	@FindBy(id = "itemSaved")
+	public WebElement itemSaved;
+
+	@FindBy(id = "htmlTabButton")
+	public WebElement htmlTabButton;
 	
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
 	public WebElement backToItems;
@@ -87,6 +93,12 @@ public class Items extends BasePage{
 	@FindBy(xpath = "//*[@id='region-workspace']/div/div/div[2]/button[3]")
 	public WebElement saveAndPublish;
 	
+	
+	@FindBy(xpath = "//*[@id='itemInteraction']/div/div[2]/div/div/div[1]/div/div/select")
+	public WebElement scoreProfile;
+	
+	
+	
 	public Items(WebDriver driver) {
 		super(driver);
 		PageFactory.initElements(driver, this);
@@ -99,18 +111,11 @@ public class Items extends BasePage{
 		waitForElementAndSendKeys(itemCreateInputDescription, "Description");	
 		waitForElementAndClick(itemCreateEditInputSubmit);
 		waitTime();
-		//waitForElementAndClick(testImage);
+		
 		
 	
 		waitForElementAndSendKeys(templates, "Choice");
-		selectOption(templates, "Choice");
 		
-		
-		try {
-			waitForElementAndSendKeys(tinymce, "This is a test");
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 		waitForElementAndClick(textEditorSaveButton);
 		waitTime();
 		
@@ -130,6 +135,38 @@ public class Items extends BasePage{
 
 		waitForElementAndClick(saveAnswer);
 		
+		waitForElementAndClick(saveAndPublish);
+
+		waitTime();
+		waitForElementAndClick(confirmationMessage);
+		try {
+			waitForElementAndClick(confirmationMessage);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+
+		System.out.println("The Item has been created");
+		waitTime();
+		waitForElementAndClick(backToItems);
+		waitTime();	
+		waitForElementAndClick(backToDashboard);
+	
+	}
+	
+public void createHandScoringItem(String name){	
+		waitTime();
+		waitForElementAndClick(createItemButton);
+		waitForElementAndSendKeys(itemCreateInputName, name);
+		waitForElementAndSendKeys(itemCreateInputDescription, "Description");	
+		waitForElementAndClick(itemCreateEditInputSubmit);
+		waitTime();	
+		waitForElementAndSendKeys(templates, "Text Entry");
+		waitTime();		
+		waitForElementAndClick(scoreTabButton);	
+		waitForElementAndClick(htmlTabButton);
+		waitForElementAndClick(scoreTabButton);
+		waitForElementAndSendKeys(scoreProfile, "Handscoring");
 		waitForElementAndClick(saveAndPublish);
 
 		waitTime();

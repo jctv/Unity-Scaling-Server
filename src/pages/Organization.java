@@ -25,8 +25,8 @@ public class Organization extends BasePage {
 	public WebElement createNewOrganization;
 	
 					
-	@FindBy(xpath = "(//i[contains(@class, 'fa fa-plus')])[last()]")
-	public WebElement createNewNode;
+	@FindBy(id = "treeNavCreate")
+	public WebElement createHerarchy;
 	
 	
 	
@@ -68,12 +68,12 @@ public class Organization extends BasePage {
 	
 	public void  createNewOrganization(String name) {
 		try {
-		waitForElementAndClick(createNewNode);	
+		waitForElementAndClick(createHerarchy);	
 		
 	
 		waitForElementAndSendKeys(tName, name);
 		waitForElementAndSendKeys(tType, "school");
-		selectOption(tType, "country");
+		
 		
 		waitForElementAndClick(globalModalOKCancelSaveButton);
 		System.out.println("School Created");
