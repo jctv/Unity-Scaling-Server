@@ -59,11 +59,11 @@ public class HappyPathTest extends BaseTest {
 
 	@Test
 	public void runPath() {
-		System.out.println("******** Creating a new organization ********");
-		organizationPageObject = dashBoardPageObject.goToOrganization();
-		waitTime();
-		organizationPageObject.createNewOrganization("Automated School");
-		System.out.println("************************************************");
+		//System.out.println("******** Creating a new organization ********");
+		//organizationPageObject = dashBoardPageObject.goToOrganization();
+		//waitTime();
+		//organizationPageObject.createNewOrganization("Automated School");
+		//System.out.println("************************************************");
 
 		waitTime();
 
