@@ -65,7 +65,7 @@ public class BasePage {
 
 	public void waitTime() {
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(5000);
 
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
