@@ -30,7 +30,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.xml.XmlSuite;
 
-import com.saucelabs.selenium.client.client.factory.SeleniumFactory;
 
 public class BaseTest {
 	protected static WebDriver driver;
