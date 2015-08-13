@@ -165,6 +165,7 @@ public class Users extends BasePage {
 			waitTime();
 			System.out.println(driver.getCurrentUrl());
 			waitTime();
+			waitForElementVisible(createUserLink);
 			waitForElementAndClick(createUserLink);
 			waitTime();
 			Date date = new Date();
