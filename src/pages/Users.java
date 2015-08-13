@@ -163,7 +163,7 @@ public class Users extends BasePage {
 	public String createUser() {
 		for (int x = 0; x <= usersToCreate; x++) {
 			waitTime();
-			System.out.println(driver.getPageSource());
+			waitForElementVisible(createUserLink);
 			waitTime();
 			waitForElementAndClick(createUserLink);
 			waitTime();
