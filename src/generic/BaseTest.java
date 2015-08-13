@@ -18,6 +18,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
@@ -28,6 +29,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.xml.XmlSuite;
+
+import com.saucelabs.selenium.client.client.factory.SeleniumFactory;
 
 public class BaseTest {
 	protected static WebDriver driver;
@@ -127,11 +130,23 @@ public class BaseTest {
 																// additional
 																// config info
 				System.setProperty("webdriver.chrome.driver", filePath);
-				//driver = new ChromeDriver();
-                webDriver = SeleniumFactory.createWebDriver();
+		
+				DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+				desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
+				desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
+				desiredCapabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
+				WebDriver driver;
+				try {
+					driver = new RemoteWebDriver(
+					            new URL("http://juantribin:2b76906e-2109-47e3-9fb8-2683022d47b1@ondemand.saucelabs.com:80/wd/hub"),
+					                desiredCapabilities);
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.getMessage();
+				}
             
                 
-				driver.manage().window().maximize();
+				//driver.manage().window().maximize();
 
 			} else if (browser.equalsIgnoreCase("Safari")) { // Refer to
 																// http://code.google.com/p/selenium/wiki/SafariDriver
