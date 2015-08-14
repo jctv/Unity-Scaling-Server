@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -38,7 +39,7 @@ public class Users extends BasePage {
 	@FindBy(id = "globalModalDeleteButton")
 	public WebElement globalModalDeleteButton;
 
-	@FindBy(xpath = "//span[text()='Create User']")
+	@FindBy(xpath = "//span[@class='navigation']/div/*")
 	public WebElement createUserLink;
 
 	@FindBy(id = "userCreateInputFName")
@@ -163,6 +164,9 @@ public class Users extends BasePage {
 	public String createUser() {
 		for (int x = 0; x <= usersToCreate; x++) {
 			waitTime();
+			List < WebElement > list = driver.findElements(By.xpath("//span[@class='navigation']/div/*"));
+			waitTime();
+			System.out.println(list.size());
 			waitForElementVisible(createUserLink);
 			waitTime();
 			waitForElementAndClick(createUserLink);
