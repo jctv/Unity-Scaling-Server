@@ -11,9 +11,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 
 import pages.DashBoard;
@@ -181,13 +183,24 @@ public class BasePage {
 		return validator;
 	}
 
-	public void waitForElementAndClick(WebElement element) {
+	public void waitForElementAndClick(final WebElement element) {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		try {
 			waitTime();
-			wait.until(ExpectedConditions.elementToBeClickable(element));
-			element.click();
-						
+			
+			//for(int i = 3; i-- > 0;) {
+			//	try {
+					wait.until(new ExpectedCondition< Boolean >() {
+						public Boolean apply(WebDriver arg0) {
+							return element.isEnabled();
+						}
+				   });
+
+				   element.click();
+				//} catch(Exception e) {
+			//		element.click();
+			//	}
+			//}
 			System.out.println("Button clicked ");
 			waitTime();
 		} catch (Exception e) {
