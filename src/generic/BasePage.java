@@ -208,7 +208,7 @@ public class BasePage {
 				wait.until(ExpectedConditions.elementToBeClickable(element));
 				element.click();
 				}catch (Exception e2){
-			
+					System.out.println(e2.getMessage());
 			System.out.println("Unable to perform the click on element "
 					+ element.getText());
 			
