@@ -167,7 +167,6 @@ public class Users extends BasePage {
 			List < WebElement > list = driver.findElements(By.xpath("//span[@class='navigation']/div/*"));
 			waitTime();
 			System.out.println(list.size());
-			waitForElementVisible(createUserLink);
 			waitTime();
 			waitForElementAndClick(createUserLink);
 			waitTime();

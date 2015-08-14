@@ -72,7 +72,7 @@ public class BaseTest {
 		// driver.quit();
 	}
 
-	
+
 
 
 
@@ -129,12 +129,12 @@ public class BaseTest {
 																// additional
 																// config info
 				System.setProperty("webdriver.chrome.driver", filePath);
-		
+
 				DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 				desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
 				desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
 				desiredCapabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
-				
+
 				try {
 					driver = new RemoteWebDriver(
 					            new URL("http://juantribin:2b76906e-2109-47e3-9fb8-2683022d47b1@ondemand.saucelabs.com:80/wd/hub"),
@@ -143,9 +143,9 @@ public class BaseTest {
 					// TODO Auto-generated catch block
 					e.getMessage();
 				}
-            
-                
-				//driver.manage().window().maximize();
+
+
+				driver.manage().window().maximize();
 
 			} else if (browser.equalsIgnoreCase("Safari")) { // Refer to
 																// http://code.google.com/p/selenium/wiki/SafariDriver
@@ -229,7 +229,7 @@ public class BaseTest {
 
 	}
 	public WebDriver emulateDevice(String device){
-		
+
 		driver.quit();
 		waitTime();
 		//////
@@ -242,18 +242,18 @@ public class BaseTest {
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 		capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 		 driver = new ChromeDriver(capabilities);
-		 
+
 		 driver.manage().window().maximize();
-		 ////////	
+		 ////////
 		 return driver;
-		
-		
-		 
-		
+
+
+
+
 	}
-	
+
 	public WebDriver chromeDriver(){
-		
+
 		System.setProperty("webdriver.chrome.driver", filePath);
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
