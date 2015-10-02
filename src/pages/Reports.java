@@ -25,7 +25,7 @@ public class Reports extends BasePage {
 	@FindBy(xpath = "//*[@id='scores']/div/form/div[1]/div/select/option[3]")
 	public WebElement scoreOption1;
 
-	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
+	@FindBy(xpath = "//a[@href='#dashboard']")
 	public WebElement backLink;
 
 	@FindBy(id = "testType")
@@ -69,12 +69,7 @@ public class Reports extends BasePage {
 
 	public String viewReport() {
 		try {
-			selectOption(className, "Auto test Roster #1");
-			selectOption(className, "N/A");
-			selectOption(className, "Automation test");
-			waitTime();
-			waitForElementAndClick(viewReportButton);
-			waitTime();
+
 			takeScreenShot();
 			waitForElementAndClick(backLink);
 		} catch (Exception e) {

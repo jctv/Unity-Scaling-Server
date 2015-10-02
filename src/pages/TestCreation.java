@@ -140,7 +140,7 @@ public class TestCreation extends BasePage {
 
 			for (int x = 0; x < 1; x++) {
 				String items = "item 2";
-				String[] itemsArray ;
+				
 				//itemsArray[0] = items;
 				waitForElementAndSendKeys(searchAutoCompleteField,
 						items);

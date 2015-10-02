@@ -1,10 +1,9 @@
 package tests;
 
-import java.util.Date;
-
 import generic.BaseTest;
 
-import org.openqa.selenium.support.PageFactory;
+import java.util.Date;
+
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

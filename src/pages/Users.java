@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,19 +26,19 @@ public class Users extends BasePage {
 
 	// Tabs Ids
 
-	@FindBy(id = "searchAutoComplete")
-	public WebElement searchAutoComplete;
+	@FindBy(id = "searchAutoCompleteContainer")
+	public WebElement searchAutoCompleteContainer;
 
 	@FindBy(id = "searchButton")
 	public WebElement searchButton;
 
-	@FindBy(xpath = "//*[@id='region-workspace']/div/div/div[2]/div/div/div[3]/table/tbody/tr[1]/td[7]/button/i")
+	@FindBy(xpath = "//i[@class='fa fa-times']")
 	public WebElement deleteIcon;
 
 	@FindBy(id = "globalModalDeleteButton")
 	public WebElement globalModalDeleteButton;
 
-	@FindBy(xpath = "//span[text()='Create User']")
+	@FindBy(xpath = "//span[text() = 'Create User']")
 	public WebElement createUserLink;
 
 	@FindBy(id = "userCreateInputFName")
@@ -110,11 +109,29 @@ public class Users extends BasePage {
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
 	public WebElement homeLink;
 
-	@FindBy(xpath = "//*[@id='quickViewUserCreate']/div/div/div[3]/div[3]/div/div/button")
+	@FindBy(id = "userCreateOrg")
 	public WebElement searchOrgField;
 
-	@FindBy(xpath = "/html/body/div[20]/div/div/input")
+	@FindBy(xpath = "//input[@type='text' and @class= 'form-control' and @autocomplete='off'] ")
 	public WebElement searchOrgFieldInput;
+
+	@FindBy(xpath = "//span[text()='Organization']")
+	public WebElement organizationFilter;
+
+	@FindBy(xpath = "//*[@id='object-select-titles']/div")
+	public WebElement SelectOrglink;
+
+	@FindBy(xpath = "//span[text()='Automated School' and @class = 'jqtree-title jqtree_common']")
+	public WebElement AutomatedSchoolLink;
+
+	@FindBy(id = "globalModalOKCancelSaveButton")
+	public WebElement globalModalOKCancelSaveButton;
+
+	@FindBy(xpath = "//button[text()='Delete']")
+	public WebElement deleteButton;
+
+	@FindBy(xpath = "/html/body/div[20]/div/ul/li[1]/a")
+	public WebElement selectOrg;
 
 	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 	String createdUsers = "";
@@ -164,10 +181,7 @@ public class Users extends BasePage {
 	public String createUser() {
 		for (int x = 0; x <= usersToCreate; x++) {
 			waitTime();
-			List < WebElement > list = driver.findElements(By.xpath("//span[@class='navigation']/div/*"));
-			waitTime();
-			System.out.println(list.size());
-			waitTime();
+
 			waitForElementAndClick(createUserLink);
 			waitTime();
 			Date date = new Date();
@@ -179,9 +193,11 @@ public class Users extends BasePage {
 				waitForElementAndSendKeys(password, "12345");
 				waitForElementAndSendKeys(retypePassword, "12345");
 				selectOption(role, "Teacher");
-
-				waitForElementAndClick(searchOrgField);
-				waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
+				try {
+					selectOption(searchOrgField, "Automated School");
+				} catch (Exception e) {
+					System.out.println("Error selecting the School");
+				}
 				waitTime();
 				waitForElementAndClick(submit);
 				waitTime();
@@ -190,13 +206,16 @@ public class Users extends BasePage {
 			} else {
 
 				waitForElementAndSendKeys(firstNameField, "student");
-				waitForElementAndSendKeys(lastNameField, datevalue + x );
+				waitForElementAndSendKeys(lastNameField, datevalue + x);
 				waitForElementAndSendKeys(password, "12345");
 				waitForElementAndSendKeys(retypePassword, "12345");
 				selectOption(role, "Student");
 
-				waitForElementAndClick(searchOrgField);
-				waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
+				try {
+					selectOption(searchOrgField, "Automated School");
+				} catch (Exception e) {
+					System.out.println("Error selecting the School");
+				}
 				waitTime();
 				waitForElementAndClick(submit);
 				waitTime();
@@ -257,21 +276,22 @@ public class Users extends BasePage {
 	public String DeleteCreatedUsers(String[] createdUsers) {
 
 		try {
-
+			waitForElementAndClick(organizationFilter);
+			waitForElementAndClick(SelectOrglink);
+			waitForElementAndClick(AutomatedSchoolLink);
+			waitForElementAndClick(globalModalOKCancelSaveButton);
 			for (String user : createdUsers) {
 				waitTime();
-				waitForElementAndSendKeys(searchAutoComplete, user);
-				waitForElementAndClick(searchButton);
 				waitForElementAndClick(deleteIcon);
-				waitForElementAndClick(globalModalDeleteButton);
-				clearSearchFilter();
+
+				waitForElementAndClick(deleteButton);
 			}
 			statusMessage = "User Deleted";
 
 		} catch (Exception e) {
 			statusMessage = e.getMessage();
 		}
-
+		waitForElementAndClick(homeLink);
 		return statusMessage;
 	}
 

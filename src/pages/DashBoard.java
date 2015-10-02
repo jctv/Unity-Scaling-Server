@@ -153,7 +153,6 @@ public class DashBoard extends BasePage {
 
 	public Users goToUsers() {
 		System.out.println("Users Tile is enable " + usersTile.isEnabled());
-		waitForElementAndDoubleClick(usersTile);
 		
 		try {
 			waitForElementAndDoubleClick(usersTile);
@@ -166,7 +165,7 @@ public class DashBoard extends BasePage {
 	}
 
 	public ClassRoster goToClassRoster() {
-		System.out.println("Is the test class roster tile enable "
+		System.out.println("Is the  class roster tile enable "
 				+ classRosterTile.isEnabled());
 		waitForElementAndDoubleClick(classRosterTile);
 		try {

@@ -19,7 +19,8 @@ public class Login extends BasePage {
 	}
 
 	// Tabs Ids
-	@FindBy(xpath = "//*[@id='region-workspace']/div/div[2]/form/input[1]")
+	
+	@FindBy(xpath = "//*[@id='region-workspace']/div/div/form/input[1]")
 	public WebElement userField;
 
 	@FindBy(xpath = "//*[@id='passwordFormGrp']/input")

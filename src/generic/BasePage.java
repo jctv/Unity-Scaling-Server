@@ -52,6 +52,8 @@ public class BasePage {
 	public WebElement dashBoardPage;
 	
 
+	
+
 	/** Constructor */
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
@@ -78,7 +80,7 @@ public class BasePage {
 	public boolean waitForElementVisible(WebElement element) {
 
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 60);
+			WebDriverWait wait = new WebDriverWait(driver, 20);
 
 			wait.until(ExpectedConditions.visibilityOf(element));
 			return true;
@@ -184,23 +186,11 @@ public class BasePage {
 	}
 
 	public void waitForElementAndClick(final WebElement element) {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebDriverWait wait = new WebDriverWait(driver, 20);
 		try {
-			waitTime();
 			
-			//for(int i = 3; i-- > 0;) {
-			//	try {
-					wait.until(new ExpectedCondition< Boolean >() {
-						public Boolean apply(WebDriver arg0) {
-							return element.isEnabled();
-						}
-				   });
-
-				   element.click();
-				//} catch(Exception e) {
-			//		element.click();
-			//	}
-			//}
+			wait.until(ExpectedConditions.elementToBeClickable(element));
+			element.click();
 			System.out.println("Button clicked ");
 			waitTime();
 		} catch (Exception e) {
@@ -219,7 +209,7 @@ public class BasePage {
 
 	public void waitForElementAndDoubleClick(WebElement element){
 		
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebDriverWait wait = new WebDriverWait(driver, 20);
 		try {
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 			(new Actions(driver)).doubleClick(element).perform();
@@ -242,7 +232,7 @@ public class BasePage {
 	
 	
 	public void waitForElementAndSendKeys(WebElement element, String keys) {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebDriverWait wait = new WebDriverWait(driver, 20);
 		try {
 
 			wait.until(ExpectedConditions.visibilityOf(element));
@@ -267,8 +257,15 @@ public class BasePage {
 	}
 
 	public void selectOption(WebElement dropDownListBox, String option) {
+		try
+		{
 		Select droplist = new Select(dropDownListBox);
 		droplist.selectByVisibleText(option);
+		}catch(Exception e){
+			
+			System.out.println("Unable to find select option element");
+		}
+		
 	}
 
 	public void takeScreenShot() {
@@ -287,4 +284,17 @@ public class BasePage {
 		
 		return new DashBoard(driver);
 	}
+	public  void waitAndFocus(WebElement element){
+		WebDriverWait wait = new WebDriverWait(driver, 20);
+		wait.until(ExpectedConditions.visibilityOf(element));
+		try {
+			new Actions(driver).moveToElement(element).perform();
+
+		} catch (Exception e) {
+			System.out.println("Unable to focus element");
+		}
+		
+		
+	}
+	
 }

@@ -1,8 +1,9 @@
 package pages;
 
+import java.util.ArrayList;
+
 import generic.BasePage;
 
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -66,20 +67,28 @@ public class ClassRoster extends BasePage {
 
 	@FindBy(xpath = "//*[@id='rGrade']/option[4]")
 	public WebElement gradeSelect;
+	
+	@FindBy(xpath = "//span[@class='filter-option pull-left']")
+	public WebElement schoolDropDown;
+	
+	@FindBy(xpath = "//input[@class='form-control']")
+	public WebElement schoolSearchField;
+	
+	
+	
 
-	public void createRoster(String students[], String school) {
+	public void createRoster(ArrayList<String> students, String school, String name) {
 		try {
 			waitTime();
 			waitTime();
 			waitForElementAndClick(createClassRosterLink);
-			waitForElementAndSendKeys(rosterSchool, school);
-			selectOption(rosterSchool, school);
-			waitForElementAndSendKeys(rosterNameField, "Auto test Roster #1");
-			waitForElementAndClick(gradeField);
-			waitForElementAndClick(gradeSelect);
+			//waitForElementAndClick(schoolDropDown);
+			//waitForElementAndSendKeys(schoolSearchField, school);
+			waitForElementAndSendKeys(rosterNameField, name);
+
 			waitForElementAndSendKeys(descriptionField, "QA roster");
 			waitForElementAndSendKeys(selectSchoolField,
-					"West Sacramento School");
+					"Automated School");
 
 			for (String student : students) {
 				try {
@@ -91,7 +100,7 @@ public class ClassRoster extends BasePage {
 				waitForElementAndClick(searchButton);
 				waitTime();	
 				waitForElementAndClick(element);
-				waitTime();
+				
 				dragAndDrop(element, target);
 				clearSearchFilter();
 				System.out.println("Student added to the rosters");
@@ -100,7 +109,8 @@ public class ClassRoster extends BasePage {
 					clearSearchFilter();
 				}
 			}
-
+			waitForElementAndClick(gradeField);
+			waitForElementAndClick(gradeSelect);
 			waitForElementAndClick(saveRosterButton);
 			waitForElementAndClick(confirmOkButton);
 			waitTime();

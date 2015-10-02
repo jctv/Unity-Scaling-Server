@@ -1,5 +1,11 @@
 package tests;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
+
 import generic.BaseTest;
 
 import org.openqa.selenium.WebDriver;
@@ -48,9 +54,12 @@ public class HappyPathTest extends BaseTest {
 	public void setUp() {
 
 		driver.get(url);
+		
 		loginPageObject = new Login(driver);
 		System.out.println("******** logging as super administrator ********");
+		
 		dashBoardPageObject = loginPageObject.loginSuccess(user, "@simple1");
+		//driver.get(url + "#dashboard");
 		waitTime();
 
 		// System.out.println(dashBoardPageObject.addTiles());
@@ -59,11 +68,19 @@ public class HappyPathTest extends BaseTest {
 
 	@Test
 	public void runPath() {
-		//System.out.println("******** Creating a new organization ********");
-		//organizationPageObject = dashBoardPageObject.goToOrganization();
-		//waitTime();
-		//organizationPageObject.createNewOrganization("Automated School");
-		//System.out.println("************************************************");
+
+		/*
+		 * File file = new File("log.txt"); FileOutputStream fos; try { fos =
+		 * new FileOutputStream(file); PrintStream ps = new PrintStream(fos);
+		 * System.setOut(ps); } catch (FileNotFoundException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); }
+		 */
+
+		System.out.println("******** Creating a new organization ********");
+		organizationPageObject = dashBoardPageObject.goToOrganization();
+		waitTime();
+		organizationPageObject.createNewOrganization("Automated School");
+		System.out.println("************************************************");
 
 		waitTime();
 
@@ -71,6 +88,12 @@ public class HappyPathTest extends BaseTest {
 		usersPageObject = dashBoardPageObject.goToUsers();
 		waitTime();
 		String[] createdUsers = usersPageObject.createUser().split(",");
+
+		ArrayList<String> createdUsersA = new ArrayList<String>();
+		createdUsersA.add(createdUsers[0]);
+		createdUsersA.add(createdUsers[1]);
+		createdUsersA.add(createdUsers[2]);
+
 		dashBoardPageObject.logOut();
 		System.out.println("************************************************");
 		waitTime();
@@ -80,6 +103,13 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 		dashBoardPageObject.addTiles();
 		waitTime();
+		
+		classRosterPageObject = dashBoardPageObject.goToClassRoster();
+		waitTime();
+		System.out.println("******** Class Roster creation ********");
+		classRosterPageObject.createRoster(createdUsersA, "Automated School", "Automated Roster");
+		waitTime();
+		
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();
 		System.out.println("******** Item bank creation ********");
@@ -90,14 +120,8 @@ public class HappyPathTest extends BaseTest {
 		itemsPageObject = dashBoardPageObject.goToItems();
 		waitTime();
 		System.out.println("******** Items creation ********");
-		itemsPageObject.createHandScoringItem("item 2");
+		itemsPageObject.createItem("item 2");
 
-		waitTime();
-
-		classRosterPageObject = dashBoardPageObject.goToClassRoster();
-		waitTime();
-		System.out.println("******** Class Roster creation ********");
-		classRosterPageObject.createRoster(createdUsers, "Automated School");
 		waitTime();
 
 		/*
@@ -121,15 +145,15 @@ public class HappyPathTest extends BaseTest {
 		sechedulePageObject.scheduleTest();
 		waitTime();
 
-		dashBoardPageObject.logOut();
+		loginPageObject = dashBoardPageObject.logOut();
 		System.out.println("************************************************");
-		driver.quit();
+		/* driver.quit();
 		System.out.println("********** Starting  mobile emulation **********");
 		WebDriver driver = emulateDevice("Apple iPad 3 / 4");
-		driver.get(url);
+		driver.get(url); 
 
 		waitTime();
-		loginPageObject = new Login(driver);
+		loginPageObject = new Login(driver); */
 
 		waitTime();
 		System.out
@@ -158,9 +182,9 @@ public class HappyPathTest extends BaseTest {
 		System.out.println("******** Taking the scheduled test ********");
 		deliveryPageObject.takeTest();
 		waitTime();
-		dashBoardPageObject.logOut();
+		loginPageObject = dashBoardPageObject.logOut();
 		System.out.println("************************************************");
-
+/*
 		driver.quit();
 
 		waitTime();
@@ -168,32 +192,44 @@ public class HappyPathTest extends BaseTest {
 		driver = chromeDriver();
 		driver.get(url);
 		loginPageObject = new Login(driver);
+		*/
 		System.out.println("******** logging as the created teacher ********");
 		dashBoardPageObject = loginPageObject.loginSuccess(createdUsers[0],
 				genericPassword);
 
 		waitTime();
 		waitTime();
-		handScoringPageObject = dashBoardPageObject.goToHandScoring();
-		waitTime();
-		handScoringPageObject.scoreTest();
-		waitTime();
+		/*
+		 * handScoringPageObject = dashBoardPageObject.goToHandScoring();
+		 * waitTime(); handScoringPageObject.scoreTest(); waitTime();
+		 */
 
 		reportsPageObject = dashBoardPageObject.goToReports();
 		waitTime();
 		reportsPageObject.viewReport();
 		waitTime();
-		dashBoardPageObject.logOut();
+		loginPageObject = dashBoardPageObject.logOut();
+		
 		System.out.println("************************************************");
 		waitTime();
+
 		System.out.println("******** logging as super administrator ********");
-		dashBoardPageObject = loginPageObject.loginSuccess(user, "@simple1");
+		
+		loginPageObject.loginSuccess(user, "@simple1");
 
 		waitTime();
-		dashBoardPageObject.goToUsers();
 		waitTime();
+		waitTime();
+		usersPageObject = dashBoardPageObject.goToUsers();
+		waitTime();
+
 		System.out.println("******** Deleting the created users ********");
 		usersPageObject.DeleteCreatedUsers(createdUsers);
+		waitTime();
+		System.out.println("******** Deleting the created School ********");
+		organizationPageObject = dashBoardPageObject.goToOrganization();
+		organizationPageObject.deleteCreatedOrganization();
+
 		dashBoardPageObject.logOut();
 		System.out.println("************************************************");
 	}

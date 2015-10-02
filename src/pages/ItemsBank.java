@@ -1,7 +1,6 @@
 package pages;
 
 import generic.BasePage;
-import generic.BaseTest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
