@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TestSuite" parallel="false">
 <parameter name="browser" value="chrome"/>
-<parameter name="filePath" value="/usr/bin/google-chrome1"/>
+<parameter name="filePath" value="/usr/bin/google-chrome1/chromedriver"/>
 <parameter name="url" value="http://uat.8pnds.com/login.html"/>
 <parameter name="platform" value="Any"/>
 <parameter name="type" value="Local"/>
