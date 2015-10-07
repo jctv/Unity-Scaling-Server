@@ -1,8 +1,8 @@
-<?xml version="1.0"?><!-- Automation Test Version 1.1.3 -->
+<?xml version="1.0"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TestSuite" parallel="false">
-<parameter name="browser" value="chrome"/>
-<parameter name="filePath" value="/usr/bin/google-chrome1"/>
+<parameter name="browser" value="Firefox"/>
+<parameter name="filePath" value=".\chromedriver.exe"/>
 <parameter name="url" value="http://uat.8pnds.com/login.html"/>
 <parameter name="platform" value="Any"/>
 <parameter name="type" value="Local"/>
@@ -10,13 +10,9 @@
 <parameter name="userName" value="bil/ctribin"/>
 <parameter name="password" value="ctribin1"/>
 <parameter name="waitingTime" value="30"/>
-
  <test name="Unity">
     <classes>
-     <class name="tests.HappyPathTest">
-     </class>
-
+     <class name="tests.HappyPathTest"></class>
     </classes>
-
   </test>
-</suite> <!-- Suite -->
+</suite> 
