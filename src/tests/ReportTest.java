@@ -32,7 +32,7 @@ import pages.Users;
 public class ReportTest extends BaseTest {
 
 	HappyPathTest Nav;
-	public String user = "tdemo28";
+	public String user = "t9222015";
 	public String genericPassword = "12345";
 	Login loginPageObject;
 	DashBoard dashBoardPageObject;
@@ -132,9 +132,9 @@ public class ReportTest extends BaseTest {
 			//classRosterPageObject = dashBoardPageObject.goToClassRoster();
 			//classRosterPageObject.createRoster(rosterThree, "Reports School", "Class 3");
 			for(int y=1;y<3;y++){
-			//sechedulePageObject = dashBoardPageObject.goToSchedule();		
-			//sechedulePageObject.scheduleTestReports("Class "+y,(y));
-			//waitTime();
+			sechedulePageObject = dashBoardPageObject.goToSchedule();		
+			sechedulePageObject.scheduleTestReports("Class "+y,(y));
+			
 			
 			}
 			dashBoardPageObject.logOut();
@@ -165,7 +165,8 @@ public class ReportTest extends BaseTest {
 					System.out.println("Failed to access with " + rosters[z]);
 					
 				}			
-			}			
+			}		
+			waitTime();
 			System.out.println("******** logging as the teacher ********");
 			dashBoardPageObject = loginPageObject.loginSuccess(user,
 					genericPassword);

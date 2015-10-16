@@ -66,7 +66,7 @@ public class Schedule extends BasePage {
 	@FindBy(id = "startNow")
 	public WebElement startNowEventClick;
 	                
-	@FindBy(xpath = "//*[@id='region-workspace']/div/div[1]/div[1]/div[1]/div/button[2]")
+	@FindBy(xpath = "//button[@class ='fc-next-button ui-button ui-state-default ui-corner-right']")
 	public WebElement nextWeekButton;
 
 	public void scheduleTest() {

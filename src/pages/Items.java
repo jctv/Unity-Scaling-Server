@@ -108,7 +108,7 @@ public class Items extends BasePage {
 	}
 
 	public void createItem(String name) {
-
+		waitTime();
 		waitForElementAndClick(createItemButton);
 		waitForElementAndSendKeys(itemCreateInputName, name);
 		waitForElementAndSendKeys(itemCreateInputDescription, "Description");

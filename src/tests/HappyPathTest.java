@@ -29,7 +29,7 @@ import pages.Users;
 public class HappyPathTest extends BaseTest {
 
 	HappyPathTest Nav;
-	public String user = "admin";
+	public String user = "auto/admin";
 	public String genericPassword = "12345";
 	Login loginPageObject;
 	DashBoard dashBoardPageObject;
@@ -58,7 +58,7 @@ public class HappyPathTest extends BaseTest {
 		loginPageObject = new Login(driver);
 		System.out.println("******** logging as super administrator ********");
 		
-		dashBoardPageObject = loginPageObject.loginSuccess(user, "@simple1");
+		dashBoardPageObject = loginPageObject.loginSuccess(user, "password");
 		//driver.get(url + "#dashboard");
 		waitTime();
 
@@ -76,12 +76,12 @@ public class HappyPathTest extends BaseTest {
 		 * Auto-generated catch block e.printStackTrace(); }
 		 */
 
-		System.out.println("******** Creating a new organization ********");
+	/*	System.out.println("******** Creating a new organization ********");
 		organizationPageObject = dashBoardPageObject.goToOrganization();
 		waitTime();
 		organizationPageObject.createNewOrganization("Automated School");
 		System.out.println("************************************************");
-
+*/
 		waitTime();
 
 		System.out.println("***** Student and teacher creation started *****");
@@ -98,7 +98,7 @@ public class HappyPathTest extends BaseTest {
 		System.out.println("************************************************");
 		waitTime();
 		System.out.println("******** logging as the created teacher ********");
-		dashBoardPageObject = loginPageObject.loginSuccess(createdUsers[0],
+		dashBoardPageObject = loginPageObject.loginSuccess("auto/"+createdUsers[0],
 				genericPassword);
 		waitTime();
 		dashBoardPageObject.addTiles();
@@ -158,7 +158,7 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 		System.out
 				.println("******** logging as the first created student ********");
-		dashBoardPageObject = loginPageObject.loginSuccess(createdUsers[1],
+		dashBoardPageObject = loginPageObject.loginSuccess("auto/"+createdUsers[1],
 				genericPassword);
 		System.out.println(dashBoardPageObject.addTiles());
 		waitTime();
@@ -173,7 +173,7 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 		System.out
 				.println("******** logging as the second created student ********");
-		dashBoardPageObject = loginPageObject.loginSuccess(createdUsers[2],
+		dashBoardPageObject = loginPageObject.loginSuccess("auto/"+createdUsers[2],
 				genericPassword);
 		System.out.println(dashBoardPageObject.addTiles());
 		waitTime();
@@ -194,7 +194,7 @@ public class HappyPathTest extends BaseTest {
 		loginPageObject = new Login(driver);
 		*/
 		System.out.println("******** logging as the created teacher ********");
-		dashBoardPageObject = loginPageObject.loginSuccess(createdUsers[0],
+		dashBoardPageObject = loginPageObject.loginSuccess("auto/"+createdUsers[0],
 				genericPassword);
 
 		waitTime();
@@ -215,7 +215,7 @@ public class HappyPathTest extends BaseTest {
 
 		System.out.println("******** logging as super administrator ********");
 		
-		loginPageObject.loginSuccess(user, "@simple1");
+		loginPageObject.loginSuccess(user, "password");
 
 		waitTime();
 		waitTime();
