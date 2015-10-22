@@ -1,6 +1,8 @@
 package generic;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -15,6 +17,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 
 
@@ -295,6 +298,40 @@ public class BasePage {
 		}
 		
 		
+	}
+	
+	/**
+	 * This is overloaded method to select  drop down by index 
+	 * @param element
+	 * @param index
+	 */
+	public void selectOption(WebElement element, int index) {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 20);
+			wait.until(ExpectedConditions.visibilityOf(element));
+			Select mySelect = new Select(element);
+			mySelect.selectByIndex(index);
+			System.out.println("Select option   " + element.getText());
+		} catch (Exception e) {
+			System.out.println("Select option  " + element.getText());
+		}
+
+	}
+	
+	
+	public List <WebElement> getDropDownOptions(WebElement dropDownBox){
+		List<WebElement> options = null;
+		try{
+			WebDriverWait wait = new WebDriverWait(driver, 20);
+			wait.until(ExpectedConditions.visibilityOf(dropDownBox));
+			Select mySelect = new Select(dropDownBox);
+			options = mySelect.getOptions();
+			
+		}catch(Exception e){
+			System.out.println("Unable to get the Drop down values");
+		}
+		
+		return options;
 	}
 	
 }

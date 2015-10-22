@@ -1,5 +1,7 @@
 package pages;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,9 +16,19 @@ public class Items extends BasePage {
 
 	@FindBy(id = "contentCreateInputName")
 	public WebElement itemCreateInputName;
+	
+	@FindBy(id = "searchAutoComplete")
+	public WebElement itemSearchAutoComplete;
+	
+	@FindBy(id = "searchButton")
+	public WebElement itemSearchButton;
 
 	@FindBy(id = "contentCreateInputDescription")
 	public WebElement itemCreateInputDescription;
+	
+	@FindBy(xpath = "//select[@name='bank']")
+	public WebElement selectItemBank;
+	
 
 	@FindBy(xpath = "//*[@id='quickViewContentCreate']/div/form/button[1]")
 	public WebElement itemCreateEditInputSubmit;
@@ -101,7 +113,13 @@ public class Items extends BasePage {
 
 	@FindBy(id = "globalModalOKCancelSaveButton")
 	public WebElement globalModalOKCancelSaveButton;
-
+	
+	@FindBy(xpath = "//button[@class='btn btn-xs btn-link editRow']")
+	public WebElement itemEditIcon;
+	
+	@FindBy(xpath = "//button[@class='btn btn-xs btn-link deleteRow']")
+	public WebElement itemDeleteIcon;
+	
 	public Items(WebDriver driver) {
 		super(driver);
 		PageFactory.initElements(driver, this);
@@ -114,9 +132,8 @@ public class Items extends BasePage {
 		waitForElementAndSendKeys(itemCreateInputDescription, "Description");
 		waitForElementAndClick(itemCreateEditInputSubmit);
 		waitTime();
-
-		waitForElementAndSendKeys(templates, "Choice");
-
+		//waitForElementAndSendKeys(templates, "Choice");
+		selectOption(templates, "Choice");
 		waitForElementAndClick(textEditorSaveButton);
 		waitTime();
 
@@ -147,6 +164,7 @@ public class Items extends BasePage {
 		System.out.println("The Item has been created");
 		waitTime();
 		waitForElementAndClick(backToItems);
+		searchItem(name);
 		this.addStandards();
 		waitForElementAndClick(backToDashboard);
 
@@ -194,5 +212,40 @@ public class Items extends BasePage {
 		waitForElementAndClick(standards5);
 		waitForElementAndClick(globalModalOKCancelSaveButton);
 
+	}
+	
+	public void searchItem(String item){
+		try{
+		  waitTime();
+		  waitForElementAndSendKeys(itemSearchAutoComplete, item);
+		  waitForElementAndClick(itemSearchButton);
+		  waitTime();
+		}catch(Exception e){
+			
+			System.out.println("Unable to find the Item -->  "  + item);
+
+		}
+		
+	}
+	
+	public String getSharedItemBank(String itemBankName){
+		String itemBank = null ;
+		waitTime();
+		waitForElementAndClick(createItemButton);
+		waitTime();
+		List<WebElement > itemBankOptions = getDropDownOptions(selectItemBank);
+		for (WebElement itemBankOption : itemBankOptions){
+			try{
+			if(itemBankOption.getText().equals(itemBankName)){
+			   System.out.println(itemBankOption.getText());
+			   itemBank = itemBankOption.getText();
+			   break;
+			}
+			
+			}catch(Exception e ){
+				System.out.println(itemBankName + " is not available" );
+			}
+		}
+		return itemBank;
 	}
 }

@@ -1,5 +1,7 @@
 package pages;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import generic.BasePage;
@@ -51,7 +53,7 @@ public class ItemsBank extends BasePage {
 	public WebElement shareButton;
 
 	@FindBy(xpath = "//button[@title='View']")
-	public WebElement ViewIcon;
+	public WebElement viewIcon;
 	
 	
 	@FindBy(xpath = "//td[@class='watable-col-name']")
@@ -71,10 +73,10 @@ public class ItemsBank extends BasePage {
 	
 	
 	@FindBy(id = "acl-access-CREATE")
-	public WebElement aclTrusteeCREATE;
+	public WebElement aclTrusteeCreate;
 	
 	@FindBy(id = "acl-access-DELETE")
-	public WebElement aclTrusteeDELETE;
+	public WebElement aclTrusteeDelete;
 	
 	@FindBy(id = "acl-access-ADMIN")
 	public WebElement aclTrusteeAdmin;
@@ -109,6 +111,17 @@ public class ItemsBank extends BasePage {
 	@FindBy(xpath = "//td[@class='rubric-count']")
 	public WebElement rubricCount;
 	
+	@FindBy(xpath = "(//div[@class = 'col-sm-4'])[last()]")
+	public WebElement lastAddedUser;
+	
+	@FindBy(xpath = "//button[@class='btn btn-xs btn-link deleteRow']")
+	public WebElement deleteItemBank;
+	
+	@FindBy(id = "globalModalDelete")
+	public WebElement deleteItemBankPopUp;
+	
+	@FindBy(id = "globalModalDeleteButton")
+	public WebElement deletebuttonItemBankPopUp;
 	
 	
 	
@@ -132,11 +145,12 @@ public class ItemsBank extends BasePage {
 	public void searchItemBank(String itemBank){
 		try{
 		  waitTime();
+		  searchAutoCompleteField.clear();
+		  waitTime();
 		  waitForElementAndSendKeys(searchAutoCompleteField, itemBank);
 		  waitForElementAndClick(searchButton);
 		  waitTime();
 		}catch(Exception e){
-			
 			System.out.println("Unable to find the Item bank "  + itemBank);
 
 		}
@@ -167,7 +181,9 @@ public class ItemsBank extends BasePage {
 		
 	}
 	
-       public String shareItemBankWithTeacher(String selectTeacher) {
+	//For time being  commenting this method since we have anathor method after testing that  methods i will remove this method
+	
+       /*public String shareItemBankWithTeacher(String selectTeacher) {
     	   String selectedTeacher = null;
     	   WebDriverWait wait = new WebDriverWait(driver, 60);
     	   
@@ -203,8 +219,85 @@ public class ItemsBank extends BasePage {
    		}
 		return selectedTeacher;
    	}
+	*/
+       
+   
+	public String shareItemBank(String user, String permissions) {
+        String selectedTeacher = null;
+ 
+ 
+        try {
+            String lastname = user.substring(1);
+            String firsname = user.substring(0, 1);
+            String firstuser = firsname + " " + lastname;
+            waitForElementAndSendKeys(aclTrustee, user);
+            waitTime();
+            WebElement autoOptions = driver
+                    .findElement(By
+                            .xpath("//ul[@class='ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all'][2]"));
+            waitForElementVisible(autoOptions);
+            List<WebElement> optionsToSelect = autoOptions.findElements(By
+                    .tagName("li"));
+            for (WebElement option : optionsToSelect) {
+                if (option.getText().equals(firstuser)) {
+                    System.out.println("Trying to select: " + firstuser);
+                    waitForElementAndClick(option);
+ 
+                    break;
+                }
+            }
+ 
+            List<String> permissionsToAdd = new ArrayList<String>(Arrays.asList(permissions.split(",")));
+            for (String permission : permissionsToAdd) {
+ 
+                switch (permission) {
+                case "WRITE":
+                    waitForElementAndClick(aclTrusteeWrite);
+                    break;
+                case "CREATE":
+                    waitForElementAndClick(aclTrusteeCreate);
+                    break;
+                case "DELETE":
+                    waitForElementAndClick(aclTrusteeDelete);
+                    break;
+                case "ADMIN":
+                    waitForElementAndClick(aclTrusteeAdmin);
+                    break;
+                case "READ":
+                    //Read is added by default 
+                    break;
+                }
+            }
+            waitTime();
+            waitForElementAndClick(saveShareButton);
+            waitTime();         
+ 
+ 
+ 
+        } catch (NoSuchElementException e) {
+            System.out.println(e.getStackTrace());
+ 
+        } catch (Exception e) {
+            System.out.println("Error selecting User " + user);
+        }
+        selectedTeacher = lastAddedUser.getText();
+        return selectedTeacher;
+    }
+ 
 	
-       
-       
-       
+	public void deleteItemBank(String itemBank){
+		try{
+		searchItemBank(itemBank);	
+		waitTime();
+		waitForElementAndClick(deleteItemBank);
+		waitTime();
+		if(deleteItemBankPopUp.isDisplayed()){
+		   waitForElementAndClick(deletebuttonItemBankPopUp);
+		}
+			
+		}catch(Exception e){
+			 System.out.println("Unable to delete the Item Bank  " + itemBank);
+		}
+		
+	}
 }
