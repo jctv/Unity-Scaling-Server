@@ -1,5 +1,7 @@
 package pages;
 
+import java.util.List;
+
 import generic.BasePage;
 import generic.BaseTest;
 
@@ -123,6 +125,21 @@ public class TestCreation extends BasePage {
 	@FindBy(xpath = "//*[@id='quickViewContentCreate']/div/form/div[1]/select")
 	public WebElement bankDropDown;
 	
+	@FindBy(xpath = "//button[@class='btn btn-xs btn-link editRow']")
+	public WebElement testEditIcon;
+	
+	@FindBy(xpath = "//button[@class='btn btn-xs btn-link deleteRow']")
+	public WebElement testDeleteIcon;
+	
+	
+	@FindBy(xpath = "//button[@class='btn btn-xs btn-link copyRow']")
+	public WebElement testCopyIcon;
+	
+	@FindBy(xpath = "//button[@class='btn btn-xs btn-link previewRow']")
+	public WebElement testViewIcon;
+	
+	@FindBy(xpath = "//select[@name='bank']")
+	public WebElement selectTestBank;
 	
 	
 	
@@ -189,5 +206,40 @@ public class TestCreation extends BasePage {
 			System.out.println("Test Creation Failed ");
 		}
 		 
+	}
+	
+	public void searchTest(String test){
+		try{
+		  waitTime();
+		  waitForElementAndSendKeys(searchAutoComplete, test);
+		  waitForElementAndClick(searchButton);
+		  waitTime();
+		}catch(Exception e){
+			System.out.println("Unable to find the Test  -->  "  + test);
+
+		}
+		
+	}
+	
+	
+	public String getSharedTestBank(String testBankName){
+		String itemBank = null ;
+		waitTime();
+		waitForElementAndClick(createTestLink);
+		waitTime();
+		List<WebElement > itemBankOptions = getDropDownOptions(selectTestBank);
+		for (WebElement itemBankOption : itemBankOptions){
+			try{
+			if(itemBankOption.getText().equals(testBankName)){
+			   System.out.println(itemBankOption.getText());
+			   itemBank = itemBankOption.getText();
+			   break;
+			}
+			
+			}catch(Exception e ){
+				System.out.println(testBankName + " is not available in Test bank drop down" );
+			}
+		}
+		return itemBank;
 	}
 }
