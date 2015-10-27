@@ -122,7 +122,7 @@ public class SharingTest extends BaseTest {
 		waitTime();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName);
+		itemsPageObject.createItem(itemName , itemBankName);
 		waitTime();
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();
@@ -180,7 +180,7 @@ public class SharingTest extends BaseTest {
 		waitTime();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName);
+		itemsPageObject.createItem(itemName , itemBankName);
 		waitTime();
 		
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
@@ -239,7 +239,7 @@ public class SharingTest extends BaseTest {
 		waitTime();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName);
+		itemsPageObject.createItem(itemName , itemBankName);
 		waitTime();
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();
@@ -298,7 +298,7 @@ public class SharingTest extends BaseTest {
 		waitTime();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item  creation ********");
-		itemsPageObject.createItem(itemName);
+		itemsPageObject.createItem(itemName , itemBankName);
 		waitTime();
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();
@@ -357,7 +357,7 @@ public class SharingTest extends BaseTest {
 		waitTime();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName);
+		itemsPageObject.createItem(itemName , itemBankName);
 		waitTime();
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();
@@ -417,7 +417,7 @@ public class SharingTest extends BaseTest {
 		waitTime();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName);
+		itemsPageObject.createItem(itemName , itemBankName);
 		waitTime();
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();
@@ -522,7 +522,7 @@ public class SharingTest extends BaseTest {
 		waitTime();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName);
+		itemsPageObject.createItem(itemName , itemBankName);
 		waitTime();
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();
@@ -546,7 +546,7 @@ public class SharingTest extends BaseTest {
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		//Need to update the create test bank method to pass test bank and item in method parameter after discussing with team
-		testCreationPageObject.createTest(testName);
+		testCreationPageObject.createTest(testName , testBankName , itemName);
 		waitTime();
 		
 		testBankPageObject = dashBoardPageObject.goToTestsBank();
@@ -622,7 +622,7 @@ public class SharingTest extends BaseTest {
 		waitTime();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName);
+		itemsPageObject.createItem(itemName , itemBankName);
 		waitTime();
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();
@@ -646,7 +646,7 @@ public class SharingTest extends BaseTest {
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
-		testCreationPageObject.createTest(testName);
+		testCreationPageObject.createTest(testName , testBankName , itemName);
 		waitTime();
 		
 		testBankPageObject = dashBoardPageObject.goToTestsBank();
@@ -719,7 +719,7 @@ public class SharingTest extends BaseTest {
 		waitTime();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName);
+		itemsPageObject.createItem(itemName , itemBankName);
 		waitTime();
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();
@@ -743,7 +743,7 @@ public class SharingTest extends BaseTest {
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
-		testCreationPageObject.createTest(testName);
+		testCreationPageObject.createTest(testName , testBankName , itemName);
 		waitTime();
 		
 		testBankPageObject = dashBoardPageObject.goToTestsBank();
@@ -818,7 +818,7 @@ public class SharingTest extends BaseTest {
 		waitTime();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName);
+		itemsPageObject.createItem(itemName , itemBankName);
 		waitTime();
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();
@@ -842,7 +842,7 @@ public class SharingTest extends BaseTest {
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
-		testCreationPageObject.createTest(testName);
+		testCreationPageObject.createTest(testName , testBankName , itemName);
 		waitTime();
 		
 		testBankPageObject = dashBoardPageObject.goToTestsBank();
@@ -918,7 +918,7 @@ public class SharingTest extends BaseTest {
 		waitTime();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName);
+		itemsPageObject.createItem(itemName , itemBankName);
 		waitTime();
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();
@@ -942,7 +942,7 @@ public class SharingTest extends BaseTest {
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
-		testCreationPageObject.createTest(testName);
+		testCreationPageObject.createTest(testName , testBankName , itemName);
 		waitTime();
 		
 		testBankPageObject = dashBoardPageObject.goToTestsBank();
@@ -1014,7 +1014,7 @@ public class SharingTest extends BaseTest {
 		waitTime();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName);
+		itemsPageObject.createItem(itemName , itemBankName);
 		waitTime();
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();
@@ -1038,7 +1038,7 @@ public class SharingTest extends BaseTest {
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
-		testCreationPageObject.createTest(testName);
+		testCreationPageObject.createTest(testName , testBankName , itemName);
 		waitTime();
 		testBankPageObject = dashBoardPageObject.goToTestsBank();
 		waitTime();

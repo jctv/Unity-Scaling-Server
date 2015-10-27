@@ -125,9 +125,11 @@ public class Items extends BasePage {
 		PageFactory.initElements(driver, this);
 	}
 
-	public void createItem(String name) {
+	public void createItem(String name , String itemBankName) {
 		waitTime();
 		waitForElementAndClick(createItemButton);
+		selectOption(selectItemBank, itemBankName);
+		waitTime();
 		waitForElementAndSendKeys(itemCreateInputName, name);
 		waitForElementAndSendKeys(itemCreateInputDescription, "Description");
 		waitForElementAndClick(itemCreateEditInputSubmit);
@@ -161,7 +163,7 @@ public class Items extends BasePage {
 			// TODO: handle exception
 		}
 
-		System.out.println("The Item has been created");
+		System.out.println("The Item "+name +" has been created");
 		waitTime();
 		waitForElementAndClick(backToItems);
 		searchItem(name);

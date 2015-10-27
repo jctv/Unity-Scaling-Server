@@ -143,19 +143,24 @@ public class TestCreation extends BasePage {
 	
 	
 	
-	public void createTest(String testName) {
+	public void createTest(String testName , String testBankName ,  String itemName) {
 		try {
 			waitTime();
 			waitForElementAndClick(createTestLink);
-			waitForElementAndSendKeys(bankDropDown, "My Tests");
+			selectOption(bankDropDown, testBankName);
+			waitTime();
+			//waitForElementAndSendKeys(bankDropDown, "My Tests");
 			waitForElementAndSendKeys(contentCreateInputName, testName);
 			waitForElementAndSendKeys(contentCreateInputDescription, testName);
 			waitForElementAndClick(createAndEditButton);
-			
-
+			clearSearchFilter();
+			waitForElementAndSendKeys(searchAutoCompleteField,
+					itemName);
+			waitForElementAndClick(searchButton);
 			waitForElementAndClick(item1);
-
-			for (int x = 0; x < 1; x++) {
+			dragAndDrop(item1, target);
+			clearSearchFilter();
+			/*for (int x = 0; x < 1; x++) {
 				String items = "item 2";
 				
 				//itemsArray[0] = items;
@@ -165,8 +170,8 @@ public class TestCreation extends BasePage {
 				
 				dragAndDrop(item1, target);
 				clearSearchFilter();
-			}
-			System.out.println("Items added to the test " + testName);
+			}*/
+			System.out.println("Items " + itemName + " added to the test " + testName);
 			
 			waitForElementAndSendKeys(testContentField, "N/A");
 			selectOption(testContentField, "N/A");
@@ -193,7 +198,7 @@ public class TestCreation extends BasePage {
 			waitForElementAndClick(saveToolsButton);
 			waitForElementAndClick(okButton);*/
 			waitTime();
-			System.out.println("Test created success");
+			System.out.println("Test "+ testName +" created successfully ");
 			waitForElementAndClick(testsLink);
 			waitTime();
 			waitForElementAndClick(homeLink);
@@ -203,7 +208,7 @@ public class TestCreation extends BasePage {
 				// TODO: handle exception
 			}
 		} catch (Exception e) {
-			System.out.println("Test Creation Failed ");
+			System.out.println("Test "+ testName +" Creation Failed ");
 		}
 		 
 	}
