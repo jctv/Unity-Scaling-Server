@@ -120,6 +120,17 @@ public class Items extends BasePage {
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link deleteRow']")
 	public WebElement itemDeleteIcon;
 	
+	@FindBy(id = "globalModalDelete")
+	public WebElement deleteItemPopUp;
+	
+	@FindBy(id = "globalModalDeleteButton")
+	public WebElement deletebuttonItemPopUp;
+	
+	@FindBy(xpath = "//span[@class='filtered-list-stats-total']")
+	public WebElement itemResultCount;
+	
+	
+	
 	public Items(WebDriver driver) {
 		super(driver);
 		PageFactory.initElements(driver, this);
@@ -218,6 +229,7 @@ public class Items extends BasePage {
 	
 	public void searchItem(String item){
 		try{
+		  itemSearchAutoComplete.clear();
 		  waitTime();
 		  waitForElementAndSendKeys(itemSearchAutoComplete, item);
 		  waitForElementAndClick(itemSearchButton);
@@ -249,5 +261,22 @@ public class Items extends BasePage {
 			}
 		}
 		return itemBank;
+	}
+	
+	public void deleteItem(String itemName){
+		try{
+		itemSearchAutoComplete.clear();
+		searchItem(itemName);	
+		waitTime();
+		waitForElementAndClick(itemDeleteIcon);
+		waitTime();
+		if(deleteItemPopUp.isDisplayed()){
+		   waitForElementAndClick(deletebuttonItemPopUp);
+		}
+			
+		}catch(Exception e){
+			 System.out.println("Unable to delete the Item   " + itemName);
+		}
+		
 	}
 }

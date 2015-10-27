@@ -141,6 +141,14 @@ public class TestCreation extends BasePage {
 	@FindBy(xpath = "//select[@name='bank']")
 	public WebElement selectTestBank;
 	
+	@FindBy(xpath = "//span[@class='filtered-list-stats-total']")
+	public WebElement testResultCount;
+	
+	@FindBy(id = "globalModalDelete")
+	public WebElement deleteTestPopUp;
+	
+	@FindBy(id = "globalModalDeleteButton")
+	public WebElement deleteButtonTestPopUp;
 	
 	
 	public void createTest(String testName , String testBankName ,  String itemName) {
@@ -228,7 +236,7 @@ public class TestCreation extends BasePage {
 	
 	
 	public String getSharedTestBank(String testBankName){
-		String itemBank = null ;
+		String testBank = null ;
 		waitTime();
 		waitForElementAndClick(createTestLink);
 		waitTime();
@@ -237,7 +245,7 @@ public class TestCreation extends BasePage {
 			try{
 			if(itemBankOption.getText().equals(testBankName)){
 			   System.out.println(itemBankOption.getText());
-			   itemBank = itemBankOption.getText();
+			   testBank = itemBankOption.getText();
 			   break;
 			}
 			
@@ -245,6 +253,24 @@ public class TestCreation extends BasePage {
 				System.out.println(testBankName + " is not available in Test bank drop down" );
 			}
 		}
-		return itemBank;
+		return testBank;
+	}
+	
+	
+	public void deleteTest(String testName){
+		try{
+		searchAutoCompleteField.clear();
+		searchTest(testName);	
+		waitTime();
+		waitForElementAndClick(testDeleteIcon);
+		waitTime();
+		if(deleteTestPopUp.isDisplayed()){
+		   waitForElementAndClick(deleteButtonTestPopUp);
+		}
+			
+		}catch(Exception e){
+			 System.out.println("Unable to delete the Test   " + testName);
+		}
+		
 	}
 }
