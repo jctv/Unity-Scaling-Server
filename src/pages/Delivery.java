@@ -1,8 +1,11 @@
 package pages;
 
+import java.util.List;
+
 import generic.BasePage;
 import generic.BaseTest;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -114,4 +117,78 @@ public class Delivery extends BasePage {
 		System.out.println("Test done as student");
 
 	}
+	/**
+	 * It is temporary method after discussion with team will update /remove the existing method
+	 * @param testId
+	 */
+	public void takeTest(String testId){
+		
+		startScheduledTest(testId);
+		waitTime();
+		waitForElementAndClick(item0);
+		waitForElementAndClick(btn);
+		waitTime();
+
+		waitForElementAndClick(exitButton);
+		waitTime();
+		waitForElementAndClick(finishTestButton);
+		waitTime();
+		//waitForElementAndClick(menu);
+		//waitForElementAndClick(home);
+		System.out.println("Test done as student");
+		
+	}
+	
+	
+	public String getScheduledTest(String testId){
+		String scheduledTestName = null ;
+		WebElement scheduleTest = driver
+                .findElement(By
+                        .xpath("//button[@data-id='" + testId + "']/../../../div[@class='col-sm-8']/div[1]"));
+		scheduledTestName = scheduleTest.getText();
+		return scheduledTestName;
+	}
+	
+	public void startScheduledTest(String testId){
+		WebElement scheduleTest = driver
+                .findElement(By
+                        .xpath("//button[@data-id='" + testId + "']"));
+		scheduleTest.click();
+		
+	}
+	
+	
+	public String getTestinHistoryTable(String testId){
+		String historyTestName = null ;
+		WebElement historytest = driver
+                .findElement(By
+                        .xpath("//td[@class='test-name' and @data-test='" + testId + "']"));
+		 historyTestName = historytest.getText();
+		 
+		 return historyTestName;
+	}
+	
+	
+	public String getTestPercentCorrect(String testId){
+		String testCorrectPercent = null ;
+		WebElement testpercent = driver
+                .findElement(By
+                        .xpath("//td[@class='test-score' and @data-test='" + testId + "']"));
+		testCorrectPercent = testpercent.getText();
+		 
+		 return testCorrectPercent;
+	}
+	
+	public String getTestNoOfItems(String testId){
+		String testNoOfItems = null ;
+		WebElement testItems = driver
+                .findElement(By
+                        .xpath("//td[@class='test-score' and @data-test='" + testId + "']/following-sibling::td[1]"));
+		testNoOfItems = testItems.getText();
+		 
+		 return testNoOfItems;
+	}
+	
+	
+	
 }

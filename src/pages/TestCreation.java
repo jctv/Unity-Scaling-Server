@@ -273,4 +273,10 @@ public class TestCreation extends BasePage {
 		}
 		
 	}
+	
+	public String getTestId(){
+		String testId = null;
+		return testId =testViewIcon.getAttribute("data-id");
+		
+	}
 }

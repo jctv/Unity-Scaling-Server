@@ -120,6 +120,66 @@ public class Schedule extends BasePage {
 		
 	}
 	
+	/**
+	 * @param school
+	 * @param roster
+	 * @param contetArea
+	 * @param test
+	 * @param eventColor
+	 * @param time
+	 * @param goal
+	 * @param tools
+	 */
+	public void scheduleTest(String school, String roster , String contetArea , String test , String eventColor, String time , String goal, String tools) {
+		try {
+			waitTime();
+			waitForElementAndClick(nextWeekButton);
+			waitTime();
+			(new Actions(driver)).doubleClick(calendar).build().perform();
+			(new Actions(driver)).doubleClick().build().perform();
+			System.out.println("click on calendar");
+
+			
+			waitForElementAndSendKeys(schoolName, school);
+			selectOption(schoolName, school);
+			
+			waitForElementAndSendKeys(className, roster);
+			selectOption(className, roster);
+			
+			waitForElementAndSendKeys(contentLevel, contetArea);
+			selectOption(contentLevel, contetArea);
+
+			waitForElementAndSendKeys(name, test);
+			selectOption(name, test);
+			
+			waitForElementAndSendKeys(myColor, eventColor);
+			selectOption(myColor, eventColor);
+			
+			waitForElementAndSendKeys(masterTimeSelect, time);
+			selectOption(masterTimeSelect, time);
+			
+			waitForElementAndSendKeys(masterGoalSelect, goal);
+			selectOption(masterGoalSelect, goal);
+			
+			waitForElementAndSendKeys(masterToolSelect, tools);
+			selectOption(masterToolSelect, tools);
+			
+			waitForElementAndClick(btnCreate);
+			
+			System.out.println(test + "event is created");
+			waitTime();
+			waitForElementAndClick(createdEvent);
+			System.out.println("click on event");
+			waitForElementAndClick(startNowEventClick);
+			waitTime();
+			waitForElementAndClick(homeLink);
+			System.out.println(test + "Event Created success");
+		} catch (Exception e) {
+			System.out.println(test + "Event creation failed");
+		}
+
+		
+	}
 	
 	public void scheduleTestReports(String roster, int eventNumber) {
 		try {

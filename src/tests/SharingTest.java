@@ -23,6 +23,7 @@ import pages.Users;
 public class SharingTest extends BaseTest {
 	String schooladmin1 = "qa/nadmin";
 	String teacher1 = "qa/nteacher1";
+	String stduent1 = "qa/nstudent1";
 	String genericPassword = "12345";
 	String lastSaharedTeacher= teacher1.split("/")[1].substring(0, 1) + " " +teacher1.split("/")[1].substring(1);
 	Login loginPageObject;
@@ -1440,6 +1441,179 @@ public class SharingTest extends BaseTest {
 		waitTime();
 		testBankPageObject.deleteTestBank(testBankName);
 	}
+	
+	/**
+	 * Login as school admin
+	 * Create Item Bank and Item
+	 * Create test bank 
+	 * Create test by by using created item
+	 * Share the Test bank with teacher having all access 
+	 * Login as a teacher
+	 * Create event on shared  test in shared bank
+	 * Login as student and attempt the test 
+	 * 
+	 */
+	@Test(priority=19)
+	public void  testScheduledEventForSharedTestbySchoolAdmin(){
+		waitTime();
+		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		waitTime();
+		itemBankName = "Auto_IB_" + System.currentTimeMillis();
+		System.out.println("******** " + itemBankName + "  Item bank creation ********");
+		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
+		waitTime();
+		itemsPageObject = dashBoardPageObject.goToItems();
+		waitTime();
+		itemName = "I_" + itemBankName;
+		System.out.println("******** " + itemName + "  Item creation ********");
+		itemsPageObject.createItem(itemName , itemBankName);
+		waitTime();
+		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		waitTime();
+		itemsBankPageObject.searchItemBank(itemBankName);;
+		waitTime();
+		itemsBankPageObject.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		waitTime();
+		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
+		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
+		itemsBankPageObject.closeItemBankShareScreen();
+		waitTime();
+		itemsBankPageObject.backToDashboard();
+		testBankPageObject = dashBoardPageObject.goToTestsBank();
+		waitTime();
+		testBankName = "Auto_TB_" + System.currentTimeMillis();
+		System.out.println("******** " + testBankName + "  Test bank creation ********");
+		testBankPageObject.createBank(testBankName, testBankDescription);
+		waitTime();
+		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testName = "T_" + testBankName;
+		System.out.println("******** " + testName + "  Test creation ********");
+		testCreationPageObject.createTest(testName , testBankName , itemName);
+		waitTime();
+		testBankPageObject = dashBoardPageObject.goToTestsBank();
+		waitTime();
+		testBankPageObject.searchTestBank(testBankName);;
+		waitTime();
+		testBankPageObject.openTestBankShareScreen();
+		String sharedLastTeacher = testBankPageObject.shareTestBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		waitTime();
+		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
+		Assert.assertEquals(testBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
+		testBankPageObject.closeTestBankShareScreen();
+		waitTime();
+		dashBoardPageObject.logOut();
+		waitTime();
+		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+				genericPassword);
+		waitTime();
+		dashBoardPageObject.addTiles();
+		waitTime();
+		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testCreationPageObject.searchTest(testName);
+		String createdTestId = testCreationPageObject.getTestId();
+		testCreationPageObject.backToDashboard();
+		sechedulePageObject = dashBoardPageObject.goToSchedule();
+		waitTime();
+		sechedulePageObject.scheduleTest("Euro Kids", "Automation", "N/A", testName, "Green", "120", "100%", "No");
+		
+		dashBoardPageObject.logOut();
+		waitTime();
+		
+		dashBoardPageObject = loginPageObject.loginSuccess(stduent1,
+				genericPassword);
+		dashBoardPageObject.addTiles();
+		waitTime();
+		deliveryPageObject = dashBoardPageObject.goToDelivery();
+		waitTime();
+		System.out.println("******** Taking the scheduled test ********");
+		Assert.assertEquals(testName, deliveryPageObject.getScheduledTest(createdTestId));
+		deliveryPageObject.takeTest(createdTestId);
+		Assert.assertEquals(testName, deliveryPageObject.getTestinHistoryTable(createdTestId));
+		Assert.assertEquals("100%", deliveryPageObject.getTestPercentCorrect(createdTestId));
+		Assert.assertEquals("1", deliveryPageObject.getTestPercentCorrect(createdTestId));
+	}
+	
+	
+	/**
+	 * Login as school admin
+	 * Create Item Bank and Item
+	 * Shared the item bank will all permission
+	 * Login as a teacher
+	 * Create test by by using shared item
+	 * Schedule the test 
+	 * Login as Student   
+	 * Write the test
+	 * Check the test result information in History Table
+	 * 
+	 */
+	@Test(priority=20)
+	public void  testScheduledEventForSharedItemBySchoolAdmin(){
+		waitTime();
+		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		waitTime();
+		itemBankName = "Auto_IB_" + System.currentTimeMillis();
+		System.out.println("******** " + itemBankName + "  Item bank creation ********");
+		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
+		waitTime();
+		itemsPageObject = dashBoardPageObject.goToItems();
+		waitTime();
+		itemName = "I_" + itemBankName;
+		System.out.println("******** " + itemName + "  Item creation ********");
+		itemsPageObject.createItem(itemName , itemBankName);
+		waitTime();
+		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		waitTime();
+		itemsBankPageObject.searchItemBank(itemBankName);;
+		waitTime();
+		itemsBankPageObject.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		waitTime();
+		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
+		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
+		itemsBankPageObject.closeItemBankShareScreen();
+		dashBoardPageObject.logOut();
+		waitTime();
+		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+				genericPassword);
+		waitTime();
+		dashBoardPageObject.addTiles();
+		waitTime();
+		testBankPageObject = dashBoardPageObject.goToTestsBank();
+		waitTime();
+		testBankName = "Auto_TB_" + System.currentTimeMillis();
+		System.out.println("******** " + testBankName + "  Test bank creation ********");
+		testBankPageObject.createBank(testBankName, testBankDescription);
+		waitTime();
+		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testName = "T_" + testBankName;
+		System.out.println("******** " + testName + "  Test creation ********");
+		testCreationPageObject.createTest(testName , testBankName , itemName);
+		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testCreationPageObject.searchTest(testName);
+		String createdTestId = testCreationPageObject.getTestId();
+		testCreationPageObject.backToDashboard();
+		sechedulePageObject = dashBoardPageObject.goToSchedule();
+		waitTime();
+		sechedulePageObject.scheduleTest("Euro Kids", "Automation", "N/A", testName, "Green", "120", "100%", "No");
+		
+		dashBoardPageObject.logOut();
+		waitTime();
+		
+		dashBoardPageObject = loginPageObject.loginSuccess(stduent1,
+				genericPassword);
+		dashBoardPageObject.addTiles();
+		waitTime();
+		deliveryPageObject = dashBoardPageObject.goToDelivery();
+		waitTime();
+		System.out.println("******** Taking the scheduled test ********");
+		Assert.assertEquals(testName, deliveryPageObject.getScheduledTest(createdTestId));
+		deliveryPageObject.takeTest(createdTestId);
+		Assert.assertEquals(testName, deliveryPageObject.getTestinHistoryTable(createdTestId));
+		Assert.assertEquals("100%", deliveryPageObject.getTestPercentCorrect(createdTestId));
+		Assert.assertEquals("1", deliveryPageObject.getTestPercentCorrect(createdTestId));
+	}
+
 	
 	private void assertItemBankStatisticsPanelContent(){
 		itemsBankPageObject.viewIcon.click();
