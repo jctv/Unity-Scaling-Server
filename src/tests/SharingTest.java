@@ -1531,7 +1531,7 @@ public class SharingTest extends BaseTest {
 		deliveryPageObject.takeTest(createdTestId);
 		Assert.assertEquals(testName, deliveryPageObject.getTestinHistoryTable(createdTestId));
 		Assert.assertEquals("100%", deliveryPageObject.getTestPercentCorrect(createdTestId));
-		Assert.assertEquals("1", deliveryPageObject.getTestPercentCorrect(createdTestId));
+		Assert.assertEquals("1", deliveryPageObject.getTestNoOfItems(createdTestId));
 	}
 	
 	
