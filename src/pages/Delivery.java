@@ -189,6 +189,4 @@ public class Delivery extends BasePage {
 		 return testNoOfItems;
 	}
 	
-	
-	
 }

@@ -1615,6 +1615,103 @@ public class SharingTest extends BaseTest {
 	}
 
 	
+	
+	/**
+	 * Defect 8323
+	 * Login as school admin
+	 * Create Item Bank and Item
+	 * Create test bank 
+	 * Create test by by using created item
+	 * Share the Test bank with teacher having only View  access 
+	 * Login as a teacher
+	 * Access the shared test 
+	 * Scheduled test 
+	 * Login as student and attempt the test 
+	 * 
+	 */
+	@Test(priority=21)
+	public void  testScheduledEventForSharedTestWithViewAccess(){
+		waitTime();
+		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		waitTime();
+		itemBankName = "READ_IB_" + System.currentTimeMillis();
+		System.out.println("******** " + itemBankName + "  Item bank creation ********");
+		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
+		waitTime();
+		itemsPageObject = dashBoardPageObject.goToItems();
+		waitTime();
+		itemName = "I_" + itemBankName;
+		System.out.println("******** " + itemName + "  Item creation ********");
+		itemsPageObject.createItem(itemName , itemBankName);
+		waitTime();
+		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		waitTime();
+		itemsBankPageObject.searchItemBank(itemBankName);;
+		waitTime();
+		itemsBankPageObject.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "READ");
+		waitTime();
+		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
+		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ");
+		itemsBankPageObject.closeItemBankShareScreen();
+		waitTime();
+		itemsBankPageObject.backToDashboard();
+		testBankPageObject = dashBoardPageObject.goToTestsBank();
+		waitTime();
+		testBankName = "READ_TB_" + System.currentTimeMillis();
+		System.out.println("******** " + testBankName + "  Test bank creation ********");
+		testBankPageObject.createBank(testBankName, testBankDescription);
+		waitTime();
+		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testName = "T_" + testBankName;
+		System.out.println("******** " + testName + "  Test creation ********");
+		testCreationPageObject.createTest(testName , testBankName , itemName);
+		waitTime();
+		testBankPageObject = dashBoardPageObject.goToTestsBank();
+		waitTime();
+		testBankPageObject.searchTestBank(testBankName);;
+		waitTime();
+		testBankPageObject.openTestBankShareScreen();
+		String sharedLastTeacher = testBankPageObject.shareTestBank(teacher1.split("/")[1], "READ");
+		waitTime();
+		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
+		Assert.assertEquals(testBankPageObject.sharedAccess.getText().trim(), "Access: READ");
+		testBankPageObject.closeTestBankShareScreen();
+		waitTime();
+		dashBoardPageObject.logOut();
+		waitTime();
+		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+				genericPassword);
+		waitTime();
+		dashBoardPageObject.addTiles();
+		waitTime();
+		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testCreationPageObject.searchTest(testName);
+		String createdTestId = testCreationPageObject.getTestId();
+		Assert.assertFalse(testCreationPageObject.testDeleteIcon.isEnabled());
+		Assert.assertFalse(testCreationPageObject.testEditIcon.isEnabled());
+		waitTime();
+		sechedulePageObject = testCreationPageObject.navigateToScheduleFromListings();
+		waitTime();
+		sechedulePageObject.scheduleTest("Euro Kids", "Automation", "N/A", testName, "Green", "120", "100%", "No");
+		
+		dashBoardPageObject.logOut();
+		waitTime();
+		
+		dashBoardPageObject = loginPageObject.loginSuccess(stduent1,
+				genericPassword);
+		dashBoardPageObject.addTiles();
+		waitTime();
+		deliveryPageObject = dashBoardPageObject.goToDelivery();
+		waitTime();
+		System.out.println("******** Taking the scheduled test ********");
+		Assert.assertEquals(testName, deliveryPageObject.getScheduledTest(createdTestId));
+		deliveryPageObject.takeTest(createdTestId);
+		Assert.assertEquals(testName, deliveryPageObject.getTestinHistoryTable(createdTestId));
+		Assert.assertEquals("100%", deliveryPageObject.getTestPercentCorrect(createdTestId));
+		Assert.assertEquals("1", deliveryPageObject.getTestNoOfItems(createdTestId));
+	}
+	
 	private void assertItemBankStatisticsPanelContent(){
 		itemsBankPageObject.viewIcon.click();
 		Assert.assertTrue(itemsBankPageObject.itemBankStatisticsPanel.isDisplayed(),"Verifying the Item Bank statisticsPanel is expanded");

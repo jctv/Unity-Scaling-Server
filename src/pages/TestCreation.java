@@ -150,6 +150,10 @@ public class TestCreation extends BasePage {
 	@FindBy(id = "globalModalDeleteButton")
 	public WebElement deleteButtonTestPopUp;
 	
+	@FindBy(xpath = "//span[@id='scheduleTest']")
+	public WebElement scheduleTestLink;
+	
+	
 	
 	public void createTest(String testName , String testBankName ,  String itemName) {
 		try {
@@ -223,6 +227,7 @@ public class TestCreation extends BasePage {
 	
 	public void searchTest(String test){
 		try{
+		 searchAutoComplete.clear();
 		  waitTime();
 		  waitForElementAndSendKeys(searchAutoComplete, test);
 		  waitForElementAndClick(searchButton);
@@ -279,4 +284,22 @@ public class TestCreation extends BasePage {
 		return testId =testViewIcon.getAttribute("data-id");
 		
 	}
+	
+	public Schedule navigateToScheduleFromListings() {
+		waitForElementAndClick(testViewIcon);
+		waitTime();
+		waitForElementAndClick(scheduleTestLink);
+		waitTime();
+		try {
+			waitForElementAndClick(testViewIcon);
+			waitTime();
+			waitForElementAndClick(scheduleTestLink);
+			waitTime();			
+		} catch (Exception e) {
+			
+		}
+		return new Schedule(driver);
+
+	}
+	
 }
