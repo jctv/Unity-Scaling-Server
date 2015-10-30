@@ -142,7 +142,7 @@ public class HappyPathTest extends BaseTest {
 		sechedulePageObject = dashBoardPageObject.goToSchedule();
 		waitTime();
 		System.out.println("******** Event creation ********");
-		sechedulePageObject.scheduleTest();
+		sechedulePageObject.scheduleTest("Automated Schoool", "Auto test Roster #1", "N/A", "Automation test", "Red", "120", "100%", "Yes");
 		waitTime();
 
 		loginPageObject = dashBoardPageObject.logOut();

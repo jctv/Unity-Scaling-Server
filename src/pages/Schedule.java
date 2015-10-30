@@ -69,57 +69,6 @@ public class Schedule extends BasePage {
 	@FindBy(xpath = "//button[@class ='fc-next-button ui-button ui-state-default ui-corner-right']")
 	public WebElement nextWeekButton;
 
-	public void scheduleTest() {
-		try {
-			waitTime();
-			waitForElementAndClick(nextWeekButton);
-			waitTime();
-			(new Actions(driver)).doubleClick(calendar).build().perform();
-			(new Actions(driver)).doubleClick().build().perform();
-			System.out.println("click on calendar");
-
-			
-			waitForElementAndSendKeys(schoolName, "Automated Schoool");
-			selectOption(schoolName, "Automated School");
-			
-			waitForElementAndSendKeys(className, "Auto test Roster #1");
-			selectOption(className, "Auto test Roster #1");
-			
-			waitForElementAndSendKeys(contentLevel, "N/A");
-			selectOption(contentLevel, "N/A");
-
-			waitForElementAndSendKeys(name, "Automation test");
-			selectOption(name, "Automation test");
-			
-			waitForElementAndSendKeys(myColor, "Red");
-			selectOption(myColor, "Red");
-			
-			waitForElementAndSendKeys(masterTimeSelect, "120");
-			selectOption(masterTimeSelect, "120");
-			
-			waitForElementAndSendKeys(masterGoalSelect, "100%");
-			selectOption(masterGoalSelect, "100%");
-			
-			waitForElementAndSendKeys(masterToolSelect, "Yes");
-			selectOption(masterToolSelect, "Yes");
-			
-			waitForElementAndClick(btnCreate);
-			
-			System.out.println("event created");
-			waitTime();
-			waitForElementAndClick(createdEvent);
-			System.out.println("click on event");
-			waitForElementAndClick(startNowEventClick);
-			waitTime();
-			waitForElementAndClick(homeLink);
-			System.out.println("Event Created success");
-		} catch (Exception e) {
-			System.out.println("Event creation failed");
-		}
-
-		
-	}
-	
 	/**
 	 * @param school
 	 * @param roster
