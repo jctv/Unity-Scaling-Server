@@ -1,7 +1,6 @@
 package pages;
 
 import generic.BasePage;
-import generic.BaseTest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,16 +9,13 @@ import org.openqa.selenium.support.PageFactory;
 
 public class Login extends BasePage {
 
-	BasePage base;
-	BaseTest test;
-
 	public Login(WebDriver driver) {
 		super(driver);
 		PageFactory.initElements(driver, this);
 	}
 
 	// Tabs Ids
-	
+
 	@FindBy(xpath = "//*[@id='region-workspace']/div/div/form/input[1]")
 	public WebElement userField;
 
@@ -38,8 +34,7 @@ public class Login extends BasePage {
 		} catch (Exception e) {
 			System.out.println("Unable to login");
 		}
-		
-		
+
 		return new DashBoard(driver);
 	}
 
