@@ -37,6 +37,9 @@ public class BasePage {
 
 	@FindBy(id = "searchAutoComplete")
 	public WebElement searchAutoComplete;
+	
+	@FindBy(id = "searchButton")
+	public WebElement searchButton;
 
 	@FindBy(id = "resetSearchFilter")
 	public WebElement resetSearchFilter;

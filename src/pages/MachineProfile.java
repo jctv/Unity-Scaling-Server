@@ -73,13 +73,14 @@ public WebElement saveUpdatesButton;
 @FindBy(xpath = "(//button[@title='Delete'])[last()]")
 public WebElement deletLastIcon;
 
+@FindBy(xpath = "(//button[@title='Edit'])[last()]")
+public WebElement editLastIcon;
 
 @FindBy(id = "globalModalDeleteButton")
 public WebElement globalModalDeleteButton;
 
-
-
-
+@FindBy(id = "globalModalInfoOkButton")
+public WebElement globalModalInfoOkButton;
 
 
 

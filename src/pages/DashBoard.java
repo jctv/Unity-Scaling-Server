@@ -136,6 +136,9 @@ public class DashBoard extends BasePage {
 	@FindBy(id = "globalModalOKCancelSaveButton")
 	public WebElement globalModalOKCancelSaveButton;
 	
+	@FindBy(id = "globalModalInfoOkButton")
+	public WebElement globalModalInfoOkButton;
+	
 	@FindBy(id = "messageLink")
 	public WebElement messageLink;
 	
@@ -143,6 +146,9 @@ public class DashBoard extends BasePage {
 
 	@FindBy(xpath = "//*[@id='dashboardGrid']/ul/li[1]/i")
 	public WebElement configLink;
+	
+	
+	
 	
 	
 	public boolean goToTile(String tileName){
