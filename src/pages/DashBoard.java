@@ -50,6 +50,9 @@ public class DashBoard extends BasePage {
 	@FindBy(id = "tile_view_item")
 	public WebElement ItemsTile;
 
+	@FindBy(id = "tile_view_item_import")
+	public WebElement ItemsImportTile;
+	
 	@FindBy(id = "tile_view_machine_profile")
 	public WebElement machineProfileTile;
 
@@ -107,6 +110,8 @@ public class DashBoard extends BasePage {
 	@FindBy(id = "tile_view_workflow_admin")
 	public WebElement workflowTile;
 	
+	@FindBy(id = "tile_view_test_bank") 
+	public WebElement itemImportTile;
 
 	@FindBy(id = "navbarDrop1")
 	public WebElement userDrop;
@@ -416,6 +421,22 @@ public class DashBoard extends BasePage {
 			System.out.println("Unable to go to the tests bank page");
 		}
 		return new TestsBank(driver);
+	}
+	
+	
+	public ItemImport goToItemImport() {
+		waitTime();		
+		try {
+			//waitForElementAndDoubleClick(itemImportTile);	
+			waitForElementAndDoubleClick(ItemsTile);	
+			waitTime();
+			if(globalModalInfoOkButton.isDisplayed()){
+				System.out.println("Device not supported");
+			}
+		} catch (Exception e) {
+			System.out.println("Unable to go to the Item Import page");
+		}
+		return new ItemImport(driver);
 	}
 	
 	public Login logOut() {

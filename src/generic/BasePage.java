@@ -57,9 +57,8 @@ public class BasePage {
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
 	public WebElement dashBoardPage;
 	
-
 	
-
+	 
 	/** Constructor */
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
@@ -332,6 +331,22 @@ public class BasePage {
 			
 		}catch(Exception e){
 			System.out.println("Unable to get the Drop down values");
+		}
+		
+		return options;
+	}
+	
+	
+	public WebElement getSelectedOption(WebElement dropDownBox){
+		WebElement options = null;
+		try{
+			WebDriverWait wait = new WebDriverWait(driver, 20);
+			wait.until(ExpectedConditions.visibilityOf(dropDownBox));
+			Select mySelect = new Select(dropDownBox);
+			options = mySelect.getFirstSelectedOption();
+			
+		}catch(Exception e){
+			System.out.println("Unable to get the selected option");
 		}
 		
 		return options;

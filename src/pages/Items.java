@@ -2,6 +2,7 @@ package pages;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -71,6 +72,9 @@ public class Items extends BasePage {
 
 	@FindBy(id = "htmlTabButton")
 	public WebElement htmlTabButton;
+	
+	@FindBy(id = "previewTabButton")
+	public WebElement previewTabButton;
 
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
 	public WebElement backToItems;
@@ -129,6 +133,73 @@ public class Items extends BasePage {
 	@FindBy(xpath = "//span[@class='filtered-list-stats-total']")
 	public WebElement itemResultCount;
 	
+	
+	@FindBy(xpath = "//td[@class='watable-col-name']")
+	public WebElement itemNameList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-title']")
+	public WebElement itemTilteList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-content_area']")
+	public WebElement itemContentAreaList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-grade']")
+	public WebElement itemGradeList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-bloom']")
+	public WebElement itemBloomList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-depth_of_knowledge']")
+	public WebElement itemDepthOfKnowledgeList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-difficulty']")
+	public WebElement itemDifficultyList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-lifecycle']")
+	public WebElement itemLifeCycleList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-points']")
+	public WebElement itemPointsList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-readability_level']")
+	public WebElement itemReadabilityList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-std']")
+	public WebElement itemStandardList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-passages']")
+	public WebElement itemPassageList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-item_banks']")
+	public WebElement itemBankList;
+	
+	@FindBy(xpath = "//tr[@class='data-row']/td[1]")
+	public WebElement searchItemBankFilterPopUp;
+	
+	@FindBy(xpath = "//span[text()='Banks']")
+	public WebElement bankFilter;
+
+	@FindBy(xpath = "//span[text()='Banks']/../../ul//div[text()='Click to Select']")
+	public WebElement selectBankFilter;
+	
+	@FindBy(xpath = "//div[@class='layoutHorizontalLeftPane col-md-4']//input[@id='searchAutoComplete']")
+	public WebElement searchItemBankFilterPopup;
+	
+	@FindBy(xpath = "//div[@class='layoutHorizontalLeftPane col-md-4']//span[@id='searchButton']")
+	public WebElement searchButtonItemBankFilterPopup;
+	
+	@FindBy(xpath = "//span[text()='Banks']/../../ul//div/div/div")
+	public WebElement filteredItemBank;
+	
+	@FindBy(xpath = "//select[@class='form-control item-scoring-profile']")
+	public WebElement selectScoreProfile;
+	
+	
+	@FindBy(xpath = ".//*[@id='scoreViewAnswer']//h4")
+	public WebElement answerProfile;
+	
+	@FindBy(xpath = ".//*[@id='scoreViewAnswer']/div/p/span")
+	public WebElement correctAnswerProfile;
 	
 	
 	public Items(WebDriver driver) {
@@ -279,4 +350,75 @@ public class Items extends BasePage {
 		}
 		
 	}
+	
+	public String filterItemBank(String itemBankName){
+		try{
+		resetSearchFilter.click();
+		waitTime();
+		waitTime();
+		waitForElementAndClick(bankFilter);
+		waitTime();
+		waitForElementAndClick(selectBankFilter);
+		waitTime();
+		searchItemBankFilterPopup.clear();
+		waitForElementAndSendKeys(searchItemBankFilterPopup , itemBankName);
+		waitForElementAndClick(searchButtonItemBankFilterPopup);
+		try{
+			waitTime();
+			waitForElementAndClick(searchButtonItemBankFilterPopup);
+
+		}catch (Exception e){
+			
+		}
+		waitTime();
+		WebElement serachedItembank = driver
+                .findElement(By
+                        .xpath("//tr[@class='data-row']//td[text()='" + itemBankName + "']"));
+		waitForElementAndClick(serachedItembank);
+		waitTime();
+		waitForElementAndClick(globalModalOKCancelSaveButton);
+		waitTime();
+
+		}catch (Exception e){
+			 System.out.println("Unable to Filter the Item Bank  " + itemBankName);
+		}
+		
+	   return filteredItemBank.getText();
+
+	}
+	
+	
+	public String getSelectedScoreProfile(WebElement dropDown){
+		String selectedOption = null; 
+		try{
+		selectedOption = getSelectedOption(dropDown).getText();
+		
+		}catch(Exception e){
+			
+			 System.out.println("Unable to find the selected optionthe Item Bank  " + selectedOption);
+
+		}
+		return selectedOption;
+		
+	}
+	
+	public String getInteractionType(String interactionType){
+		String textEntry = null ;
+		waitTime();
+		List<WebElement > templatesTypes = getDropDownOptions(templates);
+		for (WebElement templateType : templatesTypes){
+			try{
+			if(templateType.getText().equals(interactionType)){
+			   System.out.println(templateType.getText());
+			   textEntry = templateType.getText();
+			   break;
+			}
+			
+			}catch(Exception e ){
+				System.out.println(textEntry + " template is not available" );
+			}
+		}
+		return textEntry;
+	}
+	
 }
