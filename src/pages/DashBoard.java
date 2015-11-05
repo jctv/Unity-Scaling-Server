@@ -1,5 +1,7 @@
 package pages;
 
+import java.util.List;
+
 import generic.BasePage;
 import generic.BaseTest;
 
@@ -50,6 +52,9 @@ public class DashBoard extends BasePage {
 	@FindBy(id = "tile_view_item")
 	public WebElement ItemsTile;
 
+	@FindBy(id = "tile_view_item_import")
+	public WebElement ItemsImportTile;
+	
 	@FindBy(id = "tile_view_machine_profile")
 	public WebElement machineProfileTile;
 
@@ -107,6 +112,8 @@ public class DashBoard extends BasePage {
 	@FindBy(id = "tile_view_workflow_admin")
 	public WebElement workflowTile;
 	
+	@FindBy(id = "tile_view_test_bank") 
+	public WebElement itemImportTile;
 
 	@FindBy(id = "navbarDrop1")
 	public WebElement userDrop;
@@ -136,6 +143,9 @@ public class DashBoard extends BasePage {
 	@FindBy(id = "globalModalOKCancelSaveButton")
 	public WebElement globalModalOKCancelSaveButton;
 	
+	@FindBy(id = "globalModalInfoOkButton")
+	public WebElement globalModalInfoOkButton;
+	
 	@FindBy(id = "messageLink")
 	public WebElement messageLink;
 	
@@ -143,6 +153,9 @@ public class DashBoard extends BasePage {
 
 	@FindBy(xpath = "//*[@id='dashboardGrid']/ul/li[1]/i")
 	public WebElement configLink;
+	
+	
+	
 	
 	
 	public boolean goToTile(String tileName){
@@ -313,6 +326,28 @@ public class DashBoard extends BasePage {
 		return "The tiles has been added";
 	}
 
+	
+	public String getAvailableTile(String tileName ){
+		String availableTile = null;
+		waitForElementAndDoubleClick(addTile);
+		waitTime();
+		WebElement alltile = driver.findElement(By.xpath("//div[@id='tileSelectionContainer']")) ;
+		List <WebElement> availableTiles = alltile.findElements(By.tagName("span"));
+		for (WebElement tile : availableTiles){
+			try{
+			if(tile.getText().equals(tileName)){
+			   System.out.println(tile.getText());
+			   availableTile = tile.getText();
+			   break;
+			}
+			
+			}catch(Exception e ){
+				System.out.println(tileName + " Tile is not available" );
+			}
+		}
+		return availableTile;
+	}
+	
 	public boolean deleteTile() {
 		waitTime();
 		removeTile.click();
@@ -412,6 +447,34 @@ public class DashBoard extends BasePage {
 		return new TestsBank(driver);
 	}
 	
+	
+	public ItemImport goToItemImport() {
+		waitTime();		
+		try {
+			waitForElementAndDoubleClick(ItemsImportTile);	
+			waitTime();
+			if(globalModalInfoOkButton.isDisplayed()){
+				System.out.println("Device not supported");
+			}
+		} catch (Exception e) {
+			System.out.println("Unable to go to the Item Import page");
+		}
+		return new ItemImport(driver);
+	}
+	
+	public Role goToRole() {
+		waitTime();		
+		try {
+			waitForElementAndDoubleClick(roleTile);	
+			waitTime();
+			if(globalModalInfoOkButton.isDisplayed()){
+				System.out.println("Device not supported");
+			}
+		} catch (Exception e) {
+			System.out.println("Unable to go to the Role page");
+		}
+		return new Role(driver);
+	}
 	public Login logOut() {
 		waitTime();
 		userDrop.click();

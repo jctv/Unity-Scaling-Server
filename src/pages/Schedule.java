@@ -69,7 +69,17 @@ public class Schedule extends BasePage {
 	@FindBy(xpath = "//button[@class ='fc-next-button ui-button ui-state-default ui-corner-right']")
 	public WebElement nextWeekButton;
 
-	public void scheduleTest() {
+	/**
+	 * @param school
+	 * @param roster
+	 * @param contetArea
+	 * @param test
+	 * @param eventColor
+	 * @param time
+	 * @param goal
+	 * @param tools
+	 */
+	public void scheduleTest(String school, String roster , String contetArea , String test , String eventColor, String time , String goal, String tools) {
 		try {
 			waitTime();
 			waitForElementAndClick(nextWeekButton);
@@ -79,47 +89,46 @@ public class Schedule extends BasePage {
 			System.out.println("click on calendar");
 
 			
-			waitForElementAndSendKeys(schoolName, "Automated Schoool");
-			selectOption(schoolName, "Automated School");
+			waitForElementAndSendKeys(schoolName, school);
+			selectOption(schoolName, school);
 			
-			waitForElementAndSendKeys(className, "Auto test Roster #1");
-			selectOption(className, "Auto test Roster #1");
+			waitForElementAndSendKeys(className, roster);
+			selectOption(className, roster);
 			
-			waitForElementAndSendKeys(contentLevel, "N/A");
-			selectOption(contentLevel, "N/A");
+			waitForElementAndSendKeys(contentLevel, contetArea);
+			selectOption(contentLevel, contetArea);
 
-			waitForElementAndSendKeys(name, "Automation test");
-			selectOption(name, "Automation test");
+			waitForElementAndSendKeys(name, test);
+			selectOption(name, test);
 			
-			waitForElementAndSendKeys(myColor, "Red");
-			selectOption(myColor, "Red");
+			waitForElementAndSendKeys(myColor, eventColor);
+			selectOption(myColor, eventColor);
 			
-			waitForElementAndSendKeys(masterTimeSelect, "120");
-			selectOption(masterTimeSelect, "120");
+			waitForElementAndSendKeys(masterTimeSelect, time);
+			selectOption(masterTimeSelect, time);
 			
-			waitForElementAndSendKeys(masterGoalSelect, "100%");
-			selectOption(masterGoalSelect, "100%");
+			waitForElementAndSendKeys(masterGoalSelect, goal);
+			selectOption(masterGoalSelect, goal);
 			
-			waitForElementAndSendKeys(masterToolSelect, "Yes");
-			selectOption(masterToolSelect, "Yes");
+			waitForElementAndSendKeys(masterToolSelect, tools);
+			selectOption(masterToolSelect, tools);
 			
 			waitForElementAndClick(btnCreate);
 			
-			System.out.println("event created");
+			System.out.println(test + "event is created");
 			waitTime();
 			waitForElementAndClick(createdEvent);
 			System.out.println("click on event");
 			waitForElementAndClick(startNowEventClick);
 			waitTime();
 			waitForElementAndClick(homeLink);
-			System.out.println("Event Created success");
+			System.out.println(test + "Event Created success");
 		} catch (Exception e) {
-			System.out.println("Event creation failed");
+			System.out.println(test + "Event creation failed");
 		}
 
 		
 	}
-	
 	
 	public void scheduleTestReports(String roster, int eventNumber) {
 		try {

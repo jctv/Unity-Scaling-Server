@@ -40,6 +40,9 @@ public class BasePage {
 	@FindBy(id = "searchAutoComplete")
 	public WebElement searchAutoComplete;
 
+	@FindBy(id = "searchButton")
+	public WebElement searchButton;
+
 	@FindBy(id = "resetSearchFilter")
 	public WebElement resetSearchFilter;
 
@@ -55,12 +58,14 @@ public class BasePage {
 
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
 	public WebElement dashBoardPage;
-	
-	
+
+
+
 	@FindBy(id = "searchButton")
 	public WebElement searchButton;
-	
-	
+
+
+
 
 	/** Constructor */
 	public BasePage(WebDriver driver) {
@@ -299,7 +304,7 @@ public class BasePage {
 
 	/**
 	 * This is overloaded method to select drop down by index
-	 * 
+	 *
 	 * @param element
 	 * @param index
 	 */
@@ -330,7 +335,27 @@ public class BasePage {
 
 		return options;
 	}
-	
-	
+
+
+
+	public WebElement getSelectedOption(WebElement dropDownBox){
+		WebElement options = null;
+		try{
+			WebDriverWait wait = new WebDriverWait(driver, 20);
+			wait.until(ExpectedConditions.visibilityOf(dropDownBox));
+			Select mySelect = new Select(dropDownBox);
+			options = mySelect.getFirstSelectedOption();
+
+		}catch(Exception e){
+			System.out.println("Unable to get the selected option");
+		}
+
+		return options;
+	}
+
+	public void refreshPage(){
+		driver.navigate().refresh();
+	}
+
 
 }

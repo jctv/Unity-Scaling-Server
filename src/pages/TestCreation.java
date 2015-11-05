@@ -141,6 +141,18 @@ public class TestCreation extends BasePage {
 	@FindBy(xpath = "//select[@name='bank']")
 	public WebElement selectTestBank;
 	
+	@FindBy(xpath = "//span[@class='filtered-list-stats-total']")
+	public WebElement testResultCount;
+	
+	@FindBy(id = "globalModalDelete")
+	public WebElement deleteTestPopUp;
+	
+	@FindBy(id = "globalModalDeleteButton")
+	public WebElement deleteButtonTestPopUp;
+	
+	@FindBy(xpath = "//span[@id='scheduleTest']")
+	public WebElement scheduleTestLink;
+	
 	
 	
 	public void createTest(String testName , String testBankName ,  String itemName) {
@@ -215,6 +227,7 @@ public class TestCreation extends BasePage {
 	
 	public void searchTest(String test){
 		try{
+		 searchAutoComplete.clear();
 		  waitTime();
 		  waitForElementAndSendKeys(searchAutoComplete, test);
 		  waitForElementAndClick(searchButton);
@@ -228,7 +241,7 @@ public class TestCreation extends BasePage {
 	
 	
 	public String getSharedTestBank(String testBankName){
-		String itemBank = null ;
+		String testBank = null ;
 		waitTime();
 		waitForElementAndClick(createTestLink);
 		waitTime();
@@ -237,7 +250,7 @@ public class TestCreation extends BasePage {
 			try{
 			if(itemBankOption.getText().equals(testBankName)){
 			   System.out.println(itemBankOption.getText());
-			   itemBank = itemBankOption.getText();
+			   testBank = itemBankOption.getText();
 			   break;
 			}
 			
@@ -245,6 +258,48 @@ public class TestCreation extends BasePage {
 				System.out.println(testBankName + " is not available in Test bank drop down" );
 			}
 		}
-		return itemBank;
+		return testBank;
 	}
+	
+	
+	public void deleteTest(String testName){
+		try{
+		searchAutoCompleteField.clear();
+		searchTest(testName);	
+		waitTime();
+		waitForElementAndClick(testDeleteIcon);
+		waitTime();
+		if(deleteTestPopUp.isDisplayed()){
+		   waitForElementAndClick(deleteButtonTestPopUp);
+		}
+			
+		}catch(Exception e){
+			 System.out.println("Unable to delete the Test   " + testName);
+		}
+		
+	}
+	
+	public String getTestId(){
+		String testId = null;
+		return testId =testViewIcon.getAttribute("data-id");
+		
+	}
+	
+	public Schedule navigateToScheduleFromListings() {
+		waitForElementAndClick(testViewIcon);
+		waitTime();
+		waitForElementAndClick(scheduleTestLink);
+		waitTime();
+		try {
+			waitForElementAndClick(testViewIcon);
+			waitTime();
+			waitForElementAndClick(scheduleTestLink);
+			waitTime();			
+		} catch (Exception e) {
+			
+		}
+		return new Schedule(driver);
+
+	}
+	
 }
