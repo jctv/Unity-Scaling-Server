@@ -133,7 +133,6 @@ public class Items extends BasePage {
 	@FindBy(xpath = "//span[@class='filtered-list-stats-total']")
 	public WebElement itemResultCount;
 	
-	
 	@FindBy(xpath = "//td[@class='watable-col-name']")
 	public WebElement itemNameList;
 	

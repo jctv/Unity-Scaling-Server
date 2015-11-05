@@ -1,5 +1,7 @@
 package pages;
 
+import java.util.List;
+
 import generic.BasePage;
 import generic.BaseTest;
 
@@ -324,6 +326,28 @@ public class DashBoard extends BasePage {
 		return "The tiles has been added";
 	}
 
+	
+	public String getAvailableTile(String tileName ){
+		String availableTile = null;
+		waitForElementAndDoubleClick(addTile);
+		waitTime();
+		WebElement alltile = driver.findElement(By.xpath("//div[@id='tileSelectionContainer']")) ;
+		List <WebElement> availableTiles = alltile.findElements(By.tagName("span"));
+		for (WebElement tile : availableTiles){
+			try{
+			if(tile.getText().equals(tileName)){
+			   System.out.println(tile.getText());
+			   availableTile = tile.getText();
+			   break;
+			}
+			
+			}catch(Exception e ){
+				System.out.println(tileName + " Tile is not available" );
+			}
+		}
+		return availableTile;
+	}
+	
 	public boolean deleteTile() {
 		waitTime();
 		removeTile.click();
@@ -427,8 +451,7 @@ public class DashBoard extends BasePage {
 	public ItemImport goToItemImport() {
 		waitTime();		
 		try {
-			//waitForElementAndDoubleClick(itemImportTile);	
-			waitForElementAndDoubleClick(ItemsTile);	
+			waitForElementAndDoubleClick(ItemsImportTile);	
 			waitTime();
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
@@ -439,6 +462,19 @@ public class DashBoard extends BasePage {
 		return new ItemImport(driver);
 	}
 	
+	public Role goToRole() {
+		waitTime();		
+		try {
+			waitForElementAndDoubleClick(roleTile);	
+			waitTime();
+			if(globalModalInfoOkButton.isDisplayed()){
+				System.out.println("Device not supported");
+			}
+		} catch (Exception e) {
+			System.out.println("Unable to go to the Role page");
+		}
+		return new Role(driver);
+	}
 	public Login logOut() {
 		waitTime();
 		userDrop.click();

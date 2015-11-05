@@ -69,6 +69,63 @@ public class ItemImport extends BasePage {
 	
 	@FindBy(xpath = "//button[@data-id='item-bank']/../div/ul")
 	public WebElement  itemBankDropdownList;
+
+	@FindBy(xpath = "//span[text()='Item Files']")
+	public WebElement  filterItemFiles;
+	
+	@FindBy(xpath = "//tr[1]/td[@class='watable-col-package_file_name']")
+	public WebElement itemImportPackageFileNameList;
+	
+	@FindBy(xpath = "//tr[1]/td[@class='watable-col-item_file_names']")
+	public WebElement itemImportFileNameList;
+	
+	@FindBy(xpath = "//tr[1]/td[@class='watable-col-status']")
+	public WebElement itemImportFileStatusList;
+	
+	@FindBy(xpath = "//tr[1]/td[@class='watable-col-status_detail']")
+	public WebElement itemImportFileDetailsList;
+	
+	@FindBy(xpath = "//tr[1]/td[@class='watable-col-start]")
+	public WebElement itemImportFileStartTimeList;
+	
+	@FindBy(xpath = "//tr[1]/td[@class='watable-col-end']")
+	public WebElement itemImportFileEndTimeList;
+	
+	@FindBy(xpath = "//input[@class='form-control input-sm']")
+	public WebElement itemFileInputField;
+	
+	@FindBy(xpath = "//span[text()='Status']")
+	public WebElement filterItemImportStatus;
+	
+	@FindBy(xpath = "//span[text()='Completed']/../i")
+	public WebElement filterItemImportCompleted;
+	
+	@FindBy(xpath = "//span[text()='In Progress']/../i")
+	public WebElement filterItemImportInprogress;
+	
+	@FindBy(xpath = "//span[text()='Failed']/../i")
+	public WebElement filterItemImportFailed;
+	
+	@FindBy(xpath = "//tr[1]/td[@class='watable-col-preview']//button[@class='btn btn-xs btn-link previewRow']")
+	public WebElement importItemPreviewButton;
+	
+	@FindBy(xpath = "//div[@class='panel-heading']/h5")
+	public WebElement itemImportSummary;
+	
+	@FindBy(xpath = "//div[@class='panel panel-primary']//tr[@class='active']/td[@colspan='5']")
+	public WebElement itemImportSummaryFileName;
+	
+	@FindBy(xpath = "//td[text()='ITEM']/../td[2]")
+	public WebElement itemImportSummaryItem;
+	
+	@FindBy(xpath = "//td[text()='MEDIA']/../td[2]")
+	public WebElement itemImportSummaryMedia;
+	
+	@FindBy(xpath = "//td[text()='CSS']/../td[2]")
+	public WebElement itemImportSummaryCss;
+	
+	
+	
 	
 	
 	public DashBoard backToDashboard(){

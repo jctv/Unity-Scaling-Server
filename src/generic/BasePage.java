@@ -352,4 +352,8 @@ public class BasePage {
 		return options;
 	}
 	
+	public void refreshPage(){
+		driver.navigate().refresh();
+	}
+	
 }
