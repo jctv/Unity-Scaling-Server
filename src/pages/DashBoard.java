@@ -327,27 +327,24 @@ public class DashBoard extends BasePage {
 	}
 
 	
-	public String getAvailableTile(String tileName ){
-		String availableTile = null;
+	public String getAvailableTile(String tileName) {
 		waitForElementAndDoubleClick(addTile);
 		waitTime();
-		WebElement alltile = driver.findElement(By.xpath("//div[@id='tileSelectionContainer']")) ;
-		List <WebElement> availableTiles = alltile.findElements(By.tagName("span"));
-		for (WebElement tile : availableTiles){
-			try{
-			if(tile.getText().equals(tileName)){
-			   System.out.println(tile.getText());
-			   availableTile = tile.getText();
-			   break;
+		WebElement tile = driver.findElement(By.xpath("(//span[text()='"
+				+ tileName + "'])[last()]"));
+		String availableTile = null;
+		try {
+			if (tile.isDisplayed()) {
+				System.out.println(tile.getText());
+				availableTile = tile.getText();
 			}
-			
-			}catch(Exception e ){
-				System.out.println(tileName + " Tile is not available" );
-			}
+
+		} catch (Exception e) {
+			System.out.println(tileName + " Tile is not available");
 		}
 		return availableTile;
 	}
-	
+
 	public boolean deleteTile() {
 		waitTime();
 		removeTile.click();
