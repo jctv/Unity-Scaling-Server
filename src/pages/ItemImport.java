@@ -124,6 +124,8 @@ public class ItemImport extends BasePage {
 	@FindBy(xpath = "//td[text()='CSS']/../td[2]")
 	public WebElement itemImportSummaryCss;
 	
+	@FindBy(xpath = "//tbody[@class='files']//td[1]/i")
+	public WebElement itemImportSuccessfulIcon;
 	
 	
 	
@@ -149,11 +151,9 @@ public class ItemImport extends BasePage {
 	}
 	
 	
-	
-	public void importItem(String filepath , String itemBankName , String authoringTool){
-		
+	public boolean importItem(String filepath , String itemBankName , String authoringTool){
+		boolean isImportSuccessful = false ;
 		try{
-			
 			File f = new File(filepath);
 			String ItemImportFilepath = f.getAbsolutePath();
 			waitForElementAndClick(importLink);
@@ -164,13 +164,15 @@ public class ItemImport extends BasePage {
 			waitTime();
 			addFileButton.sendKeys(ItemImportFilepath);
 			waitTime();
-
+			if(itemImportSuccessfulIcon.getAttribute("style").contains("green")){
+				isImportSuccessful = true;
+		    }
+			
 		}catch(Exception e){
 			
 			System.out.println("Unable to import the file  -->  "  + filepath);
-
 		}
-		
+		return isImportSuccessful;
 	}
 	
 	/**

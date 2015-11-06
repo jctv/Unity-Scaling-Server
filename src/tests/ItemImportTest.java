@@ -80,7 +80,7 @@ public class ItemImportTest extends BaseTest {
 		itemsBankPageObject.createBank(itemBankName, "Desc");
 		waitTime(); 
 		itemsImportPageObject = dashBoardPageObject.goToItemImport();
-		itemsImportPageObject.importItem(importedFileName ,itemBankName ,"CDE");
+		Assert.assertTrue(itemsImportPageObject.importItem(importedFileName ,itemBankName ,"CDE"));
 		itemsImportPageObject.refreshPage();
 		waitTime();
 		Assert.assertEquals(itemsImportPageObject.itemImportPackageFileNameList.getText().trim(), importedFileName);
@@ -92,7 +92,7 @@ public class ItemImportTest extends BaseTest {
 		Assert.assertEquals(itemsImportPageObject.itemImportSummaryMedia.getText().trim(), "1");
 		Assert.assertEquals(itemsImportPageObject.itemImportSummaryCss.getText().trim(), "1");
 		Assert.assertEquals(itemsImportPageObject.itemImportSummaryFileName.getText().trim(), "File: " + importedFileName);
-		itemsPageObject.backToDashboard();
+		itemsImportPageObject.backToDashboard();
 		itemsPageObject = dashBoardPageObject.goToItems();
 		itemsPageObject.filterItemBank(itemBankName);
 		itemsPageObject.deleteItem(importedItemName);
@@ -116,7 +116,7 @@ public class ItemImportTest extends BaseTest {
 		itemsBankPageObject.createBank(itemBankName, "Desc");
 		waitTime();
 		itemsImportPageObject = dashBoardPageObject.goToItemImport();
-		itemsImportPageObject.importItem(importedFileName ,itemBankName ,"CDE");
+		Assert.assertTrue(itemsImportPageObject.importItem(importedFileName ,itemBankName ,"CDE"));
 		waitTime();
 		Assert.assertEquals(itemsImportPageObject.importedFileEntry.getText().trim(), importedFileName);
 		itemsImportPageObject.backToDashboard();
