@@ -201,6 +201,10 @@ public class Items extends BasePage {
 	public WebElement correctAnswerProfile;
 	
 	
+	@FindBy(xpath = "//span[text()='Set Correct']")
+	public WebElement setCorrectAnswer;
+	
+	
 	public Items(WebDriver driver) {
 		super(driver);
 		PageFactory.initElements(driver, this);
@@ -360,11 +364,13 @@ public class Items extends BasePage {
 		waitForElementAndClick(selectBankFilter);
 		waitTime();
 		searchItemBankFilterPopup.clear();
+		waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
 		waitForElementAndSendKeys(searchItemBankFilterPopup , itemBankName);
-		waitForElementAndClick(searchButtonItemBankFilterPopup);
+		waitTime();
+		waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
 		try{
 			waitTime();
-			waitForElementAndClick(searchButtonItemBankFilterPopup);
+			waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
 
 		}catch (Exception e){
 			
@@ -373,7 +379,7 @@ public class Items extends BasePage {
 		WebElement serachedItembank = driver
                 .findElement(By
                         .xpath("//tr[@class='data-row']//td[text()='" + itemBankName + "']"));
-		waitForElementAndClick(serachedItembank);
+		waitForElementAndDoubleClick(serachedItembank);
 		waitTime();
 		waitForElementAndClick(globalModalOKCancelSaveButton);
 		waitTime();

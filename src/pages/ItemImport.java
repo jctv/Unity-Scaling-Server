@@ -127,8 +127,20 @@ public class ItemImport extends BasePage {
 	@FindBy(xpath = "//tbody[@class='files']//td[1]/i")
 	public WebElement itemImportSuccessfulIcon;
 	
+	@FindBy(xpath = "//div[@class='panel panel-primary']//tr[4]/td[1]")
+	public WebElement itemImportError;
 	
+	@FindBy(xpath = "//div[@class='panel panel-primary']//tr[4]/td[2]")
+	public WebElement itemImportErrorMessage;
 	
+	@FindBy(xpath = "//div[@class='panel panel-primary']//tr[9]/td[2]")
+	public WebElement itemImportErrorMessage1;
+	
+	@FindBy(xpath = "//div[@class='panel panel-primary']//tr[10]/td[2]")
+	public WebElement itemImportErrorMessage2;
+	
+	@FindBy(xpath = "//div[@class='panel panel-primary']//tr[11]/td[2]")
+	public WebElement itemImportErrorMessage3;
 	
 	public DashBoard backToDashboard(){
 		waitForElementAndClick(homeLink);
@@ -150,7 +162,13 @@ public class ItemImport extends BasePage {
 		
 	}
 	
-	
+	/**
+	 * 
+	 * @param filepath
+	 * @param itemBankName
+	 * @param authoringTool
+	 * @return
+	 */
 	public boolean importItem(String filepath , String itemBankName , String authoringTool){
 		boolean isImportSuccessful = false ;
 		try{
