@@ -364,12 +364,13 @@ public class Items extends BasePage {
 		waitForElementAndClick(selectBankFilter);
 		waitTime();
 		searchItemBankFilterPopup.clear();
-		waitForElementAndClick(searchButtonItemBankFilterPopup);
+		waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
 		waitForElementAndSendKeys(searchItemBankFilterPopup , itemBankName);
-		waitForElementAndClick(searchButtonItemBankFilterPopup);
+		waitTime();
+		waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
 		try{
 			waitTime();
-			waitForElementAndClick(searchButtonItemBankFilterPopup);
+			waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
 
 		}catch (Exception e){
 			
@@ -378,7 +379,7 @@ public class Items extends BasePage {
 		WebElement serachedItembank = driver
                 .findElement(By
                         .xpath("//tr[@class='data-row']//td[text()='" + itemBankName + "']"));
-		waitForElementAndClick(serachedItembank);
+		waitForElementAndDoubleClick(serachedItembank);
 		waitTime();
 		waitForElementAndClick(globalModalOKCancelSaveButton);
 		waitTime();
