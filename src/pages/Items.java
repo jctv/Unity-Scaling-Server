@@ -201,6 +201,10 @@ public class Items extends BasePage {
 	public WebElement correctAnswerProfile;
 	
 	
+	@FindBy(xpath = "//span[text()='Set Correct']")
+	public WebElement setCorrectAnswer;
+	
+	
 	public Items(WebDriver driver) {
 		super(driver);
 		PageFactory.initElements(driver, this);
@@ -360,6 +364,7 @@ public class Items extends BasePage {
 		waitForElementAndClick(selectBankFilter);
 		waitTime();
 		searchItemBankFilterPopup.clear();
+		waitForElementAndClick(searchButtonItemBankFilterPopup);
 		waitForElementAndSendKeys(searchItemBankFilterPopup , itemBankName);
 		waitForElementAndClick(searchButtonItemBankFilterPopup);
 		try{
