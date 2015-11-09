@@ -1,5 +1,6 @@
 package tests;
 
+import java.io.File;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -24,8 +25,8 @@ public class ItemImportTest extends BaseTest {
 	Items itemsPageObject;
 	String itemBankName ;
 	String importedFileName = "CDE_TextEntry.zip";
+	String importFileLocation = "src" + File.separator + "resources" + File.separator + importedFileName;
 	String importedItemName = "5th2015-DM_CS-0010.xml" ;
-
 
 	public ItemImportTest () {
 		super();
@@ -80,7 +81,7 @@ public class ItemImportTest extends BaseTest {
 		itemsBankPageObject.createBank(itemBankName, "Desc");
 		waitTime(); 
 		itemsImportPageObject = dashBoardPageObject.goToItemImport();
-		Assert.assertTrue(itemsImportPageObject.importItem(importedFileName ,itemBankName ,"CDE"));
+		Assert.assertTrue(itemsImportPageObject.importItem(importFileLocation ,itemBankName ,"CDE"));
 		itemsImportPageObject.refreshPage();
 		waitTime();
 		Assert.assertEquals(itemsImportPageObject.itemImportPackageFileNameList.getText().trim(), importedFileName);
@@ -116,7 +117,7 @@ public class ItemImportTest extends BaseTest {
 		itemsBankPageObject.createBank(itemBankName, "Desc");
 		waitTime();
 		itemsImportPageObject = dashBoardPageObject.goToItemImport();
-		Assert.assertTrue(itemsImportPageObject.importItem(importedFileName ,itemBankName ,"CDE"));
+		Assert.assertTrue(itemsImportPageObject.importItem(importFileLocation ,itemBankName ,"CDE"));
 		waitTime();
 		Assert.assertEquals(itemsImportPageObject.importedFileEntry.getText().trim(), importedFileName);
 		itemsImportPageObject.backToDashboard();
@@ -155,6 +156,5 @@ public class ItemImportTest extends BaseTest {
 		itemsBankPageObject.backToDashboard();
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		itemsBankPageObject.deleteItemBank(itemBankName);
-		
 	}
 }
