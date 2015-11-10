@@ -1,7 +1,5 @@
 package pages;
 
-import java.util.List;
-
 import generic.BasePage;
 import generic.BaseTest;
 
@@ -178,7 +176,7 @@ public class DashBoard extends BasePage {
 		
 		try {
 			waitForElementAndDoubleClick(usersTile);
-			waitTime();
+			waitTime();			
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -295,7 +293,7 @@ public class DashBoard extends BasePage {
 
 	public Items goToItems() {
 		waitTime();
-		System.out.println("Is the test class items tile enable "
+		System.out.println("Is the items tile enable "
 				+ ItemsTile.isEnabled());
 		waitForElementAndDoubleClick(ItemsTile);
 		waitTime();
@@ -474,6 +472,7 @@ public class DashBoard extends BasePage {
 	}
 	public Login logOut() {
 		waitTime();
+		
 		userDrop.click();
 		logOut.click();
 

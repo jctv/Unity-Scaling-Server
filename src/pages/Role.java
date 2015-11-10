@@ -56,12 +56,14 @@ public class Role extends BasePage{
 	
 	public void enableCreatePermissionItemImportTile(){
 		try{
-			waitForElementAndClick(systemAdminItemImportTile);
 			
+			waitForElementAndClick(systemAdminItemImportTile);
+			waitForElementVisible(createPermissionItemImport);
 			if(!createPermissionItemImport.isSelected()){
 				waitTime();
 				createPermissionItemImport.click();
 			}
+			
 			waitForElementAndClick(globalModalOKCancelSaveButton);
 		}catch(Exception e){
 			

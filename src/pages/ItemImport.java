@@ -144,6 +144,7 @@ public class ItemImport extends BasePage {
 	
 	public DashBoard backToDashboard(){
 		waitForElementAndClick(homeLink);
+		waitTime();
 		return new DashBoard(driver);
 	}
 	

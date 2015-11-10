@@ -61,10 +61,6 @@ public class BasePage {
 
 
 
-	@FindBy(id = "searchButton")
-	public WebElement searchButton;
-
-
 
 
 	/** Constructor */
@@ -286,7 +282,7 @@ public class BasePage {
 
 	public DashBoard backToDashboard() {
 		waitForElementAndClick(dashBoardPage);
-
+		waitTime();
 		return new DashBoard(driver);
 	}
 
@@ -355,6 +351,7 @@ public class BasePage {
 
 	public void refreshPage(){
 		driver.navigate().refresh();
+		waitTime();
 	}
 
 
