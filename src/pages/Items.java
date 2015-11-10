@@ -135,6 +135,9 @@ public class Items extends BasePage {
 	@FindBy(xpath = "//td[@class='watable-col-name']")
 	public WebElement itemNameList;
 
+	@FindBy(xpath = "//td[@class='watable-col-name']/input")
+	public WebElement itemNameListInput;
+	
 	@FindBy(xpath = "//td[@class='watable-col-title']")
 	public WebElement itemTilteList;
 
@@ -200,6 +203,14 @@ public class Items extends BasePage {
 
 	@FindBy(xpath = "//span[text()='Set Correct']")
 	public WebElement setCorrectAnswer;
+	
+	@FindBy(xpath = ".//*[@id='quickViewContentCreate']/div/form/div[1]/div/button")
+	public WebElement itemBankDropdown;
+	
+	@FindBy(xpath = "//input[@data-interaction='textEntry']")
+	public WebElement inputTextEntry;
+	
+	
 
 	public Items(WebDriver driver) {
 		super(driver);
@@ -209,7 +220,10 @@ public class Items extends BasePage {
 	public void createItem(String name, String itemBankName) {
 		waitTime();
 		waitForElementAndClick(createItemButton);
-		selectOption(selectItemBank, itemBankName);
+		waitTime();
+		//waitForElementAndSendKeys(selectItemBank, itemBankName);
+		//selectOption(selectItemBank, itemBankName);
+		selectItemBank(itemBankName);
 		waitTime();
 		waitForElementAndSendKeys(itemCreateInputName, name);
 		waitForElementAndSendKeys(itemCreateInputDescription, "Description");
@@ -219,31 +233,71 @@ public class Items extends BasePage {
 		selectOption(templates, "Choice");
 		waitForElementAndClick(textEditorSaveButton);
 		waitTime();
-
-		waitForElementAndClick(confirmationMessage);
-		try {
-			waitTime();
-			waitForElementAndClick(confirmationMessage);
-		} catch (Exception e) {
-
-		}
-
+		clickOnConfirmationMessage();
 		waitForElementAndClick(scoreTabButton);
-
 		waitForElementAndClick(answerOne);
-
 		waitForElementAndClick(saveAnswer);
-
 		waitForElementAndClick(saveAndPublish);
-
 		waitTime();
-		waitForElementAndClick(confirmationMessage);
-		try {
-			waitForElementAndClick(confirmationMessage);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		clickOnConfirmationMessage();
+		System.out.println("The Item " + name + " has been created");
+		waitTime();
+		waitForElementAndClick(backToItems);
+		searchItem(name);
+		this.addStandards();
+		waitForElementAndClick(backToDashboard);
 
+	}
+	
+	
+	/**
+	 * It is overloaded method  after testing will remove the other method
+	 * 
+	 * @param name
+	 * @param itemBankName
+	 * @param interactionType
+	 * @param scoringType
+	 * @param setAnswer
+	 */
+	public void createItem(String name, String itemBankName ,String interactionType , String scoringType , String setAnswer) {
+		waitTime();
+		waitForElementAndClick(createItemButton);
+		waitTime();
+		selectItemBank(itemBankName);
+		waitTime();
+		waitForElementAndSendKeys(itemCreateInputName, name);
+		waitForElementAndSendKeys(itemCreateInputDescription, "Description");
+		waitForElementAndClick(itemCreateEditInputSubmit);
+		waitTime();
+		selectOption(templates, interactionType);
+		waitTime();
+		waitForElementAndClick(textEditorSaveButton);
+		waitTime();
+		clickOnConfirmationMessage();
+		waitForElementAndClick(scoreTabButton);
+		switch (interactionType) {
+        case "Choice":
+        	waitForElementAndClick(answerOne);
+        	waitTime();
+    		waitForElementAndClick(saveAnswer);
+    		waitTime();
+            break;
+        case "Text Entry":
+        	waitForElementAndSendKeys(inputTextEntry, setAnswer);
+    		waitTime();
+    		waitForElementAndClick(saveAnswer);
+    		waitTime();
+            break;
+        case "Extended Text Entry ":
+        	//TODO
+            break;
+        
+        }
+		waitForElementAndSendKeys(scoreProfile, scoringType);
+		waitTime();
+		waitForElementAndClick(saveAndPublish);
+		waitTime();
+		clickOnConfirmationMessage();
 		System.out.println("The Item " + name + " has been created");
 		waitTime();
 		waitForElementAndClick(backToItems);
@@ -424,6 +478,41 @@ public class Items extends BasePage {
 			}
 		}
 		return textEntry;
+	}
+	
+	/**
+	 * Added this method as Item bank  drop  down is populating through plugin not a normal  select box 
+	 * @param option
+	 */
+	public void selectItemBank(String option){
+		itemBankDropdown.click();
+		waitTime();
+		List<WebElement> itemBankoptions= driver.findElements(By.xpath("//div[@class='btn-group bootstrap-select content-bank select-search-by-name-item_bank open']//ul/li"));
+		for (WebElement itemBank : itemBankoptions){
+			try{
+			if(itemBank.getText().equals(option)){
+				itemBank.click();
+			   break;
+			}
+			
+			}catch(Exception e ){
+				System.out.println(option + " is not available" );
+			}
+		}
+		
+	}
+	
+	
+	public void clickOnConfirmationMessage(){
+		waitForElementAndClick(confirmationMessage);
+		try {
+			waitTime();
+			waitForElementAndClick(confirmationMessage);
+		} catch (Exception e) {
+
+		}
+		
+		
 	}
 
 }
