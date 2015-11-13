@@ -1,5 +1,7 @@
 package pages;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -131,6 +133,11 @@ public class Items extends BasePage {
 
 	@FindBy(xpath = "//span[@class='filtered-list-stats-total']")
 	public WebElement itemResultCount;
+	
+	@FindBy(xpath = "//td[@class='watable-col-preview']")
+	public WebElement itemNamePreviewColoumn;
+	
+	
 
 	@FindBy(xpath = "//td[@class='watable-col-name']")
 	public WebElement itemNameList;
@@ -140,27 +147,52 @@ public class Items extends BasePage {
 	
 	@FindBy(xpath = "//td[@class='watable-col-title']")
 	public WebElement itemTilteList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-title']/input")
+	public WebElement itemTitleListInput;
 
 	@FindBy(xpath = "//td[@class='watable-col-content_area']")
 	public WebElement itemContentAreaList;
 
+	@FindBy(xpath = "//td[@class='watable-col-content_area']/select")
+	public WebElement itemContentAreaSelectList;
+	
+	
 	@FindBy(xpath = "//td[@class='watable-col-grade']")
 	public WebElement itemGradeList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-grade']/select")
+	public WebElement itemGradeSelectList;
 
 	@FindBy(xpath = "//td[@class='watable-col-bloom']")
 	public WebElement itemBloomList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-bloom']/input")
+	public WebElement itemBloomListInput;
 
 	@FindBy(xpath = "//td[@class='watable-col-depth_of_knowledge']")
 	public WebElement itemDepthOfKnowledgeList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-depth_of_knowledge']/select")
+	public WebElement itemDepthOfKnowledgeSelectList;
 
 	@FindBy(xpath = "//td[@class='watable-col-difficulty']")
 	public WebElement itemDifficultyList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-difficulty']/select")
+	public WebElement itemDifficultySelectList;
 
 	@FindBy(xpath = "//td[@class='watable-col-lifecycle']")
 	public WebElement itemLifeCycleList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-lifecycle']/select")
+	public WebElement itemLifeCycleSelectList;
 
 	@FindBy(xpath = "//td[@class='watable-col-points']")
 	public WebElement itemPointsList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-points']/input")
+	public WebElement itemPointsListInput;
 
 	@FindBy(xpath = "//td[@class='watable-col-readability_level']")
 	public WebElement itemReadabilityList;
@@ -514,5 +546,100 @@ public class Items extends BasePage {
 		
 		
 	}
-
+	
+	public String updateItemName(String name ){
+		itemNameList.click();
+		waitTime();
+		itemNameListInput.clear();
+		waitTime();
+		itemNameListInput.sendKeys(name);
+		waitTime();
+		itemNamePreviewColoumn.click();
+		waitTime();
+		return itemNameList.getText();
+	}
+	
+	
+	public String updateItemTitle(String title ){
+		itemTilteList.click();
+		waitTime();
+		itemTitleListInput.clear();
+		waitTime();
+		itemTitleListInput.sendKeys(title);
+		waitTime();
+		itemNamePreviewColoumn.click();
+		waitTime();
+		return itemTilteList.getText();
+	}
+	
+	
+	public  String updateItemContentArea(String contentArea){
+		itemContentAreaList.click();
+		waitTime();
+		selectOption(itemContentAreaSelectList , contentArea );
+		waitTime();
+		itemNamePreviewColoumn.click();
+		waitTime();
+		return itemContentAreaList.getText();
+	}
+	
+	public  String updateItemGrade(String grade){
+		itemGradeList.click();
+		waitTime();
+		selectOption(itemGradeSelectList , grade );
+		waitTime();
+		itemNamePreviewColoumn.click();
+		waitTime();
+		return itemGradeList.getText();
+	}
+	
+	public String updateItemBloom(String bloom ){
+		itemBloomList.click();
+		waitTime();
+		itemBloomListInput.clear();
+		waitTime();
+		itemBloomListInput.sendKeys(bloom);
+		waitTime();
+		itemNamePreviewColoumn.click();
+		waitTime();
+		return itemBloomList.getText();
+	}
+	
+	public  String updateItemDOK(String dok){
+		itemDepthOfKnowledgeList.click();
+		waitTime();
+		selectOption(itemDepthOfKnowledgeSelectList , dok );
+		waitTime();
+		itemNamePreviewColoumn.click();
+		waitTime();
+		return itemDepthOfKnowledgeList.getText();
+	}
+	
+	
+	public String updateItemDifficulty(String difficulty){
+		itemDifficultyList.click();
+		waitTime();
+		selectOption(itemDifficultySelectList , difficulty );
+		waitTime();
+		return itemDifficultyList.getText();
+	}
+	
+	public String updateItemLifeCycle(String lifeCycle){
+		itemLifeCycleList.click();
+		waitTime();
+		selectOption(itemLifeCycleSelectList , lifeCycle);
+		waitTime();
+		return itemLifeCycleList.getText();
+	}
+	
+	public String updateItemReadability(String readability ){
+		itemBloomList.click();
+		waitTime();
+		itemBloomListInput.clear();
+		waitTime();
+		itemBloomListInput.sendKeys(readability);
+		waitTime();
+		return itemBloomList.getText();
+	}
+	
 }

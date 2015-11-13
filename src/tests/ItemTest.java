@@ -23,6 +23,15 @@ public class ItemTest extends BaseTest{
 	String genericPassword = "password";
 	String itemBankName;
 	String itemName;
+	String updatedItemName;
+	String updatedTitleName;
+	String updatedItemContentArea;
+	String updatedItemGrade;
+	String updatedItemBloom;
+	String updatedItemDok;
+	String updatedItemDifficulty;
+	String updatedItemLifeCycle;
+	String updatedItemReadability;
 	String interactionChoice = "Choice";
 	String interactionTextEntry = "Text Entry";
 	String simpleMatchScoreProfile = "Simple Match";
@@ -121,4 +130,60 @@ public class ItemTest extends BaseTest{
 		waitTime();
 		itemsBankPageObject.deleteItemBank(itemBankName);
 	}
+	
+	
+	/**
+	 * Login into the Unity
+	 * Create Item bank 
+	 * Create choice type Item
+	 * Verify  item content and information in Listing page.
+	 * Delete Item Bank
+	 * Delete Item
+	 */
+	
+	@Test(priority = 3)
+	public void testUpadteItemInListing(){
+		String updated = "Updated";
+		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		waitTime();
+		itemBankName = "Choice_IB_" + System.currentTimeMillis();
+		itemsBankPageObject.createBank(itemBankName, "Desc");
+		waitTime(); 
+		itemsPageObject = dashBoardPageObject.goToItems();
+		waitTime();
+		itemName = "I_" + itemBankName;
+		System.out.println("******** " + itemName + "  Item creation ********");
+		itemsPageObject.createItem(itemName, itemBankName ,interactionChoice , simpleMatchScoreProfile , choiceCorrectAnswer);
+		itemsPageObject = dashBoardPageObject.goToItems();
+		itemsPageObject.searchItem(itemName);
+		updatedItemName = updated + itemBankName;
+		updatedTitleName = updated + "title" ;
+		updatedItemContentArea = "Science";
+		updatedItemGrade = "Any" ;
+		updatedItemBloom = "updatedBloom";
+		updatedItemDok = "III";
+		updatedItemDifficulty = "HIGH";
+		updatedItemLifeCycle = "DEFINED";
+		updatedItemReadability = "Update Readability";
+		Assert.assertEquals(itemsPageObject.updateItemName(updatedItemName), updatedItemName);
+		Assert.assertEquals(itemsPageObject.updateItemTitle(updatedTitleName), updatedTitleName);
+		Assert.assertEquals(itemsPageObject.updateItemContentArea(updatedItemContentArea), updatedItemContentArea);
+		Assert.assertEquals(itemsPageObject.updateItemGrade(updatedItemGrade), updatedItemGrade);
+		Assert.assertEquals(itemsPageObject.updateItemBloom(updatedItemBloom), updatedItemBloom);
+		Assert.assertEquals(itemsPageObject.updateItemDOK(updatedItemDok), updatedItemDok);
+		Assert.assertEquals(itemsPageObject.updateItemDifficulty(updatedItemDifficulty), updatedItemDifficulty);
+		Assert.assertEquals(itemsPageObject.updateItemLifeCycle(updatedItemLifeCycle), updatedItemLifeCycle);
+		Assert.assertEquals(itemsPageObject.updateItemReadability(updatedItemReadability), updatedItemReadability);
+		Assert.assertEquals(itemsPageObject.itemPointsList.getText().trim(), "1");
+		itemsPageObject.itemPointsList.click();
+		waitTime();
+		Assert.assertFalse(itemsPageObject.itemPointsListInput.isDisplayed(), "Point column is not editable");
+		itemsPageObject.deleteItem(updatedItemName);
+		itemsPageObject.backToDashboard();
+		waitTime();
+		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		waitTime();
+		itemsBankPageObject.deleteItemBank(itemBankName);
+	}
+
 }
