@@ -197,6 +197,10 @@ public class Items extends BasePage {
 	@FindBy(xpath = "//td[@class='watable-col-readability_level']")
 	public WebElement itemReadabilityList;
 
+	@FindBy(xpath = "//td[@class='watable-col-readability_level']/input")
+	public WebElement itemReadabilityListInput;
+
+	
 	@FindBy(xpath = "//td[@class='watable-col-std']")
 	public WebElement itemStandardList;
 
@@ -325,17 +329,17 @@ public class Items extends BasePage {
             break;
         
         }
-		waitForElementAndSendKeys(scoreProfile, scoringType);
+		selectOption(scoreProfile, scoringType);
 		waitTime();
 		waitForElementAndClick(saveAndPublish);
 		waitTime();
 		clickOnConfirmationMessage();
-		System.out.println("The Item " + name + " has been created");
+		System.out.println("The Item type >  " + interactionType  +"  name -> " + name +  " score profile >  " + scoringType + " has been created successfully");
 		waitTime();
 		waitForElementAndClick(backToItems);
-		searchItem(name);
-		this.addStandards();
-		waitForElementAndClick(backToDashboard);
+		//searchItem(name);
+		//this.addStandards();
+		//waitForElementAndClick(backToDashboard);
 
 	}
 
@@ -621,6 +625,8 @@ public class Items extends BasePage {
 		waitTime();
 		selectOption(itemDifficultySelectList , difficulty );
 		waitTime();
+		itemNamePreviewColoumn.click();
+		waitTime();
 		return itemDifficultyList.getText();
 	}
 	
@@ -629,17 +635,21 @@ public class Items extends BasePage {
 		waitTime();
 		selectOption(itemLifeCycleSelectList , lifeCycle);
 		waitTime();
+		itemNamePreviewColoumn.click();
+		waitTime();
 		return itemLifeCycleList.getText();
 	}
 	
 	public String updateItemReadability(String readability ){
-		itemBloomList.click();
+		itemReadabilityList.click();
 		waitTime();
-		itemBloomListInput.clear();
+		itemReadabilityListInput.clear();
 		waitTime();
-		itemBloomListInput.sendKeys(readability);
+		itemReadabilityListInput.sendKeys(readability);
 		waitTime();
-		return itemBloomList.getText();
+		itemNamePreviewColoumn.click();
+		waitTime();
+		return itemReadabilityList.getText();
 	}
 	
 }

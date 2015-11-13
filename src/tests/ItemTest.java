@@ -80,8 +80,9 @@ public class ItemTest extends BaseTest{
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPageObject.createItem(itemName, itemBankName ,interactionChoice , simpleMatchScoreProfile , choiceCorrectAnswer);
-		itemsPageObject = dashBoardPageObject.goToItems();
 		itemsPageObject.searchItem(itemName);
+		waitTime();
+		itemsPageObject.addStandards();
 		waitTime();
 		Assert.assertEquals(itemsPageObject.itemNameList.getText().trim(), itemName);
 		Assert.assertEquals(itemsPageObject.itemTilteList.getText().trim(), "Description");
@@ -116,9 +117,9 @@ public class ItemTest extends BaseTest{
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPageObject.createItem(itemName, itemBankName ,interactionTextEntry , mapScoreProfile , textEntryCorrcetAnswer);
-		itemsPageObject = dashBoardPageObject.goToItems();
 		itemsPageObject.searchItem(itemName);
 		waitTime();
+		itemsPageObject.addStandards();
 		Assert.assertEquals(itemsPageObject.itemNameList.getText().trim(), itemName);
 		Assert.assertEquals(itemsPageObject.itemTilteList.getText().trim(), "Description");
 		Assert.assertEquals(itemsPageObject.itemPointsList.getText().trim(), "1");
@@ -136,9 +137,10 @@ public class ItemTest extends BaseTest{
 	 * Login into the Unity
 	 * Create Item bank 
 	 * Create choice type Item
-	 * Verify  item content and information in Listing page.
+	 * update the   item  information in Listing page.
+	 * Verify updated item information 
 	 * Delete Item Bank
-	 * Delete Item
+	 * Delete updated Item
 	 */
 	
 	@Test(priority = 3)
@@ -154,8 +156,10 @@ public class ItemTest extends BaseTest{
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPageObject.createItem(itemName, itemBankName ,interactionChoice , simpleMatchScoreProfile , choiceCorrectAnswer);
-		itemsPageObject = dashBoardPageObject.goToItems();
+		//itemsPageObject = dashBoardPageObject.goToItems();
+		waitTime(); 
 		itemsPageObject.searchItem(itemName);
+		itemsPageObject.addStandards();
 		updatedItemName = updated + itemBankName;
 		updatedTitleName = updated + "title" ;
 		updatedItemContentArea = "Science";
@@ -177,7 +181,7 @@ public class ItemTest extends BaseTest{
 		Assert.assertEquals(itemsPageObject.itemPointsList.getText().trim(), "1");
 		itemsPageObject.itemPointsList.click();
 		waitTime();
-		Assert.assertFalse(itemsPageObject.itemPointsListInput.isDisplayed(), "Point column is not editable");
+		Assert.assertFalse(itemsPageObject.itemPointsListInput.isEnabled(), "Point colums is not editable");
 		itemsPageObject.deleteItem(updatedItemName);
 		itemsPageObject.backToDashboard();
 		waitTime();
