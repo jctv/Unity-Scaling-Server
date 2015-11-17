@@ -1,7 +1,9 @@
 package generic;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -9,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
@@ -39,10 +42,14 @@ public class BaseTest {
 	protected String browser, filePath, executionType, url, platform,
 			hubAddress, userName, password;
 	protected String waitingTime = "10";
+	
+	Properties prop = new Properties();
+	InputStream input = null;
+	
 
 	// Constructor
 	public BaseTest() {
-
+		
 	}
 
 	@BeforeMethod
@@ -260,4 +267,18 @@ public class BaseTest {
 	}
 
 
+	public  Properties getUnityMessagesProperty(String unitymessageFileLoc){
+		
+		try{
+			input = new FileInputStream(unitymessageFileLoc);
+			// load a properties file
+			prop.load(input);
+		}catch(Exception e ){
+			
+			System.out.println("Getting error while reading unity message property");
+
+		}
+		return prop;
+		
+	}
 }

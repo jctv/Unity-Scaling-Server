@@ -33,6 +33,7 @@ public class BasePage {
 
 	@FindBy(id = "globalModalInfoOkButton")
 	public WebElement globalModalInfoOkButton;
+	
 
 	@FindBy(xpath = "(//i[@class='fa fa-edit'])[last()]")
 	public WebElement editLastIcon;
@@ -59,7 +60,14 @@ public class BasePage {
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
 	public WebElement dashBoardPage;
 
-
+	@FindBy(xpath = ".//*[@id='globalModalInfoTitle']")
+	public WebElement globalModalInfoTitle;
+	
+	@FindBy(id = "globalModalInfoBody")
+	public WebElement globalModalInfoBody;
+	
+	
+	
 
 
 

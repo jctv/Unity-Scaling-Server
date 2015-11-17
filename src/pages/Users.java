@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -132,6 +133,11 @@ public class Users extends BasePage {
 
 	@FindBy(xpath = "/html/body/div[20]/div/ul/li[1]/a")
 	public WebElement selectOrg;
+	
+	@FindBy(xpath = "//button[@data-id='userCreateOrg']")
+	public WebElement selectOrgDropDown;
+	
+	
 
 	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 	String createdUsers = "";
@@ -242,7 +248,7 @@ public class Users extends BasePage {
 	}
 
 	public String createSpecificUser(String firstName, String lastName,
-			String newPassword, String newRole, String organization) {
+			String newPassword , String newRole, String organization) {
 		try {
 			waitTime();
 			waitForElementAndClick(createUserLink);
@@ -314,5 +320,51 @@ public class Users extends BasePage {
 		waitForElementAndClick(genericUserEditModelCancelButton);
 		return validador;
 	}
+	
+	
+	public void enterUserInformation(String firstName, String lastName,
+			String newPassword, String repeatPassword , String newRole, String organization){
+		waitTime();
+		waitTime();
+		firstNameField.clear();
+		waitForElementAndSendKeys(firstNameField, firstName);
+		lastNameField.clear();
+		waitForElementAndSendKeys(lastNameField, lastName);
+		waitForElementAndSendKeys(password, newPassword);
+		waitForElementAndSendKeys(retypePassword, repeatPassword);
+		//waitForElementAndSendKeys(role, newRole);
+		selectOption(role, newRole);
+		waitTime();
+		selectOrganization(organization);
+		waitTime();
+		//waitForElementAndSendKeys(searchOrgFieldInput, organization);
+		waitTime();
+		waitForElementAndClick(submit);
+		waitTime();
+	}
+	
+	
+	/**
+	 * Added this method as organization  drop  down is populating through plugin not a normal  select box 
+	 * @param option
+	 */
+	public void selectOrganization(String option){
+		selectOrgDropDown.click();
+		waitTime();
+		List<WebElement> organizations= driver.findElements(By.xpath("//div[@class='btn-group bootstrap-select user-metadata-required select-search-by-name-organization open']//ul[@class='dropdown-menu inner']/li"));
+		for (WebElement org : organizations){
+			try{
+			if(org.getText().equals(option)){
+				org.click();
+			   break;
+			}
+			
+			}catch(Exception e ){
+				System.out.println(option + " is not available" );
+			}
+		}
+		
+	}
+	
 
 }
