@@ -23,6 +23,10 @@ public class ClassRoster extends BasePage {
 
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a[2]")
 	public WebElement createClassRosterLink;
+	
+	@FindBy(xpath = "//a[text()=' Class Roster Home']")
+	public WebElement classRosterHomeLink;
+	
 
 	@FindBy(id = "rosterSchool")
 	public WebElement selectSchoolField;
@@ -45,11 +49,20 @@ public class ClassRoster extends BasePage {
 	@FindBy(id = "classRosterSave")
 	public WebElement saveRosterButton;
 
+	
+	@FindBy(id = "classRosterCancel")
+	public WebElement cancelRosterButton;
+	
 	@FindBy(xpath = "//*[@id='sortable1']/li")
 	public WebElement element;
+	
 	@FindBy(id = "sortable2")
 	public WebElement target;
 
+	@FindBy(xpath = "//ul[@id='sortable2']//button[@class='btn btn-warning btn-xs delete-item']")
+	public WebElement removeStudentButton;
+	
+	
 	@FindBy(id = "rosterSchool")
 	public WebElement rosterSchool;
 
@@ -74,7 +87,8 @@ public class ClassRoster extends BasePage {
 	@FindBy(xpath = "//input[@class='form-control']")
 	public WebElement schoolSearchField;
 	
-	
+	@FindBy(id = "rosterTeacher")
+	public WebElement selectRosterTeacher;
 	
 
 	public void createRoster(ArrayList<String> students, String school, String name) {
@@ -87,9 +101,8 @@ public class ClassRoster extends BasePage {
 			waitForElementAndSendKeys(rosterNameField, name);
 
 			waitForElementAndSendKeys(descriptionField, "QA roster");
-			waitForElementAndSendKeys(selectSchoolField,
-					"Automated School");
-
+			waitForElementAndSendKeys(selectSchoolField,"Automated School");
+			//selectOption(selectSchoolField , "Automated School" );
 			for (String student : students) {
 				try {
 					
@@ -124,5 +137,15 @@ public class ClassRoster extends BasePage {
 			System.out.println(e.getMessage());
 		}
 	}
-
+	
+	
+	public void searchRoster(String rosterName){
+		waitTime();
+		searchAutoComplete.clear();
+		waitTime();
+		waitForElementAndSendKeys(searchAutoComplete, rosterName);
+		waitTime();
+		waitForElementAndClick(searchButton);
+		waitTime();
+	}
 }

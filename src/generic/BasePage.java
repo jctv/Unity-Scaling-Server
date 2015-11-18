@@ -69,6 +69,12 @@ public class BasePage {
 	@FindBy(id = "globalModalDeleteBody")
 	public WebElement globalModalDeleteBody;
 	
+	@FindBy(id = "globalModalOKCancelBody")
+	public WebElement globalModalOKCancelBody;
+	
+	@FindBy(id = "globalModalOKCancelSaveButton")
+	public WebElement globalModalOKCancelSaveButton;
+	
 	
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link editRow']")
 	public WebElement editIconList;
