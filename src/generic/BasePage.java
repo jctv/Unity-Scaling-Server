@@ -87,6 +87,11 @@ public class BasePage {
 	
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link deleteRow']")
 	public WebElement deleteIconList;
+	
+	@FindBy(xpath = "//button[@class='btn btn-xs btn-link exportRow']")
+	public WebElement exportIconList;
+	
+	
 
 
 	/** Constructor */
