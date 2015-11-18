@@ -1,7 +1,11 @@
 package tests;
 
+import java.io.File;
+import java.util.Properties;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import pages.DashBoard;
@@ -18,11 +22,21 @@ public class ItemTest extends BaseTest{
 	ItemImport itemsImportPageObject;
 	ItemsBank itemsBankPageObject;
 	Items itemsPageObject;
+	Properties unitymessages;
+
+	String defaultUser = "admin";
+	String defaultPassword = "@simple1";
+	
+	String unityMessageFile = "src" + File.separator + "resources"
+			+ File.separator + "unitymessages.properties";
 	
 	String loggedUser = "qa/admin";
 	String genericPassword = "password";
 	String itemBankName;
+	String copyItemBankName ;
 	String itemName;
+	String copiedItemName;
+
 	String updatedItemName;
 	String updatedTitleName;
 	String updatedItemContentArea;
@@ -43,6 +57,12 @@ public class ItemTest extends BaseTest{
 	public ItemTest() {
 		super();
 
+	}
+	
+	@BeforeTest
+	public void loadUnityMessagesProperty(){
+		unitymessages = getUnityMessagesProperty(unityMessageFile);
+		
 	}
 	
 	@BeforeMethod
@@ -188,6 +208,94 @@ public class ItemTest extends BaseTest{
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();
 		itemsBankPageObject.deleteItemBank(itemBankName);
+	}
+	
+	/**
+	 * Login into the Unity
+	 * Go to the item bank tile
+	 * Create two item bank
+	 * Create item
+	 * Edit item
+	 * validate messages
+	 * Search item
+	 * Copy the item 
+	 * validate messages
+	 * Search item
+	 * Delete item 
+	 * validate item
+	 * Delete both the Item Bank
+	 */
+	
+	@Test(priority = 4)
+	public void testItemAlertMessage(){
+		itemBankName = "IB_" + System.currentTimeMillis();
+		copyItemBankName = "Copy" + itemBankName;	
+		itemName = "I" + itemBankName;
+	    copiedItemName = "copy " + itemName;
+		
+		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		waitTime();
+		itemsBankPageObject.createBank(itemBankName, "Desc");
+		waitTime(); 
+		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		waitTime();
+	    itemsBankPageObject.createBank(copyItemBankName, "Desc");
+	    waitTime();
+	    itemsPageObject = dashBoardPageObject.goToItems();
+	    waitTime();
+	    waitTime();
+	    itemsPageObject.waitForElementAndClick(itemsPageObject.createItemButton);
+	    waitTime();
+	    waitTime();
+	    itemsPageObject.selectItemBank(itemBankName);
+	    waitTime();
+	    itemsPageObject.waitForElementAndSendKeys(itemsPageObject.itemCreateInputName, itemName);
+	    waitTime();
+	    itemsPageObject.waitForElementAndSendKeys(itemsPageObject.itemCreateInputDescription, "Description");
+	    waitTime();
+	    itemsPageObject.waitForElementAndClick(itemsPageObject.itemCreateEditInputSubmit);
+	    waitTime();
+	    waitTime();
+	    itemsPageObject.waitForElementAndClick(itemsPageObject.itemSaved);
+	    waitTime();
+	    waitTime();
+		Assert.assertEquals(itemsPageObject.itemconfirmationMessageTitle.getText().trim(), unitymessages.getProperty("itemSave").trim());
+		Assert.assertEquals(itemsPageObject.itemconfirmationMessageBody.getText().trim(), unitymessages.getProperty("itemContinueEditing").trim());
+	    itemsPageObject.waitForElementAndClick(itemsPageObject.confirmationMessage);
+	    waitTime();
+	    itemsPageObject.waitForElementAndClick(itemsPageObject.confirmationMessage);
+	    waitTime();
+	    waitTime();
+	    itemsPageObject.waitForElementAndClick(itemsPageObject.backToItems);
+	    waitTime();
+	    waitTime();
+	    itemsPageObject.searchItem(itemName);
+	    waitTime();
+	    itemsPageObject.waitForElementAndClick(itemsPageObject.copyIconList);
+	    waitTime();
+	    itemsPageObject.copyItem(copyItemBankName ,copiedItemName);
+	    waitTime();
+	    waitTime();
+	    Assert.assertEquals(itemsPageObject.globalModalInfoTitle.getText().trim(), unitymessages.getProperty("itemCopySuccess").trim());
+		Assert.assertEquals(itemsPageObject.globalModalInfoBody.getText().trim(), unitymessages.getProperty("itemCreated").trim());
+	    itemsPageObject.waitForElementAndClick(itemsPageObject.globalModalInfoOkButton);
+	    waitTime();
+	    waitTime();
+	    itemsPageObject.searchItem(itemName);
+	    waitTime();
+	    itemsPageObject.waitForElementAndClick(itemsPageObject.deleteIconList);
+	    waitTime();
+		Assert.assertEquals(itemsPageObject.globalModalDeleteBody.getText().trim(), unitymessages.getProperty("itemDelete").trim());
+	    itemsPageObject.waitForElementAndClick(itemsPageObject.globalModalDeleteButton);
+	    waitTime();
+	    itemsPageObject.deleteItem(copiedItemName);
+	    itemsPageObject.backToDashboard();
+	    waitTime();
+	    waitTime();
+		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPageObject.deleteItemBank(itemBankName);
+		waitTime();
+		itemsBankPageObject.deleteItemBank(copyItemBankName);
 	}
 
 }

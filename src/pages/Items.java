@@ -67,10 +67,28 @@ public class Items extends BasePage {
 
 	@FindBy(xpath = "//*[@id='itemSaved']/div/div/div[1]/button")
 	public WebElement confirmationMessage;
+	
+	@FindBy(xpath = "//*[@id='itemSaved']/div/div/div[1]/h4")
+	public WebElement itemconfirmationMessageTitle;
+	
+	
+	@FindBy(xpath = "//*[@id='itemSaved']/div/div/div[2]/p")
+	public WebElement itemconfirmationMessageBody;
+	
 
 	@FindBy(id = "itemSaved")
 	public WebElement itemSaved;
-
+	
+	@FindBy(id = "copy-bank")
+	public WebElement selectCopyBank;
+	
+	@FindBy(id = "copyName")
+	public WebElement copyitemBankField;
+	
+	@FindBy(xpath = "//button[@class='btn btn-primary object-copy']")
+	public WebElement copyItemButton;
+	
+	
 	@FindBy(id = "htmlTabButton")
 	public WebElement htmlTabButton;
 
@@ -401,6 +419,25 @@ public class Items extends BasePage {
 		}
 
 	}
+	
+	
+	public void copyItem(String itemBank ,String copyItemName) {
+		try {
+			
+			selectOption(selectCopyBank, itemBank);
+			waitTime();
+			waitForElementAndSendKeys(copyitemBankField, copyItemName);
+			waitTime();
+			waitForElementAndClick(copyItemButton);
+			waitTime();
+		} catch (Exception e) {
+
+			System.out.println("Unable to Copy  the Item -->  " + copyItemName);
+
+		}
+
+	}
+
 
 	public String getSharedItemBank(String itemBankName) {
 		String itemBank = null;

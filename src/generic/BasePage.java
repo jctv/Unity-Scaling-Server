@@ -91,8 +91,12 @@ public class BasePage {
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link exportRow']")
 	public WebElement exportIconList;
 	
+	@FindBy(xpath = "//button[@class='btn btn-xs btn-link copyRow']")
+	public WebElement copyIconList;
+	
 	
 
+	
 
 	/** Constructor */
 	public BasePage(WebDriver driver) {
