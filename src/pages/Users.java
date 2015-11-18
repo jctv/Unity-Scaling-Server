@@ -138,7 +138,17 @@ public class Users extends BasePage {
 	public WebElement selectOrgDropDown;
 	
 	
+	@FindBy(id = "first_name")
+	public WebElement userEditFirstName;
+	
+	
+	@FindBy(id = "middle_name")
+	public WebElement userEditMiddleName;
 
+	@FindBy(id = "last_name")
+	public WebElement userEditLastName;
+	
+	
 	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 	String createdUsers = "";
 	String statusMessage;

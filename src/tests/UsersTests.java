@@ -106,7 +106,7 @@ public class UsersTests extends BaseTest {
 		usersPageObject.enterUserInformation(firstName, lastName, password, passwordNotMatch ,firstName, organization);
 		waitTime();
 		waitTime();
-		usersPageObject.waitForElementAndClick(usersPageObject.createUserLink);
+		//usersPageObject.waitForElementAndClick(usersPageObject.createUserLink);
 		waitTime();
 		Assert.assertEquals(usersPageObject.globalModalInfoBody.getText().trim(), unitymessages.getProperty("userpassworddontmatch"));
 		usersPageObject.globalModalInfoOkButton.click();
@@ -117,4 +117,105 @@ public class UsersTests extends BaseTest {
 		Assert.assertEquals(usersPageObject.globalModalInfoBody.getText().trim(), unitymessages.getProperty("usercreated").replace("first_name", firstName).replace("last_name", lastName).replace("user_name", firstName.substring(0, 1).toLowerCase()+ lastName));
 		usersPageObject.globalModalInfoOkButton.click();
 	}
+	
+	/**
+	 * Login into the unity 
+	 * go to the user tile
+	 * Click on Create user navigation
+	 * Search User
+	 * Edit the user 
+	 * Click on save 
+	 * Validate message "User has not changed. No save needed"
+	 * enter invalid user information
+	 * Validate the message "User has invalid data, please correct before saving"
+	 * enter the valid first name
+	 * save the user information
+	 * Validate message "User Saved!"
+	 * 
+	 */
+	@Test
+	public void testUserEditingAlertMessages(){
+		String firstName = "Student";
+		String organization = "Auto School";
+		String lastName = "last" + System.currentTimeMillis();
+		String longFirstName = firstName + System.currentTimeMillis();;
+		usersPageObject = dashBoardPageObject.goToUsers();
+		waitTime();
+		waitTime();
+		usersPageObject.waitForElementAndClick(usersPageObject.createUserLink);
+		waitTime();
+		waitTime();
+		usersPageObject.enterUserInformation(firstName, lastName, password, password ,firstName, organization);
+		waitTime();
+		waitTime();
+		usersPageObject.searchAutoComplete.clear();
+		waitTime();
+		usersPageObject.searchUser(firstName.toLowerCase().substring(0, 1) + lastName);
+		waitTime();
+		waitTime();
+		usersPageObject.waitForElementAndClick(usersPageObject.editIconList);
+		waitTime();
+		waitTime();
+		usersPageObject.waitForElementAndClick(usersPageObject.saveButton);
+		waitTime();
+		waitTime();
+		Assert.assertEquals(usersPageObject.globalModalInfoBody.getText().trim(), unitymessages.getProperty("usernochange"));
+		usersPageObject.waitForElementAndClick(usersPageObject.globalModalInfoOkButton);
+		waitTime();
+		waitTime();
+		usersPageObject.waitForElementAndSendKeys(usersPageObject.firstNameField, longFirstName);
+		waitTime();
+		usersPageObject.waitForElementAndClick(usersPageObject.saveButton);
+		waitTime();
+		Assert.assertEquals(usersPageObject.globalModalInfoBody.getText().trim(), unitymessages.getProperty("userinvaliddata"));
+		usersPageObject.waitForElementAndClick(usersPageObject.globalModalInfoOkButton);
+		waitTime();
+		usersPageObject.waitForElementAndSendKeys(usersPageObject.firstNameField, firstName);
+		waitTime();
+		waitTime();
+		usersPageObject.waitForElementAndClick(usersPageObject.saveButton);
+		waitTime();
+		waitTime();
+		Assert.assertEquals(usersPageObject.globalModalInfoBody.getText().trim(), unitymessages.getProperty("usersaved"));
+
+	}
+	
+	/**
+	 * Login into the unity'
+	 * Create user 
+	 * Search user
+	 * Delete user
+	 * Validate message "Are you certain you want to delete the user"
+	 * 
+	 */
+	
+	@Test
+	public void testUserDeleteAlertMessage(){
+		String firstName = "Student";
+		String organization = "Auto School";
+		String lastName = "last" + System.currentTimeMillis();
+		usersPageObject = dashBoardPageObject.goToUsers();
+		waitTime();
+		waitTime();
+		usersPageObject.waitForElementAndClick(usersPageObject.createUserLink);
+		waitTime();
+		waitTime();
+		usersPageObject.enterUserInformation(firstName, lastName, password, password ,firstName, organization);
+		waitTime();
+		usersPageObject.waitForElementAndClick(usersPageObject.globalModalInfoOkButton);
+		waitTime();
+		waitTime();
+		usersPageObject.searchAutoComplete.clear();
+		waitTime();
+		usersPageObject.searchUser(firstName.toLowerCase().substring(0, 1) + lastName);
+		waitTime();
+		waitTime();
+		usersPageObject.waitForElementAndClick(usersPageObject.deleteIconList);
+		waitTime();
+		waitTime();
+		Assert.assertEquals(usersPageObject.globalModalDeleteBody.getText().trim(), unitymessages.getProperty("userDelete").replace("first_name", firstName).replace("last_name", lastName));
+
+		
+	}
+	
 }
