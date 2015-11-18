@@ -214,8 +214,11 @@ public class UsersTests extends BaseTest {
 		waitTime();
 		waitTime();
 		Assert.assertEquals(usersPageObject.globalModalDeleteBody.getText().trim(), unitymessages.getProperty("userDelete").replace("first_name", firstName).replace("last_name", lastName));
-
-		
+		waitTime();
+		waitTime();
+		usersPageObject.waitForElementAndClick(usersPageObject.globalModalDeleteButton);
 	}
 	
+	
 }
+
