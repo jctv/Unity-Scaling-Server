@@ -68,6 +68,18 @@ public class Schedule extends BasePage {
 	                
 	@FindBy(xpath = "//button[@class ='fc-next-button ui-button ui-state-default ui-corner-right']")
 	public WebElement nextWeekButton;
+	
+	@FindBy(xpath = "//button[@class ='fc-prev-button ui-button ui-state-default ui-corner-left']")
+	public WebElement previousWeekButton;
+	
+	@FindBy(id = "genericModalTitle")
+	public WebElement genericModalTitle;
+	
+	@FindBy(id = "genericModalMessage")
+	public WebElement genericModalMessage;
+	
+	@FindBy(id = "cancelPastEvent")
+	public WebElement cancelPastEvent;
 
 	/**
 	 * @param school
