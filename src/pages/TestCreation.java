@@ -5,6 +5,7 @@ import java.util.List;
 import generic.BasePage;
 import generic.BaseTest;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,6 +29,10 @@ public class TestCreation extends BasePage {
 
 	@FindBy(id = "test-option-0")
 	public WebElement assessmentRadio;
+	
+	@FindBy(id = "printTest")
+	public WebElement testPrintButton;
+	
 
 	@FindBy(id = "tName")
 	public WebElement testNameField;
@@ -153,7 +158,17 @@ public class TestCreation extends BasePage {
 	@FindBy(xpath = "//span[@id='scheduleTest']")
 	public WebElement scheduleTestLink;
 	
+	@FindBy(id = "copy-bank")
+	public WebElement selectCopyTestBank;
 	
+	@FindBy(id = "copyName")
+	public WebElement copyTestField;
+	
+	@FindBy(xpath = "//button[@class='btn btn-primary object-copy']")
+	public WebElement copyTestButton;
+	
+	@FindBy(xpath = ".//*[@id='quickViewContentCreate']/div/form/div[1]/div/button")
+	public WebElement testBankDropdown;
 	
 	public void createTest(String testName , String testBankName ,  String itemName) {
 		try {
@@ -302,4 +317,46 @@ public class TestCreation extends BasePage {
 
 	}
 	
+	
+	public void copyTest(String testBank ,String copyTestName) {
+		try {
+			selectOption(selectCopyTestBank, testBank);
+			waitTime();
+			copyTestField.clear();
+			waitTime();
+			waitForElementAndSendKeys(copyTestField, copyTestName);
+			waitTime();
+			waitForElementAndClick(copyTestButton);
+			waitTime();
+		} catch (Exception e) {
+
+			System.out.println("Unable to Copy  the Item -->  " + copyTestName);
+
+		}
+
+	}
+
+	
+	/**
+	 * Added this method as Item bank  drop  down is populating through plugin not a normal  select box 
+	 * @param option
+	 */
+	public void selectTestBank(String option){
+		testBankDropdown.click();
+		waitTime();
+		List<WebElement> testBankoptions= driver.findElements(By.xpath("//div[@class='btn-group bootstrap-select content-bank select-search-by-name-test_bank open']//ul/li"));
+		for (WebElement testBank : testBankoptions){
+			try{
+			if(testBank.getText().equals(option)){
+				testBank.click();
+			   break;
+			}
+			
+			}catch(Exception e ){
+				System.out.println(option + " is not available" );
+			}
+		}
+		
+	}
+		
 }
