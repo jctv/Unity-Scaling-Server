@@ -152,7 +152,8 @@ public class DashBoard extends BasePage {
 	@FindBy(xpath = "//*[@id='dashboardGrid']/ul/li[1]/i")
 	public WebElement configLink;
 	
-	
+	@FindBy(id = "tile_view_help") 
+	public WebElement helpTile;
 	
 	
 	
@@ -306,6 +307,21 @@ public class DashBoard extends BasePage {
 
 	}
 
+	public Help goToHelp() {
+		System.out.println("Users Tile is enable " + helpTile.isEnabled());
+		
+		try {
+			waitForElementAndDoubleClick(helpTile);
+			waitTime();			
+			if(globalModalInfoOkButton.isDisplayed()){
+				System.out.println("Device not supported");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return new Help(driver);
+	}
 	public String addTiles() {
 		//*[@id="tileSelectionContainer"]/div[1]
 		waitForElementAndDoubleClick(addTile);
