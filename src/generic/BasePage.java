@@ -85,6 +85,9 @@ public class BasePage {
 	@FindBy(id = "globalModalDeleteButton")
 	public WebElement globalModalDeleteButton;
 	
+	@FindBy(xpath = "//div[@id='globalModalDelete']//*[@id='cancelChanges']")
+	public WebElement globalModalDeleteCancelButton;
+	
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link deleteRow']")
 	public WebElement deleteIconList;
 	

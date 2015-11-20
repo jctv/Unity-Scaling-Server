@@ -486,6 +486,28 @@ public class DashBoard extends BasePage {
 		}
 		return new Role(driver);
 	}
+	
+	public Domain goToDomain() {
+		try {
+			waitTime();
+			waitTime();
+			String dashboardUrl = driver.getCurrentUrl();
+			driver.get(dashboardUrl.replace("dashboard", "domain"));
+			waitTime();
+			waitTime();
+
+			if (driver.getCurrentUrl().contains("#domain")) {
+				System.out.println(" Domain page is loaded successfully");
+			} else {
+				System.out.println(" Domain page is  not loaded ");
+			}
+
+		} catch (Exception e) {
+			System.out.println("Unable to go to the Domain page");
+		}
+		return new Domain(driver);
+
+	}
 	public Login logOut() {
 		waitTime();
 		
