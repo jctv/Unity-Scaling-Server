@@ -67,20 +67,60 @@ public class OrganizationTest extends BaseTest{
 		orgPage = dashBoardPage.goToOrganization();
 		waitTime();
 		waitTime();
-		orgPage.waitForElementAndClick(orgPage.createNewOrganization);
-		waitTime();
-		waitTime();
 		String orgStateName = "Auto_State" + System.currentTimeMillis();
-		orgPage.waitForElementAndSendKeys(orgPage.tName, orgStateName);
-		waitTime();
-		orgPage.selectOption(orgPage.tType, TYPE_STATE);
-		waitTime();
-		orgPage.waitForElementAndClick(orgPage.createHerarchy);
-		waitTime();
+		String orgDistName = "Dist" + orgStateName;
+		String orgSchoolName = "School" + orgStateName;
+		orgPage.addOrganization(orgStateName, "", "", TYPE_STATE);
 		waitTime();
 		Assert.assertEquals(orgPage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("orgCreated").replace("org_name", orgStateName).trim());
+		waitTime();
 		orgPage.waitForElementAndClick(orgPage.globalModalInfoOkButton);
-
+		waitTime();
+		orgPage.refreshPage();
+		waitTime();
+		waitTime();
+		orgPage.addOrganization(orgStateName, orgDistName, "", TYPE_DISTRICT);
+		Assert.assertEquals(orgPage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("orgCreated").replace("org_name", orgDistName).trim());
+		waitTime();
+		orgPage.waitForElementAndClick(orgPage.globalModalInfoOkButton);
+		waitTime();
+		orgPage.refreshPage();
+		waitTime();
+		waitTime();
+		orgPage.addOrganization(orgStateName, orgDistName, orgSchoolName, TYPE_SCHOOL);
+		Assert.assertEquals(orgPage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("orgCreated").replace("org_name", orgSchoolName).trim());
+		waitTime();
+		orgPage.waitForElementAndClick(orgPage.globalModalInfoOkButton);
+		waitTime();
+		orgPage.refreshPage();
+		waitTime();
+		waitTime();
+		orgPage.deleteOrganization(orgStateName, orgDistName, orgSchoolName, TYPE_SCHOOL);
+		waitTime();
+		Assert.assertEquals(orgPage.globalModalOKCancelBody.getText().trim(), unitymessages.getProperty("emptyOrgDelete").trim());
+		waitTime();
+		orgPage.waitForElementAndClick(orgPage.globalModalOKCancelSaveButton);
+		waitTime();
+		orgPage.refreshPage();
+		waitTime();
+		waitTime();
+		
+		orgPage.deleteOrganization(orgStateName, orgDistName, "", TYPE_DISTRICT);
+		waitTime();
+		Assert.assertEquals(orgPage.globalModalOKCancelBody.getText().trim(), unitymessages.getProperty("emptyOrgDelete").trim());
+		waitTime();
+		orgPage.waitForElementAndClick(orgPage.globalModalOKCancelSaveButton);
+		waitTime();
+		orgPage.refreshPage();
+		waitTime();
+		waitTime();
+		orgPage.deleteOrganization(orgStateName, "", "", TYPE_STATE);
+		waitTime();
+		Assert.assertEquals(orgPage.globalModalOKCancelBody.getText().trim(), unitymessages.getProperty("emptyOrgDelete").trim());
+		waitTime();
+		orgPage.waitForElementAndClick(orgPage.globalModalOKCancelSaveButton);
+		waitTime();
+		
 	}
 
 }
