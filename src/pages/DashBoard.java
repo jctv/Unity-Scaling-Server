@@ -56,7 +56,7 @@ public class DashBoard extends BasePage {
 	@FindBy(id = "tile_view_machine_profile")
 	public WebElement machineProfileTile;
 
-	@FindBy(id = "tile_view_report")
+	@FindBy(id = "tile_view_media")
 	public WebElement mediaTile;
 
 	@FindBy(id = "tile_view_message")
@@ -499,6 +499,7 @@ public class DashBoard extends BasePage {
 			if (driver.getCurrentUrl().contains("#domain")) {
 				System.out.println(" Domain page is loaded successfully");
 			} else {
+
 				System.out.println(" Domain page is  not loaded ");
 			}
 
@@ -508,6 +509,21 @@ public class DashBoard extends BasePage {
 		return new Domain(driver);
 
 	}
+	
+	public Media goToMedia() {
+		waitTime();		
+		try {
+			waitForElementAndDoubleClick(mediaTile);	
+			waitTime();
+			if(globalModalInfoOkButton.isDisplayed()){
+				System.out.println("Device not supported");
+			}
+		} catch (Exception e) {
+			System.out.println("Unable to go to the Role page");
+		}
+		return new Media(driver);
+	}
+	
 	public Login logOut() {
 		waitTime();
 		

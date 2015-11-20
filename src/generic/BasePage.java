@@ -98,7 +98,17 @@ public class BasePage {
 	public WebElement copyIconList;
 	
 	
-
+	@FindBy(id = "fileupload")
+	public WebElement fileupload;
+	
+	@FindBy(xpath = "//button[@class='btn btn-warning cancel']")
+	public WebElement cancelUploadButton;
+	
+	@FindBy(xpath = "//button[@class='btn exit']")
+	public WebElement exitButton;
+	
+	@FindBy(xpath = "//span[@class='fileupload-status']")
+	public WebElement fileUploadStatus;
 	
 
 	/** Constructor */
