@@ -15,14 +15,14 @@ import pages.Items;
 
 public class ItemImportTest extends BaseTest {
 
-	Login loginPageObject;
-	DashBoard dashBoardPageObject;
+	Login loginPage;
+	DashBoard dashBoardPage;
 	String loggedUser = "qa/admin";
 	String genericPassword = "password";
-	ItemImport itemsImportPageObject;
-	ItemsBank itemsBankPageObject;
-	Role rolePageObject;
-	Items itemsPageObject;
+	ItemImport itemsImportPage;
+	ItemsBank itemsBankPage;
+	Role rolePage;
+	Items itemsPage;
 	String itemBankName;
 	String importedFileName = "CDE_TextEntry.zip";
 	String resourcesLocation = "src" + File.separator + "resources"
@@ -48,13 +48,13 @@ public class ItemImportTest extends BaseTest {
 	public void setUp() {
 		System.out.println("Load Unity url - " + url);
 		driver.get(url);
-		loginPageObject = new Login(driver);
+		loginPage = new Login(driver);
 		System.out.println("******** logging as System Admin -- " + loggedUser
 				+ "******** ");
-		dashBoardPageObject = loginPageObject.loginSuccess(loggedUser,
+		dashBoardPage = loginPage.loginSuccess(loggedUser,
 				genericPassword);
 		waitTime();
-		dashBoardPageObject.addTiles();
+		dashBoardPage.addTiles();
 		waitTime();
 
 	}
@@ -68,12 +68,12 @@ public class ItemImportTest extends BaseTest {
 	
 	@Test(priority =1)
 	public void testverifyItemImportTileAdded(){
-		rolePageObject = dashBoardPageObject.goToRole();
+		rolePage = dashBoardPage.goToRole();
 		waitTime(); 
-		rolePageObject.enableTile("item_import");
-		rolePageObject.enableCreatePermissionItemImportTile();
-		dashBoardPageObject = rolePageObject.backToDashboard();
-		String itemImport = dashBoardPageObject.getAvailableTile("Item Import");
+		rolePage.enableTile("item_import");
+		rolePage.enableCreatePermissionItemImportTile();
+		dashBoardPage = rolePage.backToDashboard();
+		String itemImport = dashBoardPage.getAvailableTile("Item Import");
 		Assert.assertEquals(itemImport, "Item Import");
 	}
 	
@@ -87,38 +87,38 @@ public class ItemImportTest extends BaseTest {
 	
 	@Test(priority =2)
 	public void testItemImportSummary(){
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		itemBankName = "CDE_IB_" + System.currentTimeMillis();
-		itemsBankPageObject.createBank(itemBankName, "Desc");
+		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime(); 
-		itemsImportPageObject = dashBoardPageObject.goToItemImport();
+		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
-		Assert.assertTrue(itemsImportPageObject.importItem(importFileLocation ,itemBankName ,"CDE"));
-		itemsImportPageObject.refreshPage();
+		Assert.assertTrue(itemsImportPage.importItem(importFileLocation ,itemBankName ,"CDE"));
+		itemsImportPage.refreshPage();
 		waitTime();
 		
-		Assert.assertEquals(itemsImportPageObject.itemImportPackageFileNameList.getText().trim(), importedFileName);
-		Assert.assertEquals(itemsImportPageObject.itemImportFileNameList.getText().trim(), importedFileName.split(".zip")[0]);
-		Assert.assertEquals(itemsImportPageObject.itemImportFileStatusList.getText().trim(), "Completed without error");
-		itemsImportPageObject.importItemPreviewButton.click();
+		Assert.assertEquals(itemsImportPage.itemImportPackageFileNameList.getText().trim(), importedFileName);
+		Assert.assertEquals(itemsImportPage.itemImportFileNameList.getText().trim(), importedFileName.split(".zip")[0]);
+		Assert.assertEquals(itemsImportPage.itemImportFileStatusList.getText().trim(), "Completed without error");
+		itemsImportPage.importItemPreviewButton.click();
 		waitTime();
-		Assert.assertEquals(itemsImportPageObject.itemImportSummary.getText().trim(), "Item Import Summary");
-		Assert.assertEquals(itemsImportPageObject.itemImportSummaryItem.getText().trim(), "1");
-		Assert.assertEquals(itemsImportPageObject.itemImportSummaryMedia.getText().trim(), "1");
-		Assert.assertEquals(itemsImportPageObject.itemImportSummaryCss.getText().trim(), "1");
-		Assert.assertEquals(itemsImportPageObject.itemImportSummaryFileName.getText().trim(), "File: " + importedFileName);
-		itemsImportPageObject.backToDashboard();
+		Assert.assertEquals(itemsImportPage.itemImportSummary.getText().trim(), "Item Import Summary");
+		Assert.assertEquals(itemsImportPage.itemImportSummaryItem.getText().trim(), "1");
+		Assert.assertEquals(itemsImportPage.itemImportSummaryMedia.getText().trim(), "1");
+		Assert.assertEquals(itemsImportPage.itemImportSummaryCss.getText().trim(), "1");
+		Assert.assertEquals(itemsImportPage.itemImportSummaryFileName.getText().trim(), "File: " + importedFileName);
+		itemsImportPage.backToDashboard();
 		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
+		itemsPage = dashBoardPage.goToItems();
 		waitTime();
-		itemsPageObject.filterItemBank(itemBankName);
-		itemsPageObject.deleteItem(importedItemName);
-		itemsBankPageObject.backToDashboard();
+		itemsPage.filterItemBank(itemBankName);
+		itemsPage.deleteItem(importedItemName);
+		itemsBankPage.backToDashboard();
 		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		itemsBankPage.deleteItemBank(itemBankName);
 	}
 	
 	/**
@@ -130,61 +130,61 @@ public class ItemImportTest extends BaseTest {
 	 */
 	@Test(priority=3) 
 	public void testItemImportCDEType(){ 
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		itemBankName = "CDE_IB_" + System.currentTimeMillis();
-		itemsBankPageObject.createBank(itemBankName, "Desc");
+		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime();
-		itemsImportPageObject = dashBoardPageObject.goToItemImport();
+		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
-		Assert.assertTrue(itemsImportPageObject.importItem(importFileLocation ,itemBankName ,"CDE"));
+		Assert.assertTrue(itemsImportPage.importItem(importFileLocation ,itemBankName ,"CDE"));
 		waitTime();
-		Assert.assertEquals(itemsImportPageObject.importedFileEntry.getText().trim(), importedFileName);
-		itemsImportPageObject.backToDashboard();
+		Assert.assertEquals(itemsImportPage.importedFileEntry.getText().trim(), importedFileName);
+		itemsImportPage.backToDashboard();
 		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
+		itemsPage = dashBoardPage.goToItems();
 		waitTime();
-		itemsPageObject.filterItemBank(itemBankName);
-		Assert.assertEquals(itemsPageObject.itemNameList.getText().trim(), importedItemName);
-		Assert.assertEquals(itemsPageObject.itemTilteList.getText().trim(), importedItemName.split(".xml")[0]);
-		Assert.assertEquals(itemsPageObject.itemContentAreaList.getText().trim(), "N/A");
-		Assert.assertEquals(itemsPageObject.itemGradeList.getText().trim(), "N/A");
-		Assert.assertEquals(itemsPageObject.itemGradeList.getText().trim(), "N/A");
-		Assert.assertEquals(itemsPageObject.itemDepthOfKnowledgeList.getText().trim(), "N/A");
-		Assert.assertEquals(itemsPageObject.itemDifficultyList.getText().trim(), "N/A");
-		Assert.assertEquals(itemsPageObject.itemLifeCycleList.getText().trim(), "DEFINED");
-		Assert.assertEquals(itemsPageObject.itemBankList.getText().trim(), itemBankName);
-		itemsPageObject.itemEditIcon.click();
+		itemsPage.filterItemBank(itemBankName);
+		Assert.assertEquals(itemsPage.itemNameList.getText().trim(), importedItemName);
+		Assert.assertEquals(itemsPage.itemTilteList.getText().trim(), importedItemName.split(".xml")[0]);
+		Assert.assertEquals(itemsPage.itemContentAreaList.getText().trim(), "N/A");
+		Assert.assertEquals(itemsPage.itemGradeList.getText().trim(), "N/A");
+		Assert.assertEquals(itemsPage.itemGradeList.getText().trim(), "N/A");
+		Assert.assertEquals(itemsPage.itemDepthOfKnowledgeList.getText().trim(), "N/A");
+		Assert.assertEquals(itemsPage.itemDifficultyList.getText().trim(), "N/A");
+		Assert.assertEquals(itemsPage.itemLifeCycleList.getText().trim(), "DEFINED");
+		Assert.assertEquals(itemsPage.itemBankList.getText().trim(), itemBankName);
+		itemsPage.itemEditIcon.click();
 		waitTime();
-		Assert.assertEquals(itemsPageObject.getInteractionType("Text Entry").trim(), "Text Entry");
-		itemsPageObject.scoreTabButton.click();
+		Assert.assertEquals(itemsPage.getInteractionType("Text Entry").trim(), "Text Entry");
+		itemsPage.scoreTabButton.click();
 		waitTime();
-		Assert.assertEquals(itemsPageObject.getSelectedScoreProfile(itemsPageObject.selectScoreProfile), "Map Scoring Profile");
-		itemsPageObject.setCorrectAnswer.click();
+		Assert.assertEquals(itemsPage.getSelectedScoreProfile(itemsPage.selectScoreProfile), "Map Scoring Profile");
+		itemsPage.setCorrectAnswer.click();
 		waitTime();
-		itemsPageObject.textEditorSaveButton.click();
+		itemsPage.textEditorSaveButton.click();
 		waitTime();
-		itemsPageObject.confirmationMessage.click();
+		itemsPage.confirmationMessage.click();
 		waitTime();
-		itemsPageObject.previewTabButton.click();
+		itemsPage.previewTabButton.click();
 		waitTime();
-		Assert.assertEquals(itemsPageObject.answerProfile.getText().trim(), "1. Map Scoring Profile");
-		Assert.assertEquals(itemsPageObject.correctAnswerProfile.getText().trim(), "812");
-		itemsPageObject.textEditorSaveButton.click();
+		Assert.assertEquals(itemsPage.answerProfile.getText().trim(), "1. Map Scoring Profile");
+		Assert.assertEquals(itemsPage.correctAnswerProfile.getText().trim(), "812");
+		itemsPage.textEditorSaveButton.click();
 		waitTime();
-		itemsPageObject.confirmationMessage.click();
+		itemsPage.confirmationMessage.click();
 		waitTime();
-		itemsPageObject.backToItems.click();
+		itemsPage.backToItems.click();
 		waitTime();
-		itemsPageObject.backToDashboard();
-		itemsPageObject = dashBoardPageObject.goToItems();
+		itemsPage.backToDashboard();
+		itemsPage = dashBoardPage.goToItems();
 		waitTime();
-		itemsPageObject.filterItemBank(itemBankName);
-		itemsPageObject.deleteItem(importedItemName);
-		itemsBankPageObject.backToDashboard();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsPage.filterItemBank(itemBankName);
+		itemsPage.deleteItem(importedItemName);
+		itemsBankPage.backToDashboard();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		itemsBankPage.deleteItemBank(itemBankName);
 	}
 	
 	/**
@@ -195,28 +195,28 @@ public class ItemImportTest extends BaseTest {
 	 */
 	@Test(priority = 4)
 	public void testItemImportErrorMessageForNoManifestFile(){
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		itemBankName = "No_Menifest_IB_" + System.currentTimeMillis();
-		itemsBankPageObject.createBank(itemBankName, "Desc");
+		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime(); 
-		itemsImportPageObject = dashBoardPageObject.goToItemImport();
+		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
-		Assert.assertTrue(itemsImportPageObject.importItem(invalidNoManifestImportFileLocation ,itemBankName ,"CDE"));
-		itemsImportPageObject.refreshPage();
+		Assert.assertTrue(itemsImportPage.importItem(invalidNoManifestImportFileLocation ,itemBankName ,"CDE"));
+		itemsImportPage.refreshPage();
 		waitTime();
-		Assert.assertEquals(itemsImportPageObject.itemImportPackageFileNameList.getText().trim(), noManifestFile);
-		Assert.assertEquals(itemsImportPageObject.itemImportFileNameList.getText().trim(), noManifestFile.split(".zip")[0]);
-		Assert.assertEquals(itemsImportPageObject.itemImportFileStatusList.getText().trim(), "Failed");
-		itemsImportPageObject.importItemPreviewButton.click();
+		Assert.assertEquals(itemsImportPage.itemImportPackageFileNameList.getText().trim(), noManifestFile);
+		Assert.assertEquals(itemsImportPage.itemImportFileNameList.getText().trim(), noManifestFile.split(".zip")[0]);
+		Assert.assertEquals(itemsImportPage.itemImportFileStatusList.getText().trim(), "Failed");
+		itemsImportPage.importItemPreviewButton.click();
 		waitTime();
-		Assert.assertEquals(itemsImportPageObject.itemImportSummary.getText().trim(), "Item Import Summary");
-		Assert.assertEquals(itemsImportPageObject.itemImportSummaryFileName.getText().trim(), "File: " + noManifestFile);
-        Assert.assertTrue(itemsImportPageObject.itemImportError.getText().trim().contains("ERROR: Line null"));
-        Assert.assertTrue(itemsImportPageObject.itemImportErrorMessage.getText().trim().contains("Error while parsing item import manifest file java.io.FileNotFoundException"));
-        itemsImportPageObject.backToDashboard();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		Assert.assertEquals(itemsImportPage.itemImportSummary.getText().trim(), "Item Import Summary");
+		Assert.assertEquals(itemsImportPage.itemImportSummaryFileName.getText().trim(), "File: " + noManifestFile);
+        Assert.assertTrue(itemsImportPage.itemImportError.getText().trim().contains("ERROR: Line null"));
+        Assert.assertTrue(itemsImportPage.itemImportErrorMessage.getText().trim().contains("Error while parsing item import manifest file java.io.FileNotFoundException"));
+        itemsImportPage.backToDashboard();
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		itemsBankPage.deleteItemBank(itemBankName);
 
 	}
 	
@@ -229,40 +229,40 @@ public class ItemImportTest extends BaseTest {
 
 	@Test(priority = 5)
 	public void testItemImportErrorMessageForInvalidIndentifier() {
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		itemBankName = "Invalid_Idenfifier_IB_" + System.currentTimeMillis();
-		itemsBankPageObject.createBank(itemBankName, "Desc");
+		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime();
-		itemsImportPageObject = dashBoardPageObject.goToItemImport();
+		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
-		Assert.assertTrue(itemsImportPageObject.importItem(
+		Assert.assertTrue(itemsImportPage.importItem(
 				invalidIndentifierImportFileLocation, itemBankName, "CDE"));
-		itemsImportPageObject.refreshPage();
+		itemsImportPage.refreshPage();
 		waitTime();
-		Assert.assertEquals(itemsImportPageObject.itemImportPackageFileNameList
+		Assert.assertEquals(itemsImportPage.itemImportPackageFileNameList
 				.getText().trim(), invalidIdentifierFile);
-		Assert.assertEquals(itemsImportPageObject.itemImportFileNameList
+		Assert.assertEquals(itemsImportPage.itemImportFileNameList
 				.getText().trim(), invalidIdentifierFile.split(".zip")[0]);
-		Assert.assertEquals(itemsImportPageObject.itemImportFileStatusList
+		Assert.assertEquals(itemsImportPage.itemImportFileStatusList
 				.getText().trim(), "Failed");
-		itemsImportPageObject.importItemPreviewButton.click();
+		itemsImportPage.importItemPreviewButton.click();
 		waitTime();
-		Assert.assertEquals(itemsImportPageObject.itemImportSummary.getText()
+		Assert.assertEquals(itemsImportPage.itemImportSummary.getText()
 				.trim(), "Item Import Summary");
-		Assert.assertEquals(itemsImportPageObject.itemImportSummaryFileName
+		Assert.assertEquals(itemsImportPage.itemImportSummaryFileName
 				.getText().trim(), "File: " + invalidIdentifierFile);
-		Assert.assertTrue(itemsImportPageObject.itemImportError.getText()
+		Assert.assertTrue(itemsImportPage.itemImportError.getText()
 				.trim().contains("ERROR: Line null"));
-		Assert.assertTrue(itemsImportPageObject.itemImportErrorMessage
+		Assert.assertTrue(itemsImportPage.itemImportErrorMessage
 				.getText().trim().contains("Error during import"));
-		Assert.assertTrue(itemsImportPageObject.itemImportErrorMessage
+		Assert.assertTrue(itemsImportPage.itemImportErrorMessage
 				.getText().trim().contains("No such file or directory"));
-		itemsImportPageObject.backToDashboard();
+		itemsImportPage.backToDashboard();
 		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		itemsBankPage.deleteItemBank(itemBankName);
 	}
 
 	
@@ -274,54 +274,70 @@ public class ItemImportTest extends BaseTest {
 	 */
 	@Test(priority = 6)
 	public void testItemImportMultipleErrorMessage() {
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		itemBankName = "Invalid_Import_IB_" + System.currentTimeMillis();
-		itemsBankPageObject.createBank(itemBankName, "Desc");
+		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime();
-		itemsImportPageObject = dashBoardPageObject.goToItemImport();
+		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
-		Assert.assertTrue(itemsImportPageObject.importItem(
+		Assert.assertTrue(itemsImportPage.importItem(
 				invalidImportFileLocation, itemBankName, "CDE"));
-		itemsImportPageObject.refreshPage();
+		itemsImportPage.refreshPage();
 		waitTime();
 		waitTime();
 
-		Assert.assertEquals(itemsImportPageObject.itemImportPackageFileNameList
+		Assert.assertEquals(itemsImportPage.itemImportPackageFileNameList
 				.getText().trim(), invalidImportedFileName);
 		waitTime();
-		Assert.assertEquals(itemsImportPageObject.itemImportFileNameList
+		Assert.assertEquals(itemsImportPage.itemImportFileNameList
 				.getText().trim(), invalidImportedFileName.split(".zip")[0]);
 		waitTime();
-		Assert.assertEquals(itemsImportPageObject.itemImportFileStatusList
+		Assert.assertEquals(itemsImportPage.itemImportFileStatusList
 				.getText().trim(), "Failed");
 		waitTime();
 
-		itemsImportPageObject.importItemPreviewButton.click();
+		itemsImportPage.importItemPreviewButton.click();
 
 		waitTime();
-		Assert.assertEquals(itemsImportPageObject.itemImportSummary.getText()
+		Assert.assertEquals(itemsImportPage.itemImportSummary.getText()
 				.trim(), "Item Import Summary");
-		Assert.assertEquals(itemsImportPageObject.itemImportSummaryFileName
+		Assert.assertEquals(itemsImportPage.itemImportSummaryFileName
 				.getText().trim(), "File: " + invalidImportedFileName);
-		Assert.assertTrue(itemsImportPageObject.itemImportErrorMessage1
+		Assert.assertTrue(itemsImportPage.itemImportErrorMessage1
 				.getText()
 				.trim()
 				.contains(
 						"Error during import: Error on line 32: The element type \"td\" must be terminated by the matching end-tag"));
-		Assert.assertTrue(itemsImportPageObject.itemImportErrorMessage2
+		Assert.assertTrue(itemsImportPage.itemImportErrorMessage2
 				.getText().trim()
 				.contains("Error during import: Unexpected character"));
-		Assert.assertTrue(itemsImportPageObject.itemImportErrorMessage3
+		Assert.assertTrue(itemsImportPage.itemImportErrorMessage3
 				.getText()
 				.trim()
 				.contains(
 						"Error during import: Un supported item iteraction type extendedTextEntry found in xml"));
-		itemsImportPageObject.backToDashboard();
+		itemsImportPage.backToDashboard();
 		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		itemsBankPage.deleteItemBank(itemBankName);
 	}
 
+	
+	/**
+	 * Login as System Admin
+	 * Create item bank 
+	 * Import text entry type item having multiple corret 
+	 * Validate item attributes in listing
+	 * Validate item attributes while editing items
+	 * 
+	 */
+	@Test(priority = 7)
+	public void testImportTextEntyItemWithMultiCorrect(){
+		
+		
+		
+		
+	}
 }

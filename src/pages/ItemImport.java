@@ -58,6 +58,15 @@ public class ItemImport extends BasePage {
 	@FindBy(id = "vendorHacks")
 	public WebElement selectAuthoringTool;
 	
+	
+	@FindBy(id = "vendorlifecycle")
+	public WebElement selectLifeCycle;
+	
+	@FindBy(id = "addeditem")
+	public WebElement overrideLifeCycleCheckBox;
+	
+	
+	
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
 	public WebElement homeLink;
 	
@@ -141,6 +150,7 @@ public class ItemImport extends BasePage {
 	
 	@FindBy(xpath = "//div[@class='panel panel-primary']//tr[11]/td[2]")
 	public WebElement itemImportErrorMessage3;
+	
 	
 	public DashBoard backToDashboard(){
 		waitForElementAndClick(homeLink);

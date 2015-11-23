@@ -17,11 +17,11 @@ import generic.BaseTest;
 
 public class ItemTest extends BaseTest{
 	
-	Login loginPageObject;
-	DashBoard dashBoardPageObject;
-	ItemImport itemsImportPageObject;
-	ItemsBank itemsBankPageObject;
-	Items itemsPageObject;
+	Login loginPage;
+	DashBoard dashBoardPage;
+	ItemImport itemsImportPage;
+	ItemsBank itemsBankPage;
+	Items itemsPage;
 	Properties unitymessages;
 
 	String defaultUser = "admin";
@@ -69,13 +69,13 @@ public class ItemTest extends BaseTest{
 	public void setUp() {
 		System.out.println("Load Unity url - " + url);
 		driver.get(url);
-		loginPageObject = new Login(driver);
+		loginPage = new Login(driver);
 		System.out.println("******** logging as System Admin -- " + loggedUser
 				+ "******** ");
-		dashBoardPageObject = loginPageObject.loginSuccess(loggedUser,
+		dashBoardPage = loginPage.loginSuccess(loggedUser,
 				genericPassword);
 		waitTime();
-		dashBoardPageObject.addTiles();
+		dashBoardPage.addTiles();
 		waitTime();
 	}
 	
@@ -90,30 +90,30 @@ public class ItemTest extends BaseTest{
 	
 	@Test(priority =1 )
 	public void testCreateItemChoiceType(){
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		itemBankName = "Choice_IB_" + System.currentTimeMillis();
-		itemsBankPageObject.createBank(itemBankName, "Desc");
+		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime(); 
-		itemsPageObject = dashBoardPageObject.goToItems();
+		itemsPage = dashBoardPage.goToItems();
 		waitTime();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName, itemBankName ,interactionChoice , simpleMatchScoreProfile , choiceCorrectAnswer);
-		itemsPageObject.searchItem(itemName);
+		itemsPage.createItem(itemName, itemBankName ,interactionChoice , simpleMatchScoreProfile , choiceCorrectAnswer);
+		itemsPage.searchItem(itemName);
 		waitTime();
-		itemsPageObject.addStandards();
+		itemsPage.addStandards();
 		waitTime();
-		Assert.assertEquals(itemsPageObject.itemNameList.getText().trim(), itemName);
-		Assert.assertEquals(itemsPageObject.itemTilteList.getText().trim(), "Description");
-		Assert.assertEquals(itemsPageObject.itemPointsList.getText().trim(), "1");
-		Assert.assertEquals(itemsPageObject.itemBankList.getText().trim(), itemBankName);
-		itemsPageObject.deleteItem(itemName);
-		itemsPageObject.backToDashboard();
+		Assert.assertEquals(itemsPage.itemNameList.getText().trim(), itemName);
+		Assert.assertEquals(itemsPage.itemTilteList.getText().trim(), "Description");
+		Assert.assertEquals(itemsPage.itemPointsList.getText().trim(), "1");
+		Assert.assertEquals(itemsPage.itemBankList.getText().trim(), itemBankName);
+		itemsPage.deleteItem(itemName);
+		itemsPage.backToDashboard();
 		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		itemsBankPage.deleteItemBank(itemBankName);
 	}
 	
 	
@@ -128,28 +128,28 @@ public class ItemTest extends BaseTest{
 	
 	@Test(priority = 2)
 	public void testCreateTextEntryItemWithMapScoring(){
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		itemBankName = "TextEntry_IB_" + System.currentTimeMillis();
-		itemsBankPageObject.createBank(itemBankName, "Desc");
+		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime(); 
-		itemsPageObject = dashBoardPageObject.goToItems();
+		itemsPage = dashBoardPage.goToItems();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName, itemBankName ,interactionTextEntry , mapScoreProfile , textEntryCorrcetAnswer);
-		itemsPageObject.searchItem(itemName);
+		itemsPage.createItem(itemName, itemBankName ,interactionTextEntry , mapScoreProfile , textEntryCorrcetAnswer);
+		itemsPage.searchItem(itemName);
 		waitTime();
-		itemsPageObject.addStandards();
-		Assert.assertEquals(itemsPageObject.itemNameList.getText().trim(), itemName);
-		Assert.assertEquals(itemsPageObject.itemTilteList.getText().trim(), "Description");
-		Assert.assertEquals(itemsPageObject.itemPointsList.getText().trim(), "1");
-		Assert.assertEquals(itemsPageObject.itemBankList.getText().trim(), itemBankName);
-		itemsPageObject.deleteItem(itemName);
-		itemsPageObject.backToDashboard();
+		itemsPage.addStandards();
+		Assert.assertEquals(itemsPage.itemNameList.getText().trim(), itemName);
+		Assert.assertEquals(itemsPage.itemTilteList.getText().trim(), "Description");
+		Assert.assertEquals(itemsPage.itemPointsList.getText().trim(), "1");
+		Assert.assertEquals(itemsPage.itemBankList.getText().trim(), itemBankName);
+		itemsPage.deleteItem(itemName);
+		itemsPage.backToDashboard();
 		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		itemsBankPage.deleteItemBank(itemBankName);
 	}
 	
 	
@@ -166,20 +166,20 @@ public class ItemTest extends BaseTest{
 	@Test(priority = 3)
 	public void testUpadteItemInListing(){
 		String updated = "Updated";
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		itemBankName = "Choice_IB_" + System.currentTimeMillis();
-		itemsBankPageObject.createBank(itemBankName, "Desc");
+		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime(); 
-		itemsPageObject = dashBoardPageObject.goToItems();
+		itemsPage = dashBoardPage.goToItems();
 		waitTime();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName, itemBankName ,interactionChoice , simpleMatchScoreProfile , choiceCorrectAnswer);
+		itemsPage.createItem(itemName, itemBankName ,interactionChoice , simpleMatchScoreProfile , choiceCorrectAnswer);
 		//itemsPageObject = dashBoardPageObject.goToItems();
 		waitTime(); 
-		itemsPageObject.searchItem(itemName);
-		itemsPageObject.addStandards();
+		itemsPage.searchItem(itemName);
+		itemsPage.addStandards();
 		updatedItemName = updated + itemBankName;
 		updatedTitleName = updated + "title" ;
 		updatedItemContentArea = "Science";
@@ -189,25 +189,25 @@ public class ItemTest extends BaseTest{
 		updatedItemDifficulty = "HIGH";
 		updatedItemLifeCycle = "DEFINED";
 		updatedItemReadability = "Update Readability";
-		Assert.assertEquals(itemsPageObject.updateItemName(updatedItemName), updatedItemName);
-		Assert.assertEquals(itemsPageObject.updateItemTitle(updatedTitleName), updatedTitleName);
-		Assert.assertEquals(itemsPageObject.updateItemContentArea(updatedItemContentArea), updatedItemContentArea);
-		Assert.assertEquals(itemsPageObject.updateItemGrade(updatedItemGrade), updatedItemGrade);
-		Assert.assertEquals(itemsPageObject.updateItemBloom(updatedItemBloom), updatedItemBloom);
-		Assert.assertEquals(itemsPageObject.updateItemDOK(updatedItemDok), updatedItemDok);
-		Assert.assertEquals(itemsPageObject.updateItemDifficulty(updatedItemDifficulty), updatedItemDifficulty);
-		Assert.assertEquals(itemsPageObject.updateItemLifeCycle(updatedItemLifeCycle), updatedItemLifeCycle);
-		Assert.assertEquals(itemsPageObject.updateItemReadability(updatedItemReadability), updatedItemReadability);
-		Assert.assertEquals(itemsPageObject.itemPointsList.getText().trim(), "1");
-		itemsPageObject.itemPointsList.click();
+		Assert.assertEquals(itemsPage.updateItemName(updatedItemName), updatedItemName);
+		Assert.assertEquals(itemsPage.updateItemTitle(updatedTitleName), updatedTitleName);
+		Assert.assertEquals(itemsPage.updateItemContentArea(updatedItemContentArea), updatedItemContentArea);
+		Assert.assertEquals(itemsPage.updateItemGrade(updatedItemGrade), updatedItemGrade);
+		Assert.assertEquals(itemsPage.updateItemBloom(updatedItemBloom), updatedItemBloom);
+		Assert.assertEquals(itemsPage.updateItemDOK(updatedItemDok), updatedItemDok);
+		Assert.assertEquals(itemsPage.updateItemDifficulty(updatedItemDifficulty), updatedItemDifficulty);
+		Assert.assertEquals(itemsPage.updateItemLifeCycle(updatedItemLifeCycle), updatedItemLifeCycle);
+		Assert.assertEquals(itemsPage.updateItemReadability(updatedItemReadability), updatedItemReadability);
+		Assert.assertEquals(itemsPage.itemPointsList.getText().trim(), "1");
+		itemsPage.itemPointsList.click();
 		waitTime();
-		Assert.assertFalse(itemsPageObject.itemPointsListInput.isEnabled(), "Point colums is not editable");
-		itemsPageObject.deleteItem(updatedItemName);
-		itemsPageObject.backToDashboard();
+		Assert.assertFalse(itemsPage.itemPointsListInput.isEnabled(), "Point colums is not editable");
+		itemsPage.deleteItem(updatedItemName);
+		itemsPage.backToDashboard();
 		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		itemsBankPage.deleteItemBank(itemBankName);
 	}
 	
 	/**
@@ -233,69 +233,145 @@ public class ItemTest extends BaseTest{
 		itemName = "I" + itemBankName;
 	    copiedItemName = "copy " + itemName;
 		
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
-		itemsBankPageObject.createBank(itemBankName, "Desc");
+		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime(); 
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
-	    itemsBankPageObject.createBank(copyItemBankName, "Desc");
+	    itemsBankPage.createBank(copyItemBankName, "Desc");
 	    waitTime();
-	    itemsPageObject = dashBoardPageObject.goToItems();
-	    waitTime();
-	    waitTime();
-	    itemsPageObject.waitForElementAndClick(itemsPageObject.createItemButton);
+	    itemsPage = dashBoardPage.goToItems();
 	    waitTime();
 	    waitTime();
-	    itemsPageObject.selectItemBank(itemBankName);
-	    waitTime();
-	    itemsPageObject.waitForElementAndSendKeys(itemsPageObject.itemCreateInputName, itemName);
-	    waitTime();
-	    itemsPageObject.waitForElementAndSendKeys(itemsPageObject.itemCreateInputDescription, "Description");
-	    waitTime();
-	    itemsPageObject.waitForElementAndClick(itemsPageObject.itemCreateEditInputSubmit);
+	    itemsPage.waitForElementAndClick(itemsPage.createItemButton);
 	    waitTime();
 	    waitTime();
-	    itemsPageObject.waitForElementAndClick(itemsPageObject.itemSaved);
+	    itemsPage.selectItemBank(itemBankName);
+	    waitTime();
+	    itemsPage.waitForElementAndSendKeys(itemsPage.itemCreateInputName, itemName);
+	    waitTime();
+	    itemsPage.waitForElementAndSendKeys(itemsPage.itemCreateInputDescription, "Description");
+	    waitTime();
+	    itemsPage.waitForElementAndClick(itemsPage.itemCreateEditInputSubmit);
 	    waitTime();
 	    waitTime();
-		Assert.assertEquals(itemsPageObject.itemconfirmationMessageTitle.getText().trim(), unitymessages.getProperty("itemSave").trim());
-		Assert.assertEquals(itemsPageObject.itemconfirmationMessageBody.getText().trim(), unitymessages.getProperty("itemContinueEditing").trim());
-	    itemsPageObject.waitForElementAndClick(itemsPageObject.confirmationMessage);
-	    waitTime();
-	    itemsPageObject.waitForElementAndClick(itemsPageObject.confirmationMessage);
+	    itemsPage.waitForElementAndClick(itemsPage.itemSaved);
 	    waitTime();
 	    waitTime();
-	    itemsPageObject.waitForElementAndClick(itemsPageObject.backToItems);
+		Assert.assertEquals(itemsPage.itemconfirmationMessageTitle.getText().trim(), unitymessages.getProperty("itemSave").trim());
+		Assert.assertEquals(itemsPage.itemconfirmationMessageBody.getText().trim(), unitymessages.getProperty("itemContinueEditing").trim());
+	    itemsPage.waitForElementAndClick(itemsPage.confirmationMessage);
+	    waitTime();
+	    itemsPage.waitForElementAndClick(itemsPage.confirmationMessage);
 	    waitTime();
 	    waitTime();
-	    itemsPageObject.searchItem(itemName);
-	    waitTime();
-	    itemsPageObject.waitForElementAndClick(itemsPageObject.copyIconList);
-	    waitTime();
-	    itemsPageObject.copyItem(copyItemBankName ,copiedItemName);
+	    itemsPage.waitForElementAndClick(itemsPage.backToItems);
 	    waitTime();
 	    waitTime();
-	    Assert.assertEquals(itemsPageObject.globalModalInfoTitle.getText().trim(), unitymessages.getProperty("itemCopySuccess").trim());
-		Assert.assertEquals(itemsPageObject.globalModalInfoBody.getText().trim(), unitymessages.getProperty("itemCreated").trim());
-	    itemsPageObject.waitForElementAndClick(itemsPageObject.globalModalInfoOkButton);
+	    itemsPage.searchItem(itemName);
+	    waitTime();
+	    itemsPage.waitForElementAndClick(itemsPage.copyIconList);
+	    waitTime();
+	    itemsPage.copyItem(copyItemBankName ,copiedItemName);
 	    waitTime();
 	    waitTime();
-	    itemsPageObject.searchItem(itemName);
-	    waitTime();
-	    itemsPageObject.waitForElementAndClick(itemsPageObject.deleteIconList);
-	    waitTime();
-		Assert.assertEquals(itemsPageObject.globalModalDeleteBody.getText().trim(), unitymessages.getProperty("itemDelete").trim());
-	    itemsPageObject.waitForElementAndClick(itemsPageObject.globalModalDeleteButton);
-	    waitTime();
-	    itemsPageObject.deleteItem(copiedItemName);
-	    itemsPageObject.backToDashboard();
+	    Assert.assertEquals(itemsPage.globalModalInfoTitle.getText().trim(), unitymessages.getProperty("itemCopySuccess").trim());
+		Assert.assertEquals(itemsPage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("itemCreated").trim());
+	    itemsPage.waitForElementAndClick(itemsPage.globalModalInfoOkButton);
 	    waitTime();
 	    waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+	    itemsPage.searchItem(itemName);
+	    waitTime();
+	    itemsPage.waitForElementAndClick(itemsPage.deleteIconList);
+	    waitTime();
+		Assert.assertEquals(itemsPage.globalModalDeleteBody.getText().trim(), unitymessages.getProperty("itemDelete").trim());
+	    itemsPage.waitForElementAndClick(itemsPage.globalModalDeleteButton);
+	    waitTime();
+	    itemsPage.deleteItem(copiedItemName);
+	    itemsPage.backToDashboard();
+	    waitTime();
+	    waitTime();
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		itemsBankPage.deleteItemBank(itemBankName);
 		waitTime();
-		itemsBankPageObject.deleteItemBank(copyItemBankName);
+		itemsBankPage.deleteItemBank(copyItemBankName);
 	}
 
+	
+	/**
+	 * Login into the Unity
+	 * Create Item bank 
+	 * Create Text Entry type Item with simple match scoring  
+	 * Verify  item content and information in Listing page.
+	 * Delete Item Bank
+	 * Delete Item
+	 */
+	
+	@Test(priority = 5)
+	public void testCreateTextEntryItemWithSimpleMatchScoring(){
+		waitTime();
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		waitTime();
+		waitTime();
+		itemBankName = "TextEntry_Hand_" + System.currentTimeMillis();
+		itemsBankPage.createBank(itemBankName, "Hand Scoring");
+		waitTime(); 
+		itemsPage = dashBoardPage.goToItems();
+		itemName = "I_" + itemBankName;
+		System.out.println("******** " + itemName + "  Item creation ********");
+		itemsPage.createItem(itemName, itemBankName ,interactionTextEntry , simpleMatchScoreProfile , textEntryCorrcetAnswer);
+		itemsPage.searchItem(itemName);
+		waitTime();
+		itemsPage.addStandards();
+		Assert.assertEquals(itemsPage.itemNameList.getText().trim(), itemName);
+		Assert.assertEquals(itemsPage.itemTilteList.getText().trim(), "Description");
+		Assert.assertEquals(itemsPage.itemPointsList.getText().trim(), "1");
+		Assert.assertEquals(itemsPage.itemBankList.getText().trim(), itemBankName);
+		itemsPage.deleteItem(itemName);
+		itemsPage.backToDashboard();
+		waitTime();
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		waitTime();
+		itemsBankPage.deleteItemBank(itemBankName);
+	}
+	
+	
+	/**
+	 * Login into the Unity
+	 * Create Item bank 
+	 * Create Text Entry type Item with Simple match scoring  
+	 * Verify  item content and information in Listing page.
+	 * Delete Item Bank
+	 * Delete Item
+	 */
+	
+	@Test(priority = 6)
+	public void testCreateTextEntryItemWithHandScoring(){
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		waitTime();
+		itemBankName = "TextEntry_match_" + System.currentTimeMillis();
+		itemsBankPage.createBank(itemBankName, "Hand Scoring");
+		waitTime(); 
+		itemsPage = dashBoardPage.goToItems();
+		itemName = "I_" + itemBankName;
+		System.out.println("******** " + itemName + "  Item creation ********");
+		itemsPage.createItem(itemName, itemBankName ,interactionTextEntry , mapScoreProfile , textEntryCorrcetAnswer);
+		itemsPage.searchItem(itemName);
+		waitTime();
+		itemsPage.addStandards();
+		Assert.assertEquals(itemsPage.itemNameList.getText().trim(), itemName);
+		Assert.assertEquals(itemsPage.itemTilteList.getText().trim(), "Description");
+		Assert.assertEquals(itemsPage.itemPointsList.getText().trim(), "1");
+		Assert.assertEquals(itemsPage.itemBankList.getText().trim(), itemBankName);
+		itemsPage.deleteItem(itemName);
+		itemsPage.backToDashboard();
+		waitTime();
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		waitTime();
+		itemsBankPage.deleteItemBank(itemBankName);
+	}
+	
+	
+	
 }

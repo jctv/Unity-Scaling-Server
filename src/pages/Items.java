@@ -560,10 +560,13 @@ public class Items extends BasePage {
 	public void selectItemBank(String option){
 		itemBankDropdown.click();
 		waitTime();
+		waitTime();
 		List<WebElement> itemBankoptions= driver.findElements(By.xpath("//div[@class='btn-group bootstrap-select content-bank select-search-by-name-item_bank open']//ul/li"));
 		for (WebElement itemBank : itemBankoptions){
 			try{
 			if(itemBank.getText().equals(option)){
+				waitTime();
+				waitTime();
 				itemBank.click();
 			   break;
 			}
