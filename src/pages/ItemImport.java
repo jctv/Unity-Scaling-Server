@@ -56,7 +56,7 @@ public class ItemImport extends BasePage {
 	public WebElement selectItemBank;
 	
 	@FindBy(id = "vendorHacks")
-	public WebElement selectAuthoringTool;
+	public WebElement selectPkgFormat;
 	
 	
 	@FindBy(id = "vendorlifecycle")
@@ -180,7 +180,7 @@ public class ItemImport extends BasePage {
 	 * @param authoringTool
 	 * @return
 	 */
-	public boolean importItem(String filepath , String itemBankName , String authoringTool){
+	public boolean importItem(String filepath , String itemBankName , String pkgFormat , String itemLifeCycle){
 		boolean isImportSuccessful = false ;
 		try{
 			File f = new File(filepath);
@@ -189,7 +189,9 @@ public class ItemImport extends BasePage {
 			waitTime();
 			selectItemBank(itemBankName);
 			waitTime();
-			selectOption(selectAuthoringTool, authoringTool);
+			selectOption(selectPkgFormat, pkgFormat);
+			waitTime();
+			selectOption(selectLifeCycle, itemLifeCycle);
 			waitTime();
 			addFileButton.sendKeys(ItemImportFilepath);
 			waitTime();

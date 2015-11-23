@@ -264,6 +264,9 @@ public class Items extends BasePage {
 	@FindBy(xpath = "//input[@data-interaction='textEntry']")
 	public WebElement inputTextEntry;
 	
+	@FindBy(xpath = "//div[@data-body='body']/p")
+	public WebElement ItemHtmlParagraph;
+	
 	
 
 	public Items(WebDriver driver) {
@@ -488,12 +491,15 @@ public class Items extends BasePage {
 			waitTime();
 			waitForElementAndClick(selectBankFilter);
 			waitTime();
+			waitTime();
 			searchItemBankFilterPopup.clear();
 			waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
 			waitForElementAndSendKeys(searchItemBankFilterPopup, itemBankName);
 			waitTime();
+			waitTime();
 			waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
 			try {
+				waitTime();
 				waitTime();
 				waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
 
@@ -501,12 +507,15 @@ public class Items extends BasePage {
 
 			}
 			waitTime();
+			waitTime();
 			WebElement serachedItembank = driver.findElement(By
 					.xpath("//tr[@class='data-row']//td[text()='"
 							+ itemBankName + "']"));
 			waitForElementAndDoubleClick(serachedItembank);
 			waitTime();
+			waitTime();
 			waitForElementAndClick(globalModalOKCancelSaveButton);
+			waitTime();
 			waitTime();
 
 		} catch (Exception e) {
