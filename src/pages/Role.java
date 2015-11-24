@@ -35,6 +35,20 @@ public class Role extends BasePage{
 	public WebElement backToDashboard;
 	
 	
+	@FindBy(id = "roleCreateName")
+	public WebElement roleCreateNameField;
+	
+	@FindBy(id = "roleCreateSubmit")
+	public WebElement roleCreateButton;
+	
+	@FindBy(id = "roleCreateCancel")
+	public WebElement roleCreateCancelButton;
+	
+	
+	
+	
+	
+	
 	public void enableTile(String id ){
 		try{
 			waitForElementAndClick(systemAdminAddTileButton);
@@ -73,4 +87,43 @@ public class Role extends BasePage{
 		
 	}
 	
+	
+	public void createRole(String roleName){
+		try{
+		waitForElementAndClick(createRoleLink);	
+		waitTime();
+		waitTime();
+		waitForElementAndSendKeys(roleCreateNameField, roleName);
+		waitTime();
+		waitForElementAndClick(roleCreateButton);
+
+		}catch(Exception e){
+			 System.out.println("Role " + roleName + " is not created ");
+			
+		}
+		
+		
+	}
+	
+	
+	public void deleteRole(String roleName){
+		try{
+			waitTime();
+			WebElement roleDeleteButton = driver
+					.findElement(By
+							.xpath("//td[@class='watable-col-name' and text () ='"+roleName +"']/../td[@class='watable-col-del']/button"));
+			waitTime();
+			waitForElementAndClick(roleDeleteButton);	
+
+			
+		}catch(Exception e){
+			 System.out.println("Unable to delte Role " + roleName);
+
+		}
+		
+		
+	}
+	
+	
+	//td[@class='watable-col-name' and text () ='Auto111111111']/../td[@class='watable-col-del']/button
 }
