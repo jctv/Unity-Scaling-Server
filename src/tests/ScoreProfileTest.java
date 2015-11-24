@@ -66,36 +66,22 @@ public class ScoreProfileTest extends BaseTest {
 		String domainName = "Test Auto don't Delete manually "
 				+ domainAbbreviation;
 		domainPage = dashBoardPage.goToDomain();
-		waitTime();
-		waitTime();
-		waitTime();
-		waitTime();
+		customeWaitTime(12);
 		domainPage.createDomain(domainAbbreviation, domainName);
-		waitTime();
-		waitTime();
-		waitTime();
-		waitTime();
-		waitTime();
-		waitTime();
+		customeWaitTime(12);
 		domainPage.refreshPage();
-		waitTime();
-		waitTime();
-		waitTime();
-		waitTime();
+		customeWaitTime(12);
 		domainPage.isDomainExist(domainAbbreviation);
 		domainPage.waitForElementAndClick(domainPage.backToDashboard);
-		waitTime();
-		waitTime();
+		customeWaitTime(6);
 		dashBoardPage.logOut();
 		dashBoardPage = loginPage.loginSuccess(domainAbbreviation + "/"
 				+ defaultUser, "password");
 		waitTime();
 		dashBoardPage.addTiles();
-		waitTime();
-		waitTime();
+		customeWaitTime(6);
 		scoreProfilePage = dashBoardPage.goToScoreProfile();
-		waitTime();
-		waitTime();
+		customeWaitTime(6);
 		Assert.assertEquals(scoreProfilePage.resultListCount.getText().trim(),
 				"3");
 		Assert.assertEquals(scoreProfilePage.getScoreProfileEngine(MAP_ENGINE),
@@ -114,16 +100,12 @@ public class ScoreProfileTest extends BaseTest {
 				scoreProfilePage.getScoreProfileName(MATCH_PROFILE),
 				MATCH_PROFILE);
 		scoreProfilePage.backToDashboard();
-		waitTime();
-		waitTime();
+		customeWaitTime(6);
 		dashBoardPage.logOut();
 		dashBoardPage = loginPage.loginSuccess(defaultUser, defaultPassword);
 		waitTime();
 		domainPage = dashBoardPage.goToDomain();
-		waitTime();
-		waitTime();
-		waitTime();
-		waitTime();
+		customeWaitTime(12);
 		domainPage.deleteDomain(domainAbbreviation);
 	}
 

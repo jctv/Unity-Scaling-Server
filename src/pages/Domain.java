@@ -41,28 +41,22 @@ public class Domain extends BasePage{
 	
 	public void createDomain(String domainAbbreviation, String domainName) {
 		try {
-			waitTime();
-			waitTime();
-			if (domaintableRows.size() <= 5) {
+			customeWaitTime(6);
+			if (domaintableRows.size() <= 6) {
 				waitForElementAndClick(createDomainLink);
-				waitTime();
-				waitTime();
+				customeWaitTime(6);
 				waitForElementAndSendKeys(abbreviationDomainField,
 						domainAbbreviation);
 				waitTime();
 				waitForElementAndSendKeys(nameDomainField, domainName);
 				waitTime();
 				waitForElementAndClick(createDomainButton);
-				waitTime();
-				waitTime();
-				waitTime();
-				waitTime();
+				customeWaitTime(12);
 				waitForElementAndClick(globalModalInfoOkButton);
-				waitTime();
-				waitTime();
+				customeWaitTime(6);
 			} else {
 				System.out
-						.println("Already 5 domain exist so that not creating new Domain otherwaise cassendra will go down ");
+						.println("Already 6 domains exist so that not creating new Domain otherwaise cassendra will go down ");
 
 			}
 		} catch (Exception e) {
@@ -78,25 +72,13 @@ public class Domain extends BasePage{
 			WebElement domainDeleteIcon = driver.findElement(By.xpath("//td[@class='watable-col-abbreviation' and text () = '" + domainAbbreviation + "']/../td[2]//button[@class='btn btn-xs btn-link deleteRow']"));
 			waitTime();
 			waitForElementAndClick(domainDeleteIcon);
-			waitTime();
-			waitTime();
-			waitTime();
-			waitTime();
-			waitTime();
+			customeWaitTime(15);			
 			waitForElementAndClick(globalModalDeleteButton);
-			waitTime();
-			waitTime();
-			waitTime();
-			waitTime();
-			waitTime();
-			waitTime();
-			waitTime();
+			customeWaitTime(15);
 			waitForElementAndClick(globalModalInfoBody);
-			waitTime();
-			waitTime();
+			customeWaitTime(6);
 		}catch(Exception e){
 			System.out.println("Unable to Delete domain ");
-
 			
 		}
 		

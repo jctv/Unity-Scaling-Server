@@ -226,6 +226,16 @@ public class BaseTest {
 		}
 
 	}
+	public void customeWaitTime(int seconds) {
+
+		try {
+			Thread.sleep(seconds*1000);
+		} catch (InterruptedException e) {
+
+			System.out.println(e.getMessage());
+		}
+
+	}
 	public WebDriver emulateDevice(String device){
 		
 		driver.quit();
