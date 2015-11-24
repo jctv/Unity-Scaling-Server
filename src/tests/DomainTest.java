@@ -54,7 +54,7 @@ public class DomainTest extends BaseTest{
 	  domainPage = dashBoardPage.goToDomain();
 	  waitTime();
 	  waitTime();
-	  domainPage.CreateDomain(domainAbbreviation, domainName);
+	  domainPage.createDomain(domainAbbreviation, domainName);
 	  waitTime();
 	  waitTime();
 	  Assert.assertEquals(domainPage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("domainCreate").trim());
@@ -64,8 +64,9 @@ public class DomainTest extends BaseTest{
 	  domainPage.deleteDomain(domainAbbreviation);
 	  waitTime();
 	  waitTime();
-	  Assert.assertEquals(domainPage.globalModalDeleteBody.getText().trim(), unitymessages.getProperty("domainDelete").trim());
-	  domainPage.waitForElementAndClick(domainPage.globalModalDeleteCancelButton);
+	  Assert.assertEquals(domainPage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("domainDelete").replace("domain_abbreviation", domainAbbreviation).trim());
+	  domainPage.waitForElementAndClick(domainPage.globalModalInfoOkButton);
 	  
   }	
+  
 }

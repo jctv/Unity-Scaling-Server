@@ -34,6 +34,9 @@ public class BasePage {
 	@FindBy(id = "globalModalInfoOkButton")
 	public WebElement globalModalInfoOkButton;
 	
+	@FindBy(xpath = "(//button[@class='close close-black']")
+	public WebElement closeIcon;
+	
 
 	@FindBy(xpath = "(//i[@class='fa fa-edit'])[last()]")
 	public WebElement editLastIcon;
@@ -46,7 +49,18 @@ public class BasePage {
 
 	@FindBy(id = "resetSearchFilter")
 	public WebElement resetSearchFilter;
-
+	
+	
+	@FindBy(id = "searchMine")
+	public WebElement searchMineCheckBox;
+	
+	@FindBy(id = "searchMineLabel")
+	public WebElement searchMineLabel;
+	
+	
+	@FindBy(xpath = "//span[@class='filtered-list-stats-total']")
+	public WebElement resultListCount;
+	
 	public boolean validator = false;
 
 	public String variable = "";

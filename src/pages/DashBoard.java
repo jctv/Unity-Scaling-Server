@@ -492,11 +492,15 @@ public class DashBoard extends BasePage {
 			waitTime();
 			waitTime();
 			String dashboardUrl = driver.getCurrentUrl();
-			driver.get(dashboardUrl.replace("dashboard", "domain"));
+			driver.navigate().to(dashboardUrl.replace("dashboard", "domain"));
 			waitTime();
 			waitTime();
-
-			if (driver.getCurrentUrl().contains("#domain")) {
+			refreshPage();
+			waitTime();
+			waitTime();
+			waitTime();
+			waitTime();
+			if (resultListCount.isDisplayed()) {
 				System.out.println(" Domain page is loaded successfully");
 			} else {
 
@@ -522,6 +526,20 @@ public class DashBoard extends BasePage {
 			System.out.println("Unable to go to the Role page");
 		}
 		return new Media(driver);
+	}
+	
+	public ScoreProfile goToScoreProfile() {
+		waitTime();		
+		try {
+			waitForElementAndDoubleClick(scoreProfileTile);	
+			waitTime();
+			if(globalModalInfoOkButton.isDisplayed()){
+				System.out.println("Device not supported");
+			}
+		} catch (Exception e) {
+			System.out.println("Unable to go to the Role page");
+		}
+		return new ScoreProfile(driver);
 	}
 	
 	public Login logOut() {

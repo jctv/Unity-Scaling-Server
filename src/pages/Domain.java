@@ -33,26 +33,33 @@ public class Domain extends BasePage{
 	@FindBy(xpath = "//table[@class='watable table table-striped table-hover table-bordered table-condensed']/tbody/tr")
 	public List <WebElement>  domaintableRows;
 	
+	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
+	public WebElement backToDashboard;
 	
 	
 	
-	public void CreateDomain(String domainAbbreviation, String domainName) {
+	
+	public void createDomain(String domainAbbreviation, String domainName) {
 		try {
 			waitTime();
 			waitTime();
 			if (domaintableRows.size() <= 5) {
+				waitForElementAndClick(createDomainLink);
+				waitTime();
 				waitTime();
 				waitForElementAndSendKeys(abbreviationDomainField,
 						domainAbbreviation);
 				waitTime();
-				waitForElementAndSendKeys(abbreviationDomainField, domainName);
+				waitForElementAndSendKeys(nameDomainField, domainName);
 				waitTime();
 				waitForElementAndClick(createDomainButton);
 				waitTime();
 				waitTime();
 				waitTime();
 				waitTime();
-
+				waitForElementAndClick(globalModalInfoOkButton);
+				waitTime();
+				waitTime();
 			} else {
 				System.out
 						.println("Already 5 domain exist so that not creating new Domain otherwaise cassendra will go down ");
@@ -74,14 +81,44 @@ public class Domain extends BasePage{
 			waitTime();
 			waitTime();
 			waitTime();
+			waitTime();
+			waitTime();
+			waitForElementAndClick(globalModalDeleteButton);
+			waitTime();
+			waitTime();
+			waitTime();
+			waitTime();
+			waitTime();
+			waitTime();
+			waitTime();
+			waitForElementAndClick(globalModalInfoBody);
+			waitTime();
+			waitTime();
 		}catch(Exception e){
 			System.out.println("Unable to Delete domain ");
 
 			
 		}
 		
-		
-		
-		
+	}
+	
+	public boolean isDomainExist(String domainAbbreviation) {
+		boolean isDomainExist = false;
+		try {
+			WebElement domain = driver
+					.findElement(By
+							.xpath("//td[@class='watable-col-abbreviation' and text () = '"
+									+ domainAbbreviation + "']"));
+			if (domain.isDisplayed()) {
+				isDomainExist = true;
+			}
+		} catch (Exception e) {
+			System.out.println("Domain " + domainAbbreviation
+					+ " does not exist");
+
+		}
+
+		return isDomainExist;
+
 	}
 }
