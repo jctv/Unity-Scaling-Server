@@ -33,10 +33,10 @@ public class BasePage {
 
 	@FindBy(id = "globalModalInfoOkButton")
 	public WebElement globalModalInfoOkButton;
-	
+
 	@FindBy(xpath = "//button[@class='close close-black']")
 	public WebElement closeIcon;
-	
+
 
 	@FindBy(xpath = "(//i[@class='fa fa-edit'])[last()]")
 	public WebElement editLastIcon;
@@ -49,18 +49,18 @@ public class BasePage {
 
 	@FindBy(id ="resetSearchFilter")
 	public WebElement resetSearchFilter;
-	
-	
+
+
 	@FindBy(id = "searchMine")
 	public WebElement searchMineCheckBox;
-	
+
 	@FindBy(id = "searchMineLabel")
 	public WebElement searchMineLabel;
-	
-	
+
+
 	@FindBy(xpath = "//span[@class='filtered-list-stats-total']")
 	public WebElement resultListCount;
-	
+
 	public boolean validator = false;
 
 	public String variable = "";
@@ -76,54 +76,54 @@ public class BasePage {
 
 	@FindBy(xpath = ".//*[@id='globalModalInfoTitle']")
 	public WebElement globalModalInfoTitle;
-	
+
 	@FindBy(id = "globalModalInfoBody")
 	public WebElement globalModalInfoBody;
-	
+
 	@FindBy(id = "globalModalDeleteBody")
 	public WebElement globalModalDeleteBody;
-	
+
 	@FindBy(id = "globalModalOKCancelBody")
 	public WebElement globalModalOKCancelBody;
-	
+
 	@FindBy(id = "globalModalOKCancelSaveButton")
 	public WebElement globalModalOKCancelSaveButton;
-	
-	
+
+
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link editRow']")
 	public WebElement editIconList;
-	
+
 	@FindBy(xpath = "//button[@class='btn btn-primary pull-right user-save']")
 	public WebElement saveButton;
-	
+
 	@FindBy(id = "globalModalDeleteButton")
 	public WebElement globalModalDeleteButton;
-	
+
 	@FindBy(xpath = "//div[@id='globalModalDelete']//*[@id='cancelChanges']")
 	public WebElement globalModalDeleteCancelButton;
-	
+
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link deleteRow']")
 	public WebElement deleteIconList;
-	
+
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link exportRow']")
 	public WebElement exportIconList;
-	
+
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link copyRow']")
 	public WebElement copyIconList;
-	
-	
+
+
 	@FindBy(id = "fileupload")
 	public WebElement fileupload;
-	
+
 	@FindBy(xpath = "//button[@class='btn btn-warning cancel']")
 	public WebElement cancelUploadButton;
-	
+
 	@FindBy(xpath = "//button[@class='btn exit']")
 	public WebElement exitButton;
-	
+
 	@FindBy(xpath = "//span[@class='fileupload-status']")
 	public WebElement fileUploadStatus;
-	
+
 
 	/** Constructor */
 	public BasePage(WebDriver driver) {
@@ -328,9 +328,10 @@ public class BasePage {
 
 		searchAutoComplete.sendKeys(Keys.DELETE);
 	}
-
-	public void selectOption(WebElement dropDownListBox, String option) {
+public void selectOption(WebElement dropDownListBox, String option) {
+		WebDriverWait wait = new WebDriverWait(driver, 20);
 		try {
+			wait.until(ExpectedConditions.visibilityOf(dropDownListBox));
 			Select droplist = new Select(dropDownListBox);
 			droplist.selectByVisibleText(option);
 		} catch (Exception e) {
@@ -339,6 +340,7 @@ public class BasePage {
 		}
 
 	}
+
 
 	public void takeScreenShot() {
 		try {
@@ -433,7 +435,7 @@ public class BasePage {
 		element.clear();
 		}catch(Exception e){
 			System.out.println("Unable to clear the input field");
-	
+
 		}
 	}
 

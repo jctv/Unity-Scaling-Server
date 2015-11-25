@@ -19,7 +19,7 @@ public class Items extends BasePage {
 
 	@FindBy(id = "contentCreateInputName")
 	public WebElement itemCreateInputName;
-	
+
 
 	@FindBy(id = "searchAutoComplete")
 	public WebElement itemSearchAutoComplete;
@@ -68,28 +68,28 @@ public class Items extends BasePage {
 
 	@FindBy(xpath = "//*[@id='itemSaved']/div/div/div[1]/button")
 	public WebElement confirmationMessage;
-	
+
 	@FindBy(xpath = "//*[@id='itemSaved']/div/div/div[1]/h4")
 	public WebElement itemconfirmationMessageTitle;
-	
-	
+
+
 	@FindBy(xpath = "//*[@id='itemSaved']/div/div/div[2]/p")
 	public WebElement itemconfirmationMessageBody;
-	
+
 
 	@FindBy(id = "itemSaved")
 	public WebElement itemSaved;
-	
+
 	@FindBy(id = "copy-bank")
 	public WebElement selectCopyBank;
-	
+
 	@FindBy(id = "copyName")
 	public WebElement copyitemBankField;
-	
+
 	@FindBy(xpath = "//button[@class='btn btn-primary object-copy']")
 	public WebElement copyItemButton;
-	
-	
+
+
 	@FindBy(id = "htmlTabButton")
 	public WebElement htmlTabButton;
 
@@ -131,7 +131,7 @@ public class Items extends BasePage {
 
 	@FindBy(xpath = "//*[@id='object-select']/div/div/div/div/div[4]/ul/li[2]/div/label/input")
 	public WebElement standards4;
-	
+
 	@FindBy(xpath = "//*[@id='object-select']/div/div/div/div/div[4]/ul/li[2]/div/label/input/../span")
 	public WebElement standardsDomain;
 
@@ -155,21 +155,21 @@ public class Items extends BasePage {
 
 	@FindBy(xpath = "//span[@class='filtered-list-stats-total']")
 	public WebElement itemResultCount;
-	
+
 	@FindBy(xpath = "//td[@class='watable-col-preview']")
 	public WebElement itemNamePreviewColoumn;
-	
-	
+
+
 
 	@FindBy(xpath = "//td[@class='watable-col-name']")
 	public WebElement itemNameList;
 
 	@FindBy(xpath = "//td[@class='watable-col-name']/input")
 	public WebElement itemNameListInput;
-	
+
 	@FindBy(xpath = "//td[@class='watable-col-title']")
 	public WebElement itemTilteList;
-	
+
 	@FindBy(xpath = "//td[@class='watable-col-title']/input")
 	public WebElement itemTitleListInput;
 
@@ -178,41 +178,41 @@ public class Items extends BasePage {
 
 	@FindBy(xpath = "//td[@class='watable-col-content_area']/select")
 	public WebElement itemContentAreaSelectList;
-	
-	
+
+
 	@FindBy(xpath = "//td[@class='watable-col-grade']")
 	public WebElement itemGradeList;
-	
+
 	@FindBy(xpath = "//td[@class='watable-col-grade']/select")
 	public WebElement itemGradeSelectList;
 
 	@FindBy(xpath = "//td[@class='watable-col-bloom']")
 	public WebElement itemBloomList;
-	
+
 	@FindBy(xpath = "//td[@class='watable-col-bloom']/input")
 	public WebElement itemBloomListInput;
 
 	@FindBy(xpath = "//td[@class='watable-col-depth_of_knowledge']")
 	public WebElement itemDepthOfKnowledgeList;
-	
+
 	@FindBy(xpath = "//td[@class='watable-col-depth_of_knowledge']/select")
 	public WebElement itemDepthOfKnowledgeSelectList;
 
 	@FindBy(xpath = "//td[@class='watable-col-difficulty']")
 	public WebElement itemDifficultyList;
-	
+
 	@FindBy(xpath = "//td[@class='watable-col-difficulty']/select")
 	public WebElement itemDifficultySelectList;
 
 	@FindBy(xpath = "//td[@class='watable-col-lifecycle']")
 	public WebElement itemLifeCycleList;
-	
+
 	@FindBy(xpath = "//td[@class='watable-col-lifecycle']/select")
 	public WebElement itemLifeCycleSelectList;
 
 	@FindBy(xpath = "//td[@class='watable-col-points']")
 	public WebElement itemPointsList;
-	
+
 	@FindBy(xpath = "//td[@class='watable-col-points']/input")
 	public WebElement itemPointsListInput;
 
@@ -222,7 +222,7 @@ public class Items extends BasePage {
 	@FindBy(xpath = "//td[@class='watable-col-readability_level']/input")
 	public WebElement itemReadabilityListInput;
 
-	
+
 	@FindBy(xpath = "//td[@class='watable-col-std']")
 	public WebElement itemStandardList;
 
@@ -261,17 +261,17 @@ public class Items extends BasePage {
 
 	@FindBy(xpath = "//span[text()='Set Correct']")
 	public WebElement setCorrectAnswer;
-	
+
 	@FindBy(xpath = ".//*[@id='quickViewContentCreate']/div/form/div[1]/div/button")
 	public WebElement itemBankDropdown;
-	
+
 	@FindBy(xpath = "//input[@data-interaction='textEntry']")
 	public WebElement inputTextEntry;
-	
+
 	@FindBy(xpath = "//div[@data-body='body']/p")
 	public WebElement ItemHtmlParagraph;
-	
-	
+
+
 
 	public Items(WebDriver driver) {
 		super(driver);
@@ -309,11 +309,11 @@ public class Items extends BasePage {
 		waitForElementAndClick(backToDashboard);
 
 	}
-	
-	
+
+
 	/**
 	 * It is overloaded method  after testing will remove the other method
-	 * 
+	 *
 	 * @param name
 	 * @param itemBankName
 	 * @param interactionType
@@ -353,7 +353,7 @@ public class Items extends BasePage {
         case "Extended Text Entry ":
         	//TODO
             break;
-        
+
         }
 		selectOption(scoreProfile, scoringType);
 		waitTime();
@@ -413,8 +413,8 @@ public class Items extends BasePage {
 
 	}
 
-	
-	
+
+
 	public String getStrandCategory(){
 		waitTime();
 		waitForElementAndClick(standardColumn);
@@ -438,23 +438,24 @@ public class Items extends BasePage {
 		}
 
 	}
-	
-	
-	public void copyItem(String itemBank ,String copyItemName) {
-		try {
-			
-			selectOption(selectCopyBank, itemBank);
-			waitTime();
-			waitForElementAndSendKeys(copyitemBankField, copyItemName);
-			waitTime();
-			waitForElementAndClick(copyItemButton);
-			waitTime();
-		} catch (Exception e) {
 
-			System.out.println("Unable to Copy  the Item -->  " + copyItemName);
 
-		}
+	public boolean copyItem(String itemBank ,String copyItemName, int itemIndex) {
+			try {
+				WebElement elementToCopy = driver.findElement(By.xpath("(//button[@title='Copy'])["+itemIndex+"]"));
+				waitForElementAndClick(elementToCopy);
+				selectOption(selectCopyBank, itemBank);
+				waitTime();
+				waitForElementAndSendKeys(copyitemBankField, copyItemName);
+				waitTime();
+				waitForElementAndClick(copyItemButton);
+				waitTime();
+				return driver.findElement(By.xpath("//td[@class = 'watable-col-name' and text()='"+copyItemName+"']")).isDisplayed();
+			} catch (Exception e) {
 
+				System.out.println("Unable to Copy  the Item -->  " + copyItemName);
+				return false;
+			}
 	}
 
 
@@ -577,9 +578,9 @@ public class Items extends BasePage {
 		}
 		return textEntry;
 	}
-	
+
 	/**
-	 * Added this method as Item bank  drop  down is populating through plugin not a normal  select box 
+	 * Added this method as Item bank  drop  down is populating through plugin not a normal  select box
 	 * @param option
 	 */
 	public void selectItemBank(String option){
@@ -595,15 +596,15 @@ public class Items extends BasePage {
 				itemBank.click();
 			   break;
 			}
-			
+
 			}catch(Exception e ){
 				System.out.println(option + " is not available" );
 			}
 		}
-		
+
 	}
-	
-	
+
+
 	public void clickOnConfirmationMessage(){
 		waitForElementAndClick(confirmationMessage);
 		try {
@@ -612,10 +613,10 @@ public class Items extends BasePage {
 		} catch (Exception e) {
 
 		}
-		
-		
+
+
 	}
-	
+
 	public String updateItemName(String name ){
 		itemNameList.click();
 		waitTime();
@@ -627,8 +628,8 @@ public class Items extends BasePage {
 		waitTime();
 		return itemNameList.getText();
 	}
-	
-	
+
+
 	public String updateItemTitle(String title ){
 		itemTilteList.click();
 		waitTime();
@@ -640,8 +641,8 @@ public class Items extends BasePage {
 		waitTime();
 		return itemTilteList.getText();
 	}
-	
-	
+
+
 	public  String updateItemContentArea(String contentArea){
 		itemContentAreaList.click();
 		waitTime();
@@ -651,7 +652,7 @@ public class Items extends BasePage {
 		waitTime();
 		return itemContentAreaList.getText();
 	}
-	
+
 	public  String updateItemGrade(String grade){
 		itemGradeList.click();
 		waitTime();
@@ -661,7 +662,7 @@ public class Items extends BasePage {
 		waitTime();
 		return itemGradeList.getText();
 	}
-	
+
 	public String updateItemBloom(String bloom ){
 		itemBloomList.click();
 		waitTime();
@@ -673,7 +674,7 @@ public class Items extends BasePage {
 		waitTime();
 		return itemBloomList.getText();
 	}
-	
+
 	public  String updateItemDOK(String dok){
 		itemDepthOfKnowledgeList.click();
 		waitTime();
@@ -683,8 +684,8 @@ public class Items extends BasePage {
 		waitTime();
 		return itemDepthOfKnowledgeList.getText();
 	}
-	
-	
+
+
 	public String updateItemDifficulty(String difficulty){
 		itemDifficultyList.click();
 		waitTime();
@@ -694,7 +695,7 @@ public class Items extends BasePage {
 		waitTime();
 		return itemDifficultyList.getText();
 	}
-	
+
 	public String updateItemLifeCycle(String lifeCycle){
 		itemLifeCycleList.click();
 		waitTime();
@@ -704,7 +705,7 @@ public class Items extends BasePage {
 		waitTime();
 		return itemLifeCycleList.getText();
 	}
-	
+
 	public String updateItemReadability(String readability ){
 		itemReadabilityList.click();
 		waitTime();
@@ -716,5 +717,5 @@ public class Items extends BasePage {
 		waitTime();
 		return itemReadabilityList.getText();
 	}
-	
+
 }

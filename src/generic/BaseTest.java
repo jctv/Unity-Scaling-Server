@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,14 +43,13 @@ public class BaseTest {
 	protected String browser, filePath, executionType, url, platform,
 			hubAddress, userName, password;
 	protected String waitingTime = "10";
-	
+
 	Properties prop = new Properties();
 	InputStream input = null;
-	
 
 	// Constructor
 	public BaseTest() {
-		
+
 	}
 
 	@BeforeMethod
@@ -81,15 +81,11 @@ public class BaseTest {
 		// driver.quit();
 	}
 
-	
-
 	@FindBy(id = "navbarDrop1")
 	public WebElement userDrop;
 
 	@FindBy(xpath = "//*[@id='navigationUserName']/ul/li/a")
 	public WebElement logOut;
-
-
 
 	static String readFile(String path, Charset encoding) throws IOException {
 		byte[] encoded = Files.readAllBytes(Paths.get(path));
@@ -226,21 +222,23 @@ public class BaseTest {
 		}
 
 	}
+
 	public void customeWaitTime(int seconds) {
 
 		try {
-			Thread.sleep(seconds*1000);
+			Thread.sleep(seconds * 1000);
 		} catch (InterruptedException e) {
 
 			System.out.println(e.getMessage());
 		}
 
 	}
-	public WebDriver emulateDevice(String device){
-		
+
+	public WebDriver emulateDevice(String device) {
+
 		driver.quit();
 		waitTime();
-		//////
+		// ////
 		System.setProperty("webdriver.chrome.driver", filePath);
 		Map<String, String> mobileEmulation = new HashMap<String, String>();
 		mobileEmulation.put("deviceName", device);
@@ -249,25 +247,22 @@ public class BaseTest {
 		chromeOptions.put("mobileEmulation", mobileEmulation);
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 		capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-		 driver = new ChromeDriver(capabilities);
-		 
-		 driver.manage().window().maximize();
-		 ////////	
-		 return driver;
-		
-		
-		 
-		
+		driver = new ChromeDriver(capabilities);
+
+		driver.manage().window().maximize();
+		// //////
+		return driver;
+
 	}
-	
-	public WebDriver chromeDriver(){
-		
+
+	public WebDriver chromeDriver() {
+
 		System.setProperty("webdriver.chrome.driver", filePath);
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		return driver;
 	}
-	
+
 	public Login logOut() {
 
 		userDrop.click();
@@ -276,19 +271,26 @@ public class BaseTest {
 		return new Login(driver);
 	}
 
+	public void returnToDashboard() {
 
-	public  Properties getUnityMessagesProperty(String unitymessageFileLoc){
-		
-		try{
+		driver.findElement(By.xpath("//*[@id='region-navigation']/div/a"))
+				.click();
+
+	}
+
+	public Properties getUnityMessagesProperty(String unitymessageFileLoc) {
+
+		try {
 			input = new FileInputStream(unitymessageFileLoc);
 			// load a properties file
 			prop.load(input);
-		}catch(Exception e ){
-			
-			System.out.println("Getting error while reading unity message property");
+		} catch (Exception e) {
+
+			System.out
+					.println("Getting error while reading unity message property");
 
 		}
 		return prop;
-		
+
 	}
 }

@@ -1,14 +1,10 @@
 package tests;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
-import java.util.ArrayList;
-
 import generic.BaseTest;
 
-import org.openqa.selenium.WebDriver;
+import java.util.ArrayList;
+
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -120,10 +116,11 @@ public class HappyPathTest extends BaseTest {
 		itemsPageObject = dashBoardPageObject.goToItems();
 		waitTime();
 		System.out.println("******** Items creation ********");
-		itemsPageObject.createItem("item 2" , "My item bank");
-
-		waitTime();
-
+		itemsPageObject.createItem("item 1" , "My item bank"); 
+		for(int x =1;10<=x;x++){
+		Assert.assertTrue(itemsPageObject.copyItem("My item bank", "item " + x, 1), "Item Copied Successfully");		
+		}
+		returnToDashboard();
 		/*
 		 * itemsPageObject = dashBoardPageObject.goToItems(); waitTime();
 		 * itemsPageObject.createItem("item 1"); waitTime();

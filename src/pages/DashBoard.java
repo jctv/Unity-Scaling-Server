@@ -297,7 +297,7 @@ public class DashBoard extends BasePage {
 		System.out.println("Is the items tile enable "
 				+ ItemsTile.isEnabled());
 		waitForElementAndDoubleClick(ItemsTile);
-		waitTime();
+		customeWaitTime(5);
 		if(globalModalInfoOkButton.isDisplayed()){
 			System.out.println("Device not supported");
 		}

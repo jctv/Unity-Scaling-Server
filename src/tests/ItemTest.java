@@ -273,7 +273,7 @@ public class ItemTest extends BaseTest{
 	    waitTime();
 	    itemsPage.waitForElementAndClick(itemsPage.copyIconList);
 	    waitTime();
-	    itemsPage.copyItem(copyItemBankName ,copiedItemName);
+	    itemsPage.copyItem(copyItemBankName ,copiedItemName,1);
 	    waitTime();
 	    waitTime();
 	    Assert.assertEquals(itemsPage.globalModalInfoTitle.getText().trim(), unitymessages.getProperty("itemCopySuccess").trim());
