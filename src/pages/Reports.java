@@ -3,6 +3,7 @@ package pages;
 import generic.BasePage;
 import generic.BaseTest;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -67,6 +68,18 @@ public class Reports extends BasePage {
 	@FindBy(id = "viewReport")
 	public WebElement viewReportButton;
 
+	@FindBy(xpath = "//span[text()='Class']")
+	public WebElement classFilter;
+
+	@FindBy(xpath = "//span[text()='Class']/../../ul//div[text()='Click to Select']")
+	public WebElement selectClassFilter;
+
+	@FindBy(xpath = "//div[@class='layoutHorizontalLeftPane col-md-4']//input[@id='searchAutoComplete']")
+	public WebElement searchClassFilterPopup;
+
+	@FindBy(xpath = "//div[@class='layoutHorizontalLeftPane col-md-4']//span[@id='searchButton']")
+	public WebElement searchButtonClassFilterPopup;
+
 	public String viewReport() {
 		try {
 
@@ -78,4 +91,147 @@ public class Reports extends BasePage {
 		return "wiew report done";
 
 	}
+
+	public void SearchReport(String reportCriteria) {
+		try {
+			waitAndClearField(searchAutoComplete);
+			customeWaitTime(2);
+			waitForElementAndSendKeys(searchAutoComplete, reportCriteria);
+			customeWaitTime(2);
+			waitForElementAndClick(searchButton);
+			customeWaitTime(2);
+
+		} catch (Exception e) {
+		}
+		System.out.print("No reports are available for criteria "
+				+ reportCriteria);
+	}
+
+	public void filterReportByContentArea(String contentArea) {
+		try {
+			WebElement contentAreaCheckBox = driver
+					.findElement(By
+							.xpath("//div[@class='layoutHorizontalLeftPane col-md-2']//span[text()='"
+									+ contentArea + "']/../i"));
+			waitForElementAndClick(contentAreaCheckBox);
+
+		} catch (Exception e) {
+
+			System.out.print("No reports are available for Content area "
+					+ contentArea);
+
+		}
+
+	}
+
+	public void filterReportByClassRoster(String className) {
+		try {
+			customeWaitTime(2);
+			waitForElementAndClick(resetSearchFilter);
+			customeWaitTime(10);
+			waitForElementAndClick(classFilter);
+			customeWaitTime(5);
+			waitForElementAndClick(selectClassFilter);
+			customeWaitTime(10);
+			waitAndClearField(searchClassFilterPopup);
+			waitForElementAndDoubleClick(searchClassFilterPopup);
+			waitForElementAndSendKeys(searchClassFilterPopup, className);
+			customeWaitTime(5);
+			waitForElementAndDoubleClick(searchButtonClassFilterPopup);
+			customeWaitTime(5);
+			WebElement serachedItembank = driver.findElement(By
+					.xpath("//tr[@class='data-row']//td[text()='" + className
+							+ "']"));
+			waitForElementAndDoubleClick(serachedItembank);
+			customeWaitTime(5);
+			waitForElementAndClick(globalModalOKCancelSaveButton);
+			customeWaitTime(5);
+
+		} catch (Exception e) {
+			System.out.println("Unable to Filter the class  " + className);
+
+		}
+	}
+
+	public String getTestName(String testName) {
+		WebElement reportTestName = driver.findElement(By
+				.xpath("//div[text()='" + testName + "']"));
+		return reportTestName.getText();
+	}
+
+	public String getTestDuration(String testName) {
+		WebElement reportTestDuration = driver.findElement(By
+				.xpath("//div[text()='" + testName + "']/../div[2]//span[2]"));
+		return reportTestDuration.getText();
+	}
+
+	public String getNoOfStudentCompletedTest(String testName) {
+		WebElement countStudentCompletedTest = driver
+				.findElement(By
+						.xpath("//div[text()='"
+								+ testName
+								+ "']/../div[3]//div[text()='Completed']/../div[2]/span"));
+		return countStudentCompletedTest.getText();
+	}
+
+	public String getNoOfStudentStartedTest(String testName) {
+		WebElement countStudentStartedTest = driver
+				.findElement(By.xpath("//div[text()='" + testName
+						+ "']/../div[3]//div[text()='Started']/../div[2]/span"));
+		return countStudentStartedTest.getText();
+	}
+
+	public String getNoOfStudentNotStartedTest(String testName) {
+		WebElement countStudentNotStartedTest = driver
+				.findElement(By
+						.xpath("//div[text()='"
+								+ testName
+								+ "']/../div[3]//div[text()='Not Started']/../div[2]/span"));
+		return countStudentNotStartedTest.getText();
+	}
+
+	public String getNoOfStudentInQuantile(String testName, int index,
+			String desc) {
+		WebElement studentCount = driver
+				.findElement(By
+						.xpath("//div[text()='"
+								+ testName
+								+ "']/../div[4]//div[@class='col-md-3 row-collapse']["
+								+ index
+								+ "]/../../../../../../../div[2]/div[2]//div[@class='col-md-3 row-collapse report-unit-quartile']["
+								+ index + "]/span"));
+		return studentCount.getText();
+	}
+
+	public String getTotalScore(String testName) {
+		WebElement totalScore = driver
+				.findElement(By
+						.xpath("//div[text()='"
+								+ testName
+								+ "']/../div[4]/../../../div[3]//span[@class='test-summary-unit-total-percent']"));
+		return totalScore.getText();
+	}
+
+	public String getReportCategory(String testName, int index) {
+		WebElement reportCategory = driver
+				.findElement(By
+						.xpath("//div[text()='"
+								+ testName
+								+ "']/../div[4]/../../../div[5]/div/div/div["
+								+ index
+								+ "]//div[@class='progress test-summary-progress-bar row-collapse']/span[1]"));
+		return reportCategory.getText();
+	}
+
+	public String getReportCategoryPercent(String testName, int index) {
+		WebElement reportCategoryPercent = driver
+				.findElement(By
+						.xpath("//div[text()='"
+								+ testName
+								+ "']/../div[4]/../../../div[5]/div/div/div["
+								+ index
+								+ "]//div[@class='progress test-summary-progress-bar row-collapse']/span[2]"));
+		return reportCategoryPercent.getText();
+	}
+
 }

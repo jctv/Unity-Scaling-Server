@@ -426,5 +426,16 @@ public class BasePage {
 		waitTime();
 	}
 
+	public void waitAndClearField(WebElement element) {
+		try{
+		WebDriverWait wait = new WebDriverWait(driver, 20);
+		wait.until(ExpectedConditions.visibilityOf(element));
+		element.clear();
+		}catch(Exception e){
+			System.out.println("Unable to clear the input field");
+	
+		}
+	}
+
 
 }
