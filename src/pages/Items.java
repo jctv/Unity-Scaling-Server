@@ -19,6 +19,7 @@ public class Items extends BasePage {
 
 	@FindBy(id = "contentCreateInputName")
 	public WebElement itemCreateInputName;
+	
 
 	@FindBy(id = "searchAutoComplete")
 	public WebElement itemSearchAutoComplete;
@@ -130,6 +131,9 @@ public class Items extends BasePage {
 
 	@FindBy(xpath = "//*[@id='object-select']/div/div/div/div/div[4]/ul/li[2]/div/label/input")
 	public WebElement standards4;
+	
+	@FindBy(xpath = "//*[@id='object-select']/div/div/div/div/div[4]/ul/li[2]/div/label/input/../span")
+	public WebElement standardsDomain;
 
 	@FindBy(xpath = "//*[@id='object-select']/div/div/div/div/div[5]/ul/li[2]/div/label/input")
 	public WebElement standards5;
@@ -320,7 +324,8 @@ public class Items extends BasePage {
 		waitTime();
 		waitForElementAndClick(createItemButton);
 		waitTime();
-		selectItemBank(itemBankName);
+		//selectItemBank(itemBankName);
+		selectOption(selectItemBank, itemBankName);
 		waitTime();
 		waitForElementAndSendKeys(itemCreateInputName, name);
 		waitForElementAndSendKeys(itemCreateInputDescription, "Description");
@@ -408,6 +413,17 @@ public class Items extends BasePage {
 
 	}
 
+	
+	
+	public String getStrandCategory(){
+		waitTime();
+		waitForElementAndClick(standardColumn);
+		waitForElementAndClick(standards1);
+		waitForElementAndClick(standards2);
+		waitForElementAndClick(standards3);
+		waitForElementAndClick(standards4);
+		return standardsDomain.getText();
+	}
 	public void searchItem(String item) {
 		try {
 			itemSearchAutoComplete.clear();

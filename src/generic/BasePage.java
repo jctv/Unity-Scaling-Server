@@ -34,7 +34,7 @@ public class BasePage {
 	@FindBy(id = "globalModalInfoOkButton")
 	public WebElement globalModalInfoOkButton;
 	
-	@FindBy(xpath = "(//button[@class='close close-black']")
+	@FindBy(xpath = "//button[@class='close close-black']")
 	public WebElement closeIcon;
 	
 
@@ -47,7 +47,7 @@ public class BasePage {
 	@FindBy(id = "searchButton")
 	public WebElement searchButton;
 
-	@FindBy(id = "resetSearchFilter")
+	@FindBy(id ="resetSearchFilter")
 	public WebElement resetSearchFilter;
 	
 	

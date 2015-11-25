@@ -70,7 +70,11 @@ public class Reports extends BasePage {
 
 	@FindBy(xpath = "//span[text()='Class']")
 	public WebElement classFilter;
+	
+	@FindBy(xpath = "//span[text()='Content Area']")
+	public WebElement contentAreaFilter;
 
+	
 	@FindBy(xpath = "//span[text()='Class']/../../ul//div[text()='Click to Select']")
 	public WebElement selectClassFilter;
 
@@ -109,6 +113,8 @@ public class Reports extends BasePage {
 
 	public void filterReportByContentArea(String contentArea) {
 		try {
+			waitForElementAndClick(contentAreaFilter);
+			customeWaitTime(5);
 			WebElement contentAreaCheckBox = driver
 					.findElement(By
 							.xpath("//div[@class='layoutHorizontalLeftPane col-md-2']//span[text()='"
@@ -126,8 +132,6 @@ public class Reports extends BasePage {
 
 	public void filterReportByClassRoster(String className) {
 		try {
-			customeWaitTime(2);
-			waitForElementAndClick(resetSearchFilter);
 			customeWaitTime(10);
 			waitForElementAndClick(classFilter);
 			customeWaitTime(5);

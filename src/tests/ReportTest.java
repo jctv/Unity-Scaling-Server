@@ -12,6 +12,7 @@ import generic.BaseTest;
 
 import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -34,19 +35,39 @@ public class ReportTest extends BaseTest {
 	HappyPathTest Nav;
 	public String user = "t9222015";
 	public String genericPassword = "12345";
-	Login loginPageObject;
-	DashBoard dashBoardPageObject;
-	Items itemsPageObject;
-	Users usersPageObject;
-	ClassRoster classRosterPageObject;
-	TestCreation testCreationPageObject;
-	Schedule sechedulePageObject;
-	Delivery deliveryPageObject;
-	HandScoring handScoringPageObject;
-	Reports reportsPageObject;
-	Organization organizationPageObject;
-	ItemsBank itemsBankPageObject;
-	TestsBank testBankPageObject;
+	
+	public String autoSystemAdmin = "auto25/admin";
+	public String autoPassword = "password";
+	public String autoStudent = "auto25/autostudent1";
+	public String autoStudentPassword = "12345";
+	
+	Login loginPage;
+	DashBoard dashBoardPage;
+	Items itemsPage;
+	Users usersPage;
+	ClassRoster classRosterPage;
+	TestCreation testCreationPage;
+	Schedule sechedulePage;
+	Delivery deliveryPage;
+	HandScoring handScoringPage;
+	Reports reportsPage;
+	Organization organizationPage;
+	ItemsBank itemsBankPage;
+	TestsBank testBankPage;
+	
+	String itemBankName ;
+	String itemName ;
+	
+	String testBankName ;
+	String testName ;
+	
+	String interactionChoice = "Choice";
+	String interactionTextEntry = "Text Entry";
+	String simpleMatchScoreProfile = "Match";
+	String mapScoreProfile = "Map";
+	String handScoreProfile  = "Hand Scoring";
+	String choiceCorrectAnswer = "set D correct Answer";
+	String  textEntryCorrcetAnswer = "Auto Text Entry";
 
 	public ReportTest() {
 		super();
@@ -58,18 +79,18 @@ public class ReportTest extends BaseTest {
 
 		driver.get(url);
 
-		loginPageObject = new Login(driver);
+		loginPage = new Login(driver);
 		System.out.println("******** logging as super administrator ********");
-
-		dashBoardPageObject = loginPageObject.loginSuccess(user, "12345");
+		dashBoardPage = loginPage.loginSuccess(autoSystemAdmin, autoPassword);
 		// driver.get(url + "#dashboard");
-		waitTime();
-
-		// System.out.println(dashBoardPageObject.addTiles());
+		customeWaitTime(10);
+		dashBoardPage.addTiles();
+		customeWaitTime(10);
+		// System.out.println(dashBoardPage.addTiles());
 
 	}
 
-	@Test
+	@Test(enabled = false)
 	public void runPath() {
 
 		waitTime();
@@ -125,19 +146,19 @@ public class ReportTest extends BaseTest {
 				x++;
 			}
 			waitTime();
-			//classRosterPageObject = dashBoardPageObject.goToClassRoster();
-			//classRosterPageObject.createRoster(rosterOne, "Reports School", "Class 1");
-			//classRosterPageObject = dashBoardPageObject.goToClassRoster();
-			//classRosterPageObject.createRoster(rosterTwo, "Reports School", "Class 2");
-			//classRosterPageObject = dashBoardPageObject.goToClassRoster();
-			//classRosterPageObject.createRoster(rosterThree, "Reports School", "Class 3");
+			//classRosterPage = dashBoardPage.goToClassRoster();
+			//classRosterPage.createRoster(rosterOne, "Reports School", "Class 1");
+			//classRosterPage = dashBoardPage.goToClassRoster();
+			//classRosterPage.createRoster(rosterTwo, "Reports School", "Class 2");
+			//classRosterPage = dashBoardPage.goToClassRoster();
+			//classRosterPage.createRoster(rosterThree, "Reports School", "Class 3");
 			for(int y=1;y<3;y++){
-			sechedulePageObject = dashBoardPageObject.goToSchedule();		
-			sechedulePageObject.scheduleTestReports("Class "+y,(y));
+			sechedulePage = dashBoardPage.goToSchedule();		
+			sechedulePage.scheduleTestReports("Class "+y,(y));
 			
 			
 			}
-			dashBoardPageObject.logOut();
+			dashBoardPage.logOut();
 			
 			waitTime();
 			for(int z = 0; z <= inputs.length; z++){
@@ -145,20 +166,20 @@ public class ReportTest extends BaseTest {
 				try{
 			System.out
 					.println("******** logging as "+rosters[z]+" ********");
-			dashBoardPageObject = loginPageObject.loginSuccess(rosters[z],
+			dashBoardPage = loginPage.loginSuccess(rosters[z],
 					genericPassword);
 			
-			System.out.println(dashBoardPageObject.addTiles());
+			System.out.println(dashBoardPage.addTiles());
 			waitTime();
-			deliveryPageObject = dashBoardPageObject.goToDelivery();
+			deliveryPage = dashBoardPage.goToDelivery();
 			waitTime();
 			
 			System.out.println("******** Taking the scheduled test ********");
 			
-			deliveryPageObject.takeTestReports(Integer.parseInt(inputs[z]));
+			deliveryPage.takeTestReports(Integer.parseInt(inputs[z]));
 			
 			waitTime();
-			dashBoardPageObject.logOut();
+			dashBoardPage.logOut();
 			System.out.println("************************************************");
 			
 				}catch(Exception e){
@@ -168,18 +189,116 @@ public class ReportTest extends BaseTest {
 			}		
 			waitTime();
 			System.out.println("******** logging as the teacher ********");
-			dashBoardPageObject = loginPageObject.loginSuccess(user,
+			dashBoardPage = loginPage.loginSuccess(user,
 					genericPassword);
 			waitTime();
-			reportsPageObject = dashBoardPageObject.goToReports();
+			reportsPage = dashBoardPage.goToReports();
 			waitTime();
-			reportsPageObject.viewReport();
+			reportsPage.viewReport();
 			waitTime();
-			loginPageObject = dashBoardPageObject.logOut();
+			loginPage = dashBoardPage.logOut();
 
 		} catch (Exception e) {
 			System.out.println(" Failed " + e.getMessage());
 		}
 
 	}
+	
+	/**
+	 * Login into the unity
+	 * Create item
+	 * Create test
+	 * Schedule test 
+	 * Student attempt  test with all correct answer
+	 * Verify the report information
+	 * 
+	 */
+	
+	@Test(priority = 0)
+	public void testVerifyReportWithAllCorrectAnswer(){
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(10);
+		itemBankName = "Auto_IB_" + System.currentTimeMillis();
+		System.out.println("******** " + itemBankName + "  Item bank creation ********");
+		itemsBankPage.createBank(itemBankName, "desc");
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(10);
+		itemName = "I_" + itemBankName;
+		System.out.println("******** " + itemName + "  Item creation ********");
+		itemsPage.createItem(itemName, itemBankName ,interactionChoice , simpleMatchScoreProfile , choiceCorrectAnswer);
+		customeWaitTime(10);
+		itemsPage.searchItem(itemName);
+		customeWaitTime(5);
+		itemsPage.addStandards();
+		customeWaitTime(5);
+		String itemStrandCategory = itemsPage.getStrandCategory();
+		itemsPage.waitForElementAndClick(itemsPage.closeIcon);
+		customeWaitTime(2);
+		itemsPage.backToDashboard();
+		customeWaitTime(10);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(10);
+		waitTime();
+		testBankName = "Auto_TB_" + System.currentTimeMillis();
+		System.out.println("******** " + testBankName + "  Test bank creation ********");
+		testBankPage.createBank(testBankName, "desc");
+		waitTime();
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testName = "T_" + testBankName;
+		System.out.println("******** " + testName + "  Test creation ********");
+		testCreationPage.createTest(testName , testBankName , itemName);
+		customeWaitTime(10);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		customeWaitTime(10);
+		testCreationPage.searchTest(testName);
+		String createdTestId = testCreationPage.getTestId();
+		testCreationPage.backToDashboard();
+		customeWaitTime(10);
+		sechedulePage = dashBoardPage.goToSchedule();
+		customeWaitTime(10);
+		sechedulePage.scheduleTest("Auto School", "autoRoster", "N/A", testName, "Green", "120", "100%", "No");
+		dashBoardPage.logOut();
+		customeWaitTime(10);		
+		
+		dashBoardPage = loginPage.loginSuccess(autoStudent,
+				autoStudentPassword);
+		dashBoardPage.addTiles();
+		customeWaitTime(10);
+		deliveryPage = dashBoardPage.goToDelivery();
+		waitTime();
+		System.out.println("******** Taking the scheduled test ********");
+		Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
+		deliveryPage.takeTest(createdTestId);
+		Assert.assertEquals(testName, deliveryPage.getTestinHistoryTable(createdTestId));
+		Assert.assertEquals("100%", deliveryPage.getTestPercentCorrect(createdTestId));
+		Assert.assertEquals("1", deliveryPage.getTestNoOfItems(createdTestId));
+		deliveryPage.backToDashboard();
+		customeWaitTime(10);
+		dashBoardPage.logOut();
+		customeWaitTime(10);	
+		dashBoardPage = loginPage.loginSuccess(autoSystemAdmin,
+				autoPassword);
+		customeWaitTime(10);
+		reportsPage = dashBoardPage.goToReports();
+		customeWaitTime(10);
+		//reportsPage.waitForElementAndClick(reportsPage.resetSearchFilter);
+		reportsPage.filterReportByContentArea("N/A");
+		customeWaitTime(10);
+		
+		String testName = "T_Auto_TB_1448454057207";
+		Assert.assertEquals(testName, reportsPage.getTestName(testName));
+		//Assert.assertEquals(testName, reportsPage.getTestDuration(testName));
+		Assert.assertEquals(reportsPage.getNoOfStudentCompletedTest(testName) ,"1");
+		Assert.assertEquals(reportsPage.getNoOfStudentNotStartedTest(testName),"1");
+		Assert.assertEquals(reportsPage.getNoOfStudentStartedTest(testName),"0");
+		Assert.assertEquals(reportsPage.getNoOfStudentInQuantile(testName, 4, "All correct"),"1");
+		//Assert.assertEquals(reportsPage.getReportCategory(testName, 1),itemStrandCategory);
+		Assert.assertEquals(reportsPage.getReportCategoryPercent(testName, 1),"100%");
+
+
+	}
+	
+	
+	
 }
