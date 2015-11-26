@@ -22,9 +22,11 @@ public class Delivery extends BasePage {
 	}
 
 	@FindBy(xpath = "(//input[@name='sprite_1'])[last()]")
-	public WebElement item0;
+	public WebElement itemD;
 	
-
+	@FindBy(xpath = "//input[@name='sprite_1']")
+	public WebElement itemA;
+	
 
 	@FindBy(xpath = "//button[contains(@class,'btn btn-primary btn-sm btn-block start-test-link')]")
 	public WebElement startTestButton;
@@ -52,7 +54,12 @@ public class Delivery extends BasePage {
 
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
 	public WebElement home;
+	
+	@FindBy(xpath = "//div[@id='selectionButtons']/div/div[contains(@id,'itemNav')]")
+	public List <WebElement > itemsInTest;
 
+	
+	
 	public void takeTest() {
 
 		waitTime();
@@ -68,7 +75,7 @@ public class Delivery extends BasePage {
 
 		waitTime();
 
-		waitForElementAndClick(item0);
+		waitForElementAndClick(itemD);
 		waitForElementAndClick(btn);
 		waitTime();
 
@@ -99,7 +106,7 @@ public class Delivery extends BasePage {
 		waitTime();
 		for (int x = 0; x < 11; x++) {
 			if(z == 1){
-			waitForElementAndClick(item0);
+			waitForElementAndClick(itemD);
 			System.out.println(x +" correct answer ");
 			}else{
 				System.out.println(x +" wrong answer ");
@@ -121,22 +128,57 @@ public class Delivery extends BasePage {
 	 * It is temporary method after discussion with team will update /remove the existing method
 	 * @param testId
 	 */
-	public void takeTest(String testId){
+	public void takeTest(boolean isCorrectAnswer , int itemIndex , String itemType){
 		
-		startScheduledTest(testId);
-		waitTime();
-		waitForElementAndClick(item0);
-		waitForElementAndClick(btn);
-		waitTime();
+		try {
+			
+			//startScheduledTest(testId);
+			customeWaitTime(10);
+			switch (itemType) {
+			
+			case "Choice":
+				WebElement itemToBeAnswered = driver.findElement(By
+						.xpath("//div[@class='i-choice']//div[" + itemIndex
+								+ "]//input"));
+				for (int item = 0; item <= itemsInTest.size() - 1; item++) {
 
-		waitForElementAndClick(exitButton);
-		waitTime();
-		waitForElementAndClick(finishTestButton);
-		waitTime();
-		//waitForElementAndClick(menu);
-		//waitForElementAndClick(home);
-		System.out.println("Test done as student");
-		
+					if (isCorrectAnswer) {
+						waitForElementAndClick(itemToBeAnswered);
+						waitForElementAndClick(btn);
+						customeWaitTime(5);
+
+					} else {
+						waitForElementAndClick(itemToBeAnswered);
+						waitForElementAndClick(btn);
+						customeWaitTime(5);
+					}
+				}
+
+	        	
+	            break;
+	        case "Text Entry":
+	        	//TODO
+	            break;
+	        case "Extended Text Entry ":
+	        	//TODO
+	            break;
+			
+			}
+			
+			waitForElementAndClick(exitButton);
+			waitTime();
+			waitForElementAndClick(finishTestButton);
+			waitTime();
+			// waitForElementAndClick(menu);
+			// waitForElementAndClick(home);
+			System.out.println("Test done as student");
+
+		} catch (Exception e) {
+
+			System.out.println("Error occured while attempting test");
+
+		}
+
 	}
 	
 	

@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class Reports extends BasePage {
 
@@ -15,6 +16,8 @@ public class Reports extends BasePage {
 
 	public Reports(WebDriver driver) {
 		super(driver);
+		PageFactory.initElements(driver, this);
+
 	}
 
 	@FindBy(xpath = "//*[@id='layoutHorizontalRightPane']/div/div/div[3]/table/tbody/tr[1]/td[2]/div/button[2]/i")
@@ -114,7 +117,7 @@ public class Reports extends BasePage {
 	public void filterReportByContentArea(String contentArea) {
 		try {
 			waitForElementAndClick(contentAreaFilter);
-			customeWaitTime(5);
+			customeWaitTime(10);
 			WebElement contentAreaCheckBox = driver
 					.findElement(By
 							.xpath("//div[@class='layoutHorizontalLeftPane col-md-2']//span[text()='"

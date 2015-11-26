@@ -63,7 +63,7 @@ public class CalendarTest extends BaseTest {
 		sechedulePageObject = dashBoardPageObject.goToSchedule();
 		waitTime();
 		waitTime();
-		sechedulePageObject.waitForElementAndClick(sechedulePageObject.previousWeekButton);
+		sechedulePageObject.waitForElementAndClick(sechedulePageObject.previousButton);
 		waitTime();
 		waitTime();
 		sechedulePageObject.waitForElementAndDoubleClick(sechedulePageObject.calendar);

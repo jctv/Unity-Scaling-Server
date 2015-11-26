@@ -321,34 +321,36 @@ public class Items extends BasePage {
 	 * @param setAnswer
 	 */
 	public void createItem(String name, String itemBankName ,String interactionType , String scoringType , String setAnswer) {
-		waitTime();
+		
+		try{
+		customeWaitTime(5);
 		waitForElementAndClick(createItemButton);
-		waitTime();
+		customeWaitTime(5);
 		//selectItemBank(itemBankName);
 		selectOption(selectItemBank, itemBankName);
-		waitTime();
+		customeWaitTime(5);
 		waitForElementAndSendKeys(itemCreateInputName, name);
 		waitForElementAndSendKeys(itemCreateInputDescription, "Description");
 		waitForElementAndClick(itemCreateEditInputSubmit);
-		waitTime();
+		customeWaitTime(10);
 		selectOption(templates, interactionType);
-		waitTime();
+		customeWaitTime(5);
 		waitForElementAndClick(textEditorSaveButton);
-		waitTime();
+		customeWaitTime(5);
 		clickOnConfirmationMessage();
 		waitForElementAndClick(scoreTabButton);
 		switch (interactionType) {
         case "Choice":
         	waitForElementAndClick(answerOne);
-        	waitTime();
+    		customeWaitTime(5);
     		waitForElementAndClick(saveAnswer);
-    		waitTime();
+    		customeWaitTime(5);
             break;
         case "Text Entry":
         	waitForElementAndSendKeys(inputTextEntry, setAnswer);
-    		waitTime();
+    		customeWaitTime(5);
     		waitForElementAndClick(saveAnswer);
-    		waitTime();
+    		customeWaitTime(5);
             break;
         case "Extended Text Entry ":
         	//TODO
@@ -366,6 +368,11 @@ public class Items extends BasePage {
 		//searchItem(name);
 		//this.addStandards();
 		//waitForElementAndClick(backToDashboard);
+		
+		}catch(Exception e ){
+			System.out.println("Unalbe to create item ");
+			
+		}
 
 	}
 
@@ -416,11 +423,14 @@ public class Items extends BasePage {
 
 
 	public String getStrandCategory(){
-		waitTime();
 		waitForElementAndClick(standardColumn);
+		customeWaitTime(10);
 		waitForElementAndClick(standards1);
+		customeWaitTime(2);
 		waitForElementAndClick(standards2);
+		customeWaitTime(2);
 		waitForElementAndClick(standards3);
+		customeWaitTime(2);
 		waitForElementAndClick(standards4);
 		return standardsDomain.getText();
 	}

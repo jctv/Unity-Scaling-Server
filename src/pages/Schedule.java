@@ -27,9 +27,40 @@ public class Schedule extends BasePage {
 	@FindBy(xpath = "//*[@id='region-workspace']/div/div[1]/div[2]/div/table/tbody/tr/td/div[2]/div/div[2]/table")
 	public WebElement calendar;
 	
+	@FindBy(xpath = "//div[@class='fc-time-grid-container']//div[@class='fc-slats']//tr[@class='fc-minor'][1]")
+	public WebElement calendarArea;
+	
+	@FindBy(xpath = "//div[@class='fc-time-grid-container']//div[@class='fc-slats']//tr[@class='fc-minor'][1]/../../../../div[3]//div[@class='fc-title']")
+	public WebElement scheduledTestEvent;
+	
+	
+	
 	@FindBy(xpath = "//*[@id='region-workspace']/div/div[1]/div[2]/div/table/tbody/tr/td/div[2]/div/div[3]/table/tbody/tr/td[5]/div/a/div[1]/div[1]")
 	public WebElement createdEvent;
 
+	@FindBy(xpath = "//button[text()='day']")
+	public WebElement dayButton;
+	
+
+	@FindBy(id = "saveChanges")
+	public WebElement saveChangesButton;
+	
+	@FindBy(id = "startNow")
+	public WebElement startNowButton;
+	
+	@FindBy(id = "printAnswerSheet")
+	public WebElement printAnswerSheetButton;
+	
+	@FindBy(id = "cancelChanges")
+	public WebElement cancelChangesButton;
+	
+	@FindBy(id = "stopNow")
+	public WebElement stopNowButton;
+	
+	@FindBy(id = "deleteEventClick")
+	public WebElement deleteEventClickButton;
+	
+	
 	@FindBy(id = "calType")
 	public WebElement calType;
 
@@ -67,10 +98,10 @@ public class Schedule extends BasePage {
 	public WebElement startNowEventClick;
 	                
 	@FindBy(xpath = "//button[@class ='fc-next-button ui-button ui-state-default ui-corner-right']")
-	public WebElement nextWeekButton;
+	public WebElement nextButton;
 	
 	@FindBy(xpath = "//button[@class ='fc-prev-button ui-button ui-state-default ui-corner-left']")
-	public WebElement previousWeekButton;
+	public WebElement previousButton;
 	
 	@FindBy(id = "genericModalTitle")
 	public WebElement genericModalTitle;
@@ -94,13 +125,14 @@ public class Schedule extends BasePage {
 	public void scheduleTest(String school, String roster , String contetArea , String test , String eventColor, String time , String goal, String tools) {
 		try {
 			waitTime();
-			waitForElementAndClick(nextWeekButton);
-			waitTime();
-			(new Actions(driver)).doubleClick(calendar).build().perform();
+			waitForElementAndClick(dayButton);
+			customeWaitTime(5);
+			waitForElementAndClick(nextButton);
+			customeWaitTime(5);
+			(new Actions(driver)).doubleClick(calendarArea).build().perform();
 			(new Actions(driver)).doubleClick().build().perform();
 			System.out.println("click on calendar");
 
-			
 			waitForElementAndSendKeys(schoolName, school);
 			selectOption(schoolName, school);
 			
@@ -129,8 +161,10 @@ public class Schedule extends BasePage {
 			
 			System.out.println(test + "event is created");
 			waitTime();
-			waitForElementAndClick(createdEvent);
+			//waitForElementAndClick(createdEvent);
+			waitForElementAndClick(scheduledTestEvent);
 			System.out.println("click on event");
+			waitTime();
 			waitForElementAndClick(startNowEventClick);
 			waitTime();
 			waitForElementAndClick(homeLink);
@@ -146,7 +180,7 @@ public class Schedule extends BasePage {
 		try {
 			waitTime();
 			for(int weeks = 0;weeks < eventNumber;weeks++){
-			waitForElementAndClick(nextWeekButton);
+			waitForElementAndClick(nextButton);
 			}
 			waitTime();
 			
