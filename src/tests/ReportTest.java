@@ -77,18 +77,13 @@ public class ReportTest extends BaseTest {
 
 	@BeforeMethod
 	public void setUp() {
-
 		driver.get(url);
-
 		loginPage = new Login(driver);
-		/*System.out.println("******** logging as super administrator ********");
+		System.out.println("******** logging as super administrator ********");
 		dashBoardPage = loginPage.loginSuccess(autoSystemAdmin, autoPassword);
-		// driver.get(url + "#dashboard");
 		customeWaitTime(10);
-		dashBoardPage.addTiles();
+		//dashBoardPage.addTiles();
 		customeWaitTime(10);
-		// System.out.println(dashBoardPage.addTiles());
-*/
 	}
 
 	@Test(enabled = false)
@@ -391,12 +386,9 @@ public class ReportTest extends BaseTest {
 	
 	@Test(priority = 3)
 	public void testVerifyReportForTestHavingMultipleItems(){
-		itemBankName = "Auto_IB_1448617320485"; 
-		
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(10);
-		//itemBankName = "Auto_IB_" + System.currentTimeMillis();
-		itemBankName = "Auto_IB_1448617320485"; 
+		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, "desc");
 		customeWaitTime(5);
@@ -460,10 +452,11 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** Taking the scheduled test ********");
 		Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
 		deliveryPage.startScheduledTest(createdTestId);
+		customeWaitTime(10);
 		deliveryPage.takeTest(false , 1 ,"Choice");
 		Assert.assertEquals(testName, deliveryPage.getTestinHistoryTable(createdTestId));
 		Assert.assertEquals("0%", deliveryPage.getTestPercentCorrect(createdTestId));
-		Assert.assertEquals("1", deliveryPage.getTestNoOfItems(createdTestId));
+		Assert.assertEquals("10", deliveryPage.getTestNoOfItems(createdTestId));
 		deliveryPage.backToDashboard();
 		customeWaitTime(10);
 		dashBoardPage.logOut();

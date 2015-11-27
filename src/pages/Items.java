@@ -454,6 +454,7 @@ public class Items extends BasePage {
 			try {
 				WebElement elementToCopy = driver.findElement(By.xpath("(//button[@title='Copy'])["+itemIndex+"]"));
 				waitForElementAndClick(elementToCopy);
+				customeWaitTime(10);
 				selectOption(selectCopyBank, itemBank);
 				customeWaitTime(5);
 				waitAndClearField(copyitemBankField);

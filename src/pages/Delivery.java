@@ -62,7 +62,7 @@ public class Delivery extends BasePage {
 	
 	public void takeTest() {
 
-		waitTime();
+		customeWaitTime(5);
 		try {
 
 			waitForElementAndClick(startTestButton);
@@ -73,16 +73,16 @@ public class Delivery extends BasePage {
 
 		System.out.println("Sarting test");
 
-		waitTime();
+		customeWaitTime(5);
 
 		waitForElementAndClick(itemD);
 		waitForElementAndClick(btn);
-		waitTime();
+		customeWaitTime(5);
 
 		waitForElementAndClick(exitButton);
-		waitTime();
+		customeWaitTime(5);
 		waitForElementAndClick(finishTestButton);
-		waitTime();
+		customeWaitTime(5);
 		waitForElementAndClick(menu);
 		waitForElementAndClick(home);
 
@@ -92,7 +92,7 @@ public class Delivery extends BasePage {
 
 	public void takeTestReports(int z) {
 
-		waitTime();
+		customeWaitTime(5);
 		try {
 
 			waitForElementAndClick(startTestButton);
@@ -103,7 +103,7 @@ public class Delivery extends BasePage {
 
 		System.out.println("Sarting test");
 
-		waitTime();
+		customeWaitTime(5);
 		for (int x = 0; x < 11; x++) {
 			if(z == 1){
 			waitForElementAndClick(itemD);
@@ -112,13 +112,13 @@ public class Delivery extends BasePage {
 				System.out.println(x +" wrong answer ");
 			}
 			waitForElementAndClick(btn);
-			waitTime();
+			customeWaitTime(5);
 		}
 
 		waitForElementAndClick(exitButton);
-		waitTime();
+		customeWaitTime(5);
 		waitForElementAndClick(finishTestButton);
-		waitTime();
+		customeWaitTime(5);
 		waitForElementAndClick(home);
 
 		System.out.println("Test done as student");
@@ -165,9 +165,9 @@ public class Delivery extends BasePage {
 		}
 
 		waitForElementAndClick(exitButton);
-		waitTime();
+		customeWaitTime(5);
 		waitForElementAndClick(finishTestButton);
-		waitTime();
+		customeWaitTime(5);
 		// waitForElementAndClick(menu);
 		// waitForElementAndClick(home);
 		System.out.println("Test done as student");
