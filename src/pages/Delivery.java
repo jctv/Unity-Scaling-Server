@@ -129,57 +129,52 @@ public class Delivery extends BasePage {
 	 * @param testId
 	 */
 	public void takeTest(boolean isCorrectAnswer , int itemIndex , String itemType){
-		
-		try {
-			
-			//startScheduledTest(testId);
-			customeWaitTime(10);
-			switch (itemType) {
-			
-			case "Choice":
-				WebElement itemToBeAnswered = driver.findElement(By
-						.xpath("//div[@class='i-choice']//div[" + itemIndex
-								+ "]//input"));
-				for (int item = 0; item <= itemsInTest.size() - 1; item++) {
-
+		customeWaitTime(10);
+		switch (itemType) {
+		case "Choice":
+			try {
+				for (int item = 1; item <= itemsInTest.size(); item++) {
+					WebElement itemToBeAnswered = driver.findElement(By
+							.xpath("//div[@class='i-choice']//div[" + itemIndex
+									+ "]//input"));
 					if (isCorrectAnswer) {
 						waitForElementAndClick(itemToBeAnswered);
+						customeWaitTime(10);
 						waitForElementAndClick(btn);
 						customeWaitTime(5);
 
 					} else {
 						waitForElementAndClick(itemToBeAnswered);
+						customeWaitTime(10);
 						waitForElementAndClick(btn);
 						customeWaitTime(5);
 					}
 				}
-
-	        	
-	            break;
-	        case "Text Entry":
-	        	//TODO
-	            break;
-	        case "Extended Text Entry ":
-	        	//TODO
-	            break;
-			
+			} catch (Exception e) {
+                  //TODO
 			}
-			
-			waitForElementAndClick(exitButton);
-			waitTime();
-			waitForElementAndClick(finishTestButton);
-			waitTime();
-			// waitForElementAndClick(menu);
-			// waitForElementAndClick(home);
-			System.out.println("Test done as student");
 
-		} catch (Exception e) {
-
-			System.out.println("Error occured while attempting test");
+			break;
+		case "Text Entry":
+			// TODO
+			break;
+		case "Extended Text Entry ":
+			// TODO
+			break;
 
 		}
 
+		waitForElementAndClick(exitButton);
+		waitTime();
+		waitForElementAndClick(finishTestButton);
+		waitTime();
+		// waitForElementAndClick(menu);
+		// waitForElementAndClick(home);
+		System.out.println("Test done as student");
+
 	}
+
+	
 	
 	
 	public String getScheduledTest(String testId){

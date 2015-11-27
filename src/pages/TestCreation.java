@@ -170,12 +170,33 @@ public class TestCreation extends BasePage {
 	@FindBy(xpath = ".//*[@id='quickViewContentCreate']/div/form/div[1]/div/button")
 	public WebElement testBankDropdown;
 	
+	@FindBy(xpath = "//span[text()='Banks']")
+	public WebElement bankFilter;
+	
+	@FindBy(xpath = "//span[text()='Banks']/../../ul//div[text()='Click to Select']")
+	public WebElement selectBankFilter;
+
+	@FindBy(xpath = "//div[@class='layoutHorizontalLeftPane col-md-4']//input[@id='searchAutoComplete']")
+	public WebElement searchItemBankFilterPopup;
+
+	@FindBy(xpath = "//div[@class='layoutHorizontalLeftPane col-md-4']//span[@id='searchButton']")
+	public WebElement searchButtonItemBankFilterPopup;
+
+	@FindBy(xpath = "//span[text()='Banks']/../../ul//div/div/div")
+	public WebElement filteredItemBank;
+	
+	@FindBy(xpath = "//input[@id='item-add-count']")
+	public WebElement itemAddCountField;
+	
+	@FindBy(xpath = "//button[@class='btn btn-default btn-sm add-items']")
+	public WebElement itemAddButton;
+	
 	public void createTest(String testName , String testBankName ,  String itemName) {
 		try {
-			waitTime();
+			customeWaitTime(5);
 			waitForElementAndClick(createTestLink);
 			selectOption(bankDropDown, testBankName);
-			waitTime();
+			customeWaitTime(5);
 			//waitForElementAndSendKeys(bankDropDown, "My Tests");
 			waitForElementAndSendKeys(contentCreateInputName, testName);
 			waitForElementAndSendKeys(contentCreateInputDescription, testName);
@@ -224,10 +245,74 @@ public class TestCreation extends BasePage {
 			waitForElementAndClick(ruler_check);
 			waitForElementAndClick(saveToolsButton);
 			waitForElementAndClick(okButton);*/
-			waitTime();
+			customeWaitTime(5);
 			System.out.println("Test "+ testName +" created successfully ");
 			waitForElementAndClick(testsLink);
-			waitTime();
+			customeWaitTime(5);
+			waitForElementAndClick(homeLink);
+			try {
+				waitForElementAndClick(homeLink);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		} catch (Exception e) {
+			System.out.println("Test "+ testName +" Creation Failed ");
+		}
+		 
+	}
+	
+	/**
+	 * It is overloaded method
+	 * 
+	 * @param testName
+	 * @param testBankName
+	 * @param itemName
+	 */
+	
+	public void createTestWithMultipleItems(String testName , String testBankName ,  String itemBank , int itemCount) {
+		try {
+			customeWaitTime(5);
+			waitForElementAndClick(createTestLink);
+			customeWaitTime(5);
+			selectOption(bankDropDown, testBankName);
+			customeWaitTime(5);
+			waitForElementAndSendKeys(contentCreateInputName, testName);
+			waitForElementAndSendKeys(contentCreateInputDescription, testName);
+			waitForElementAndClick(createAndEditButton);
+			filterItemBank(itemBank);
+			List <WebElement>  totalItems = driver.findElements(By.xpath("//ul[@id='sortable1']//li"));
+			waitForElementAndSendKeys(itemAddCountField, String.valueOf(totalItems.size()));
+			customeWaitTime(5);
+			waitForElementAndClick(itemAddButton);
+			customeWaitTime(5);
+			List <WebElement>  totalDropedItems = driver.findElements(By.xpath("//ul[@id='sortable2']//li"));
+			
+			if(totalItems.size() == totalDropedItems.size()){
+				System.out.println("All items are added successfully ");
+			}else {
+				System.out.println("All items are not added ");
+			}
+
+			waitForElementAndSendKeys(testContentField, "N/A");
+			selectOption(testContentField, "N/A");
+
+			waitForElementAndSendKeys(testGradeField, "05");
+			selectOption(testGradeField, "05");
+			testGradeField.click();
+			
+			waitForElementAndClick(saveTestButton);
+			customeWaitTime(5);
+			waitForElementAndClick(xbutton);
+			customeWaitTime(5);
+			try {
+				waitForElementAndClick(xbutton);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			customeWaitTime(5);
+			System.out.println("Test "+ testName +" created successfully ");
+			waitForElementAndClick(testsLink);
+			customeWaitTime(5);
 			waitForElementAndClick(homeLink);
 			try {
 				waitForElementAndClick(homeLink);
@@ -243,10 +328,10 @@ public class TestCreation extends BasePage {
 	public void searchTest(String test){
 		try{
 		 searchAutoComplete.clear();
-		  waitTime();
+		  customeWaitTime(5);
 		  waitForElementAndSendKeys(searchAutoComplete, test);
 		  waitForElementAndClick(searchButton);
-		  waitTime();
+		  customeWaitTime(5);
 		}catch(Exception e){
 			System.out.println("Unable to find the Test  -->  "  + test);
 
@@ -257,9 +342,9 @@ public class TestCreation extends BasePage {
 	
 	public String getSharedTestBank(String testBankName){
 		String testBank = null ;
-		waitTime();
+		customeWaitTime(5);
 		waitForElementAndClick(createTestLink);
-		waitTime();
+		customeWaitTime(5);
 		List<WebElement > itemBankOptions = getDropDownOptions(selectTestBank);
 		for (WebElement itemBankOption : itemBankOptions){
 			try{
@@ -281,9 +366,9 @@ public class TestCreation extends BasePage {
 		try{
 		searchAutoCompleteField.clear();
 		searchTest(testName);	
-		waitTime();
+		customeWaitTime(5);
 		waitForElementAndClick(testDeleteIcon);
-		waitTime();
+		customeWaitTime(5);
 		if(deleteTestPopUp.isDisplayed()){
 		   waitForElementAndClick(deleteButtonTestPopUp);
 		}
@@ -302,14 +387,14 @@ public class TestCreation extends BasePage {
 	
 	public Schedule navigateToScheduleFromListings() {
 		waitForElementAndClick(testViewIcon);
-		waitTime();
+		customeWaitTime(5);
 		waitForElementAndClick(scheduleTestLink);
-		waitTime();
+		customeWaitTime(5);
 		try {
 			waitForElementAndClick(testViewIcon);
-			waitTime();
+			customeWaitTime(5);
 			waitForElementAndClick(scheduleTestLink);
-			waitTime();			
+			customeWaitTime(5);			
 		} catch (Exception e) {
 			
 		}
@@ -321,13 +406,13 @@ public class TestCreation extends BasePage {
 	public void copyTest(String testBank ,String copyTestName) {
 		try {
 			selectOption(selectCopyTestBank, testBank);
-			waitTime();
+			customeWaitTime(5);
 			copyTestField.clear();
-			waitTime();
+			customeWaitTime(5);
 			waitForElementAndSendKeys(copyTestField, copyTestName);
-			waitTime();
+			customeWaitTime(5);
 			waitForElementAndClick(copyTestButton);
-			waitTime();
+			customeWaitTime(5);
 		} catch (Exception e) {
 
 			System.out.println("Unable to Copy  the Item -->  " + copyTestName);
@@ -343,7 +428,7 @@ public class TestCreation extends BasePage {
 	 */
 	public void selectTestBank(String option){
 		testBankDropdown.click();
-		waitTime();
+		customeWaitTime(5);
 		List<WebElement> testBankoptions= driver.findElements(By.xpath("//div[@class='btn-group bootstrap-select content-bank select-search-by-name-test_bank open']//ul/li"));
 		for (WebElement testBank : testBankoptions){
 			try{
@@ -357,6 +442,46 @@ public class TestCreation extends BasePage {
 			}
 		}
 		
+		
 	}
+	
+	public String filterItemBank(String itemBankName) {
+		try {
+			customeWaitTime(5);
+			waitForElementAndClick(resetSearchFilter);
+			customeWaitTime(10);
+			waitForElementAndClick(bankFilter);
+			customeWaitTime(5);
+			waitForElementAndClick(selectBankFilter);
+			customeWaitTime(10);
+			waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
+			waitForElementAndSendKeys(searchItemBankFilterPopup, itemBankName);
+			customeWaitTime(10);
+			waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
+			try {
+				customeWaitTime(10);
+				waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
+
+			} catch (Exception e) {
+
+			}
+			customeWaitTime(10);
+			WebElement serachedItembank = driver.findElement(By
+					.xpath("//tr[@class='data-row']//td[text()='"
+							+ itemBankName + "']"));
+			waitForElementAndDoubleClick(serachedItembank);
+			customeWaitTime(10);
+			waitForElementAndClick(globalModalOKCancelSaveButton);
+			customeWaitTime(10);
+
+		} catch (Exception e) {
+			System.out.println("Unable to Filter the Item Bank  "
+					+ itemBankName);
+		}
+
+		return filteredItemBank.getText();
+
+	}
+
 		
 }
