@@ -267,7 +267,7 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** Taking the scheduled test ********");
 		Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
 		deliveryPage.startScheduledTest(createdTestId);
-		deliveryPage.takeTest(true , 4 ,"Choice");
+		deliveryPage.takeTest(true , 4 ,"Choice" , choiceCorrectAnswer);
 		Assert.assertEquals(testName, deliveryPage.getTestinHistoryTable(createdTestId));
 		Assert.assertEquals("100%", deliveryPage.getTestPercentCorrect(createdTestId));
 		Assert.assertEquals("1", deliveryPage.getTestNoOfItems(createdTestId));
@@ -355,7 +355,7 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** Taking the scheduled test ********");
 		Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
 		deliveryPage.startScheduledTest(createdTestId);
-		deliveryPage.takeTest(false , 1 ,"Choice");
+		deliveryPage.takeTest(false , 1 ,"Choice" , choiceCorrectAnswer);
 		Assert.assertEquals(testName, deliveryPage.getTestinHistoryTable(createdTestId));
 		Assert.assertEquals("0%", deliveryPage.getTestPercentCorrect(createdTestId));
 		Assert.assertEquals("1", deliveryPage.getTestNoOfItems(createdTestId));
@@ -453,7 +453,7 @@ public class ReportTest extends BaseTest {
 		Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
 		deliveryPage.startScheduledTest(createdTestId);
 		customeWaitTime(10);
-		deliveryPage.takeTest(false , 1 ,"Choice");
+		deliveryPage.takeTest(false , 1 ,"Choice" , choiceCorrectAnswer);
 		Assert.assertEquals(testName, deliveryPage.getTestinHistoryTable(createdTestId));
 		Assert.assertEquals("0%", deliveryPage.getTestPercentCorrect(createdTestId));
 		Assert.assertEquals("10", deliveryPage.getTestNoOfItems(createdTestId));
@@ -477,6 +477,203 @@ public class ReportTest extends BaseTest {
 		Assert.assertEquals(reportsPage.getNoOfStudentNotStartedTest(testName),"1");
 		Assert.assertEquals(reportsPage.getNoOfStudentStartedTest(testName),"0");
 		Assert.assertEquals(reportsPage.getNoOfStudentInQuantile(testName, 1, "All Wrong"),"1");
+		//Assert.assertEquals(reportsPage.getReportCategory(testName, 1),itemStrandCategory);
+		Assert.assertEquals(reportsPage.getReportCategoryPercent(testName, 1),"0%");
+		
+	}
+	
+	
+	@Test(priority = 5)
+	public void testVerifyReportForMultipleTextEntryItems(){
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(10);
+		itemBankName = "Auto_Text_IB_" + System.currentTimeMillis();
+		System.out.println("******** " + itemBankName + "  Item bank creation ********");
+		itemsBankPage.createBank(itemBankName, "desc");
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(10);
+		itemName = "I_" + itemBankName;
+		System.out.println("******** " + itemName + "  Item creation ********");
+		itemsPage.createItem(itemName, itemBankName ,interactionTextEntry , simpleMatchScoreProfile , textEntryCorrcetAnswer);
+		customeWaitTime(10);
+		itemsPage.searchItem(itemName);
+		customeWaitTime(5);
+		itemsPage.addStandards();
+		customeWaitTime(5);
+		itemsPage.copyItem(itemBankName ,"c1_" +itemName ,1);
+		itemsPage.copyItem(itemBankName ,"c2_" +itemName,1);
+		itemsPage.copyItem(itemBankName ,"c3_" +itemName,1);
+		itemsPage.copyItem(itemBankName ,"c4_" +itemName,1);
+		itemsPage.copyItem(itemBankName ,"c5_" +itemName,1);
+		itemsPage.copyItem(itemBankName ,"c6_" +itemName,1);
+		itemsPage.copyItem(itemBankName ,"c7_" +itemName,1);
+		itemsPage.copyItem(itemBankName ,"c8_" +itemName,1);
+		itemsPage.copyItem(itemBankName ,"c9_" +itemName,1);
+		customeWaitTime(10);
+		String itemStrandCategory = itemsPage.getStrandCategory();
+		customeWaitTime(5);
+		itemsPage.waitForElementAndClick(itemsPage.closeIcon);
+		customeWaitTime(2);
+		itemsPage.backToDashboard();
+		customeWaitTime(10);
+		
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(10);
+		waitTime();
+		testBankName = "Auto_TB_" + System.currentTimeMillis();
+		System.out.println("******** " + testBankName + "  Test bank creation ********");
+		testBankPage.createBank(testBankName, "desc");
+		waitTime();
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testName = "T_" + testBankName;
+		System.out.println("******** " + testName + "  Test creation ********");
+		//testCreationPage.createTest(testName , testBankName , itemName);
+		testCreationPage.createTestWithMultipleItems(testName , testBankName , itemBankName ,10);
+		customeWaitTime(10);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		customeWaitTime(10);
+		testCreationPage.searchTest(testName);
+		String createdTestId = testCreationPage.getTestId();
+		testCreationPage.backToDashboard();
+		customeWaitTime(10);
+		sechedulePage = dashBoardPage.goToSchedule();
+		customeWaitTime(10);
+		sechedulePage.scheduleTest("Auto School", "autoroster", "N/A", testName, "Green", "120", "100%", "No");
+		dashBoardPage.logOut();
+		customeWaitTime(10);		
+		
+		dashBoardPage = loginPage.loginSuccess(autoStudent,
+				autoStudentPassword);
+		customeWaitTime(10);
+		deliveryPage = dashBoardPage.goToDelivery();
+		waitTime();
+		System.out.println("******** Taking the scheduled test ********");
+		Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
+		deliveryPage.startScheduledTest(createdTestId);
+		customeWaitTime(10);
+		deliveryPage.takeTest(true , 1 ,"Text Entry" , textEntryCorrcetAnswer);
+		Assert.assertEquals(testName, deliveryPage.getTestinHistoryTable(createdTestId));
+		Assert.assertEquals("100%", deliveryPage.getTestPercentCorrect(createdTestId));
+		Assert.assertEquals("10", deliveryPage.getTestNoOfItems(createdTestId));
+		deliveryPage.backToDashboard();
+		customeWaitTime(10);
+		dashBoardPage.logOut();
+		customeWaitTime(10);	
+		dashBoardPage = loginPage.loginSuccess(autoSystemAdmin,
+				autoPassword);
+		customeWaitTime(10);
+		reportsPage = dashBoardPage.goToReports();
+		customeWaitTime(10);
+		//reportsPage.waitForElementAndClick(reportsPage.resetSearchFilter);
+		reportsPage.filterReportByContentArea("N/A");
+		reportsPage.filterReportByClassRoster("autoroster");
+		customeWaitTime(10);
+		//String testName = "T_Auto_TB_1448454057207";
+		Assert.assertEquals(testName, reportsPage.getTestName(testName));
+		//Assert.assertEquals(testName, reportsPage.getTestDuration(testName));
+		Assert.assertEquals(reportsPage.getNoOfStudentCompletedTest(testName) ,"1");
+		Assert.assertEquals(reportsPage.getNoOfStudentNotStartedTest(testName),"1");
+		Assert.assertEquals(reportsPage.getNoOfStudentStartedTest(testName),"0");
+		Assert.assertEquals(reportsPage.getNoOfStudentInQuantile(testName, 4, "All Correct"),"1");
+		//Assert.assertEquals(reportsPage.getReportCategory(testName, 1),itemStrandCategory);
+		Assert.assertEquals(reportsPage.getReportCategoryPercent(testName, 1),"100%");
+		
+	}
+	
+	@Test(priority = 6)
+	public void testVerifyReportForMultipleTextEntryItemsForInCorrectAnswer(){
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(10);
+		itemBankName = "Auto_Text_IB_" + System.currentTimeMillis();
+		System.out.println("******** " + itemBankName + "  Item bank creation ********");
+		itemsBankPage.createBank(itemBankName, "desc");
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(10);
+		itemName = "I_" + itemBankName;
+		System.out.println("******** " + itemName + "  Item creation ********");
+		itemsPage.createItem(itemName, itemBankName ,interactionTextEntry , simpleMatchScoreProfile , textEntryCorrcetAnswer);
+		customeWaitTime(10);
+		itemsPage.searchItem(itemName);
+		customeWaitTime(5);
+		itemsPage.addStandards();
+		customeWaitTime(5);
+		itemsPage.copyItem(itemBankName ,"c1_" +itemName ,1);
+		itemsPage.copyItem(itemBankName ,"c2_" +itemName,1);
+		itemsPage.copyItem(itemBankName ,"c3_" +itemName,1);
+		itemsPage.copyItem(itemBankName ,"c4_" +itemName,1);
+		itemsPage.copyItem(itemBankName ,"c5_" +itemName,1);
+		itemsPage.copyItem(itemBankName ,"c6_" +itemName,1);
+		itemsPage.copyItem(itemBankName ,"c7_" +itemName,1);
+		itemsPage.copyItem(itemBankName ,"c8_" +itemName,1);
+		itemsPage.copyItem(itemBankName ,"c9_" +itemName,1);
+		customeWaitTime(10);
+		String itemStrandCategory = itemsPage.getStrandCategory();
+		customeWaitTime(5);
+		itemsPage.waitForElementAndClick(itemsPage.closeIcon);
+		customeWaitTime(2);
+		itemsPage.backToDashboard();
+		customeWaitTime(10);
+		
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(10);
+		waitTime();
+		testBankName = "Auto_TB_" + System.currentTimeMillis();
+		System.out.println("******** " + testBankName + "  Test bank creation ********");
+		testBankPage.createBank(testBankName, "desc");
+		waitTime();
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testName = "T_" + testBankName;
+		System.out.println("******** " + testName + "  Test creation ********");
+		//testCreationPage.createTest(testName , testBankName , itemName);
+		testCreationPage.createTestWithMultipleItems(testName , testBankName , itemBankName ,10);
+		customeWaitTime(10);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		customeWaitTime(10);
+		testCreationPage.searchTest(testName);
+		String createdTestId = testCreationPage.getTestId();
+		testCreationPage.backToDashboard();
+		customeWaitTime(10);
+		sechedulePage = dashBoardPage.goToSchedule();
+		customeWaitTime(10);
+		sechedulePage.scheduleTest("Auto School", "autoroster", "N/A", testName, "Green", "120", "100%", "No");
+		dashBoardPage.logOut();
+		customeWaitTime(10);		
+		
+		dashBoardPage = loginPage.loginSuccess(autoStudent,
+				autoStudentPassword);
+		customeWaitTime(10);
+		deliveryPage = dashBoardPage.goToDelivery();
+		waitTime();
+		System.out.println("******** Taking the scheduled test ********");
+		Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
+		deliveryPage.startScheduledTest(createdTestId);
+		customeWaitTime(10);
+		deliveryPage.takeTest(false , 1 ,"Text Entry" , "in correct anwer");
+		Assert.assertEquals(testName, deliveryPage.getTestinHistoryTable(createdTestId));
+		Assert.assertEquals("0%", deliveryPage.getTestPercentCorrect(createdTestId));
+		Assert.assertEquals("10", deliveryPage.getTestNoOfItems(createdTestId));
+		deliveryPage.backToDashboard();
+		customeWaitTime(10);
+		dashBoardPage.logOut();
+		customeWaitTime(10);	
+		dashBoardPage = loginPage.loginSuccess(autoSystemAdmin,
+				autoPassword);
+		customeWaitTime(10);
+		reportsPage = dashBoardPage.goToReports();
+		customeWaitTime(10);
+		//reportsPage.waitForElementAndClick(reportsPage.resetSearchFilter);
+		reportsPage.filterReportByContentArea("N/A");
+		reportsPage.filterReportByClassRoster("autoroster");
+		customeWaitTime(10);
+		//String testName = "T_Auto_TB_1448454057207";
+		Assert.assertEquals(testName, reportsPage.getTestName(testName));
+		//Assert.assertEquals(testName, reportsPage.getTestDuration(testName));
+		Assert.assertEquals(reportsPage.getNoOfStudentCompletedTest(testName) ,"1");
+		Assert.assertEquals(reportsPage.getNoOfStudentNotStartedTest(testName),"1");
+		Assert.assertEquals(reportsPage.getNoOfStudentStartedTest(testName),"0");
+		Assert.assertEquals(reportsPage.getNoOfStudentInQuantile(testName, 1, "All In Correct"),"1");
 		//Assert.assertEquals(reportsPage.getReportCategory(testName, 1),itemStrandCategory);
 		Assert.assertEquals(reportsPage.getReportCategoryPercent(testName, 1),"0%");
 		

@@ -128,7 +128,7 @@ public class Delivery extends BasePage {
 	 * It is temporary method after discussion with team will update /remove the existing method
 	 * @param testId
 	 */
-	public void takeTest(boolean isCorrectAnswer , int itemIndex , String itemType){
+	public void takeTest(boolean isCorrectAnswer , int itemIndex , String itemType , String answer){
 		customeWaitTime(10);
 		switch (itemType) {
 		case "Choice":
@@ -156,8 +156,29 @@ public class Delivery extends BasePage {
 
 			break;
 		case "Text Entry":
-			// TODO
+			try {
+				for (int item = 1; item <= itemsInTest.size(); item++) {
+					WebElement itemToBeAnswered = driver.findElement(By
+							.xpath("//div[@id='playground']//div["+ itemIndex +"]//input[@class='i-text-entry form-control form-control-unity']"));
+					if (isCorrectAnswer) {
+						waitForElementAndSendKeys(itemToBeAnswered, answer);
+						customeWaitTime(10);
+						waitForElementAndClick(btn);
+						customeWaitTime(5);
+
+					} else {
+						waitForElementAndSendKeys(itemToBeAnswered, answer);
+						customeWaitTime(10);
+						waitForElementAndClick(btn);
+						customeWaitTime(5);
+					}
+				}
+			} catch (Exception e) {
+                  //TODO
+			}
+
 			break;
+			
 		case "Extended Text Entry ":
 			// TODO
 			break;
