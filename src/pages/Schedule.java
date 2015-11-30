@@ -156,17 +156,15 @@ public class Schedule extends BasePage {
 			
 			waitForElementAndSendKeys(masterToolSelect, tools);
 			selectOption(masterToolSelect, tools);
-			
 			waitForElementAndClick(btnCreate);
-			
 			System.out.println(test + "event is created");
-			waitTime();
+			customeWaitTime(10);
 			//waitForElementAndClick(createdEvent);
 			waitForElementAndClick(scheduledTestEvent);
 			System.out.println("click on event");
-			waitTime();
+			customeWaitTime(5);
 			waitForElementAndClick(startNowEventClick);
-			waitTime();
+			customeWaitTime(5);
 			waitForElementAndClick(homeLink);
 			System.out.println(test + "Event Created success");
 		} catch (Exception e) {

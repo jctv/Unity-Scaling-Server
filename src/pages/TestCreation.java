@@ -281,25 +281,21 @@ public class TestCreation extends BasePage {
 			waitForElementAndClick(createAndEditButton);
 			filterItemBank(itemBank);
 			List <WebElement>  totalItems = driver.findElements(By.xpath("//ul[@id='sortable1']//li"));
-			waitForElementAndSendKeys(itemAddCountField, String.valueOf(totalItems.size()));
-			customeWaitTime(5);
-			waitForElementAndClick(itemAddButton);
-			customeWaitTime(5);
-			List <WebElement>  totalDropedItems = driver.findElements(By.xpath("//ul[@id='sortable2']//li"));
-			
-			if(totalItems.size() == totalDropedItems.size()){
-				System.out.println("All items are added successfully ");
-			}else {
-				System.out.println("All items are not added ");
+			for (int i=totalItems.size(); i >= 1; i--){
+				WebElement itemToSelect = driver.findElement(By.xpath("//ul[@id='sortable1']//li["+ i +"]"));
+				customeWaitTime(5);
+				dragAndDrop(itemToSelect, target);
+				customeWaitTime(10);
+				
+				List <WebElement>  totalDropedItems = driver.findElements(By.xpath("//ul[@id='sortable2']//li"));
+				
+				
 			}
-
 			waitForElementAndSendKeys(testContentField, "N/A");
 			selectOption(testContentField, "N/A");
 
 			waitForElementAndSendKeys(testGradeField, "05");
 			selectOption(testGradeField, "05");
-			testGradeField.click();
-			
 			waitForElementAndClick(saveTestButton);
 			customeWaitTime(5);
 			waitForElementAndClick(xbutton);
@@ -455,6 +451,9 @@ public class TestCreation extends BasePage {
 			waitForElementAndClick(selectBankFilter);
 			customeWaitTime(10);
 			waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
+			customeWaitTime(5);
+			waitAndClearField(searchItemBankFilterPopup);
+			customeWaitTime(5);
 			waitForElementAndSendKeys(searchItemBankFilterPopup, itemBankName);
 			customeWaitTime(10);
 			waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
