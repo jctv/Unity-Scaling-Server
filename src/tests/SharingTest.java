@@ -1529,7 +1529,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** Taking the scheduled test ********");
 		Assert.assertEquals(testName, deliveryPageObject.getScheduledTest(createdTestId));
 		deliveryPageObject.startScheduledTest(createdTestId);
-		deliveryPageObject.takeTest(true , 4 , "Choice");
+		deliveryPageObject.takeTest(true , 4 , "Choice","a");
 		Assert.assertEquals(testName, deliveryPageObject.getTestinHistoryTable(createdTestId));
 		Assert.assertEquals("100%", deliveryPageObject.getTestPercentCorrect(createdTestId));
 		Assert.assertEquals("1", deliveryPageObject.getTestNoOfItems(createdTestId));
@@ -1610,7 +1610,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** Taking the scheduled test ********");
 		Assert.assertEquals(testName, deliveryPageObject.getScheduledTest(createdTestId));
 		deliveryPageObject.startScheduledTest(createdTestId);
-		deliveryPageObject.takeTest(true , 4 , "Choice");
+		deliveryPageObject.takeTest(true , 4 , "Choice", "a");
 		Assert.assertEquals(testName, deliveryPageObject.getTestinHistoryTable(createdTestId));
 		Assert.assertEquals("100%", deliveryPageObject.getTestPercentCorrect(createdTestId));
 		Assert.assertEquals("1", deliveryPageObject.getTestPercentCorrect(createdTestId));
@@ -1709,7 +1709,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** Taking the scheduled test ********");
 		Assert.assertEquals(testName, deliveryPageObject.getScheduledTest(createdTestId));
 		deliveryPageObject.startScheduledTest(createdTestId);
-		deliveryPageObject.takeTest(true , 4 , "Choice");
+		deliveryPageObject.takeTest(true , 4 , "Choice","a");
 		Assert.assertEquals(testName, deliveryPageObject.getTestinHistoryTable(createdTestId));
 		Assert.assertEquals("100%", deliveryPageObject.getTestPercentCorrect(createdTestId));
 		Assert.assertEquals("1", deliveryPageObject.getTestNoOfItems(createdTestId));
