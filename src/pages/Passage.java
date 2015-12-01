@@ -1,5 +1,6 @@
 package pages;
 
+import java.io.File;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -46,6 +47,12 @@ public class Passage extends BasePage{
 	@FindBy(xpath = ".//*[@id='bs-example-navbar-collapse-1']/form[2]/div/button")
 	public WebElement passageSaveButton;
 	
+	@FindBy(xpath = "//tbody[@class='files']//td[1]/i")
+	public WebElement passageUploadIcon;
+	
+	@FindBy(xpath = "//div[@class='dropdown-menu open']//input")
+	public WebElement searchInputField;
+	
 	
 	/**
 	 * Added this method as Item bank  drop  down is populating through plugin not a normal  select box 
@@ -53,14 +60,14 @@ public class Passage extends BasePage{
 	 */
 	public void selectItemBank(String option){
 		waitForElementAndClick(itemBankDropdown);
-		waitTime();
-		waitTime();
+		customeWaitTime(5);
+		waitForElementAndSendKeys(searchInputField, option);
+		customeWaitTime(5);
 		List<WebElement> itemBankoptions= driver.findElements(By.xpath("//div[@class='btn-group bootstrap-select content-bank select-search-by-name-item_bank open']//ul/li"));
 		for (WebElement itemBank : itemBankoptions){
 			try{
 			if(itemBank.getText().equals(option)){
-				waitTime();
-				waitTime();
+				customeWaitTime(5);
 				itemBank.click();
 			   break;
 			}
@@ -71,4 +78,71 @@ public class Passage extends BasePage{
 		}
 		
 	}
+	
+	
+	public void createPassage(String itemBank , String passageName , String desc , String filepath ){
+		try{
+		boolean isPassageUploaded  =  false;	
+		waitForElementAndClick(createPassageLink);
+		customeWaitTime(5);
+		selectItemBank(itemBank);
+		customeWaitTime(1);
+		waitForElementAndSendKeys(passageInputNameField, passageName);
+		customeWaitTime(1);
+		waitForElementAndSendKeys(passageDescField, desc);
+		customeWaitTime(1);
+		waitForElementAndClick(passageCreateAndEditButton);
+		customeWaitTime(5);
+		waitForElementAndClick(passageUploadFileButton);
+		customeWaitTime(5);
+		File f = new File(filepath);
+		String passageUploadFilepath = f.getAbsolutePath();
+		//waitForElementAndSendKeys(fileupload, passageUploadFilepath);
+		fileupload.sendKeys(passageUploadFilepath);
+		customeWaitTime(10);
+
+		if(passageUploadIcon.getAttribute("style").contains("green")){
+			isPassageUploaded = true;
+	    }
+		waitForElementAndClick(globalModalUploadOkButton);
+		customeWaitTime(5);
+		}catch(Exception e){
+			System.out.println("Unable create the passage---- > " + passageName);
+
+		}
+
+	}
+	
+	
+	public void searchPassage(String passage) {
+		try {
+			waitAndClearField(searchAutoComplete);
+			customeWaitTime(5);
+			waitForElementAndSendKeys(searchAutoComplete, passage);
+			waitForElementAndClick(searchButton);
+			customeWaitTime(5);
+		} catch (Exception e) {
+
+			System.out.println("Unable to find the passage -->  " + passage);
+
+		}
+
+	}
+
+	public void deletePassage(String passage) {
+		try {
+			searchPassage(passage);
+			customeWaitTime(5);
+			waitForElementAndClick(deleteIconList);
+			customeWaitTime(5);
+			if (globalModalDeleteBody.isDisplayed()) {
+				waitForElementAndClick(globalModalDeleteButton);
+			}
+
+		} catch (Exception e) {
+			System.out.println("Unable to delete the passage   " + passage);
+		}
+
+	}
+
 }

@@ -542,6 +542,23 @@ public class DashBoard extends BasePage {
 		return new ScoreProfile(driver);
 	}
 	
+	public Passage goToPassage() {
+		waitTime();		
+		try {
+			waitForElementAndDoubleClick(passageTile);	
+			waitTime();
+			if(globalModalInfoOkButton.isDisplayed()){
+				System.out.println("Device not supported");
+			}
+		} catch (Exception e) {
+			System.out.println("Unable to go to the Role page");
+		}
+		return new Passage(driver);
+	}
+	
+	
+	
+	
 	public Login logOut() {
 		waitTime();
 		
