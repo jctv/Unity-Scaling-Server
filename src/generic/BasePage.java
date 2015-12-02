@@ -24,6 +24,8 @@ import pages.Login;
 public class BasePage {
 
 	protected WebDriver driver;
+	
+	long timeOutInSeconds = 20 ;
 
 	@FindBy(xpath = "//*[@id='quickViewHelp']/a")
 	public WebElement addHelpContent;
@@ -114,7 +116,6 @@ public class BasePage {
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link copyRow']")
 	public WebElement copyIconList;
 
-
 	@FindBy(id = "fileupload")
 	public WebElement fileupload;
 
@@ -127,6 +128,24 @@ public class BasePage {
 	@FindBy(xpath = "//span[@class='fileupload-status']")
 	public WebElement fileUploadStatus;
 
+	@FindBy(id = "acl-trustee")
+	public WebElement aclTrustee;
+	
+	@FindBy(id = "acl-access-WRITE")
+	public WebElement aclTrusteeWrite;
+	
+	@FindBy(id = "acl-access-READ")
+	public WebElement aclTrusteeRead;
+	
+	
+	@FindBy(id = "acl-access-CREATE")
+	public WebElement aclTrusteeCreate;
+	
+	@FindBy(id = "acl-access-DELETE")
+	public WebElement aclTrusteeDelete;
+	
+	@FindBy(id = "acl-access-ADMIN")
+	public WebElement aclTrusteeAdmin;
 
 	/** Constructor */
 	public BasePage(WebDriver driver) {
@@ -164,7 +183,7 @@ public class BasePage {
 	public boolean waitForElementVisible(WebElement element) {
 
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 20);
+			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 
 			wait.until(ExpectedConditions.visibilityOf(element));
 			return true;
@@ -270,7 +289,7 @@ public class BasePage {
 	}
 
 	public void waitForElementAndClick(final WebElement element) {
-		WebDriverWait wait = new WebDriverWait(driver, 20);
+		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		try {
 			waitTime();
 			wait.until(ExpectedConditions.elementToBeClickable(element));
@@ -287,7 +306,7 @@ public class BasePage {
 
 	public void waitForElementAndDoubleClick(WebElement element) {
 
-		WebDriverWait wait = new WebDriverWait(driver, 20);
+		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		try {
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 			(new Actions(driver)).doubleClick(element).perform();
@@ -310,7 +329,7 @@ public class BasePage {
 	}
 
 	public void waitForElementAndSendKeys(WebElement element, String keys) {
-		WebDriverWait wait = new WebDriverWait(driver, 20);
+		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		try {
 
 			wait.until(ExpectedConditions.visibilityOf(element));
@@ -332,7 +351,7 @@ public class BasePage {
 		searchAutoComplete.sendKeys(Keys.DELETE);
 	}
 public void selectOption(WebElement dropDownListBox, String option) {
-		WebDriverWait wait = new WebDriverWait(driver, 20);
+		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		try {
 			wait.until(ExpectedConditions.visibilityOf(dropDownListBox));
 			Select droplist = new Select(dropDownListBox);
@@ -364,7 +383,7 @@ public void selectOption(WebElement dropDownListBox, String option) {
 	}
 
 	public void waitAndFocus(WebElement element) {
-		WebDriverWait wait = new WebDriverWait(driver, 20);
+		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		wait.until(ExpectedConditions.visibilityOf(element));
 		try {
 			new Actions(driver).moveToElement(element).perform();
@@ -383,7 +402,7 @@ public void selectOption(WebElement dropDownListBox, String option) {
 	 */
 	public void selectOption(WebElement element, int index) {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 20);
+			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 			wait.until(ExpectedConditions.visibilityOf(element));
 			Select mySelect = new Select(element);
 			mySelect.selectByIndex(index);
@@ -414,7 +433,7 @@ public void selectOption(WebElement dropDownListBox, String option) {
 	public WebElement getSelectedOption(WebElement dropDownBox){
 		WebElement options = null;
 		try{
-			WebDriverWait wait = new WebDriverWait(driver, 20);
+			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 			wait.until(ExpectedConditions.visibilityOf(dropDownBox));
 			Select mySelect = new Select(dropDownBox);
 			options = mySelect.getFirstSelectedOption();
@@ -433,7 +452,7 @@ public void selectOption(WebElement dropDownListBox, String option) {
 
 	public void waitAndClearField(WebElement element) {
 		try{
-		WebDriverWait wait = new WebDriverWait(driver, 20);
+		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		wait.until(ExpectedConditions.visibilityOf(element));
 		element.clear();
 		}catch(Exception e){
@@ -442,5 +461,18 @@ public void selectOption(WebElement dropDownListBox, String option) {
 		}
 	}
 
+	
+	public String waitAndGetElementText(WebElement element){
+		try{
+			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+			wait.until(ExpectedConditions.visibilityOf(element));
+			
+			}catch(Exception e){
+				System.out.println("Unable to find the element" + element);
+
+			}
+		return element.getText();
+		
+	}
 
 }

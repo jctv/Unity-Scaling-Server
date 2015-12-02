@@ -62,24 +62,6 @@ public class ItemsBank extends BasePage {
 	@FindBy(id = "globalModalViewBody")
 	public WebElement shareWindow;
 	
-	@FindBy(id = "acl-trustee")
-	public WebElement aclTrustee;
-	
-	@FindBy(id = "acl-access-WRITE")
-	public WebElement aclTrusteeWrite;
-	
-	@FindBy(id = "acl-access-READ")
-	public WebElement aclTrusteeRead;
-	
-	
-	@FindBy(id = "acl-access-CREATE")
-	public WebElement aclTrusteeCreate;
-	
-	@FindBy(id = "acl-access-DELETE")
-	public WebElement aclTrusteeDelete;
-	
-	@FindBy(id = "acl-access-ADMIN")
-	public WebElement aclTrusteeAdmin;
 	
 	@FindBy(xpath = "//button[@class='btn btn-sm btn-primary acl-save']")
 	public WebElement saveShareButton;

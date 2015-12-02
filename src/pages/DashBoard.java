@@ -557,7 +557,19 @@ public class DashBoard extends BasePage {
 	}
 	
 	
-	
+	public Permission goToPermission() {
+		waitTime();		
+		try {
+			waitForElementAndDoubleClick(permissionTile);	
+			waitTime();
+			if(globalModalInfoOkButton.isDisplayed()){
+				System.out.println("Device not supported");
+			}
+		} catch (Exception e) {
+			System.out.println("Unable to go to the Role page");
+		}
+		return new Permission(driver);
+	}
 	
 	public Login logOut() {
 		waitTime();
