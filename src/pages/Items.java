@@ -262,7 +262,7 @@ public class Items extends BasePage {
 	@FindBy(xpath = "//span[text()='Set Correct']")
 	public WebElement setCorrectAnswer;
 
-	@FindBy(xpath = ".//*[@id='quickViewContentCreate']/div/form/div[1]/div/button")
+	@FindBy(xpath = "//select[@name='bank']")
 	public WebElement itemBankDropdown;
 
 	@FindBy(xpath = "//input[@data-interaction='textEntry']")
@@ -284,7 +284,8 @@ public class Items extends BasePage {
 		customeWaitTime(5);
 		//waitForElementAndSendKeys(selectItemBank, itemBankName);
 		//selectOption(selectItemBank, itemBankName);
-		selectItemBank(itemBankName);
+		//selectItemBank(itemBankName);
+		waitForElementAndSendKeys(itemBankDropdown, itemBankName);
 		customeWaitTime(5);
 		waitForElementAndSendKeys(itemCreateInputName, name);
 		waitForElementAndSendKeys(itemCreateInputDescription, "Description");
@@ -306,7 +307,6 @@ public class Items extends BasePage {
 		waitForElementAndClick(backToItems);
 		searchItem(name);
 		this.addStandards();
-		waitForElementAndClick(backToDashboard);
 
 	}
 
@@ -454,16 +454,16 @@ public class Items extends BasePage {
 			try {
 				WebElement elementToCopy = driver.findElement(By.xpath("(//button[@title='Copy'])["+itemIndex+"]"));
 				waitForElementAndClick(elementToCopy);
-				customeWaitTime(10);
+				customeWaitTime(2);
 				selectOption(selectCopyBank, itemBank);
-				customeWaitTime(5);
+				customeWaitTime(2);
 				waitAndClearField(copyitemBankField);
 				waitForElementAndSendKeys(copyitemBankField, copyItemName);
-				customeWaitTime(5);
+				customeWaitTime(2);
 				waitForElementAndClick(copyItemButton);
-				customeWaitTime(5);
+				customeWaitTime(2);
 				waitForElementAndClick(globalModalInfoOkButton);
-				customeWaitTime(5);
+				customeWaitTime(2);
 				return driver.findElement(By.xpath("//td[@class = 'watable-col-name' and text()='"+copyItemName+"']")).isDisplayed();
 			} catch (Exception e) {
 

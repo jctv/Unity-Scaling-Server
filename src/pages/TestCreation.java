@@ -283,9 +283,9 @@ public class TestCreation extends BasePage {
 			List <WebElement>  totalItems = driver.findElements(By.xpath("//ul[@id='sortable1']//li"));
 			for (int i=totalItems.size(); i >= 1; i--){
 				WebElement itemToSelect = driver.findElement(By.xpath("//ul[@id='sortable1']//li["+ i +"]"));
-				customeWaitTime(5);
+				customeWaitTime(1);
 				dragAndDrop(itemToSelect, target);
-				customeWaitTime(10);
+				customeWaitTime(1);
 				
 				List <WebElement>  totalDropedItems = driver.findElements(By.xpath("//ul[@id='sortable2']//li"));
 				

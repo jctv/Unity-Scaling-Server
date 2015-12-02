@@ -26,6 +26,8 @@ public class HappyPathTest extends BaseTest {
 
 	HappyPathTest Nav;
 	public String user = "admin";
+	public String adminPassword = "password";
+	public String domain = "at/";
 	public String genericPassword = "12345";
 	Login loginPageObject;
 	DashBoard dashBoardPageObject;
@@ -54,7 +56,7 @@ public class HappyPathTest extends BaseTest {
 		loginPageObject = new Login(driver);
 		System.out.println("******** logging as super administrator ********");
 		
-		dashBoardPageObject = loginPageObject.loginSuccess(user, "@simple1");
+		dashBoardPageObject = loginPageObject.loginSuccess(domain + user, adminPassword);
 		//driver.get(url + "#dashboard");
 		waitTime();
 
@@ -94,7 +96,7 @@ public class HappyPathTest extends BaseTest {
 		System.out.println("************************************************");
 		waitTime();
 		System.out.println("******** logging as the created teacher ********");
-		dashBoardPageObject = loginPageObject.loginSuccess(createdUsers[0],
+		dashBoardPageObject = loginPageObject.loginSuccess(domain + createdUsers[0],
 				genericPassword);
 		waitTime();
 		dashBoardPageObject.addTiles();
@@ -117,7 +119,7 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 		System.out.println("******** Items creation ********");
 		itemsPageObject.createItem("item 1" , "My item bank"); 
-		for(int x =1;10<=x;x++){
+		for(int x =2;x<11;x++){
 		Assert.assertTrue(itemsPageObject.copyItem("My item bank", "item " + x, 1), "Item Copied Successfully");		
 		}
 		returnToDashboard();
@@ -134,7 +136,8 @@ public class HappyPathTest extends BaseTest {
 		testCreationPageObject = dashBoardPageObject.goToTestCreation();
 		waitTime();
 		System.out.println("******** Test creation ********");
-		testCreationPageObject.createTest("Automation test" , "My test bank" , "item 2");
+		
+		testCreationPageObject.createTestWithMultipleItems("Automation test", "My test bank", "My item bank", 10);
 		waitTime();
 		sechedulePageObject = dashBoardPageObject.goToSchedule();
 		waitTime();
@@ -155,14 +158,15 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 		System.out
 				.println("******** logging as the first created student ********");
-		dashBoardPageObject = loginPageObject.loginSuccess(createdUsers[1],
+		dashBoardPageObject = loginPageObject.loginSuccess(domain + createdUsers[1],
 				genericPassword);
 		System.out.println(dashBoardPageObject.addTiles());
 		waitTime();
 		deliveryPageObject = dashBoardPageObject.goToDelivery();
 		waitTime();
 		System.out.println("******** Taking the scheduled test ********");
-		deliveryPageObject.takeTest();
+		deliveryPageObject.takeAndVefiryTestResults("100%", "4,4,4,4,4,4,4,4,4,4");
+		returnToDashboard();
 		waitTime();
 		dashBoardPageObject.logOut();
 		System.out.println("************************************************");
@@ -170,14 +174,16 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 		System.out
 				.println("******** logging as the second created student ********");
-		dashBoardPageObject = loginPageObject.loginSuccess(createdUsers[2],
+		dashBoardPageObject = loginPageObject.loginSuccess(domain + createdUsers[2],
 				genericPassword);
 		System.out.println(dashBoardPageObject.addTiles());
 		waitTime();
 		deliveryPageObject = dashBoardPageObject.goToDelivery();
 		waitTime();
 		System.out.println("******** Taking the scheduled test ********");
-		deliveryPageObject.takeTest();
+		
+		deliveryPageObject.takeAndVefiryTestResults("50%", "4,4,4,4,4,2,1,1,2,1");
+		returnToDashboard();
 		waitTime();
 		loginPageObject = dashBoardPageObject.logOut();
 		System.out.println("************************************************");
@@ -191,7 +197,7 @@ public class HappyPathTest extends BaseTest {
 		loginPageObject = new Login(driver);
 		*/
 		System.out.println("******** logging as the created teacher ********");
-		dashBoardPageObject = loginPageObject.loginSuccess(createdUsers[0],
+		dashBoardPageObject = loginPageObject.loginSuccess(domain + createdUsers[0],
 				genericPassword);
 
 		waitTime();
@@ -212,11 +218,10 @@ public class HappyPathTest extends BaseTest {
 
 		System.out.println("******** logging as super administrator ********");
 		
-		loginPageObject.loginSuccess(user, "@simple1");
+		loginPageObject.loginSuccess(domain + user, adminPassword);
 
-		waitTime();
-		waitTime();
-		waitTime();
+
+		customeWaitTime(8);
 		usersPageObject = dashBoardPageObject.goToUsers();
 		waitTime();
 

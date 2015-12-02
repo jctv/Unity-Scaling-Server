@@ -217,7 +217,7 @@ public class Delivery extends BasePage {
 	} catch (Exception e) {
 		waitForElementAndClick(resumeTestButton);
 	}
-	
+	customeWaitTime(3);
 		for (String answer : answersList) {
 			customeWaitTime(1);
 			if(NumberUtils.isNumber(answer)){
@@ -230,6 +230,7 @@ public class Delivery extends BasePage {
 		waitForElementAndClick(exitButton);
 		waitForElementAndClick(finishTestButton);
 		waitForElementVisible(lastSocredTest);
+		System.out.println("/////********///// "+lastSocredTest.getText().equals(expectedScore));
 		return lastSocredTest.getText().equals(expectedScore);
 	}
 
