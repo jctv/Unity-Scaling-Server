@@ -198,7 +198,7 @@ public class BaseTest {
 			try {
 				if (hubAddress.equalsIgnoreCase(""))
 					driver = new RemoteWebDriver(new URL(
-							"http://localhost:4444/wd/hub"), capability);
+							"http://192.168.56.1:4444/wd/hub"), capability);
 				else
 					driver = new RemoteWebDriver(new URL("http://" + hubAddress
 							+ ":4444/wd/hub"), capability);
