@@ -118,6 +118,18 @@ public class ItemImport extends BasePage {
 	@FindBy(xpath = "//tr[1]/td[@class='watable-col-preview']//button[@class='btn btn-xs btn-link previewRow']")
 	public WebElement importItemPreviewButton;
 	
+	@FindBy(xpath = "//td[text()='ITEM']/../td[2]")
+	public WebElement itemCount;
+	
+	@FindBy(xpath = "//td[@class='media-count']")
+	public WebElement mediaCount;
+	
+	@FindBy(xpath = "//td[@class='passage-count']")
+	public WebElement passageCount;
+	
+	@FindBy(xpath = "//td[@class='rubric-count']")
+	public WebElement rubricCount;
+	
 	@FindBy(xpath = "//div[@class='panel-heading']/h5")
 	public WebElement itemImportSummary;
 	
@@ -154,17 +166,17 @@ public class ItemImport extends BasePage {
 	
 	public DashBoard backToDashboard(){
 		waitForElementAndClick(homeLink);
-		waitTime();
+		customeWaitTime(5);
 		return new DashBoard(driver);
 	}
 	
 	public void searchItemImportFile(String fileName){
 		try{
 		  searchAutoComplete.clear();
-		  waitTime();
+		  customeWaitTime(5);
 		  waitForElementAndSendKeys(searchAutoComplete, fileName);
 		  waitForElementAndClick(searchButton);
-		  waitTime();
+		  customeWaitTime(5);
 		}catch(Exception e){
 			
 			System.out.println("Unable to find the Item Import file  -->  "  + fileName);
@@ -186,19 +198,19 @@ public class ItemImport extends BasePage {
 			File f = new File(filepath);
 			String ItemImportFilepath = f.getAbsolutePath();
 			waitForElementAndClick(importLink);
-			waitTime();
+			customeWaitTime(5);
 			selectItemBank(itemBankName);
-			waitTime();
+			customeWaitTime(5);
 			selectOption(selectPkgFormat, pkgFormat);
-			waitTime();
+			customeWaitTime(5);
 			selectOption(selectLifeCycle, itemLifeCycle);
-			waitTime();
+			customeWaitTime(5);
 			addFileButton.sendKeys(ItemImportFilepath);
-			waitTime();
+			customeWaitTime(5);
 			if(itemImportSuccessfulIcon.getAttribute("style").contains("green")){
 				isImportSuccessful = true;
 		    }
-			
+			customeWaitTime(10);
 		}catch(Exception e){
 			
 			System.out.println("Unable to import the file  -->  "  + filepath);
@@ -212,7 +224,7 @@ public class ItemImport extends BasePage {
 	 */
 	public void selectItemBank(String option){
 		itemBankDropdown.click();
-		waitTime();
+		customeWaitTime(5);
 		List<WebElement> itemBankoptions= driver.findElements(By.xpath("//div[@class='btn-group bootstrap-select select-search-by-name-item_bank open']//ul//li"));
 		for (WebElement itemBank : itemBankoptions){
 			try{

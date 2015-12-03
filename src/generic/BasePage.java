@@ -294,6 +294,7 @@ public class BasePage {
 			waitTime();
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 			element.click();
+			customeWaitTime(5);
 			System.out.println("Button clicked ");
 
 		} catch (Exception e2) {
@@ -447,7 +448,7 @@ public void selectOption(WebElement dropDownListBox, String option) {
 
 	public void refreshPage(){
 		driver.navigate().refresh();
-		waitTime();
+		customeWaitTime(20);
 	}
 
 	public void waitAndClearField(WebElement element) {

@@ -109,7 +109,7 @@ public class ItemsBank extends BasePage {
 	
 	public void createBank(String bank, String description) {
 		try {
-			waitTime();
+			customeWaitTime(5);
 			waitForElementAndClick(createItemBank);
 			
 			waitForElementAndSendKeys(bankCreateInputName, bank);
@@ -117,7 +117,7 @@ public class ItemsBank extends BasePage {
 			waitForElementAndClick(bankCreateInputSubmit);
 			System.out.println("Bank created");
 			waitForElementAndClick(backLink);
-			
+			customeWaitTime(5);
 		} catch (Exception e) {
 			System.out.println("Unable to create the bank");
 		}
@@ -126,12 +126,12 @@ public class ItemsBank extends BasePage {
 	
 	public void searchItemBank(String itemBank){
 		try{
-		  waitTime();
+		  customeWaitTime(5);
 		  searchAutoCompleteField.clear();
-		  waitTime();
+		  customeWaitTime(5);
 		  waitForElementAndSendKeys(searchAutoCompleteField, itemBank);
 		  waitForElementAndClick(searchButton);
-		  waitTime();
+		  customeWaitTime(5);
 		}catch(Exception e){
 			System.out.println("Unable to find the Item bank "  + itemBank);
 
@@ -142,7 +142,7 @@ public class ItemsBank extends BasePage {
 	public void openItemBankShareScreen(){
 		 try{
 			 waitForElementAndClick(shareButton);
-			 waitTime();
+			 customeWaitTime(5);
 
 		 }catch(Exception e){
 				System.out.println("Unable to open share item bank Window");
@@ -154,7 +154,7 @@ public class ItemsBank extends BasePage {
 	public void closeItemBankShareScreen(){
 		try{
 			 waitForElementAndClick(closeShareButton);
-			 waitTime();
+			 customeWaitTime(5);
 
 		 }catch(Exception e){
 				System.out.println("Unable to Close share item bank Window");
@@ -174,7 +174,7 @@ public class ItemsBank extends BasePage {
  		    String firsname = selectTeacher.substring(0, 1);
  		    String firstuser = firsname + " "+lastname; 
    		    waitForElementAndSendKeys(aclTrustee , "nteacher1");
- 		    waitTime();
+ 		    customeWaitTime(5);
    			WebElement autoOptions = driver.findElement(By.xpath("//ul[@class='ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all'][2]"));
    			
    			wait.until(ExpectedConditions.visibilityOf(autoOptions));
@@ -187,9 +187,9 @@ public class ItemsBank extends BasePage {
    		            break;
    		        }
    		    }
-   			waitTime();
+   			customeWaitTime(5);
 			waitForElementAndClick(saveShareButton);
-			waitTime();
+			customeWaitTime(5);
    			wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='acls_sortable']/li[1]//div[@class='col-sm-4']")));
    			selectedTeacher = driver.findElement(By.xpath("//*[@id='acls_sortable']/li[1]//div[@class='col-sm-4']")).getText();
 			
@@ -213,14 +213,16 @@ public class ItemsBank extends BasePage {
             String firsname = user.substring(0, 1);
             String firstuser = firsname + " " + lastname;
             waitForElementAndSendKeys(aclTrustee, user);
-            waitTime();
+            customeWaitTime(5);
             WebElement autoOptions = driver
                     .findElement(By
                             .xpath("//ul[@class='ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all'][2]"));
             waitForElementVisible(autoOptions);
+            customeWaitTime(5);
             List<WebElement> optionsToSelect = autoOptions.findElements(By
                     .tagName("li"));
             for (WebElement option : optionsToSelect) {
+            	customeWaitTime(5);
                 if (option.getText().equals(firstuser)) {
                     System.out.println("Trying to select: " + firstuser);
                     waitForElementAndClick(option);
@@ -250,11 +252,9 @@ public class ItemsBank extends BasePage {
                     break;
                 }
             }
-            waitTime();
+            customeWaitTime(5);
             waitForElementAndClick(saveShareButton);
-            waitTime();         
- 
- 
+            customeWaitTime(5);         
  
         } catch (NoSuchElementException e) {
             System.out.println(e.getStackTrace());
@@ -270,9 +270,9 @@ public class ItemsBank extends BasePage {
 	public void deleteItemBank(String itemBank){
 		try{
 		searchItemBank(itemBank);	
-		waitTime();
+		customeWaitTime(5);
 		waitForElementAndClick(deleteItemBank);
-		waitTime();
+		customeWaitTime(10);
 		if(deleteItemBankPopUp.isDisplayed()){
 		   waitForElementAndClick(deletebuttonItemBankPopUp);
 		}

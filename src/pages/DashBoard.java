@@ -158,11 +158,11 @@ public class DashBoard extends BasePage {
 	
 	
 	public boolean goToTile(String tileName){
-		waitTime();	
+		customeWaitTime(5);	
 		String xpathTile = "(//span[text() = '"+ tileName + "'])[last()]";
-		waitTime();
+		customeWaitTime(5);
 		driver.findElement(By.xpath(xpathTile)).click();
-		waitTime();
+		customeWaitTime(5);
 		if(globalModalInfoOkButton.isDisplayed()){
 			System.out.println("Device not supported");
 			return false;
@@ -177,7 +177,7 @@ public class DashBoard extends BasePage {
 		
 		try {
 			waitForElementAndDoubleClick(usersTile);
-			waitTime();			
+			customeWaitTime(5);			
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -194,7 +194,7 @@ public class DashBoard extends BasePage {
 		
 		try {
 			waitForElementAndDoubleClick(machineProfileTile);
-			waitTime();
+			customeWaitTime(5);
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -210,7 +210,7 @@ public class DashBoard extends BasePage {
 		System.out.println("Is the  class roster tile enable "
 				+ classRosterTile.isEnabled());
 		waitForElementAndDoubleClick(classRosterTile);
-		waitTime();
+		customeWaitTime(5);
 		if(globalModalInfoOkButton.isDisplayed()){
 			System.out.println("Device not supported");
 		}
@@ -224,7 +224,7 @@ public class DashBoard extends BasePage {
 				+ testCreationTile.isEnabled());
 
 		waitForElementAndDoubleClick(testCreationTile);
-		waitTime();
+		customeWaitTime(5);
 		if(globalModalInfoOkButton.isDisplayed()){
 			System.out.println("Device not supported");
 		}
@@ -239,7 +239,7 @@ public class DashBoard extends BasePage {
 		
 		
 		waitForElementAndDoubleClick(scheduleTile);
-		waitTime();
+		customeWaitTime(5);
 		if(globalModalInfoOkButton.isDisplayed()){
 			System.out.println("Device not supported");
 		}
@@ -251,7 +251,7 @@ public class DashBoard extends BasePage {
 		System.out.println("Is delivery tile enable "
 				+ deliveryTile.isEnabled());
 		waitForElementAndDoubleClick(deliveryTile);
-		waitTime();
+		customeWaitTime(5);
 		if(globalModalInfoOkButton.isDisplayed()){
 			System.out.println("Device not supported");
 		}
@@ -264,7 +264,7 @@ public class DashBoard extends BasePage {
 				+ handScoringTile.isEnabled());
 
 		waitForElementAndDoubleClick(handScoringTile);
-		waitTime();
+		customeWaitTime(5);
 		if(globalModalInfoOkButton.isDisplayed()){
 			System.out.println("Device not supported");
 		}
@@ -279,7 +279,7 @@ public class DashBoard extends BasePage {
 				+ reportsTile.isEnabled());
 		try{
 		waitForElementAndDoubleClick(reportsTile);
-		waitTime();
+		customeWaitTime(5);
 		if(globalModalInfoOkButton.isDisplayed()){
 			System.out.println("Device not supported");
 		}
@@ -293,7 +293,7 @@ public class DashBoard extends BasePage {
 	}
 
 	public Items goToItems() {
-		waitTime();
+		customeWaitTime(5);
 		System.out.println("Is the items tile enable "
 				+ ItemsTile.isEnabled());
 		waitForElementAndDoubleClick(ItemsTile);
@@ -312,7 +312,7 @@ public class DashBoard extends BasePage {
 		
 		try {
 			waitForElementAndDoubleClick(helpTile);
-			waitTime();			
+			customeWaitTime(5);			
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -325,7 +325,7 @@ public class DashBoard extends BasePage {
 	public String addTiles() {
 		//*[@id="tileSelectionContainer"]/div[1]
 		waitForElementAndDoubleClick(addTile);
-		waitTime();
+		customeWaitTime(5);
 		for (int x = 1; x < 26; x++) {
 			try {
 				String path = "//*[@id='tileSelectionContainer']/div[" + x + "]";
@@ -343,7 +343,7 @@ public class DashBoard extends BasePage {
 	
 	public String getAvailableTile(String tileName) {
 		waitForElementAndDoubleClick(addTile);
-		waitTime();
+		customeWaitTime(5);
 		WebElement tile = driver.findElement(By.xpath("(//span[text()='"
 				+ tileName + "'])[last()]"));
 		String availableTile = null;
@@ -360,7 +360,7 @@ public class DashBoard extends BasePage {
 	}
 
 	public boolean deleteTile() {
-		waitTime();
+		customeWaitTime(5);
 		removeTile.click();
 		try {
 			base.dragAndDrop(firtsTile, removeArea);
@@ -373,7 +373,7 @@ public class DashBoard extends BasePage {
 
 	
 	public boolean moveTiles() {
-		waitTime();
+		customeWaitTime(5);
 		
 		try {
 			base.dragAndDrop(firtsTile, secondTile);
@@ -385,13 +385,13 @@ public class DashBoard extends BasePage {
 	}
 	
 	public boolean changeTileConfig() {
-		waitTime();
+		customeWaitTime(5);
 		
 		try {
 			configLink.click();
 			quickLinkInput.click();
 			globalModalOKCancelSaveButton.click();
-			waitTime();
+			customeWaitTime(5);
 			quickLinkList.isDisplayed();
 			
 			validator = true;
@@ -403,10 +403,10 @@ public class DashBoard extends BasePage {
 	
 	
 	public boolean goToMessages() {
-		waitTime();		
+		customeWaitTime(5);		
 		try {
 			messageLink.click();
-			waitTime();			
+			customeWaitTime(5);			
 			validator = driver.getCurrentUrl().contains("message");
 		} catch (Exception e) {
 			System.out.println("Unable to go to the message page");
@@ -416,10 +416,10 @@ public class DashBoard extends BasePage {
 	
 	
 	public Organization goToOrganization() {
-		waitTime();		
+		customeWaitTime(5);		
 		try {
 			waitForElementAndDoubleClick(organizationTile);	
-			waitTime();
+			customeWaitTime(5);
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -431,13 +431,14 @@ public class DashBoard extends BasePage {
 	
 
 	public ItemsBank goToItemsBank() {
-		waitTime();		
+		customeWaitTime(5);		
 		try {
 			waitForElementAndDoubleClick(itemBankTile);	
-			waitTime();
+			customeWaitTime(5);
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
+			customeWaitTime(15);	
 		} catch (Exception e) {
 			System.out.println("Unable to go to the items bank page");
 		}
@@ -445,10 +446,10 @@ public class DashBoard extends BasePage {
 	}
 	
 	public TestsBank goToTestsBank() {
-		waitTime();		
+		customeWaitTime(5);		
 		try {
 			waitForElementAndDoubleClick(testbankTile);		
-			waitTime();
+			customeWaitTime(5);
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -460,13 +461,14 @@ public class DashBoard extends BasePage {
 	
 	
 	public ItemImport goToItemImport() {
-		waitTime();		
+		customeWaitTime(5);		
 		try {
 			waitForElementAndDoubleClick(ItemsImportTile);	
-			waitTime();
+			customeWaitTime(5);
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
+			customeWaitTime(5);
 		} catch (Exception e) {
 			System.out.println("Unable to go to the Item Import page");
 		}
@@ -474,10 +476,10 @@ public class DashBoard extends BasePage {
 	}
 	
 	public Role goToRole() {
-		waitTime();		
+		customeWaitTime(5);		
 		try {
 			waitForElementAndDoubleClick(roleTile);	
-			waitTime();
+			customeWaitTime(5);
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -489,17 +491,17 @@ public class DashBoard extends BasePage {
 	
 	public Domain goToDomain() {
 		try {
-			waitTime();
-			waitTime();
+			customeWaitTime(5);
+			customeWaitTime(5);
 			String dashboardUrl = driver.getCurrentUrl();
 			driver.navigate().to(dashboardUrl.replace("dashboard", "domain"));
-			waitTime();
-			waitTime();
+			customeWaitTime(5);
+			customeWaitTime(5);
 			refreshPage();
-			waitTime();
-			waitTime();
-			waitTime();
-			waitTime();
+			customeWaitTime(5);
+			customeWaitTime(5);
+			customeWaitTime(5);
+			customeWaitTime(5);
 			if (resultListCount.isDisplayed()) {
 				System.out.println(" Domain page is loaded successfully");
 			} else {
@@ -515,10 +517,10 @@ public class DashBoard extends BasePage {
 	}
 	
 	public Media goToMedia() {
-		waitTime();		
+		customeWaitTime(5);		
 		try {
 			waitForElementAndDoubleClick(mediaTile);	
-			waitTime();
+			customeWaitTime(5);
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -529,10 +531,10 @@ public class DashBoard extends BasePage {
 	}
 	
 	public ScoreProfile goToScoreProfile() {
-		waitTime();		
+		customeWaitTime(5);		
 		try {
 			waitForElementAndDoubleClick(scoreProfileTile);	
-			waitTime();
+			customeWaitTime(5);
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -543,10 +545,10 @@ public class DashBoard extends BasePage {
 	}
 	
 	public Passage goToPassage() {
-		waitTime();		
+		customeWaitTime(5);		
 		try {
 			waitForElementAndDoubleClick(passageTile);	
-			waitTime();
+			customeWaitTime(5);
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -558,10 +560,10 @@ public class DashBoard extends BasePage {
 	
 	
 	public Permission goToPermission() {
-		waitTime();		
+		customeWaitTime(5);		
 		try {
 			waitForElementAndDoubleClick(permissionTile);	
-			waitTime();
+			customeWaitTime(5);
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -572,11 +574,11 @@ public class DashBoard extends BasePage {
 	}
 	
 	public Login logOut() {
-		waitTime();
-		
+		customeWaitTime(5);
 		userDrop.click();
+		customeWaitTime(2);
 		logOut.click();
-
+		customeWaitTime(5);
 		return new Login(driver);
 	}
 }

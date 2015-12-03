@@ -1,5 +1,7 @@
 package tests;
 
+import java.io.File;
+
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -10,6 +12,7 @@ import pages.ClassRoster;
 import pages.DashBoard;
 import pages.Delivery;
 import pages.HandScoring;
+import pages.ItemImport;
 import pages.Items;
 import pages.ItemsBank;
 import pages.Login;
@@ -25,20 +28,30 @@ public class SharingTest extends BaseTest {
 	String teacher1 = "qa/nteacher1";
 	String stduent1 = "qa/nstudent1";
 	String genericPassword = "12345";
-	String lastSaharedTeacher= teacher1.split("/")[1].substring(0, 1) + " " +teacher1.split("/")[1].substring(1);
-	Login loginPageObject;
-	DashBoard dashBoardPageObject;
-	Items itemsPageObject;
-	Users usersPageObject;
-	ClassRoster classRosterPageObject;
-	TestCreation testCreationPageObject;
-	Schedule sechedulePageObject;
-	Delivery deliveryPageObject;
-	HandScoring handScoringPageObject;
-	Reports reportsPageObject;
-	Organization organizationPageObject;
-	ItemsBank itemsBankPageObject;
-	TestsBank testBankPageObject;
+	String defaultAutoAdmin = "at/admin";
+	
+	String defaultAutoPassword = "password";
+
+	String schooladmin2 = "at/autoschooladmin";
+	
+	String autoTeacher1 = "at/autoteacher1";
+
+	String lastSaharedTeacher= autoTeacher1.split("/")[1].substring(0, 1) + " " +autoTeacher1.split("/")[1].substring(1);
+	Login loginPage;
+	DashBoard dashBoardPage;
+	Items itemsPage;
+	Users usersPage;
+	ClassRoster classRosterPage;
+	TestCreation testCreationPage;
+	Schedule sechedulePage;
+	Delivery deliveryPage;
+	HandScoring handScoringPage;
+	Reports reportsPage;
+	Organization organizationPage;
+	ItemsBank itemsBankPage;
+	TestsBank testBankPage;
+	ItemImport itemsImportPage;
+	
 	String itemBankName ;
 	String itemName ;
 	String itemNameByTeacher;
@@ -51,6 +64,20 @@ public class SharingTest extends BaseTest {
 	String testDesc = "Auto Test";
 	String testBankDescription = "Auto test bank desc";
 	
+	String bulkItemImportFileName = "Bulk Item Upload.zip";
+	String resources = "src" + File.separator + "resources"
+			+ File.separator;
+	String bulkItemImportFile = resources + bulkItemImportFileName;
+	
+	private static final String DEFINED_LIFECYCLE = "DEFINED";
+	private static final String REVIEW_LIFECYCLE = "REVIEW";
+	private static final String ACCEPTED_LIFECYCLE = "ACCEPTED";
+	private static final String REJECTED_LIFECYCLE = "REJECTED";
+	private static final String HOLD_LIFECYCLE = "HOLD";
+	private static final String PUBLISH_LIFECYCLE = "PUBLISH";
+
+	private static final String QTI_PACKAGE = "QTI";
+
 
 	public SharingTest () {
 		super();
@@ -61,11 +88,11 @@ public class SharingTest extends BaseTest {
 	public void setUp() {
 		System.out.println("Load Unity url - " + url);
 		driver.get(url);
-		loginPageObject = new Login(driver);
-		System.out.println("******** logging as Scool Admin -- " + schooladmin1  + "******** " );
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1, genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
+		loginPage = new Login(driver);
+		System.out.println("******** logging as  school admin  -- " + defaultAutoAdmin  + "******** " );
+		dashBoardPage = loginPage.loginSuccess(schooladmin1, genericPassword);
+		customeWaitTime(5);
+		//dashBoardPage.addTiles();
 		
 	}
 
@@ -77,35 +104,35 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 1)
 	public void testVerifyDefaulltAclTrusteeForItemBank(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		waitTime();
-		Assert.assertFalse(itemsBankPageObject.aclTrusteeRead.isEnabled());
-		Assert.assertTrue(itemsBankPageObject.aclTrusteeRead.isSelected());
-		Assert.assertFalse(itemsBankPageObject.aclTrusteeWrite.isSelected());
-		Assert.assertTrue(itemsBankPageObject.aclTrusteeWrite.isDisplayed());
-		Assert.assertFalse(itemsBankPageObject.aclTrusteeCreate.isSelected());
-		Assert.assertTrue(itemsBankPageObject.aclTrusteeCreate.isDisplayed());
-		Assert.assertFalse(itemsBankPageObject.aclTrusteeDelete.isSelected());
-		Assert.assertTrue(itemsBankPageObject.aclTrusteeDelete.isDisplayed());
-		Assert.assertFalse(itemsBankPageObject.aclTrusteeAdmin.isSelected());
-		Assert.assertTrue(itemsBankPageObject.aclTrusteeAdmin.isDisplayed());
-		itemsBankPageObject.closeItemBankShareScreen();
-		itemsBankPageObject.backToDashboard();
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		customeWaitTime(5);
+		Assert.assertFalse(itemsBankPage.aclTrusteeRead.isEnabled());
+		Assert.assertTrue(itemsBankPage.aclTrusteeRead.isSelected());
+		Assert.assertFalse(itemsBankPage.aclTrusteeWrite.isSelected());
+		Assert.assertTrue(itemsBankPage.aclTrusteeWrite.isDisplayed());
+		Assert.assertFalse(itemsBankPage.aclTrusteeCreate.isSelected());
+		Assert.assertTrue(itemsBankPage.aclTrusteeCreate.isDisplayed());
+		Assert.assertFalse(itemsBankPage.aclTrusteeDelete.isSelected());
+		Assert.assertTrue(itemsBankPage.aclTrusteeDelete.isDisplayed());
+		Assert.assertFalse(itemsBankPage.aclTrusteeAdmin.isSelected());
+		Assert.assertTrue(itemsBankPage.aclTrusteeAdmin.isDisplayed());
+		itemsBankPage.closeItemBankShareScreen();
+		itemsBankPage.backToDashboard();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.deleteItemBank(itemBankName);
 	}
 	
 	/**
@@ -114,56 +141,56 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 2)
 	public void testShareItemBankwithReadACL(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "READ");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);
-		waitTime();
-		Assert.assertFalse(itemsBankPageObject.shareButton.isEnabled());
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);
+		customeWaitTime(5);
+		Assert.assertFalse(itemsBankPage.shareButton.isEnabled());
 		assertItemBankStatisticsPanelContent();
-		itemsBankPageObject.backLink.click();
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		itemsPageObject.searchItem(itemName);
-		Assert.assertFalse(itemsPageObject.itemEditIcon.isEnabled());
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1,
+		itemsBankPage.backLink.click();
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		itemsPage.searchItem(itemName);
+		Assert.assertFalse(itemsPage.itemEditIcon.isEnabled());
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				genericPassword);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.deleteItemBank(itemBankName);
 	}
 	
 	/**
@@ -172,56 +199,56 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 3)
 	public void testShareItemBankWithWriteACL(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
 		
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "WRITE");
-		waitTime();
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "WRITE");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);
-		waitTime();
-		Assert.assertFalse(itemsBankPageObject.shareButton.isEnabled());
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);
+		customeWaitTime(5);
+		Assert.assertFalse(itemsBankPage.shareButton.isEnabled());
 		assertItemBankStatisticsPanelContent();
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		itemsPageObject.searchItem(itemName);
-		Assert.assertTrue(itemsPageObject.itemEditIcon.isEnabled());
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1,
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		itemsPage.searchItem(itemName);
+		Assert.assertTrue(itemsPage.itemEditIcon.isEnabled());
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				genericPassword);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.deleteItemBank(itemBankName);
 	}
 	
 	
@@ -231,57 +258,57 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 4)
 	public void testShareItemBankwithCreateACL(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_ " + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item Bank creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "CREATE");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "CREATE");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,CREATE");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,CREATE");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);
-		waitTime();
-		Assert.assertEquals(itemsBankPageObject.shareButton.getAttribute("disabled"),"true","Verifying the Item bank share icon is disabled");
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);
+		customeWaitTime(5);
+		Assert.assertEquals(itemsBankPage.shareButton.getAttribute("disabled"),"true","Verifying the Item bank share icon is disabled");
 		assertItemBankStatisticsPanelContent();
-		itemsBankPageObject.backLink.click();
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		itemsPageObject.searchItem(itemName);
-		Assert.assertFalse(itemsPageObject.itemEditIcon.isEnabled());
-		Assert.assertEquals(itemsPageObject.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1,
+		itemsBankPage.backLink.click();
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		itemsPage.searchItem(itemName);
+		Assert.assertFalse(itemsPage.itemEditIcon.isEnabled());
+		Assert.assertEquals(itemsPage.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				genericPassword);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.deleteItemBank(itemBankName);
 		
 	}
 	
@@ -290,57 +317,57 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority = 5)
 	public void testShareBlankItemBankwithDeleteACL(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_ " + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item Bank creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item  creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "DELETE");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "DELETE");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,DELETE");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,DELETE");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);
-		waitTime();
-		Assert.assertEquals(itemsBankPageObject.shareButton.getAttribute("disabled"),"true","Verifying the Item bank share icon is disabled");
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);
+		customeWaitTime(5);
+		Assert.assertEquals(itemsBankPage.shareButton.getAttribute("disabled"),"true","Verifying the Item bank share icon is disabled");
 		assertItemBankStatisticsPanelContent();
-		itemsBankPageObject.backLink.click();
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		itemsPageObject.searchItem(itemName);
-		Assert.assertFalse(itemsPageObject.itemEditIcon.isEnabled());
-        Assert.assertTrue(itemsPageObject.itemDeleteIcon.isEnabled());
-        dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1,
+		itemsBankPage.backLink.click();
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		itemsPage.searchItem(itemName);
+		Assert.assertFalse(itemsPage.itemEditIcon.isEnabled());
+        Assert.assertTrue(itemsPage.itemDeleteIcon.isEnabled());
+        dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				genericPassword);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.deleteItemBank(itemBankName);
 		
 	}
 	
@@ -349,57 +376,57 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority = 6)
 	public void testShareItemBankwithAdminACL(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_ " + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item  Bank  creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "ADMIN");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "ADMIN");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,ADMIN");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,ADMIN");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);
-		waitTime();
-		Assert.assertTrue(itemsBankPageObject.shareButton.isEnabled(),"Verifying the Item Bank share icon is editable");
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);
+		customeWaitTime(5);
+		Assert.assertTrue(itemsBankPage.shareButton.isEnabled(),"Verifying the Item Bank share icon is editable");
 		assertItemBankStatisticsPanelContent();
-		itemsBankPageObject.backLink.click();
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		itemsPageObject.searchItem(itemName);
-		Assert.assertTrue(itemsPageObject.itemEditIcon.isEnabled());
-        Assert.assertFalse(itemsPageObject.itemDeleteIcon.isEnabled());
-        dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1,
+		itemsBankPage.backLink.click();
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		itemsPage.searchItem(itemName);
+		Assert.assertTrue(itemsPage.itemEditIcon.isEnabled());
+        Assert.assertFalse(itemsPage.itemDeleteIcon.isEnabled());
+        dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				genericPassword);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.deleteItemBank(itemBankName);
 
 	}
 	
@@ -409,58 +436,58 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority = 7)
 	public void testShareItemBankwithAllACL(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_ " + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item  Bank  creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);
-		waitTime();
-		Assert.assertTrue(itemsBankPageObject.shareButton.isEnabled(),"Verifying the Item Bank share icon is editable");
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);
+		customeWaitTime(5);
+		Assert.assertTrue(itemsBankPage.shareButton.isEnabled(),"Verifying the Item Bank share icon is editable");
 		assertItemBankStatisticsPanelContent();
-		itemsBankPageObject.backLink.click();
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		itemsPageObject.searchItem(itemName);
-		Assert.assertTrue(itemsPageObject.itemEditIcon.isEnabled());
-        Assert.assertTrue(itemsPageObject.itemDeleteIcon.isEnabled());
-		Assert.assertEquals(itemsPageObject.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
-        dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1,
+		itemsBankPage.backLink.click();
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		itemsPage.searchItem(itemName);
+		Assert.assertTrue(itemsPage.itemEditIcon.isEnabled());
+        Assert.assertTrue(itemsPage.itemDeleteIcon.isEnabled());
+		Assert.assertEquals(itemsPage.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
+        dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				genericPassword);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.deleteItemBank(itemBankName);
 
 	}
 	
@@ -473,67 +500,67 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority = 8)
 	public void testAddItemsInSharedItemBankwithAllACL(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_ " + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item  Bank  creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);
-		waitTime();
-		Assert.assertTrue(itemsBankPageObject.shareButton.isEnabled(),"Verifying the Item Bank share icon is editable");
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);
+		customeWaitTime(5);
+		Assert.assertTrue(itemsBankPage.shareButton.isEnabled(),"Verifying the Item Bank share icon is editable");
 		assertItemBankStatisticsPanelContent();
-		itemsBankPageObject.backLink.click();
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		itemsPageObject.searchItem(itemName);
-		Assert.assertTrue(itemsPageObject.itemEditIcon.isEnabled());
-        Assert.assertTrue(itemsPageObject.itemDeleteIcon.isEnabled());
-		Assert.assertEquals(itemsPageObject.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
+		itemsBankPage.backLink.click();
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		itemsPage.searchItem(itemName);
+		Assert.assertTrue(itemsPage.itemEditIcon.isEnabled());
+        Assert.assertTrue(itemsPage.itemDeleteIcon.isEnabled());
+		Assert.assertEquals(itemsPage.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
 		itemNameByTeacher = "I1_"  + itemBankName;
 		
-		itemsPageObject.createItem(itemNameByTeacher , itemBankName);
-		waitTime();
-        dashBoardPageObject.logOut();	
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1,
+		itemsPage.createItem(itemNameByTeacher , itemBankName);
+		customeWaitTime(5);
+        dashBoardPage.logOut();	
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				genericPassword);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
-		itemsPageObject.searchItem(itemNameByTeacher);
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		Assert.assertEquals(itemsBankPageObject.itemCount.getText(),"2","Verifying the Item count after adding item in shared bank");
-		itemsBankPageObject.viewIcon.click();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
+		itemsPage.searchItem(itemNameByTeacher);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		Assert.assertEquals(itemsBankPage.itemCount.getText(),"2","Verifying the Item count after adding item in shared bank");
+		itemsBankPage.viewIcon.click();
+		itemsBankPage.deleteItemBank(itemBankName);
 
 	}
 	
@@ -546,66 +573,66 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority = 9)
 	public void testDeleteItemsInSharedItemBankwithAllACL(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_ " + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item  Bank  creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);
-		waitTime();
-		Assert.assertTrue(itemsBankPageObject.shareButton.isEnabled(),"Verifying the Item Bank share icon is editable");
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);
+		customeWaitTime(5);
+		Assert.assertTrue(itemsBankPage.shareButton.isEnabled(),"Verifying the Item Bank share icon is editable");
 		assertItemBankStatisticsPanelContent();
-		itemsBankPageObject.backLink.click();
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		itemsPageObject.searchItem(itemName);
-		Assert.assertTrue(itemsPageObject.itemEditIcon.isEnabled());
-        Assert.assertTrue(itemsPageObject.itemDeleteIcon.isEnabled());
-		Assert.assertEquals(itemsPageObject.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
-		itemsPageObject.deleteItem(itemName);
-        dashBoardPageObject.logOut();	
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1,
+		itemsBankPage.backLink.click();
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		itemsPage.searchItem(itemName);
+		Assert.assertTrue(itemsPage.itemEditIcon.isEnabled());
+        Assert.assertTrue(itemsPage.itemDeleteIcon.isEnabled());
+		Assert.assertEquals(itemsPage.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
+		itemsPage.deleteItem(itemName);
+        dashBoardPage.logOut();	
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				genericPassword);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
-		itemsPageObject.searchItem(itemName);
-		Assert.assertEquals(itemsPageObject.itemResultCount.getText(),"0","Verifying the Item is deleted");
-		itemsPageObject.backToDashboard();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		Assert.assertEquals(itemsBankPageObject.itemCount.getText(),"0","Verifying the Item count after deleting item in shared bank");
-		itemsBankPageObject.viewIcon.click();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
+		itemsPage.searchItem(itemName);
+		Assert.assertEquals(itemsPage.itemResultCount.getText(),"0","Verifying the Item is deleted");
+		itemsPage.backToDashboard();
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		Assert.assertEquals(itemsBankPage.itemCount.getText(),"0","Verifying the Item count after deleting item in shared bank");
+		itemsBankPage.viewIcon.click();
+		itemsBankPage.deleteItemBank(itemBankName);
 
 	}
 	
@@ -618,35 +645,35 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 10)
 	public void testVerifyDefaulltAclTrusteeForTestBank(){
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
-		testBankPageObject.createBank(testBankName, testBankDescription);
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);;
-		waitTime();
-		testBankPageObject.openTestBankShareScreen();
-		waitTime();
-		Assert.assertFalse(testBankPageObject.aclTrusteeRead.isEnabled());
-		Assert.assertTrue(testBankPageObject.aclTrusteeRead.isSelected());
-		Assert.assertFalse(testBankPageObject.aclTrusteeWrite.isSelected());
-		Assert.assertTrue(testBankPageObject.aclTrusteeWrite.isDisplayed());
-		Assert.assertFalse(testBankPageObject.aclTrusteeCreate.isSelected());
-		Assert.assertTrue(testBankPageObject.aclTrusteeCreate.isDisplayed());
-		Assert.assertFalse(testBankPageObject.aclTrusteeDelete.isSelected());
-		Assert.assertTrue(testBankPageObject.aclTrusteeDelete.isDisplayed());
-		Assert.assertFalse(testBankPageObject.aclTrusteeAdmin.isSelected());
-		Assert.assertTrue(testBankPageObject.aclTrusteeAdmin.isDisplayed());
-		testBankPageObject.closeTestBankShareScreen();
-		testBankPageObject.backToDashboard();
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.deleteTestBank(testBankName);
+		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);;
+		customeWaitTime(5);
+		testBankPage.openTestBankShareScreen();
+		customeWaitTime(5);
+		Assert.assertFalse(testBankPage.aclTrusteeRead.isEnabled());
+		Assert.assertTrue(testBankPage.aclTrusteeRead.isSelected());
+		Assert.assertFalse(testBankPage.aclTrusteeWrite.isSelected());
+		Assert.assertTrue(testBankPage.aclTrusteeWrite.isDisplayed());
+		Assert.assertFalse(testBankPage.aclTrusteeCreate.isSelected());
+		Assert.assertTrue(testBankPage.aclTrusteeCreate.isDisplayed());
+		Assert.assertFalse(testBankPage.aclTrusteeDelete.isSelected());
+		Assert.assertTrue(testBankPage.aclTrusteeDelete.isDisplayed());
+		Assert.assertFalse(testBankPage.aclTrusteeAdmin.isSelected());
+		Assert.assertTrue(testBankPage.aclTrusteeAdmin.isDisplayed());
+		testBankPage.closeTestBankShareScreen();
+		testBankPage.backToDashboard();
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.deleteTestBank(testBankName);
 	}
 	
 	/**
@@ -659,89 +686,89 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority = 11)
 	public void testShareTestBankWithReadACL(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "READ");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		itemsBankPageObject.backToDashboard();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		itemsBankPage.backToDashboard();
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
-		testBankPageObject.createBank(testBankName, testBankDescription);
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		//Need to update the create test bank method to pass test bank and item in method parameter after discussing with team
-		testCreationPageObject.createTest(testName , testBankName , itemName);
-		waitTime();
+		testCreationPage.createTest(testName , testBankName , itemName);
+		customeWaitTime(5);
 		
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);;
-		waitTime();
-		testBankPageObject.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPageObject.shareTestBank(teacher1.split("/")[1], "READ");
-		waitTime();
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);;
+		customeWaitTime(5);
+		testBankPage.openTestBankShareScreen();
+		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "READ");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
-		Assert.assertEquals(testBankPageObject.sharedAccess.getText().trim(), "Access: READ");
-		testBankPageObject.closeTestBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ");
+		testBankPage.closeTestBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);
-		waitTime();
-		Assert.assertFalse(testBankPageObject.testBankShareButton.isEnabled());
-		testBankPageObject.backLink.click();
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
-		testCreationPageObject.searchTest(testName);
-		Assert.assertFalse(testCreationPageObject.testEditIcon.isEnabled());
-		Assert.assertFalse(testCreationPageObject.testDeleteIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testCopyIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testViewIcon.isEnabled());
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1,
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);
+		customeWaitTime(5);
+		Assert.assertFalse(testBankPage.testBankShareButton.isEnabled());
+		testBankPage.backLink.click();
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testCreationPage.searchTest(testName);
+		Assert.assertFalse(testCreationPage.testEditIcon.isEnabled());
+		Assert.assertFalse(testCreationPage.testDeleteIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				genericPassword);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.deleteItemBank(itemBankName);
 		
-		itemsBankPageObject.backToDashboard();
+		itemsBankPage.backToDashboard();
 		
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.deleteTestBank(testBankName);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.deleteTestBank(testBankName);
 		
 		
 	}
@@ -759,89 +786,89 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 12)
 	public void testShareTestBankWithWriteACL(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "WRITE");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "WRITE");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		itemsBankPageObject.backToDashboard();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		itemsBankPage.backToDashboard();
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
-		testBankPageObject.createBank(testBankName, testBankDescription);
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
-		testCreationPageObject.createTest(testName , testBankName , itemName);
-		waitTime();
+		testCreationPage.createTest(testName , testBankName , itemName);
+		customeWaitTime(5);
 		
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);;
-		waitTime();
-		testBankPageObject.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPageObject.shareTestBank(teacher1.split("/")[1], "WRITE");
-		waitTime();
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);;
+		customeWaitTime(5);
+		testBankPage.openTestBankShareScreen();
+		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "WRITE");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
-		Assert.assertEquals(testBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE");
-		testBankPageObject.closeTestBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE");
+		testBankPage.closeTestBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);
-		waitTime();
-		Assert.assertFalse(testBankPageObject.testBankShareButton.isEnabled());
-		testBankPageObject.backLink.click();
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
-		testCreationPageObject.searchTest(testName);
-		Assert.assertTrue(testCreationPageObject.testEditIcon.isEnabled());
-		Assert.assertFalse(testCreationPageObject.testDeleteIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testCopyIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testViewIcon.isEnabled());
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1,
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);
+		customeWaitTime(5);
+		Assert.assertFalse(testBankPage.testBankShareButton.isEnabled());
+		testBankPage.backLink.click();
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testCreationPage.searchTest(testName);
+		Assert.assertTrue(testCreationPage.testEditIcon.isEnabled());
+		Assert.assertFalse(testCreationPage.testDeleteIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				genericPassword);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.deleteItemBank(itemBankName);
 		
-		itemsBankPageObject.backToDashboard();
+		itemsBankPage.backToDashboard();
 		
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.deleteTestBank(testBankName);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.deleteTestBank(testBankName);
 	}
 	
 	
@@ -856,90 +883,90 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 13)
 	public void testShareTestBankWithCreateACL(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "CREATE");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "CREATE");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,CREATE");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		itemsBankPageObject.backToDashboard();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,CREATE");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		itemsBankPage.backToDashboard();
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
-		testBankPageObject.createBank(testBankName, testBankDescription);
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
-		testCreationPageObject.createTest(testName , testBankName , itemName);
-		waitTime();
+		testCreationPage.createTest(testName , testBankName , itemName);
+		customeWaitTime(5);
 		
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);;
-		waitTime();
-		testBankPageObject.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPageObject.shareTestBank(teacher1.split("/")[1], "CREATE");
-		waitTime();
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);;
+		customeWaitTime(5);
+		testBankPage.openTestBankShareScreen();
+		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "CREATE");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
-		Assert.assertEquals(testBankPageObject.sharedAccess.getText().trim(), "Access: READ,CREATE");
-		testBankPageObject.closeTestBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ,CREATE");
+		testBankPage.closeTestBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);
-		waitTime();
-		Assert.assertFalse(testBankPageObject.testBankShareButton.isEnabled());
-		testBankPageObject.backLink.click();
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
-		testCreationPageObject.searchTest(testName);
-		Assert.assertFalse(testCreationPageObject.testEditIcon.isEnabled());
-		Assert.assertFalse(testCreationPageObject.testDeleteIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testCopyIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testViewIcon.isEnabled());
-		Assert.assertEquals(testCreationPageObject.getSharedTestBank(testBankName),testBankName ,"Verifying Shared Test bank is available in Test bank drop down");
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1,
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);
+		customeWaitTime(5);
+		Assert.assertFalse(testBankPage.testBankShareButton.isEnabled());
+		testBankPage.backLink.click();
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testCreationPage.searchTest(testName);
+		Assert.assertFalse(testCreationPage.testEditIcon.isEnabled());
+		Assert.assertFalse(testCreationPage.testDeleteIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
+		Assert.assertEquals(testCreationPage.getSharedTestBank(testBankName),testBankName ,"Verifying Shared Test bank is available in Test bank drop down");
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				genericPassword);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.deleteItemBank(itemBankName);
 		
-		itemsBankPageObject.backToDashboard();
+		itemsBankPage.backToDashboard();
 		
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.deleteTestBank(testBankName);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.deleteTestBank(testBankName);
 	}
 	
 	
@@ -955,90 +982,90 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 14)
 	public void testShareTestBankWithDeleteACL(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "DELETE");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "DELETE");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,DELETE");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		itemsBankPageObject.backToDashboard();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,DELETE");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		itemsBankPage.backToDashboard();
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
-		testBankPageObject.createBank(testBankName, testBankDescription);
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
-		testCreationPageObject.createTest(testName , testBankName , itemName);
-		waitTime();
+		testCreationPage.createTest(testName , testBankName , itemName);
+		customeWaitTime(5);
 		
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);;
-		waitTime();
-		testBankPageObject.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPageObject.shareTestBank(teacher1.split("/")[1], "DELETE");
-		waitTime();
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);;
+		customeWaitTime(5);
+		testBankPage.openTestBankShareScreen();
+		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "DELETE");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
-		Assert.assertEquals(testBankPageObject.sharedAccess.getText().trim(), "Access: READ,DELETE");
-		testBankPageObject.closeTestBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ,DELETE");
+		testBankPage.closeTestBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);
-		waitTime();
-		Assert.assertFalse(testBankPageObject.testBankShareButton.isEnabled());
-		testBankPageObject.backLink.click();
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
-		testCreationPageObject.searchTest(testName);
-		Assert.assertFalse(testCreationPageObject.testEditIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testDeleteIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testCopyIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testViewIcon.isEnabled());
-		Assert.assertEquals(testCreationPageObject.getSharedTestBank(testBankName),testBankName ,"Verifying Shared Test bank is available in Test bank drop down");
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1,
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);
+		customeWaitTime(5);
+		Assert.assertFalse(testBankPage.testBankShareButton.isEnabled());
+		testBankPage.backLink.click();
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testCreationPage.searchTest(testName);
+		Assert.assertFalse(testCreationPage.testEditIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testDeleteIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
+		Assert.assertEquals(testCreationPage.getSharedTestBank(testBankName),testBankName ,"Verifying Shared Test bank is available in Test bank drop down");
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				genericPassword);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.deleteItemBank(itemBankName);
 		
-		itemsBankPageObject.backToDashboard();
+		itemsBankPage.backToDashboard();
 		
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.deleteTestBank(testBankName);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.deleteTestBank(testBankName);
 	}
 	
 	
@@ -1055,89 +1082,89 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 15)
 	public void testShareTestBankWithAdminACL(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "ADMIN");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "ADMIN");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,ADMIN");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		itemsBankPageObject.backToDashboard();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,ADMIN");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		itemsBankPage.backToDashboard();
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
-		testBankPageObject.createBank(testBankName, testBankDescription);
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
-		testCreationPageObject.createTest(testName , testBankName , itemName);
-		waitTime();
+		testCreationPage.createTest(testName , testBankName , itemName);
+		customeWaitTime(5);
 		
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);;
-		waitTime();
-		testBankPageObject.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPageObject.shareTestBank(teacher1.split("/")[1], "ADMIN");
-		waitTime();
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);;
+		customeWaitTime(5);
+		testBankPage.openTestBankShareScreen();
+		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "ADMIN");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
-		Assert.assertEquals(testBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,ADMIN");
-		testBankPageObject.closeTestBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,ADMIN");
+		testBankPage.closeTestBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);
-		waitTime();
-		Assert.assertTrue(testBankPageObject.testBankShareButton.isEnabled());
-		testBankPageObject.backLink.click();
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
-		testCreationPageObject.searchTest(testName);
-		Assert.assertFalse(testCreationPageObject.testEditIcon.isEnabled());
-		Assert.assertFalse(testCreationPageObject.testDeleteIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testCopyIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testViewIcon.isEnabled());
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1,
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);
+		customeWaitTime(5);
+		Assert.assertTrue(testBankPage.testBankShareButton.isEnabled());
+		testBankPage.backLink.click();
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testCreationPage.searchTest(testName);
+		Assert.assertFalse(testCreationPage.testEditIcon.isEnabled());
+		Assert.assertFalse(testCreationPage.testDeleteIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				genericPassword);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.deleteItemBank(itemBankName);
 		
-		itemsBankPageObject.backToDashboard();
+		itemsBankPage.backToDashboard();
 		
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.deleteTestBank(testBankName);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.deleteTestBank(testBankName);
 	}
 	
 	/**
@@ -1151,88 +1178,88 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 16)
 	public void testShareTestBankWithAllACL(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		itemsBankPageObject.backToDashboard();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		itemsBankPage.backToDashboard();
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
-		testBankPageObject.createBank(testBankName, testBankDescription);
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
-		testCreationPageObject.createTest(testName , testBankName , itemName);
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);;
-		waitTime();
-		testBankPageObject.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPageObject.shareTestBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
-		waitTime();
+		testCreationPage.createTest(testName , testBankName , itemName);
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);;
+		customeWaitTime(5);
+		testBankPage.openTestBankShareScreen();
+		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
-		Assert.assertEquals(testBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
-		testBankPageObject.closeTestBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
+		testBankPage.closeTestBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);
-		waitTime();
-		Assert.assertTrue(testBankPageObject.testBankShareButton.isEnabled());
-		testBankPageObject.backLink.click();
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
-		testCreationPageObject.searchTest(testName);
-		Assert.assertTrue(testCreationPageObject.testEditIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testDeleteIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testCopyIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testViewIcon.isEnabled());
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1,
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);
+		customeWaitTime(5);
+		Assert.assertTrue(testBankPage.testBankShareButton.isEnabled());
+		testBankPage.backLink.click();
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testCreationPage.searchTest(testName);
+		Assert.assertTrue(testCreationPage.testEditIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testDeleteIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				genericPassword);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.deleteItemBank(itemBankName);
 		
-		itemsBankPageObject.backToDashboard();
+		itemsBankPage.backToDashboard();
 		
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.deleteTestBank(testBankName);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.deleteTestBank(testBankName);
 	}
 	
 	
@@ -1249,94 +1276,94 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 17)
 	public void testAddTestinShareTestBankWithAllACL(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		itemsBankPageObject.backToDashboard();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		itemsBankPage.backToDashboard();
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
-		testBankPageObject.createBank(testBankName, testBankDescription);
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
-		testCreationPageObject.createTest(testName , testBankName , itemName);
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);;
-		waitTime();
-		testBankPageObject.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPageObject.shareTestBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
-		waitTime();
+		testCreationPage.createTest(testName , testBankName , itemName);
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);;
+		customeWaitTime(5);
+		testBankPage.openTestBankShareScreen();
+		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
-		Assert.assertEquals(testBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
-		testBankPageObject.closeTestBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
+		testBankPage.closeTestBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);
-		waitTime();
-		Assert.assertTrue(testBankPageObject.testBankShareButton.isEnabled());
-		testBankPageObject.backLink.click();
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
-		testCreationPageObject.searchTest(testName);
-		Assert.assertTrue(testCreationPageObject.testEditIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testDeleteIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testCopyIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testViewIcon.isEnabled());
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);
+		customeWaitTime(5);
+		Assert.assertTrue(testBankPage.testBankShareButton.isEnabled());
+		testBankPage.backLink.click();
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testCreationPage.searchTest(testName);
+		Assert.assertTrue(testCreationPage.testEditIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testDeleteIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
 		testNameByTeacher = "T1_"  + testBankName;
-		testCreationPageObject.createTest(testNameByTeacher , testBankName , itemName);
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1,
+		testCreationPage.createTest(testNameByTeacher , testBankName , itemName);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				genericPassword);
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
-		testCreationPageObject.searchTest(testNameByTeacher);
-		Assert.assertEquals(testCreationPageObject.testResultCount.getText(),"1","Verifying the Item is added");
-		testCreationPageObject.backToDashboard();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testCreationPage.searchTest(testNameByTeacher);
+		Assert.assertEquals(testCreationPage.testResultCount.getText(),"1","Verifying the Item is added");
+		testCreationPage.backToDashboard();
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.deleteItemBank(itemBankName);
 		
-		itemsBankPageObject.backToDashboard();
+		itemsBankPage.backToDashboard();
 		
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.deleteTestBank(testBankName);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.deleteTestBank(testBankName);
 	}
 	
 	
@@ -1353,93 +1380,93 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 18)
 	public void testDeleteTestinShareTestBankWithAllACL(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		itemsBankPageObject.backToDashboard();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		itemsBankPage.backToDashboard();
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
-		testBankPageObject.createBank(testBankName, testBankDescription);
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
-		testCreationPageObject.createTest(testName , testBankName , itemName);
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);;
-		waitTime();
-		testBankPageObject.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPageObject.shareTestBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
-		waitTime();
+		testCreationPage.createTest(testName , testBankName , itemName);
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);;
+		customeWaitTime(5);
+		testBankPage.openTestBankShareScreen();
+		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
-		Assert.assertEquals(testBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
-		testBankPageObject.closeTestBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
+		testBankPage.closeTestBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);
-		waitTime();
-		Assert.assertTrue(testBankPageObject.testBankShareButton.isEnabled());
-		testBankPageObject.backLink.click();
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
-		testCreationPageObject.searchTest(testName);
-		Assert.assertTrue(testCreationPageObject.testEditIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testDeleteIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testCopyIcon.isEnabled());
-		Assert.assertTrue(testCreationPageObject.testViewIcon.isEnabled());
-		testCreationPageObject.deleteTest(testName);
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(schooladmin1,
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);
+		customeWaitTime(5);
+		Assert.assertTrue(testBankPage.testBankShareButton.isEnabled());
+		testBankPage.backLink.click();
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testCreationPage.searchTest(testName);
+		Assert.assertTrue(testCreationPage.testEditIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testDeleteIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
+		testCreationPage.deleteTest(testName);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				genericPassword);
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
-		testCreationPageObject.searchTest(testName);
-		Assert.assertEquals(testCreationPageObject.testResultCount.getText(),"0","Verifying the Item is added");
-		testCreationPageObject.backToDashboard();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.deleteItemBank(itemBankName);
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testCreationPage.searchTest(testName);
+		Assert.assertEquals(testCreationPage.testResultCount.getText(),"0","Verifying the Item is added");
+		testCreationPage.backToDashboard();
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.deleteItemBank(itemBankName);
 		
-		itemsBankPageObject.backToDashboard();
+		itemsBankPage.backToDashboard();
 		
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.deleteTestBank(testBankName);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.deleteTestBank(testBankName);
 	}
 	
 	/**
@@ -1455,84 +1482,84 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority=19)
 	public void  testScheduledEventForSharedTestbySchoolAdmin(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		itemsBankPageObject.backToDashboard();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		itemsBankPage.backToDashboard();
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
-		testBankPageObject.createBank(testBankName, testBankDescription);
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
-		testCreationPageObject.createTest(testName , testBankName , itemName);
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);;
-		waitTime();
-		testBankPageObject.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPageObject.shareTestBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
-		waitTime();
+		testCreationPage.createTest(testName , testBankName , itemName);
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);;
+		customeWaitTime(5);
+		testBankPage.openTestBankShareScreen();
+		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
-		Assert.assertEquals(testBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
-		testBankPageObject.closeTestBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
+		testBankPage.closeTestBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
-		testCreationPageObject.searchTest(testName);
-		String createdTestId = testCreationPageObject.getTestId();
-		testCreationPageObject.backToDashboard();
-		sechedulePageObject = dashBoardPageObject.goToSchedule();
-		waitTime();
-		sechedulePageObject.scheduleTest("Euro Kids", "Automation", "N/A", testName, "Green", "120", "100%", "No");
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testCreationPage.searchTest(testName);
+		String createdTestId = testCreationPage.getTestId();
+		testCreationPage.backToDashboard();
+		sechedulePage = dashBoardPage.goToSchedule();
+		customeWaitTime(5);
+		sechedulePage.scheduleTest("Euro Kids", "Automation", "N/A", testName, "Green", "120", "100%", "No");
 		
-		dashBoardPageObject.logOut();
-		waitTime();
+		dashBoardPage.logOut();
+		customeWaitTime(5);
 		
-		dashBoardPageObject = loginPageObject.loginSuccess(stduent1,
+		dashBoardPage = loginPage.loginSuccess(stduent1,
 				genericPassword);
-		dashBoardPageObject.addTiles();
-		waitTime();
-		deliveryPageObject = dashBoardPageObject.goToDelivery();
-		waitTime();
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		deliveryPage = dashBoardPage.goToDelivery();
+		customeWaitTime(5);
 		System.out.println("******** Taking the scheduled test ********");
-		Assert.assertEquals(testName, deliveryPageObject.getScheduledTest(createdTestId));
-		deliveryPageObject.startScheduledTest(createdTestId);
-		deliveryPageObject.takeTest(true , 4 , "Choice","a");
-		Assert.assertEquals(testName, deliveryPageObject.getTestinHistoryTable(createdTestId));
-		Assert.assertEquals("100%", deliveryPageObject.getTestPercentCorrect(createdTestId));
-		Assert.assertEquals("1", deliveryPageObject.getTestNoOfItems(createdTestId));
+		Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
+		deliveryPage.startScheduledTest(createdTestId);
+		deliveryPage.takeTest(true , 4 , "Choice","a");
+		Assert.assertEquals(testName, deliveryPage.getTestinHistoryTable(createdTestId));
+		Assert.assertEquals("100%", deliveryPage.getTestPercentCorrect(createdTestId));
+		Assert.assertEquals("1", deliveryPage.getTestNoOfItems(createdTestId));
 	}
 	
 	
@@ -1550,70 +1577,70 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority=20)
 	public void  testScheduledEventForSharedItemBySchoolAdmin(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
-		itemsBankPageObject.closeItemBankShareScreen();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
+		itemsBankPage.closeItemBankShareScreen();
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
-		testBankPageObject.createBank(testBankName, testBankDescription);
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
-		testCreationPageObject.createTest(testName , testBankName , itemName);
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
-		testCreationPageObject.searchTest(testName);
-		String createdTestId = testCreationPageObject.getTestId();
-		testCreationPageObject.backToDashboard();
-		sechedulePageObject = dashBoardPageObject.goToSchedule();
-		waitTime();
-		sechedulePageObject.scheduleTest("Euro Kids", "Automation", "N/A", testName, "Green", "120", "100%", "No");
+		testCreationPage.createTest(testName , testBankName , itemName);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testCreationPage.searchTest(testName);
+		String createdTestId = testCreationPage.getTestId();
+		testCreationPage.backToDashboard();
+		sechedulePage = dashBoardPage.goToSchedule();
+		customeWaitTime(5);
+		sechedulePage.scheduleTest("Euro Kids", "Automation", "N/A", testName, "Green", "120", "100%", "No");
 		
-		dashBoardPageObject.logOut();
-		waitTime();
+		dashBoardPage.logOut();
+		customeWaitTime(5);
 		
-		dashBoardPageObject = loginPageObject.loginSuccess(stduent1,
+		dashBoardPage = loginPage.loginSuccess(stduent1,
 				genericPassword);
-		dashBoardPageObject.addTiles();
-		waitTime();
-		deliveryPageObject = dashBoardPageObject.goToDelivery();
-		waitTime();
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		deliveryPage = dashBoardPage.goToDelivery();
+		customeWaitTime(5);
 		System.out.println("******** Taking the scheduled test ********");
-		Assert.assertEquals(testName, deliveryPageObject.getScheduledTest(createdTestId));
-		deliveryPageObject.startScheduledTest(createdTestId);
-		deliveryPageObject.takeTest(true , 4 , "Choice", "a");
-		Assert.assertEquals(testName, deliveryPageObject.getTestinHistoryTable(createdTestId));
-		Assert.assertEquals("100%", deliveryPageObject.getTestPercentCorrect(createdTestId));
-		Assert.assertEquals("1", deliveryPageObject.getTestPercentCorrect(createdTestId));
+		Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
+		deliveryPage.startScheduledTest(createdTestId);
+		deliveryPage.takeTest(true , 4 , "Choice", "a");
+		Assert.assertEquals(testName, deliveryPage.getTestinHistoryTable(createdTestId));
+		Assert.assertEquals("100%", deliveryPage.getTestPercentCorrect(createdTestId));
+		Assert.assertEquals("1", deliveryPage.getTestPercentCorrect(createdTestId));
 	}
 
 	
@@ -1633,95 +1660,149 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority=21)
 	public void  testScheduledEventForSharedTestWithViewAccess(){
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
 		itemBankName = "READ_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
-		itemsBankPageObject.createBank(itemBankName, itemBankDescription);
-		waitTime();
-		itemsPageObject = dashBoardPageObject.goToItems();
-		waitTime();
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
-		itemsPageObject.createItem(itemName , itemBankName);
-		waitTime();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
-		waitTime();
-		itemsBankPageObject.searchItemBank(itemBankName);;
-		waitTime();
-		itemsBankPageObject.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPageObject.shareItemBank(teacher1.split("/")[1], "READ");
-		waitTime();
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemsBankPage.searchItemBank(itemBankName);;
+		customeWaitTime(5);
+		itemsBankPage.openItemBankShareScreen();
+		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
-		Assert.assertEquals(itemsBankPageObject.sharedAccess.getText().trim(), "Access: READ");
-		itemsBankPageObject.closeItemBankShareScreen();
-		waitTime();
-		itemsBankPageObject.backToDashboard();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
+		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ");
+		itemsBankPage.closeItemBankShareScreen();
+		customeWaitTime(5);
+		itemsBankPage.backToDashboard();
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
 		testBankName = "READ_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
-		testBankPageObject.createBank(testBankName, testBankDescription);
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
-		testCreationPageObject.createTest(testName , testBankName , itemName);
-		waitTime();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
-		waitTime();
-		testBankPageObject.searchTestBank(testBankName);;
-		waitTime();
-		testBankPageObject.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPageObject.shareTestBank(teacher1.split("/")[1], "READ");
-		waitTime();
+		testCreationPage.createTest(testName , testBankName , itemName);
+		customeWaitTime(5);
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankPage.searchTestBank(testBankName);;
+		customeWaitTime(5);
+		testBankPage.openTestBankShareScreen();
+		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "READ");
+		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
-		Assert.assertEquals(testBankPageObject.sharedAccess.getText().trim(), "Access: READ");
-		testBankPageObject.closeTestBankShareScreen();
-		waitTime();
-		dashBoardPageObject.logOut();
-		waitTime();
-		dashBoardPageObject = loginPageObject.loginSuccess(teacher1,
+		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ");
+		testBankPage.closeTestBankShareScreen();
+		customeWaitTime(5);
+		dashBoardPage.logOut();
+		customeWaitTime(5);
+		dashBoardPage = loginPage.loginSuccess(teacher1,
 				genericPassword);
-		waitTime();
-		dashBoardPageObject.addTiles();
-		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
-		testCreationPageObject.searchTest(testName);
-		String createdTestId = testCreationPageObject.getTestId();
-		Assert.assertFalse(testCreationPageObject.testDeleteIcon.isEnabled());
-		Assert.assertFalse(testCreationPageObject.testEditIcon.isEnabled());
-		waitTime();
-		sechedulePageObject = testCreationPageObject.navigateToScheduleFromListings();
-		waitTime();
-		sechedulePageObject.scheduleTest("Euro Kids", "Automation", "N/A", testName, "Green", "120", "100%", "No");
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testCreationPage.searchTest(testName);
+		String createdTestId = testCreationPage.getTestId();
+		Assert.assertFalse(testCreationPage.testDeleteIcon.isEnabled());
+		Assert.assertFalse(testCreationPage.testEditIcon.isEnabled());
+		customeWaitTime(5);
+		sechedulePage = testCreationPage.navigateToScheduleFromListings();
+		customeWaitTime(5);
+		sechedulePage.scheduleTest("Euro Kids", "Automation", "N/A", testName, "Green", "120", "100%", "No");
 		
-		dashBoardPageObject.logOut();
-		waitTime();
+		dashBoardPage.logOut();
+		customeWaitTime(5);
 		
-		dashBoardPageObject = loginPageObject.loginSuccess(stduent1,
+		dashBoardPage = loginPage.loginSuccess(stduent1,
 				genericPassword);
-		dashBoardPageObject.addTiles();
-		waitTime();
-		deliveryPageObject = dashBoardPageObject.goToDelivery();
-		waitTime();
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		deliveryPage = dashBoardPage.goToDelivery();
+		customeWaitTime(5);
 		System.out.println("******** Taking the scheduled test ********");
-		Assert.assertEquals(testName, deliveryPageObject.getScheduledTest(createdTestId));
-		deliveryPageObject.startScheduledTest(createdTestId);
-		deliveryPageObject.takeTest(true , 4 , "Choice","a");
-		Assert.assertEquals(testName, deliveryPageObject.getTestinHistoryTable(createdTestId));
-		Assert.assertEquals("100%", deliveryPageObject.getTestPercentCorrect(createdTestId));
-		Assert.assertEquals("1", deliveryPageObject.getTestNoOfItems(createdTestId));
+		Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
+		deliveryPage.startScheduledTest(createdTestId);
+		deliveryPage.takeTest(true , 4 , "Choice","a");
+		Assert.assertEquals(testName, deliveryPage.getTestinHistoryTable(createdTestId));
+		Assert.assertEquals("100%", deliveryPage.getTestPercentCorrect(createdTestId));
+		Assert.assertEquals("1", deliveryPage.getTestNoOfItems(createdTestId));
+	}
+	
+	/**
+	 * Login as  admin 
+	 * Import the 20 items in item bank
+	 * Share the item bank with teacher
+	 * Login as a teacher 
+	 * Go to the Item Bank page
+	 * Verify the number of item in shared item bank.
+	 * 
+	 * 
+	 */
+	@Test
+	public void testItemBankSharingWithBulkItems(){
+		//dashBoardPage.logOut();
+		driver.get(url);
+		dashBoardPage = loginPage.loginSuccess(defaultAutoAdmin, defaultAutoPassword);
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		itemBankName = "Bulk_Import_IB_" + System.currentTimeMillis();
+		System.out.println("******** " + itemBankName + "  Item bank creation ********");
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		itemsImportPage = dashBoardPage.goToItemImport();
+		itemsImportPage.importItem(bulkItemImportFile, itemBankName, QTI_PACKAGE, DEFINED_LIFECYCLE);
+		customeWaitTime(30);
+		itemsImportPage.refreshPage();
+		Assert.assertEquals(itemsImportPage.waitAndGetElementText(itemsImportPage.itemImportFileNameList)
+				.trim(), bulkItemImportFileName.trim());
+		Assert.assertEquals(itemsImportPage.waitAndGetElementText(itemsImportPage.itemImportFileStatusList)
+				.trim(), "Completed");
+		Assert.assertTrue(itemsImportPage.waitAndGetElementText(itemsImportPage.itemImportFileDetailsList).contains("Completed without error"));
+		returnToDashboard();
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		itemsBankPage.searchItemBank(itemBankName);
+		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+		String itemCountOfBank = itemsBankPage.itemCount.getText();;
+		itemsBankPage.openItemBankShareScreen();
+		itemsBankPage.shareItemBank(autoTeacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		itemsBankPage.closeItemBankShareScreen();
+		returnToDashboard();
+		dashBoardPage.logOut();
+		dashBoardPage = loginPage.loginSuccess(autoTeacher1,
+				genericPassword);
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		itemsBankPage.searchItemBank(itemBankName);
+		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+		Assert.assertEquals(itemsBankPage.itemCount.getText().trim(),itemCountOfBank.trim(),"Verifying the Item count");
+		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+
+
 	}
 	
 	private void assertItemBankStatisticsPanelContent(){
-		itemsBankPageObject.viewIcon.click();
-		Assert.assertTrue(itemsBankPageObject.itemBankStatisticsPanel.isDisplayed(),"Verifying the Item Bank statisticsPanel is expanded");
-		Assert.assertEquals(itemsBankPageObject.itemCount.getText(),"1","Verifying the Item count");
-		Assert.assertEquals(itemsBankPageObject.mediaCount.getText(),"0","Verifying the media count");
-		Assert.assertEquals(itemsBankPageObject.passageCount.getText(),"0","Verifying the passage count");
-		Assert.assertEquals(itemsBankPageObject.rubricCount.getText(),"0","Verifying the rubrics count");
+		itemsBankPage.viewIcon.click();
+		Assert.assertTrue(itemsBankPage.itemBankStatisticsPanel.isDisplayed(),"Verifying the Item Bank statisticsPanel is expanded");
+		Assert.assertEquals(itemsBankPage.itemCount.getText(),"1","Verifying the Item count");
+		Assert.assertEquals(itemsBankPage.mediaCount.getText(),"0","Verifying the media count");
+		Assert.assertEquals(itemsBankPage.passageCount.getText(),"0","Verifying the passage count");
+		Assert.assertEquals(itemsBankPage.rubricCount.getText(),"0","Verifying the rubrics count");
 		
 	}
 }
