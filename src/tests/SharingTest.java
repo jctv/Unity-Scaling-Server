@@ -32,7 +32,7 @@ public class SharingTest extends BaseTest {
 	
 	String defaultAutoPassword = "password";
 
-	String schooladmin2 = "at/autoschooladmin";
+	String autoschoolAdmin = "at/autoschooladmin";
 	
 	String autoTeacher1 = "at/autoteacher1";
 
@@ -54,11 +54,21 @@ public class SharingTest extends BaseTest {
 	
 	String itemBankName ;
 	String itemName ;
+	String copiedItemName ;
+
 	String itemNameByTeacher;
 	String testNameByTeacher;
 	String itemDesc = "Auto Item";
 	String itemBankDescription = "Auto desc";
 	
+	String interactionChoice = "Choice";
+	String interactionTextEntry = "Text Entry";
+	String simpleMatchScoreProfile = "Simple Match";
+	String mapScoreProfile = "Map";
+	String handScoreProfile  = "Hand Scoring";
+	String choiceCorrectAnswer = "set D correct Answer";
+	String  textEntryCorrcetAnswer = "Auto Text Entry";
+
 	String testBankName ;
 	String testName ;
 	String testDesc = "Auto Test";
@@ -90,7 +100,7 @@ public class SharingTest extends BaseTest {
 		driver.get(url);
 		loginPage = new Login(driver);
 		System.out.println("******** logging as  school admin  -- " + defaultAutoAdmin  + "******** " );
-		dashBoardPage = loginPage.loginSuccess(schooladmin1, genericPassword);
+		dashBoardPage = loginPage.loginSuccess(autoschoolAdmin, genericPassword);
 		customeWaitTime(5);
 		//dashBoardPage.addTiles();
 		
@@ -1752,9 +1762,9 @@ public class SharingTest extends BaseTest {
 	 * 
 	 * 
 	 */
-	@Test
-	public void testItemBankSharingWithBulkItems(){
-		//dashBoardPage.logOut();
+	@Test(priority = 22)
+	public void testItemBankSharingWithBulkImportedItems(){
+		dashBoardPage.logOut();
 		driver.get(url);
 		dashBoardPage = loginPage.loginSuccess(defaultAutoAdmin, defaultAutoPassword);
 		customeWaitTime(5);
@@ -1776,7 +1786,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		itemsBankPage.searchItemBank(itemBankName);
 		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
-		String itemCountOfBank = itemsBankPage.itemCount.getText();;
+		String itemCountOfBank = itemsBankPage.itemCount.getText();
 		itemsBankPage.openItemBankShareScreen();
 		itemsBankPage.shareItemBank(autoTeacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
 		itemsBankPage.closeItemBankShareScreen();
@@ -1793,9 +1803,56 @@ public class SharingTest extends BaseTest {
 		Assert.assertEquals(itemsBankPage.itemCount.getText().trim(),itemCountOfBank.trim(),"Verifying the Item count");
 		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
 
-
 	}
 	
+	/**
+	 * Login into the unity as admin 
+	 * Go to the item tile
+	 * create one item
+	 * Create 20 copied in same item bank
+	 * Share the item bank with teacher.
+	 * Login as a teacher
+	 * Verify  Item bank shared properly with its content	
+	 * 
+	 */
+	
+	@Test(priority = 23)
+	public void testItemBankSharingWithBulkItems(){
+		long timeStamp = System.currentTimeMillis();
+		itemBankName = "Bulk__IB_" + timeStamp;
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		System.out.println("******** " + itemBankName + "  Item bank creation ********");
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		itemsPage = dashBoardPage.goToItems();
+        itemName = "it" +  timeStamp;
+		itemsPage.createItem(itemName, itemBankName ,interactionChoice , simpleMatchScoreProfile , choiceCorrectAnswer);
+		itemsPage.searchItem(itemName);
+		itemsPage.addStandards();
+        copiedItemName = "copy" + itemName;
+		itemsPage.copyMultipleItems(itemBankName, itemName, copiedItemName, 1, 20);
+		returnToDashboard();
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		itemsBankPage.searchItemBank(itemBankName);
+		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+		String itemCountOfBank = itemsBankPage.itemCount.getText();
+		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+		itemsBankPage.openItemBankShareScreen();
+		itemsBankPage.shareItemBank(autoTeacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		itemsBankPage.closeItemBankShareScreen();
+		returnToDashboard();
+		dashBoardPage.logOut();
+		dashBoardPage = loginPage.loginSuccess(autoTeacher1,
+				genericPassword);
+		customeWaitTime(5);
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		itemsBankPage.searchItemBank(itemBankName);
+		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+		Assert.assertEquals(itemsBankPage.itemCount.getText().trim(),itemCountOfBank.trim(),"Verifying the Item count");
+		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+
+	}
 	private void assertItemBankStatisticsPanelContent(){
 		itemsBankPage.viewIcon.click();
 		Assert.assertTrue(itemsBankPage.itemBankStatisticsPanel.isDisplayed(),"Verifying the Item Bank statisticsPanel is expanded");

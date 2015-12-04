@@ -472,7 +472,34 @@ public class Items extends BasePage {
 			}
 	}
 
+	
+    public void copyMultipleItems(String itemBank , String itemName , String copyItemName , int itemIndex , int copiedItemCount){
+    	int itemCount = 0;
+    	try{
+    		
+    		for(itemCount = 1 ; itemCount <= copiedItemCount ;itemCount ++){
+    			WebElement elementToCopy = driver.findElement(By.xpath("//td[text()='"+ itemName +"']/../td[@class='watable-col-preview']//button[@class='btn btn-xs btn-link copyRow']"));
+    			waitForElementAndClick(elementToCopy);
+    			customeWaitTime(5);
+    			selectOption(selectCopyBank, itemBank);
+    			customeWaitTime(2);
+    			waitAndClearField(copyitemBankField);
+    			waitForElementAndSendKeys(copyitemBankField, String.valueOf(itemCount) +"_" + copyItemName);
+    			customeWaitTime(5);
+    			waitForElementAndClick(copyItemButton);
+    			customeWaitTime(5);
+    			waitForElementAndClick(globalModalInfoOkButton);
+    			customeWaitTime(5);
+    		}
+    		
+    	}catch(Exception e){
+    		
+			System.out.println("Unable to Copy  the Item -->  " + copyItemName + String.valueOf(itemCount));
 
+    	}
+    	
+    	
+    }
 	public String getSharedItemBank(String itemBankName) {
 		String itemBank = null;
 		customeWaitTime(5);

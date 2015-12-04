@@ -297,7 +297,7 @@ public class DashBoard extends BasePage {
 		System.out.println("Is the items tile enable "
 				+ ItemsTile.isEnabled());
 		waitForElementAndDoubleClick(ItemsTile);
-		customeWaitTime(5);
+		customeWaitTime(15);
 		if(globalModalInfoOkButton.isDisplayed()){
 			System.out.println("Device not supported");
 		}
@@ -576,7 +576,7 @@ public class DashBoard extends BasePage {
 	public Login logOut() {
 		customeWaitTime(5);
 		userDrop.click();
-		customeWaitTime(2);
+		customeWaitTime(5);
 		logOut.click();
 		customeWaitTime(5);
 		return new Login(driver);
