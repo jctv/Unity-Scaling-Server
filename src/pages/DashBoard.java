@@ -112,6 +112,10 @@ public class DashBoard extends BasePage {
 	
 	@FindBy(id = "tile_view_test_bank") 
 	public WebElement itemImportTile;
+	
+	@FindBy(id = "tile_view_sis_import") 
+	public WebElement sisImportTile;
+	
 
 	@FindBy(id = "navbarDrop1")
 	public WebElement userDrop;
@@ -525,7 +529,7 @@ public class DashBoard extends BasePage {
 				System.out.println("Device not supported");
 			}
 		} catch (Exception e) {
-			System.out.println("Unable to go to the Role page");
+			System.out.println("Unable to go to the Media page");
 		}
 		return new Media(driver);
 	}
@@ -539,7 +543,7 @@ public class DashBoard extends BasePage {
 				System.out.println("Device not supported");
 			}
 		} catch (Exception e) {
-			System.out.println("Unable to go to the Role page");
+			System.out.println("Unable to go to the Score Profile page");
 		}
 		return new ScoreProfile(driver);
 	}
@@ -553,7 +557,7 @@ public class DashBoard extends BasePage {
 				System.out.println("Device not supported");
 			}
 		} catch (Exception e) {
-			System.out.println("Unable to go to the Role page");
+			System.out.println("Unable to go to the Passage page");
 		}
 		return new Passage(driver);
 	}
@@ -568,9 +572,23 @@ public class DashBoard extends BasePage {
 				System.out.println("Device not supported");
 			}
 		} catch (Exception e) {
-			System.out.println("Unable to go to the Role page");
+			System.out.println("Unable to go to the Permission page");
 		}
 		return new Permission(driver);
+	}
+	
+	public SisImport goToSisImport() {
+		customeWaitTime(5);		
+		try {
+			waitForElementAndDoubleClick(sisImportTile);	
+			customeWaitTime(5);
+			if(globalModalInfoOkButton.isDisplayed()){
+				System.out.println("Device not supported");
+			}
+		} catch (Exception e) {
+			System.out.println("Unable to go to the Sis Import page");
+		}
+		return new SisImport(driver);
 	}
 	
 	public Login logOut() {
