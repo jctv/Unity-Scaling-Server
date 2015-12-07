@@ -8,6 +8,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.thoughtworks.selenium.webdriven.commands.WaitForPageToLoad;
+
 import pages.ClassRoster;
 import pages.DashBoard;
 import pages.Delivery;
@@ -88,6 +90,7 @@ public class HappyPathTest extends BaseTest {
 		System.out.println("***** Student and teacher creation started *****");
 		usersPageObject = dashBoardPageObject.goToUsers();
 		waitTime();
+		getPageLoadStatus();
 		String[] createdUsers = usersPageObject.createUser().split(",");
 
 		ArrayList<String> createdUsersA = new ArrayList<String>();
