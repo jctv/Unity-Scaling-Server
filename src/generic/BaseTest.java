@@ -272,12 +272,16 @@ public class BaseTest {
 	}
 
 	public void returnToDashboard() {
-		customeWaitTime(5);	
-		driver.findElement(By.xpath("//*[@id='region-navigation']/div/a"))
-				.click();
-		customeWaitTime(5);
-	
-
+		try {
+			customeWaitTime(15);	
+			driver.findElement(By.xpath("//*[@id='region-navigation']/div/a"))
+					.click();
+			
+			customeWaitTime(15);
+		} catch (Exception e) {
+			System.out.println("Error trying to return to the dashboard");
+			driver.get("http://qa.8pnds.com");
+		}
 	}
 
 	public Properties getUnityMessagesProperty(String unitymessageFileLoc) {

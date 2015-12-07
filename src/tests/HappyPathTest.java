@@ -75,7 +75,7 @@ public class HappyPathTest extends BaseTest {
 		 * Auto-generated catch block e.printStackTrace(); }
 		 */
 		customeWaitTime(10);
-		getPageLoadStatus();
+		
 		System.out.println("******** Creating a new organization ********");
 		organizationPageObject = dashBoardPageObject.goToOrganization();
 		waitTime();
