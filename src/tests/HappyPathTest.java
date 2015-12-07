@@ -78,6 +78,7 @@ public class HappyPathTest extends BaseTest {
 		organizationPageObject = dashBoardPageObject.goToOrganization();
 		waitTime();
 		organizationPageObject.createNewOrganization("Automated School");
+		returnToDashboard();
 		System.out.println("************************************************");
 
 		waitTime();

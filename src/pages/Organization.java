@@ -74,7 +74,7 @@ public class Organization extends BasePage {
 			waitForElementAndClick(globalModalInfoOkButton);
 			System.out.println("School Created");
 			waitTime();
-			waitForElementAndClick(backToDashboard);
+			//waitForElementAndClick(backToDashboard);
 		} catch (Exception e) {
 			System.out.println("Unable to Create the  " + "school");
 		}
