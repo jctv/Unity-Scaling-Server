@@ -112,9 +112,9 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 		System.out.println("******** Item bank creation ********");
 		itemsBankPageObject.createBank("My item bank", "QA");
-
 		waitTime();
-
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPageObject = dashBoardPageObject.goToItems();
 		waitTime();
 		System.out.println("******** Items creation ********");
@@ -132,6 +132,8 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 		System.out.println("******** test bank creation ********");
 		testBankPageObject.createBank("My test bank", "QA");
+		returnToDashboard();
+		customeWaitTime(5);
 		waitTime();
 		testCreationPageObject = dashBoardPageObject.goToTestCreation();
 		waitTime();

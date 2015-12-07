@@ -128,12 +128,17 @@ public class PermissionsPath extends BaseTest {
 		customeWaitTime(10);
 		itemsBankPage.createBank(itemBankName, "desc");
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		/*
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(10);
 		testBankName = "acl_TB_" + timestamp;
 		testBankPage.createBank(testBankName, "desc");
-		customeWaitTime(5);*/
+		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
+		*/
 		permissionPage = dashBoardPage.goToPermission();
 		customeWaitTime(10);
 		//permissionPage.selectOrganization("Auto State");

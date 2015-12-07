@@ -58,6 +58,8 @@ public class ItemBankTest extends BaseTest {
 		waitTime();
 		itemBankPageObject.createBank(itemBankName, description);
 		waitTime();
+		returnToDashboard();
+		customeWaitTime(5);
 		itemBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();
 		waitTime();

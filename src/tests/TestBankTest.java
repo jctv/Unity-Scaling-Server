@@ -59,7 +59,8 @@ public class TestBankTest extends BaseTest {
 		waitTime();
 		testBankPageObject.createBank(testBankName, description);
 		waitTime();
-		waitTime();
+		returnToDashboard();
+		customeWaitTime(5);
 		testBankPageObject = dashBoardPageObject.goToTestsBank();
 		waitTime();
 		waitTime();

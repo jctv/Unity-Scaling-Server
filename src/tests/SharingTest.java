@@ -121,6 +121,8 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -157,6 +159,8 @@ public class SharingTest extends BaseTest {
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
@@ -215,6 +219,8 @@ public class SharingTest extends BaseTest {
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
@@ -275,6 +281,8 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item Bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
@@ -333,6 +341,8 @@ public class SharingTest extends BaseTest {
 		itemBankName = "Auto_IB_ " + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item Bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
@@ -393,6 +403,8 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item  Bank  creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
@@ -452,6 +464,8 @@ public class SharingTest extends BaseTest {
 		itemBankName = "Auto_IB_ " + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item  Bank  creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
@@ -516,6 +530,8 @@ public class SharingTest extends BaseTest {
 		itemBankName = "Auto_IB_ " + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item  Bank  creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
@@ -590,6 +606,8 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item  Bank  creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
@@ -662,6 +680,8 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, testBankDescription);
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -703,6 +723,8 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
@@ -726,6 +748,8 @@ public class SharingTest extends BaseTest {
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
@@ -827,6 +851,8 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, testBankDescription);
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
@@ -900,6 +926,8 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
@@ -923,6 +951,8 @@ public class SharingTest extends BaseTest {
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
@@ -999,6 +1029,8 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
@@ -1022,6 +1054,8 @@ public class SharingTest extends BaseTest {
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
@@ -1099,6 +1133,8 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
@@ -1122,6 +1158,8 @@ public class SharingTest extends BaseTest {
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
@@ -1195,6 +1233,8 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
@@ -1218,6 +1258,8 @@ public class SharingTest extends BaseTest {
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
@@ -1293,6 +1335,8 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
@@ -1316,6 +1360,8 @@ public class SharingTest extends BaseTest {
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
@@ -1397,6 +1443,8 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
@@ -1420,6 +1468,8 @@ public class SharingTest extends BaseTest {
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
@@ -1499,6 +1549,8 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
@@ -1522,6 +1574,8 @@ public class SharingTest extends BaseTest {
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
@@ -1594,6 +1648,8 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
@@ -1622,6 +1678,8 @@ public class SharingTest extends BaseTest {
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
@@ -1677,6 +1735,8 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
 		itemName = "I_" + itemBankName;
@@ -1700,6 +1760,8 @@ public class SharingTest extends BaseTest {
 		testBankName = "READ_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
@@ -1773,6 +1835,8 @@ public class SharingTest extends BaseTest {
 		itemBankName = "Bulk_Import_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsImportPage = dashBoardPage.goToItemImport();
 		itemsImportPage.importItem(bulkItemImportFile, itemBankName, QTI_PACKAGE, DEFINED_LIFECYCLE);
 		customeWaitTime(30);
@@ -1823,6 +1887,8 @@ public class SharingTest extends BaseTest {
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
         itemName = "it" +  timeStamp;
 		itemsPage.createItem(itemName, itemBankName ,interactionChoice , simpleMatchScoreProfile , choiceCorrectAnswer);

@@ -71,6 +71,8 @@ public class PassageTest extends BaseTest{
 		passageName =  "p_" + itemBankName;
 		itemsBankPage.createBank(itemBankName, "Desc");
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		passagePage = dashBoardPage.goToPassage();
 		customeWaitTime(20);
 		passagePage.createPassage(itemBankName, passageName, "desc", mediaFileLocation);

@@ -86,10 +86,14 @@ public class TestCreationTest extends BaseTest {
 		waitTime();
 		testBankPageObject.createBank(testBankName, "Desc");
 		waitTime(); 
+		returnToDashboard();
+		customeWaitTime(5);
 		testBankPageObject = dashBoardPageObject.goToTestsBank();
 		waitTime();
 		testBankPageObject.createBank(copyTestBankName, "Desc");
 	    waitTime();
+	    returnToDashboard();
+		customeWaitTime(5);
 	    testCreationPageObject = dashBoardPageObject.goToTestCreation();
 	    waitTime();
 	    waitTime();

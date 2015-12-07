@@ -95,6 +95,8 @@ public class ItemTest extends BaseTest{
 		itemBankName = "Choice_IB_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime(); 
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		waitTime();
 		itemName = "I_" + itemBankName;
@@ -133,6 +135,8 @@ public class ItemTest extends BaseTest{
 		itemBankName = "TextEntry_IB_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime(); 
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
@@ -171,6 +175,8 @@ public class ItemTest extends BaseTest{
 		itemBankName = "Choice_IB_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime(); 
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		waitTime();
 		itemName = "I_" + itemBankName;
@@ -237,10 +243,14 @@ public class ItemTest extends BaseTest{
 		waitTime();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime(); 
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 	    itemsBankPage.createBank(copyItemBankName, "Desc");
 	    waitTime();
+	    returnToDashboard();
+		customeWaitTime(5);
 	    itemsPage = dashBoardPage.goToItems();
 	    waitTime();
 	    waitTime();
@@ -317,6 +327,8 @@ public class ItemTest extends BaseTest{
 		itemBankName = "TextEntry_Hand_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Hand Scoring");
 		waitTime(); 
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
@@ -352,6 +364,8 @@ public class ItemTest extends BaseTest{
 		waitTime();
 		itemBankName = "TextEntry_match_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Hand Scoring");
+		returnToDashboard();
+		customeWaitTime(5);
 		waitTime(); 
 		itemsPage = dashBoardPage.goToItems();
 		itemName = "I_" + itemBankName;

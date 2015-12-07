@@ -108,6 +108,8 @@ public class ItemImportTest extends BaseTest {
 		itemBankName = "CDE_IB_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime();
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
 		Assert.assertTrue(itemsImportPage.importItem(importFileLocation,
@@ -158,6 +160,8 @@ public class ItemImportTest extends BaseTest {
 		itemBankName = "CDE_IB_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime();
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
 		Assert.assertTrue(itemsImportPage.importItem(importFileLocation,
@@ -236,6 +240,8 @@ public class ItemImportTest extends BaseTest {
 		itemBankName = "No_Menifest_IB_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime();
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
 		Assert.assertTrue(itemsImportPage.importItem(
@@ -282,6 +288,8 @@ public class ItemImportTest extends BaseTest {
 		itemBankName = "Invalid_Idenfifier_IB_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime();
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
 		Assert.assertTrue(itemsImportPage.importItem(
@@ -326,6 +334,8 @@ public class ItemImportTest extends BaseTest {
 		itemBankName = "Invalid_Import_IB_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime();
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
 		Assert.assertTrue(itemsImportPage.importItem(invalidImportFileLocation,
@@ -384,6 +394,8 @@ public class ItemImportTest extends BaseTest {
 		itemBankName = "Text_single_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime();
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
 		Assert.assertTrue(itemsImportPage.importItem(
@@ -461,6 +473,8 @@ public class ItemImportTest extends BaseTest {
 		itemBankName = "Text_Multiple_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime();
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
 		Assert.assertTrue(itemsImportPage.importItem(

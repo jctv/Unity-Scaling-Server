@@ -218,6 +218,8 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, "desc");
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(10);
 		itemName = "I_" + itemBankName;
@@ -306,6 +308,8 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, "desc");
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(10);
 		itemName = "I_" + itemBankName;
@@ -328,6 +332,8 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, "desc");
 		waitTime();
+		returnToDashboard();
+		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
@@ -392,6 +398,8 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, "desc");
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(10);
 		itemName = "I_" + itemBankName;
@@ -426,6 +434,8 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, "desc");
 		waitTime();
+		returnToDashboard();
+		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
@@ -491,6 +501,8 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, "desc");
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(10);
 		itemName = "I_" + itemBankName;
@@ -525,6 +537,8 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, "desc");
 		waitTime();
+		returnToDashboard();
+		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
@@ -589,6 +603,8 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
 		itemsBankPage.createBank(itemBankName, "desc");
 		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(10);
 		itemName = "I_" + itemBankName;
@@ -623,6 +639,8 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, "desc");
 		waitTime();
+		returnToDashboard();
+		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");

@@ -108,7 +108,7 @@ public class TestsBank extends BasePage {
 			waitForElementAndSendKeys(bankCreateInputDescription, descBank);
 			waitForElementAndClick(bankCreateInputSubmit);
 			System.out.println("Test Bank Created");
-			backToDashboard();
+			//backToDashboard();
 		} catch (Exception e) {
 			System.out.println("Unable to create the bank");
 		}

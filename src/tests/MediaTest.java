@@ -65,7 +65,8 @@ public class MediaTest extends BaseTest {
     	waitTime();
     	itemsBankPage.createBank(itemBankName, "Desc");
     	waitTime();
-    	waitTime();
+    	returnToDashboard();
+		customeWaitTime(5);
     	mediaPage = dashBoardPage.goToMedia();
     	waitTime();
     	waitTime();
