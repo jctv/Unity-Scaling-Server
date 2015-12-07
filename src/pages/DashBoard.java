@@ -167,6 +167,7 @@ public class DashBoard extends BasePage {
 		customeWaitTime(5);
 		driver.findElement(By.xpath(xpathTile)).click();
 		customeWaitTime(5);
+		waitForJsProcess();
 		if(globalModalInfoOkButton.isDisplayed()){
 			System.out.println("Device not supported");
 			return false;
@@ -181,7 +182,8 @@ public class DashBoard extends BasePage {
 		
 		try {
 			waitForElementAndDoubleClick(usersTile);
-			customeWaitTime(5);			
+			customeWaitTime(5);	
+			waitForJsProcess();
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -199,6 +201,7 @@ public class DashBoard extends BasePage {
 		try {
 			waitForElementAndDoubleClick(machineProfileTile);
 			customeWaitTime(5);
+			waitForJsProcess();
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -244,6 +247,7 @@ public class DashBoard extends BasePage {
 		
 		waitForElementAndDoubleClick(scheduleTile);
 		customeWaitTime(5);
+		waitForJsProcess();
 		if(globalModalInfoOkButton.isDisplayed()){
 			System.out.println("Device not supported");
 		}
@@ -269,6 +273,7 @@ public class DashBoard extends BasePage {
 
 		waitForElementAndDoubleClick(handScoringTile);
 		customeWaitTime(5);
+		waitForJsProcess();
 		if(globalModalInfoOkButton.isDisplayed()){
 			System.out.println("Device not supported");
 		}
@@ -284,6 +289,7 @@ public class DashBoard extends BasePage {
 		try{
 		waitForElementAndDoubleClick(reportsTile);
 		customeWaitTime(5);
+		waitForJsProcess();
 		if(globalModalInfoOkButton.isDisplayed()){
 			System.out.println("Device not supported");
 		}
@@ -301,7 +307,8 @@ public class DashBoard extends BasePage {
 		System.out.println("Is the items tile enable "
 				+ ItemsTile.isEnabled());
 		waitForElementAndDoubleClick(ItemsTile);
-		customeWaitTime(15);
+		waitForJsProcess();
+		customeWaitTime(10);
 		if(globalModalInfoOkButton.isDisplayed()){
 			System.out.println("Device not supported");
 		}
@@ -410,7 +417,8 @@ public class DashBoard extends BasePage {
 		customeWaitTime(5);		
 		try {
 			messageLink.click();
-			customeWaitTime(5);			
+			customeWaitTime(5);	
+			waitForJsProcess();
 			validator = driver.getCurrentUrl().contains("message");
 		} catch (Exception e) {
 			System.out.println("Unable to go to the message page");
@@ -424,6 +432,7 @@ public class DashBoard extends BasePage {
 		try {
 			waitForElementAndDoubleClick(organizationTile);	
 			customeWaitTime(5);
+			waitForJsProcess();
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -439,6 +448,7 @@ public class DashBoard extends BasePage {
 		try {
 			waitForElementAndDoubleClick(itemBankTile);	
 			customeWaitTime(5);
+			waitForJsProcess();
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -454,6 +464,7 @@ public class DashBoard extends BasePage {
 		try {
 			waitForElementAndDoubleClick(testbankTile);		
 			customeWaitTime(5);
+			waitForJsProcess();
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -469,6 +480,7 @@ public class DashBoard extends BasePage {
 		try {
 			waitForElementAndDoubleClick(ItemsImportTile);	
 			customeWaitTime(5);
+			waitForJsProcess();
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -539,6 +551,7 @@ public class DashBoard extends BasePage {
 		try {
 			waitForElementAndDoubleClick(scoreProfileTile);	
 			customeWaitTime(5);
+			waitForJsProcess();
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -553,6 +566,7 @@ public class DashBoard extends BasePage {
 		try {
 			waitForElementAndDoubleClick(passageTile);	
 			customeWaitTime(5);
+			waitForJsProcess();
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -568,6 +582,7 @@ public class DashBoard extends BasePage {
 		try {
 			waitForElementAndDoubleClick(permissionTile);	
 			customeWaitTime(5);
+			waitForJsProcess();
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
@@ -582,6 +597,7 @@ public class DashBoard extends BasePage {
 		try {
 			waitForElementAndDoubleClick(sisImportTile);	
 			customeWaitTime(5);
+			waitForJsProcess();
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
