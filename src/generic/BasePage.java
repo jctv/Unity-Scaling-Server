@@ -163,7 +163,7 @@ public class BasePage {
 
 	public void waitTime() {
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(11000);
 			this.waitForJsProcess();
 
 		} catch (InterruptedException e) {
