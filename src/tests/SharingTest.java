@@ -168,6 +168,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -228,7 +229,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -289,6 +290,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -350,6 +352,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item  creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -411,6 +414,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -473,6 +477,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -539,6 +544,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -574,6 +580,7 @@ public class SharingTest extends BaseTest {
 		
 		itemsPage.createItem(itemNameByTeacher , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
         dashBoardPage.logOut();	
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
@@ -614,6 +621,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -731,6 +739,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -834,6 +843,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -936,6 +946,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -1040,6 +1051,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -1145,6 +1157,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -1245,6 +1258,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -1348,6 +1362,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -1458,6 +1473,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -1565,6 +1581,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -1665,6 +1682,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -1753,6 +1771,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
+		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
