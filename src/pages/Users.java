@@ -196,6 +196,7 @@ public class Users extends BasePage {
 			waitTime();
 			customeWaitTime(5);
 			waitForElementAndClick(createUserLink);
+			takeScreenShot();
 			System.out.println("************************///////////////////////////////////////////////////////////////////////////////////////////******************************************");
 			customeWaitTime(5);
 			Date date = new Date();

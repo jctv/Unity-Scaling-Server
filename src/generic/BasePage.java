@@ -376,7 +376,7 @@ public void selectOption(WebElement dropDownListBox, String option) {
 		try {
 			File scrFile = ((TakesScreenshot) driver)
 					.getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(scrFile, new File("D:\\screenshot.png"));
+			FileUtils.copyFile(scrFile, new File("\\temp\\screenshot.png"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println("takeScreenShot method failed  "
