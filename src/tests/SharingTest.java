@@ -757,7 +757,8 @@ public class SharingTest extends BaseTest {
 		//Need to update the create test bank method to pass test bank and item in method parameter after discussing with team
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
-		
+		returnToDashboard();
+		customeWaitTime(5);
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -859,7 +860,8 @@ public class SharingTest extends BaseTest {
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
-		
+		returnToDashboard();
+		customeWaitTime(5);
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -960,7 +962,8 @@ public class SharingTest extends BaseTest {
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
-		
+		returnToDashboard();
+		customeWaitTime(5);
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -1063,7 +1066,8 @@ public class SharingTest extends BaseTest {
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
-		
+		returnToDashboard();
+		customeWaitTime(5);
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -1167,7 +1171,7 @@ public class SharingTest extends BaseTest {
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
-		
+		returnToDashboard();
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -1267,6 +1271,7 @@ public class SharingTest extends BaseTest {
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
+		returnToDashboard();
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -1369,6 +1374,7 @@ public class SharingTest extends BaseTest {
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
+		returnToDashboard();
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -1402,6 +1408,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
 		testNameByTeacher = "T1_"  + testBankName;
 		testCreationPage.createTest(testNameByTeacher , testBankName , itemName);
+		returnToDashboard();
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
@@ -1477,6 +1484,7 @@ public class SharingTest extends BaseTest {
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
+		returnToDashboard();
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -1582,6 +1590,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + testName + "  Test creation ********");
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
+		returnToDashboard();
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -1685,6 +1694,7 @@ public class SharingTest extends BaseTest {
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		testCreationPage.createTest(testName , testBankName , itemName);
+		returnToDashboard();
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.searchTest(testName);
 		String createdTestId = testCreationPage.getTestId();
@@ -1768,6 +1778,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + testName + "  Test creation ********");
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
+		returnToDashboard();
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;

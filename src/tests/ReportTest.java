@@ -247,6 +247,8 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** " + testName + "  Test creation ********");
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(10);
+		returnToDashboard();
+		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		customeWaitTime(10);
 		testCreationPage.searchTest(testName);
@@ -339,6 +341,8 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** " + testName + "  Test creation ********");
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(10);
+		returnToDashboard();
+		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		customeWaitTime(10);
 		testCreationPage.searchTest(testName);
@@ -441,7 +445,9 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** " + testName + "  Test creation ********");
 		//testCreationPage.createTest(testName , testBankName , itemName);
 		testCreationPage.createTestWithMultipleItems(testName , testBankName , itemBankName ,10);
-		customeWaitTime(10);
+		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		customeWaitTime(10);
 		testCreationPage.searchTest(testName);
@@ -544,7 +550,9 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** " + testName + "  Test creation ********");
 		//testCreationPage.createTest(testName , testBankName , itemName);
 		testCreationPage.createTestWithMultipleItems(testName , testBankName , itemBankName ,10);
-		customeWaitTime(10);
+		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		customeWaitTime(10);
 		testCreationPage.searchTest(testName);
@@ -646,7 +654,9 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** " + testName + "  Test creation ********");
 		//testCreationPage.createTest(testName , testBankName , itemName);
 		testCreationPage.createTestWithMultipleItems(testName , testBankName , itemBankName ,10);
-		customeWaitTime(10);
+		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		customeWaitTime(10);
 		testCreationPage.searchTest(testName);

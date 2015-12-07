@@ -272,9 +272,9 @@ public class BaseTest {
 	}
 
 	public void returnToDashboard() {
-
 		driver.findElement(By.xpath("//*[@id='region-navigation']/div/a"))
 				.click();
+		customeWaitTime(5);
 
 	}
 

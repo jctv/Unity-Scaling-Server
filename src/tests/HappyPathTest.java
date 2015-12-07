@@ -140,7 +140,9 @@ public class HappyPathTest extends BaseTest {
 		System.out.println("******** Test creation ********");
 		
 		testCreationPageObject.createTestWithMultipleItems("Automation test", "My test bank", "My item bank", 10);
-		waitTime();
+		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
 		sechedulePageObject = dashBoardPageObject.goToSchedule();
 		waitTime();
 		System.out.println("******** Event creation ********");
