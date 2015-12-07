@@ -107,7 +107,7 @@ public class HappyPathTest extends BaseTest {
 		System.out.println("******** Class Roster creation ********");
 		classRosterPageObject.createRoster(createdUsersA, "Automated School", "Automated Roster");
 		waitTime();
-		
+		returnToDashboard();
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();
 		System.out.println("******** Item bank creation ********");

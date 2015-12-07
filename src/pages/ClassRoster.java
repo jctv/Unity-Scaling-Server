@@ -130,7 +130,7 @@ public class ClassRoster extends BasePage {
 			waitForElementAndClick(homeLink);
 			System.out.println("Class Roster Created");
 			waitTime();
-			waitForElementAndClick(dashBoardLink);
+			//waitForElementAndClick(dashBoardLink);
 
 		} catch (Exception e) {
 			System.out.println("Class Roster Creation Failed");
