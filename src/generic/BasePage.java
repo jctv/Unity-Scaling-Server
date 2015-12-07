@@ -164,6 +164,7 @@ public class BasePage {
 	public void waitTime() {
 		try {
 			Thread.sleep(2000);
+			this.waitForJsProcess();
 
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -185,6 +186,7 @@ public class BasePage {
 	public boolean waitForElementVisible(WebElement element) {
 
 		try {
+			this.waitForJsProcess();
 			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 
 			wait.until(ExpectedConditions.visibilityOf(element));

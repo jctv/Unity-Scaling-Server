@@ -275,6 +275,8 @@ public class BaseTest {
 		driver.findElement(By.xpath("//*[@id='region-navigation']/div/a"))
 				.click();
 		customeWaitTime(5);
+		customeWaitTime(5);
+	
 
 	}
 
