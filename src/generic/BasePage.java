@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -172,6 +173,7 @@ public class BasePage {
 	public void customeWaitTime(int seconds) {
 
 		try {
+			this.waitForJsProcess();
 			Thread.sleep(seconds*1000);
 		} catch (InterruptedException e) {
 
@@ -291,6 +293,7 @@ public class BasePage {
 	public void waitForElementAndClick(final WebElement element) {
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		try {
+			this.waitForJsProcess();
 			waitTime();
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 			element.click();
@@ -309,6 +312,7 @@ public class BasePage {
 
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		try {
+			this.waitForJsProcess();
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 			(new Actions(driver)).doubleClick(element).perform();
 
@@ -332,7 +336,7 @@ public class BasePage {
 	public void waitForElementAndSendKeys(WebElement element, String keys) {
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		try {
-
+			this.waitForJsProcess();
 			wait.until(ExpectedConditions.visibilityOf(element));
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 			element.click();
@@ -354,6 +358,7 @@ public class BasePage {
 public void selectOption(WebElement dropDownListBox, String option) {
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		try {
+			this.waitForJsProcess();
 			wait.until(ExpectedConditions.visibilityOf(dropDownListBox));
 			Select droplist = new Select(dropDownListBox);
 			droplist.selectByVisibleText(option);
@@ -378,6 +383,7 @@ public void selectOption(WebElement dropDownListBox, String option) {
 	}
 
 	public DashBoard backToDashboard() {
+		this.waitForJsProcess();
 		waitForElementAndClick(dashBoardPage);
 		waitTime();
 		return new DashBoard(driver);
@@ -385,6 +391,7 @@ public void selectOption(WebElement dropDownListBox, String option) {
 
 	public void waitAndFocus(WebElement element) {
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+		this.waitForJsProcess();
 		wait.until(ExpectedConditions.visibilityOf(element));
 		try {
 			new Actions(driver).moveToElement(element).perform();
@@ -475,5 +482,15 @@ public void selectOption(WebElement dropDownListBox, String option) {
 		return element.getText();
 		
 	}
+	
+	public boolean waitForJsProcess() {
+		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+		  return wait.until(new ExpectedCondition< Boolean >() {
+		   public Boolean apply(WebDriver arg0) {
+		    return (Boolean)  ((JavascriptExecutor) driver).executeScript("return document.readyState == 'complete'");
+		   
+		   }
+		  });
+		 }
 
 }
