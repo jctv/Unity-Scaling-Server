@@ -86,6 +86,10 @@ public class Reports extends BasePage {
 
 	@FindBy(xpath = "//div[@class='layoutHorizontalLeftPane col-md-4']//span[@id='searchButton']")
 	public WebElement searchButtonClassFilterPopup;
+	
+	@FindBy(xpath = "//h2[@class='page-title']")
+	public WebElement testEventTitle;
+	
 
 	public String viewReport() {
 		try {
@@ -240,5 +244,26 @@ public class Reports extends BasePage {
 								+ "]//div[@class='progress test-summary-progress-bar row-collapse']/span[2]"));
 		return reportCategoryPercent.getText();
 	}
+	
+	
+	public void openTestEventDetail(String testEvent){
+		WebElement testEventName = driver.findElement(By.xpath("//div[text()='"
+								+ testEvent	+ "']"));
+		customeWaitTime(5);
+		waitForElementAndClick(testEventName);
+		customeWaitTime(5);
+	}
+	
+	public String getTestEventTitle(){
+		return waitAndGetElementText(testEventTitle);
+	}
+	
+	public String getTestEventDetail(String lastName , int index , String desc){
+		customeWaitTime(5);
+		WebElement testEventInfo = driver.findElement(By.xpath("//td[text()='"+ lastName +"']/following-sibling::td["+ index + "]"));
+		return waitAndGetElementText(testEventInfo);
+		
+	}
+	
 
 }
