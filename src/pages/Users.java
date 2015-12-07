@@ -39,7 +39,7 @@ public class Users extends BasePage {
 	@FindBy(id = "globalModalDeleteButton")
 	public WebElement globalModalDeleteButton;
 
-	@FindBy(xpath = "//span[text() = 'Create User']")
+	@FindBy(xpath = "//*[@id='region-navigation']/div/span[1]")
 	public WebElement createUserLink;
 
 	@FindBy(id = "userCreateInputFName")
