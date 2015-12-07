@@ -296,7 +296,7 @@ public class BasePage {
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		try {
 			this.waitForJsProcess();
-			waitTime();
+			customeWaitTime(5);
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 			element.click();
 			customeWaitTime(5);

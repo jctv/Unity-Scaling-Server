@@ -300,11 +300,11 @@ public class BaseTest {
 
 	}
 	public void getPageLoadStatus(){
-		
+		System.out.println("*****************************************************************");
 		System.out.println(driver.getCurrentUrl());
 		System.out.println(driver.getTitle());
 		System.out.println("*****************************************************************");
-		System.out.println(driver.getPageSource());
+		
 		
 		}
 	

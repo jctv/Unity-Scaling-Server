@@ -133,22 +133,19 @@ public class Users extends BasePage {
 
 	@FindBy(xpath = "/html/body/div[20]/div/ul/li[1]/a")
 	public WebElement selectOrg;
-	
+
 	@FindBy(xpath = "//button[@data-id='userCreateOrg']")
 	public WebElement selectOrgDropDown;
-	
-	
+
 	@FindBy(id = "first_name")
 	public WebElement userEditFirstName;
-	
-	
+
 	@FindBy(id = "middle_name")
 	public WebElement userEditMiddleName;
 
 	@FindBy(id = "last_name")
 	public WebElement userEditLastName;
-	
-	
+
 	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 	String createdUsers = "";
 	String statusMessage;
@@ -197,9 +194,10 @@ public class Users extends BasePage {
 	public String createUser() {
 		for (int x = 0; x <= usersToCreate; x++) {
 			waitTime();
-
+			customeWaitTime(5);
 			waitForElementAndClick(createUserLink);
-			waitTime();
+			System.out.println("************************///////////////////////////////////////////////////////////////////////////////////////////******************************************");
+			customeWaitTime(5);
 			Date date = new Date();
 			String datevalue = date.toString().substring(8, 16)
 					.replace(" ", "_").replace(":", "_");
@@ -258,7 +256,7 @@ public class Users extends BasePage {
 	}
 
 	public String createSpecificUser(String firstName, String lastName,
-			String newPassword , String newRole, String organization) {
+			String newPassword, String newRole, String organization) {
 		try {
 			waitTime();
 			waitForElementAndClick(createUserLink);
@@ -330,10 +328,10 @@ public class Users extends BasePage {
 		waitForElementAndClick(genericUserEditModelCancelButton);
 		return validador;
 	}
-	
-	
+
 	public void enterUserInformation(String firstName, String lastName,
-			String newPassword, String repeatPassword , String newRole, String organization){
+			String newPassword, String repeatPassword, String newRole,
+			String organization) {
 		waitTime();
 		waitTime();
 		firstNameField.clear();
@@ -342,39 +340,41 @@ public class Users extends BasePage {
 		waitForElementAndSendKeys(lastNameField, lastName);
 		waitForElementAndSendKeys(password, newPassword);
 		waitForElementAndSendKeys(retypePassword, repeatPassword);
-		//waitForElementAndSendKeys(role, newRole);
+		// waitForElementAndSendKeys(role, newRole);
 		selectOption(role, newRole);
 		waitTime();
 		selectOrganization(organization);
 		waitTime();
-		//waitForElementAndSendKeys(searchOrgFieldInput, organization);
+		// waitForElementAndSendKeys(searchOrgFieldInput, organization);
 		waitTime();
 		waitForElementAndClick(submit);
 		waitTime();
 	}
-	
-	
+
 	/**
-	 * Added this method as organization  drop  down is populating through plugin not a normal  select box 
+	 * Added this method as organization drop down is populating through plugin
+	 * not a normal select box
+	 * 
 	 * @param option
 	 */
-	public void selectOrganization(String option){
+	public void selectOrganization(String option) {
 		selectOrgDropDown.click();
 		waitTime();
-		List<WebElement> organizations= driver.findElements(By.xpath("//div[@class='btn-group bootstrap-select user-metadata-required select-search-by-name-organization open']//ul[@class='dropdown-menu inner']/li"));
-		for (WebElement org : organizations){
-			try{
-			if(org.getText().equals(option)){
-				org.click();
-			   break;
-			}
-			
-			}catch(Exception e ){
-				System.out.println(option + " is not available" );
+		List<WebElement> organizations = driver
+				.findElements(By
+						.xpath("//div[@class='btn-group bootstrap-select user-metadata-required select-search-by-name-organization open']//ul[@class='dropdown-menu inner']/li"));
+		for (WebElement org : organizations) {
+			try {
+				if (org.getText().equals(option)) {
+					org.click();
+					break;
+				}
+
+			} catch (Exception e) {
+				System.out.println(option + " is not available");
 			}
 		}
-		
+
 	}
-	
 
 }
