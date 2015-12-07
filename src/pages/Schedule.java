@@ -165,7 +165,7 @@ public class Schedule extends BasePage {
 			customeWaitTime(5);
 			waitForElementAndClick(startNowEventClick);
 			customeWaitTime(5);
-			waitForElementAndClick(homeLink);
+			//waitForElementAndClick(homeLink);
 			System.out.println(test + "Event Created success");
 		} catch (Exception e) {
 			System.out.println(test + "Event creation failed");
@@ -218,7 +218,7 @@ public class Schedule extends BasePage {
 			System.out.println("click on event");
 			waitForElementAndClick(startNowEventClick);
 			waitTime();
-			waitForElementAndClick(homeLink);
+			//waitForElementAndClick(homeLink);
 			System.out.println("Event Created success");
 		} catch (Exception e) {
 			System.out.println("Event creation failed");

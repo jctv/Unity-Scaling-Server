@@ -154,6 +154,8 @@ public class ReportTest extends BaseTest {
 			
 			
 			}
+			
+			returnToDashboard();
 			dashBoardPage.logOut();
 			
 			waitTime();
@@ -258,6 +260,7 @@ public class ReportTest extends BaseTest {
 		sechedulePage = dashBoardPage.goToSchedule();
 		customeWaitTime(10);
 		sechedulePage.scheduleTest("Auto School", "autoRoster", "N/A", testName, "Green", "120", "100%", "No");
+		returnToDashboard();
 		dashBoardPage.logOut();
 		customeWaitTime(10);		
 		
@@ -352,6 +355,7 @@ public class ReportTest extends BaseTest {
 		sechedulePage = dashBoardPage.goToSchedule();
 		customeWaitTime(10);
 		sechedulePage.scheduleTest("Auto School", "autoroster", "N/A", testName, "Green", "120", "100%", "No");
+		returnToDashboard();
 		dashBoardPage.logOut();
 		customeWaitTime(10);		
 		
@@ -457,6 +461,7 @@ public class ReportTest extends BaseTest {
 		sechedulePage = dashBoardPage.goToSchedule();
 		customeWaitTime(10);
 		sechedulePage.scheduleTest("Auto School", "autoroster", "N/A", testName, "Green", "120", "100%", "No");
+		returnToDashboard();
 		dashBoardPage.logOut();
 		customeWaitTime(10);		
 		
@@ -562,6 +567,7 @@ public class ReportTest extends BaseTest {
 		sechedulePage = dashBoardPage.goToSchedule();
 		customeWaitTime(10);
 		sechedulePage.scheduleTest("Auto School", "autoroster", "N/A", testName, "Green", "120", "100%", "No");
+		returnToDashboard();
 		dashBoardPage.logOut();
 		customeWaitTime(10);		
 		
@@ -666,6 +672,7 @@ public class ReportTest extends BaseTest {
 		sechedulePage = dashBoardPage.goToSchedule();
 		customeWaitTime(10);
 		sechedulePage.scheduleTest("Auto School", "autoroster", "N/A", testName, "Green", "120", "100%", "No");
+		returnToDashboard();
 		dashBoardPage.logOut();
 		customeWaitTime(10);		
 		
@@ -738,6 +745,7 @@ public class ReportTest extends BaseTest {
 		customeWaitTime(10);
 		testBankPage.deleteTestBank(testBankName);
 		//sechedulePage.scheduleTest("Auto School", "autoroster", "N/A", testName, "Green", "120", "100%", "No");
+		//returnToDashboard();
 		
 		
 	}

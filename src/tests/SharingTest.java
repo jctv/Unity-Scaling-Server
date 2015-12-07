@@ -1633,7 +1633,7 @@ public class SharingTest extends BaseTest {
 		sechedulePage = dashBoardPage.goToSchedule();
 		customeWaitTime(5);
 		sechedulePage.scheduleTest("Euro Kids", "Automation", "N/A", testName, "Green", "120", "100%", "No");
-		
+		returnToDashboard();
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		
@@ -1720,7 +1720,7 @@ public class SharingTest extends BaseTest {
 		sechedulePage = dashBoardPage.goToSchedule();
 		customeWaitTime(5);
 		sechedulePage.scheduleTest("Euro Kids", "Automation", "N/A", testName, "Green", "120", "100%", "No");
-		
+		returnToDashboard();
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		
@@ -1825,7 +1825,7 @@ public class SharingTest extends BaseTest {
 		sechedulePage = testCreationPage.navigateToScheduleFromListings();
 		customeWaitTime(5);
 		sechedulePage.scheduleTest("Euro Kids", "Automation", "N/A", testName, "Green", "120", "100%", "No");
-		
+		returnToDashboard();
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		
