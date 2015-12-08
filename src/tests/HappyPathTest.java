@@ -13,6 +13,7 @@ import com.thoughtworks.selenium.webdriven.commands.WaitForPageToLoad;
 import pages.ClassRoster;
 import pages.DashBoard;
 import pages.Delivery;
+import pages.Domain;
 import pages.HandScoring;
 import pages.Items;
 import pages.ItemsBank;
@@ -44,6 +45,7 @@ public class HappyPathTest extends BaseTest {
 	Organization organizationPageObject;
 	ItemsBank itemsBankPageObject;
 	TestsBank testBankPageObject;
+	Domain domainPageObject;
 
 	public HappyPathTest() {
 		super();
@@ -58,8 +60,18 @@ public class HappyPathTest extends BaseTest {
 		loginPageObject = new Login(driver);
 		System.out.println("******** logging as super administrator ********");
 
-		dashBoardPageObject = loginPageObject.loginSuccess(domain + user,
-				adminPassword);
+		dashBoardPageObject = loginPageObject.loginSuccess("admin",
+				"@simple1");
+		domainPageObject = dashBoardPageObject.goToDomain();
+		if(domainPageObject.isDomainExist("at")){
+			domainPageObject.deleteDomain("at");
+			domainPageObject.createDomain("at", "Auto Testing");
+		}else{
+			domainPageObject.createDomain("at", "Auto Testing");
+		}
+		returnToDashboard();
+		dashBoardPageObject.logOut();
+		
 		// driver.get(url + "#dashboard");
 		waitTime();
 
@@ -76,6 +88,11 @@ public class HappyPathTest extends BaseTest {
 		 * System.setOut(ps); } catch (FileNotFoundException e) { // TODO
 		 * Auto-generated catch block e.printStackTrace(); }
 		 */
+		
+		System.out.println("******** logging as super administrator ********");
+
+		dashBoardPageObject = loginPageObject.loginSuccess(domain + user,
+				adminPassword);
 		customeWaitTime(10);
 		
 		System.out.println("******** Creating a new organization ********");

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
@@ -163,7 +164,7 @@ public class BasePage {
 
 	public void waitTime() {
 		try {
-			Thread.sleep(11000);
+			Thread.sleep(2000);
 			this.waitForJsProcess();
 
 		} catch (InterruptedException e) {
@@ -494,5 +495,11 @@ public void selectOption(WebElement dropDownListBox, String option) {
 		   }
 		  });
 		 }
+	
+	public void waitForElementPresenceAndClick(String xpath){
+		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath))).click();
+		 
+	}
 
 }
