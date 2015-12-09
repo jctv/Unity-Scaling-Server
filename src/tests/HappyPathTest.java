@@ -20,7 +20,9 @@ import pages.ItemsBank;
 import pages.Login;
 import pages.Organization;
 import pages.Reports;
+import pages.Role;
 import pages.Schedule;
+import pages.Standards;
 import pages.TestCreation;
 import pages.TestsBank;
 import pages.Users;
@@ -46,6 +48,8 @@ public class HappyPathTest extends BaseTest {
 	ItemsBank itemsBankPageObject;
 	TestsBank testBankPageObject;
 	Domain domainPageObject;
+	Role rolePageObject;
+	Standards standardPageObject;
 
 	public HappyPathTest() {
 		super();
@@ -60,18 +64,25 @@ public class HappyPathTest extends BaseTest {
 		loginPageObject = new Login(driver);
 		System.out.println("******** logging as super administrator ********");
 
-		dashBoardPageObject = loginPageObject.loginSuccess("admin",
-				"@simple1");
+		dashBoardPageObject = loginPageObject.loginSuccess("admin", "@simple1");
 		domainPageObject = dashBoardPageObject.goToDomain();
-		if(domainPageObject.isDomainExist("at")){
+		if (domainPageObject.isDomainExist("at")) {
 			domainPageObject.deleteDomain("at");
 			domainPageObject.createDomain("at", "Auto Testing");
-		}else{
+		} else {
 			domainPageObject.createDomain("at", "Auto Testing");
 		}
 		returnToDashboard();
+		rolePageObject = dashBoardPageObject.goToRole();
+		rolePageObject.enableTileByRole("System Administrator", "standard");
+		rolePageObject.addPermissions("Class Roster", "Teacher",
+				"create,edit,delete");
+		rolePageObject.addPermissions("Standards", "System Administrator",
+				"create,edit");
+		dashBoardPageObject = standardPageObject.installStandards();
+
 		dashBoardPageObject.logOut();
-		
+
 		// driver.get(url + "#dashboard");
 		waitTime();
 
@@ -88,13 +99,13 @@ public class HappyPathTest extends BaseTest {
 		 * System.setOut(ps); } catch (FileNotFoundException e) { // TODO
 		 * Auto-generated catch block e.printStackTrace(); }
 		 */
-		
+
 		System.out.println("******** logging as super administrator ********");
 
 		dashBoardPageObject = loginPageObject.loginSuccess(domain + user,
 				adminPassword);
 		customeWaitTime(10);
-		
+
 		System.out.println("******** Creating a new organization ********");
 		organizationPageObject = dashBoardPageObject.goToOrganization();
 		waitTime();
