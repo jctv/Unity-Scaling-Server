@@ -32,7 +32,7 @@ public class HappyPathTest extends BaseTest {
 	HappyPathTest Nav;
 	public String user = "admin";
 	public String adminPassword = "password";
-	public String domain = "at/";
+	public String domain = "at1/";
 	public String genericPassword = "12345";
 	Login loginPageObject;
 	DashBoard dashBoardPageObject;
@@ -65,20 +65,25 @@ public class HappyPathTest extends BaseTest {
 		System.out.println("******** logging as super administrator ********");
 
 		dashBoardPageObject = loginPageObject.loginSuccess("admin", "@simple1");
-	/*	domainPageObject = dashBoardPageObject.goToDomain();
-		if (domainPageObject.isDomainExist("at")) {
-			domainPageObject.deleteDomain("at");
-			domainPageObject.createDomain("at", "Auto Testing");
+		domainPageObject = dashBoardPageObject.goToDomain();
+		if (domainPageObject.isDomainExist("at1")) {
+			domainPageObject.deleteDomain("at1");
+			domainPageObject.createDomain("at1", "Auto Testing");
 		} else {
-			domainPageObject.createDomain("at", "Auto Testing");
+			domainPageObject.createDomain("at1", "Auto Testing");
 		}
-		returnToDashboard();*/
+		returnToDashboard();
+		dashBoardPageObject.logOut();
+		loginPageObject.loginSuccess(domain + user, adminPassword);
 		rolePageObject = dashBoardPageObject.goToRole();
-		rolePageObject.enableTileByRole("Administrator", "standard");
+		rolePageObject.enableTileByRole("System Administrator", "standard");
 		rolePageObject.addPermissions("Class Roster", "Teacher",
 				"create,edit,delete");
-		rolePageObject.addPermissions("Standards", "Administrator",
+		rolePageObject.addPermissions("Standards", "System Administrator",
 				"create,edit");
+		
+		
+		
 		standardPageObject.installStandards();
 
 		dashBoardPageObject.logOut();

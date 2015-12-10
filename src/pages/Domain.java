@@ -41,19 +41,19 @@ public class Domain extends BasePage{
 	
 	public void createDomain(String domainAbbreviation, String domainName) {
 		try {
-			customeWaitTime(6);
+			customeWaitTime(2);
 			if (domaintableRows.size() <= 6) {
 				waitForElementAndClick(createDomainLink);
-				customeWaitTime(6);
+				customeWaitTime(2);
 				waitForElementAndSendKeys(abbreviationDomainField,
 						domainAbbreviation);
 				waitTime();
 				waitForElementAndSendKeys(nameDomainField, domainName);
 				waitTime();
 				waitForElementAndClick(createDomainButton);
-				customeWaitTime(12);
+				customeWaitTime(10);
 				waitForElementAndClick(globalModalInfoOkButton);
-				customeWaitTime(6);
+				customeWaitTime(2);
 			} else {
 				System.out
 						.println("Already 6 domains exist so that not creating new Domain otherwaise cassendra will go down ");
