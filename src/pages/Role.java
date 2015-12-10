@@ -118,14 +118,20 @@ public class Role extends BasePage {
 	}
 
 	public void addPermissions(String tileName, String role, String permissions) {
-		List<String> permissionsToAdd = new ArrayList<String>(
-				Arrays.asList(permissions.split(",")));
-		waitForElementPresenceAndClick("//tr[./td[text()='" + role
-				+ "']]//span[text()='" + tileName + "']");
-		for (String permission : permissionsToAdd) {
-			waitForElementPresenceAndClick("//input[@data-id='" + permission
-					+ "']");
+		try {
+			List<String> permissionsToAdd = new ArrayList<String>(
+					Arrays.asList(permissions.split(",")));
+			waitForElementPresenceAndClick("//tr[./td[text()='" + role
+					+ "']]//span[text()='" + tileName + "']");
+			for (String permission : permissionsToAdd) {
+				waitForElementPresenceAndClick("//input[@data-id='" + permission
+						+ "']");
+			}
+			waitForElementAndClick(globalModalOKCancelSaveButton);
+		} catch (Exception e) {
+			System.out.println("Unable to add permissions to the tile " + tileName);
 		}
+		
 	}
 
 	public void enableTileByRole(String role, String tileName) {
@@ -136,7 +142,7 @@ public class Role extends BasePage {
 			waitForElementAndClick(globalModalOKCancelSaveButton);
 			System.out.println("Tile " + tileName + " added to the  " + role);
 		} catch (Exception e) {
-			System.out.println("Unable to add the tile ] " + tileName);
+			System.out.println("Unable to add the tile  " + tileName);
 		}
 		
 

@@ -65,21 +65,21 @@ public class HappyPathTest extends BaseTest {
 		System.out.println("******** logging as super administrator ********");
 
 		dashBoardPageObject = loginPageObject.loginSuccess("admin", "@simple1");
-		domainPageObject = dashBoardPageObject.goToDomain();
+	/*	domainPageObject = dashBoardPageObject.goToDomain();
 		if (domainPageObject.isDomainExist("at")) {
 			domainPageObject.deleteDomain("at");
 			domainPageObject.createDomain("at", "Auto Testing");
 		} else {
 			domainPageObject.createDomain("at", "Auto Testing");
 		}
-		returnToDashboard();
+		returnToDashboard();*/
 		rolePageObject = dashBoardPageObject.goToRole();
-		rolePageObject.enableTileByRole("System Administrator", "standard");
+		rolePageObject.enableTileByRole("Administrator", "standard");
 		rolePageObject.addPermissions("Class Roster", "Teacher",
 				"create,edit,delete");
-		rolePageObject.addPermissions("Standards", "System Administrator",
+		rolePageObject.addPermissions("Standards", "Administrator",
 				"create,edit");
-		dashBoardPageObject = standardPageObject.installStandards();
+		standardPageObject.installStandards();
 
 		dashBoardPageObject.logOut();
 

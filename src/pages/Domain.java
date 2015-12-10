@@ -75,8 +75,9 @@ public class Domain extends BasePage{
 			customeWaitTime(15);			
 			waitForElementAndClick(globalModalDeleteButton);
 			customeWaitTime(15);
-			waitForElementAndClick(globalModalInfoBody);
-			customeWaitTime(6);
+			waitForElementAndClick(globalModalInfoOkButton);
+			customeWaitTime(4);
+			
 		}catch(Exception e){
 			System.out.println("Unable to Delete domain ");
 			

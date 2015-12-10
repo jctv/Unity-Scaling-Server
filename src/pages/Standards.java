@@ -19,6 +19,7 @@ public class Standards extends BasePage {
 
 	public DashBoard installStandards() {
 		try {
+			System.out.println(driver.getCurrentUrl());
 			String	baseUrl = driver.getCurrentUrl();
 			baseUrl = baseUrl.substring(0, baseUrl.indexOf("#"));
 			driver.navigate().to(baseUrl + "ws/api/import/standard/opened?standard_group_id=2");

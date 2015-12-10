@@ -176,7 +176,7 @@ public class BasePage {
 
 		try {
 			this.waitForJsProcess();
-			Thread.sleep(seconds*3000);
+			Thread.sleep(seconds*1000);
 		} catch (InterruptedException e) {
 
 			System.out.println(e.getMessage());
