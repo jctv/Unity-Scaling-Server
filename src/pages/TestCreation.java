@@ -191,12 +191,15 @@ public class TestCreation extends BasePage {
 	@FindBy(xpath = "//button[@class='btn btn-default btn-sm add-items']")
 	public WebElement itemAddButton;
 	
+	@FindBy(xpath = "//div[@class='dropdown-menu open']//input")
+	public WebElement searchItemBankInputField;
+	
 	public void createTest(String testName , String testBankName ,  String itemName) {
 		try {
-			customeWaitTime(5);
 			waitForElementAndClick(createTestLink);
-			selectOption(bankDropDown, testBankName);
-			customeWaitTime(5);
+			//selectOption(bankDropDown, testBankName);
+			selectTestBank(testBankName);
+			customeWaitTime(2);
 			//waitForElementAndSendKeys(bankDropDown, "My Tests");
 			waitForElementAndSendKeys(contentCreateInputName, testName);
 			waitForElementAndSendKeys(contentCreateInputDescription, testName);
@@ -271,10 +274,10 @@ public class TestCreation extends BasePage {
 	
 	public void createTestWithMultipleItems(String testName , String testBankName ,  String itemBank , int itemCount) {
 		try {
-			customeWaitTime(5);
 			waitForElementAndClick(createTestLink);
 			customeWaitTime(5);
-			selectOption(bankDropDown, testBankName);
+			//selectOption(bankDropDown, testBankName);
+			selectTestBank(testBankName);
 			customeWaitTime(5);
 			waitForElementAndSendKeys(contentCreateInputName, testName);
 			waitForElementAndSendKeys(contentCreateInputDescription, testName);
@@ -425,6 +428,7 @@ public class TestCreation extends BasePage {
 	public void selectTestBank(String option){
 		testBankDropdown.click();
 		customeWaitTime(5);
+		waitForElementAndSendKeys(searchItemBankInputField, option);
 		List<WebElement> testBankoptions= driver.findElements(By.xpath("//div[@class='btn-group bootstrap-select content-bank select-search-by-name-test_bank open']//ul/li"));
 		for (WebElement testBank : testBankoptions){
 			try{
@@ -445,7 +449,7 @@ public class TestCreation extends BasePage {
 		try {
 			customeWaitTime(5);
 			waitForElementAndClick(resetSearchFilter);
-			customeWaitTime(10);
+			customeWaitTime(5);
 			waitForElementAndClick(bankFilter);
 			customeWaitTime(5);
 			waitForElementAndClick(selectBankFilter);
@@ -455,7 +459,8 @@ public class TestCreation extends BasePage {
 			waitAndClearField(searchItemBankFilterPopup);
 			customeWaitTime(5);
 			waitForElementAndSendKeys(searchItemBankFilterPopup, itemBankName);
-			customeWaitTime(10);
+			
+			/*customeWaitTime(10);
 			waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
 			try {
 				customeWaitTime(10);
@@ -463,15 +468,15 @@ public class TestCreation extends BasePage {
 
 			} catch (Exception e) {
 
-			}
+			}*/
 			customeWaitTime(10);
 			WebElement serachedItembank = driver.findElement(By
 					.xpath("//tr[@class='data-row']//td[text()='"
 							+ itemBankName + "']"));
 			waitForElementAndDoubleClick(serachedItembank);
-			customeWaitTime(10);
+			customeWaitTime(5);
 			waitForElementAndClick(globalModalOKCancelSaveButton);
-			customeWaitTime(10);
+			customeWaitTime(5);
 
 		} catch (Exception e) {
 			System.out.println("Unable to Filter the Item Bank  "

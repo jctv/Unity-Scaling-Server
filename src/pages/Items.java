@@ -265,12 +265,17 @@ public class Items extends BasePage {
 	@FindBy(xpath = "//select[@name='bank']")
 	public WebElement itemBankDropdown;
 
+	@FindBy(xpath = ".//*[@id='quickViewContentCreate']/div/form/div[1]/div/button")
+	public WebElement itemBankDropdown1;
+	
 	@FindBy(xpath = "//input[@data-interaction='textEntry']")
 	public WebElement inputTextEntry;
 
 	@FindBy(xpath = "//div[@data-body='body']/p")
 	public WebElement ItemHtmlParagraph;
 
+	@FindBy(xpath = "//div[@class='dropdown-menu open']//input")
+	public WebElement searchItemBankInputField;
 
 
 	public Items(WebDriver driver) {
@@ -321,13 +326,12 @@ public class Items extends BasePage {
 	 * @param setAnswer
 	 */
 	public void createItem(String name, String itemBankName ,String interactionType , String scoringType , String setAnswer) {
-		
 		try{
 		customeWaitTime(5);
 		waitForElementAndClick(createItemButton);
 		customeWaitTime(5);
-		//selectItemBank(itemBankName);
-		selectOption(selectItemBank, itemBankName);
+		selectItemBank(itemBankName);
+		//selectOption(selectItemBank, itemBankName);
 		customeWaitTime(5);
 		waitForElementAndSendKeys(itemCreateInputName, name);
 		waitForElementAndSendKeys(itemCreateInputDescription, "Description");
@@ -480,16 +484,16 @@ public class Items extends BasePage {
     		for(itemCount = 1 ; itemCount <= copiedItemCount ;itemCount ++){
     			WebElement elementToCopy = driver.findElement(By.xpath("//td[text()='"+ itemName +"']/../td[@class='watable-col-preview']//button[@class='btn btn-xs btn-link copyRow']"));
     			waitForElementAndClick(elementToCopy);
-    			customeWaitTime(5);
+    			customeWaitTime(3);
     			selectOption(selectCopyBank, itemBank);
     			customeWaitTime(2);
     			waitAndClearField(copyitemBankField);
     			waitForElementAndSendKeys(copyitemBankField, String.valueOf(itemCount) +"_" + copyItemName);
-    			customeWaitTime(5);
+    			customeWaitTime(2);
     			waitForElementAndClick(copyItemButton);
-    			customeWaitTime(5);
+    			customeWaitTime(2);
     			waitForElementAndClick(globalModalInfoOkButton);
-    			customeWaitTime(5);
+    			customeWaitTime(3);
     		}
     		
     	}catch(Exception e){
@@ -625,14 +629,14 @@ public class Items extends BasePage {
 	 * @param option
 	 */
 	public void selectItemBank(String option){
-		itemBankDropdown.click();
+		waitForElementAndClick(itemBankDropdown1);
 		customeWaitTime(5);
+		waitForElementAndSendKeys(searchItemBankInputField, option);
 		customeWaitTime(5);
 		List<WebElement> itemBankoptions= driver.findElements(By.xpath("//div[@class='btn-group bootstrap-select content-bank select-search-by-name-item_bank open']//ul/li"));
 		for (WebElement itemBank : itemBankoptions){
 			try{
 			if(itemBank.getText().equals(option)){
-				customeWaitTime(5);
 				customeWaitTime(5);
 				itemBank.click();
 			   break;

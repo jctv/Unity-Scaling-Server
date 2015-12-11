@@ -74,9 +74,29 @@ public class Reports extends BasePage {
 	@FindBy(xpath = "//span[text()='Class']")
 	public WebElement classFilter;
 	
+	@FindBy(xpath = "//span[text()='Status']")
+	public WebElement testStatus;
+	
+	@FindBy(xpath = "//span[text()='not started']/../i")
+	public WebElement notStartedCheckbox;
+	
+	@FindBy(xpath = "//span[text()='in progress']/../i")
+	public WebElement inProgressCheckbox;
+	
+	@FindBy(xpath = "//span[text()='completed']/../i")
+	public WebElement completedCheckbox;
+	
+	@FindBy(xpath = "//span[text()='scored']/../i")
+	public WebElement scoredCheckbox;
+	
+	@FindBy(xpath = "//span[text()='Performance Level']")
+	public WebElement testPerformanceLevel;
+	
+	@FindBy(xpath = "//span[text()='Reporting Category']")
+	public WebElement testReportingCategory;
+	
 	@FindBy(xpath = "//span[text()='Content Area']")
 	public WebElement contentAreaFilter;
-
 	
 	@FindBy(xpath = "//span[text()='Class']/../../ul//div[text()='Click to Select']")
 	public WebElement selectClassFilter;
@@ -90,7 +110,10 @@ public class Reports extends BasePage {
 	@FindBy(xpath = "//h2[@class='page-title']")
 	public WebElement testEventTitle;
 	
-
+	@FindBy(xpath = "//a/i")
+	public WebElement backToReportLink;
+	
+	
 	public String viewReport() {
 		try {
 
@@ -264,6 +287,34 @@ public class Reports extends BasePage {
 		return waitAndGetElementText(testEventInfo);
 		
 	}
+	
+	public String getTestClassAverageDetail(int index , String desc){
+		customeWaitTime(5);
+		WebElement testEventInfo = driver.findElement(By.xpath("//td[text()='Class Average']/following-sibling::td["+ index + "]"));
+		return waitAndGetElementText(testEventInfo);
+	}
+	
+	public void filterTestDetailByPerformanceLevel(String quantile) {
+		waitForElementAndClick(testPerformanceLevel);
+		customeWaitTime(2);
+		WebElement checkbox = driver.findElement(By.xpath("//span[text()='"
+				+ quantile + "']/../i"));
+		customeWaitTime(5);
+		waitForElementAndClick(checkbox);
+		customeWaitTime(5);
+	}
+	
+	public void filterTestDetailByStatus(String status) {
+		waitForElementAndClick(testStatus);
+		customeWaitTime(2);
+		WebElement checkbox = driver.findElement(By.xpath("//span[text()='"
+				+ status + "']/../i"));
+		customeWaitTime(5);
+		waitForElementAndClick(checkbox);
+		customeWaitTime(5);
+	}
+	
+	
 	
 
 }
