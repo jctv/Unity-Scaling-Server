@@ -868,8 +868,14 @@ public class ReportTest extends BaseTest {
 		deliveryPage.startScheduledTest(createdTestId);
 		customeWaitTime(5);
 		deliveryPage.waitForElementAndClick(deliveryPage.exitButton);
+		try{
+			customeWaitTime(2);
+			deliveryPage.waitForElementAndClick(deliveryPage.testExitConfirmationButton);
+		}catch(Exception e){
+			//TODO
+		}
+		
 		customeWaitTime(5);
-
 		deliveryPage.backToDashboard();
 		customeWaitTime(10);
 		

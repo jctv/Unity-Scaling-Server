@@ -64,6 +64,10 @@ public class Delivery extends BasePage {
 	
 	@FindBy(xpath = "(//td[@class='test-score'])[1]")
 	public WebElement lastSocredTest;
+	
+	@FindBy(xpath = "//div[@class='ui-dialog-buttonset']/button[1]")
+	public WebElement testExitConfirmationButton;
+	
 
 	public void takeTest() {
 
