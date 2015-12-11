@@ -330,8 +330,8 @@ public class Items extends BasePage {
 		customeWaitTime(5);
 		waitForElementAndClick(createItemButton);
 		customeWaitTime(5);
-		selectItemBank(itemBankName);
-		//selectOption(selectItemBank, itemBankName);
+		//selectItemBank(itemBankName);
+		selectOption(selectItemBank, itemBankName);
 		customeWaitTime(5);
 		waitForElementAndSendKeys(itemCreateInputName, name);
 		waitForElementAndSendKeys(itemCreateInputDescription, "Description");

@@ -41,8 +41,12 @@ public class ReportTest extends BaseTest {
 	public String defaultPassword = "@simple1";
 	
 	public String autoSystemAdmin = "at/admin";
+	public String autoTeacher1 = "autoteacher1";
+
 	public String autoPassword = "password";
-	public String autoStudent = "autostudent1";
+	public String autoStudent1 = "at/autostudent1";
+	public String autoStudent2 = "at/autostudent2";
+
 	public String autoStudentPassword = "12345";
 	
 	Login loginPage;
@@ -85,7 +89,7 @@ public class ReportTest extends BaseTest {
 		driver.get(url);
 		loginPage = new Login(driver);
 		System.out.println("******** logging as super administrator ********");
-		dashBoardPage = loginPage.loginSuccess(defaultSystemAdmin, defaultPassword);
+		dashBoardPage = loginPage.loginSuccess(autoSystemAdmin, autoPassword);
 		customeWaitTime(10);
 		//dashBoardPage.addTiles();
 		customeWaitTime(10);
@@ -269,7 +273,7 @@ public class ReportTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(10);		
 		
-		dashBoardPage = loginPage.loginSuccess(autoStudent,
+		dashBoardPage = loginPage.loginSuccess(autoStudent1,
 				autoStudentPassword);
 		customeWaitTime(10);
 		dashBoardPage.addTiles();
@@ -364,7 +368,7 @@ public class ReportTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(10);		
 		
-		dashBoardPage = loginPage.loginSuccess(autoStudent,
+		dashBoardPage = loginPage.loginSuccess(autoStudent1,
 				autoStudentPassword);
 		customeWaitTime(10);
 		dashBoardPage.addTiles();
@@ -470,7 +474,7 @@ public class ReportTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(10);		
 		
-		dashBoardPage = loginPage.loginSuccess(autoStudent,
+		dashBoardPage = loginPage.loginSuccess(autoStudent1,
 				autoStudentPassword);
 		customeWaitTime(10);
 		deliveryPage = dashBoardPage.goToDelivery();
@@ -576,7 +580,7 @@ public class ReportTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(10);		
 		
-		dashBoardPage = loginPage.loginSuccess(autoStudent,
+		dashBoardPage = loginPage.loginSuccess(autoStudent1,
 				autoStudentPassword);
 		customeWaitTime(10);
 		deliveryPage = dashBoardPage.goToDelivery();
@@ -681,7 +685,7 @@ public class ReportTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(10);		
 		
-		dashBoardPage = loginPage.loginSuccess(autoStudent,
+		dashBoardPage = loginPage.loginSuccess(autoStudent1,
 				autoStudentPassword);
 		customeWaitTime(10);
 		deliveryPage = dashBoardPage.goToDelivery();
@@ -752,25 +756,19 @@ public class ReportTest extends BaseTest {
 		customeWaitTime(2);
 		itemsPage.addStandards();
 		customeWaitTime(2);
-		/*//itemsPage.copyItem(itemBankName ,"c1" +itemName ,1);
-		copyItemName= "copy_" + itemName;
-		itemsPage.copyMultipleItems(itemBankName, itemName, copyItemName, 1, 3);*/
 		itemsPage.backToDashboard();
 		customeWaitTime(10);
 		testBankPage = dashBoardPage.goToTestsBank();
-		//customeWaitTime(10);
 		waitTime();
 		testBankName = "Assinged_TB_" + timeStamp;
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, "desc");
-		//waitTime();
 		returnToDashboard();
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		testCreationPage.createTest(testName, testBankName, itemName);
-		//testCreationPage.createTestWithMultipleItems(testName , testBankName , itemBankName ,3);
 		customeWaitTime(5);
 		returnToDashboard();
 		customeWaitTime(5);
@@ -793,10 +791,9 @@ public class ReportTest extends BaseTest {
 
 	}
 	
-	@Test(priority = 0)
+	@Test(priority = 8)
 	public void testVerifyTestDetailReportForInProgressTest(){
 		itemsBankPage = dashBoardPage.goToItemsBank();
-		//customeWaitTime(10);
 		long timeStamp = System.currentTimeMillis();
 		itemBankName = "Auto_IB_" + timeStamp;
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
@@ -814,9 +811,6 @@ public class ReportTest extends BaseTest {
 		customeWaitTime(5);
 		itemsPage.addStandards();
 		customeWaitTime(5);
-		/*//itemsPage.copyItem(itemBankName ,"c1" +itemName ,1);
-		copyItemName= "copy_" + itemName;
-		itemsPage.copyMultipleItems(itemBankName, itemName, copyItemName, 1, 3);*/
 		itemsPage.backToDashboard();
 		customeWaitTime(10);
 		testBankPage = dashBoardPage.goToTestsBank();
@@ -832,7 +826,6 @@ public class ReportTest extends BaseTest {
 		testName = "T_" + testBankName;
 		System.out.println("******** " + testName + "  Test creation ********");
 		testCreationPage.createTest(testName, testBankName, itemName);
-		//testCreationPage.createTestWithMultipleItems(testName , testBankName , itemBankName ,3);
 		customeWaitTime(5);
 		returnToDashboard();
 		customeWaitTime(5);
@@ -848,7 +841,7 @@ public class ReportTest extends BaseTest {
 		returnToDashboard();
 		dashBoardPage.logOut();
 		customeWaitTime(10);		
-		dashBoardPage = loginPage.loginSuccess(autoStudent,
+		dashBoardPage = loginPage.loginSuccess(autoStudent1,
 				autoStudentPassword);
 		customeWaitTime(10);
 		deliveryPage = dashBoardPage.goToDelivery();
@@ -856,18 +849,34 @@ public class ReportTest extends BaseTest {
 		System.out.println("******** Taking the scheduled test ********");
 		Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
 		deliveryPage.startScheduledTest(createdTestId);
-		/*customeWaitTime(10);
-		deliveryPage.takeTest(true , 1 ,"Choice" , choiceCorrectAnswer);
-		deliveryPage.backToDashboard();*/
+		customeWaitTime(5);
+		deliveryPage.waitForElementAndClick(deliveryPage.exitButton);
+		customeWaitTime(5);
+
+		deliveryPage.backToDashboard();
 		customeWaitTime(10);
 		dashBoardPage.logOut();
-		customeWaitTime(10);	
+		
+		customeWaitTime(10);		
+		dashBoardPage = loginPage.loginSuccess(autoStudent2,
+				autoStudentPassword);
+		customeWaitTime(10);
+		deliveryPage = dashBoardPage.goToDelivery();
+		waitTime();
+		System.out.println("******** Taking the scheduled test ********");
+		Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
+		deliveryPage.startScheduledTest(createdTestId);
+		customeWaitTime(5);
+		deliveryPage.waitForElementAndClick(deliveryPage.exitButton);
+		customeWaitTime(5);
+
+		deliveryPage.backToDashboard();
+		customeWaitTime(10);
+		
+		customeWaitTime(5);	
 		dashBoardPage = loginPage.loginSuccess(autoSystemAdmin,
 				autoPassword);
-		customeWaitTime(10);
 		reportsPage = dashBoardPage.goToReports();
-		customeWaitTime(10);
-		//reportsPage.waitForElementAndClick(reportsPage.resetSearchFilter);
 		reportsPage.filterReportByContentArea("N/A");
 		reportsPage.filterReportByClassRoster("autoroster");
 		customeWaitTime(5);
@@ -879,10 +888,9 @@ public class ReportTest extends BaseTest {
 		customeWaitTime(2);
 	}
 	
-	//@Test(priority = 0)
+	    @Test(priority = 9)
 		public void testVerifyTestDetailReportForScoredTest(){
 			itemsBankPage = dashBoardPage.goToItemsBank();
-			//customeWaitTime(10);
 			long timeStamp = System.currentTimeMillis();
 			itemBankName = "Auto_IB_" + timeStamp;
 			System.out.println("******** " + itemBankName + "  Item bank creation ********");
@@ -900,25 +908,19 @@ public class ReportTest extends BaseTest {
 			customeWaitTime(5);
 			itemsPage.addStandards();
 			customeWaitTime(5);
-			/*//itemsPage.copyItem(itemBankName ,"c1" +itemName ,1);
-			copyItemName= "copy_" + itemName;
-			itemsPage.copyMultipleItems(itemBankName, itemName, copyItemName, 1, 3);*/
 			itemsPage.backToDashboard();
 			customeWaitTime(10);
 			testBankPage = dashBoardPage.goToTestsBank();
-			//customeWaitTime(10);
 			waitTime();
 			testBankName = "Auto_TB_" + timeStamp;
 			System.out.println("******** " + testBankName + "  Test bank creation ********");
 			testBankPage.createBank(testBankName, "desc");
-			//waitTime();
 			returnToDashboard();
 			customeWaitTime(5);
 			testCreationPage = dashBoardPage.goToTestCreation();
 			testName = "T_" + testBankName;
 			System.out.println("******** " + testName + "  Test creation ********");
 			testCreationPage.createTest(testName, testBankName, itemName);
-			//testCreationPage.createTestWithMultipleItems(testName , testBankName , itemBankName ,3);
 			customeWaitTime(5);
 			returnToDashboard();
 			customeWaitTime(5);
@@ -934,7 +936,7 @@ public class ReportTest extends BaseTest {
 			returnToDashboard();
 			dashBoardPage.logOut();
 			customeWaitTime(10);		
-			dashBoardPage = loginPage.loginSuccess(autoStudent,
+			dashBoardPage = loginPage.loginSuccess(autoStudent1,
 					autoStudentPassword);
 			customeWaitTime(10);
 			deliveryPage = dashBoardPage.goToDelivery();
@@ -943,17 +945,27 @@ public class ReportTest extends BaseTest {
 			Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
 			deliveryPage.startScheduledTest(createdTestId);
 			customeWaitTime(10);
-			deliveryPage.takeTest(true , 1 ,"Choice" , choiceCorrectAnswer);
+			deliveryPage.takeTest(true , 4 ,"Choice" , choiceCorrectAnswer);
+			deliveryPage.backToDashboard();
+			customeWaitTime(10);
+			dashBoardPage.logOut();
+			dashBoardPage = loginPage.loginSuccess(autoStudent2,
+					autoStudentPassword);
+			customeWaitTime(10);
+			deliveryPage = dashBoardPage.goToDelivery();
+			waitTime();
+			System.out.println("******** Taking the scheduled test ********");
+			Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
+			deliveryPage.startScheduledTest(createdTestId);
+			customeWaitTime(10);
+			deliveryPage.takeTest(true , 4 ,"Choice" , choiceCorrectAnswer);
 			deliveryPage.backToDashboard();
 			customeWaitTime(10);
 			dashBoardPage.logOut();
 			customeWaitTime(10);	
 			dashBoardPage = loginPage.loginSuccess(autoSystemAdmin,
 					autoPassword);
-			customeWaitTime(10);
 			reportsPage = dashBoardPage.goToReports();
-			customeWaitTime(10);
-			//reportsPage.waitForElementAndClick(reportsPage.resetSearchFilter);
 			reportsPage.filterReportByContentArea("N/A");
 			reportsPage.filterReportByClassRoster("autoroster");
 			customeWaitTime(10);
