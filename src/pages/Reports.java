@@ -1,5 +1,12 @@
 package pages;
 
+import java.util.List;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
+
 import generic.BasePage;
 import generic.BaseTest;
 
@@ -73,31 +80,31 @@ public class Reports extends BasePage {
 
 	@FindBy(xpath = "//span[text()='Class']")
 	public WebElement classFilter;
-	
+
 	@FindBy(xpath = "//span[text()='Status']")
 	public WebElement testStatus;
-	
+
 	@FindBy(xpath = "//span[text()='not started']/../i")
 	public WebElement notStartedCheckbox;
-	
+
 	@FindBy(xpath = "//span[text()='in progress']/../i")
 	public WebElement inProgressCheckbox;
-	
+
 	@FindBy(xpath = "//span[text()='completed']/../i")
 	public WebElement completedCheckbox;
-	
+
 	@FindBy(xpath = "//span[text()='scored']/../i")
 	public WebElement scoredCheckbox;
-	
+
 	@FindBy(xpath = "//span[text()='Performance Level']")
 	public WebElement testPerformanceLevel;
-	
+
 	@FindBy(xpath = "//span[text()='Reporting Category']")
 	public WebElement testReportingCategory;
-	
+
 	@FindBy(xpath = "//span[text()='Content Area']")
 	public WebElement contentAreaFilter;
-	
+
 	@FindBy(xpath = "//span[text()='Class']/../../ul//div[text()='Click to Select']")
 	public WebElement selectClassFilter;
 
@@ -106,14 +113,16 @@ public class Reports extends BasePage {
 
 	@FindBy(xpath = "//div[@class='layoutHorizontalLeftPane col-md-4']//span[@id='searchButton']")
 	public WebElement searchButtonClassFilterPopup;
-	
+
 	@FindBy(xpath = "//h2[@class='page-title']")
 	public WebElement testEventTitle;
-	
+
 	@FindBy(xpath = "//a/i")
 	public WebElement backToReportLink;
 	
-	
+	@FindBy(xpath = "//tr[@class=‘even’ or @class=‘odd’]")
+	private List< WebElement > rows;
+
 	public String viewReport() {
 		try {
 
@@ -144,7 +153,7 @@ public class Reports extends BasePage {
 	public void filterReportByContentArea(String contentArea) {
 		try {
 			waitForElementAndClick(contentAreaFilter);
-			customeWaitTime(10);
+			customeWaitTime(5);
 			WebElement contentAreaCheckBox = driver
 					.findElement(By
 							.xpath("//div[@class='layoutHorizontalLeftPane col-md-2']//span[text()='"
@@ -267,33 +276,35 @@ public class Reports extends BasePage {
 								+ "]//div[@class='progress test-summary-progress-bar row-collapse']/span[2]"));
 		return reportCategoryPercent.getText();
 	}
-	
-	
-	public void openTestEventDetail(String testEvent){
+
+	public void openTestEventDetail(String testEvent) {
 		WebElement testEventName = driver.findElement(By.xpath("//div[text()='"
-								+ testEvent	+ "']"));
+				+ testEvent + "']"));
 		customeWaitTime(5);
 		waitForElementAndClick(testEventName);
 		customeWaitTime(5);
 	}
-	
-	public String getTestEventTitle(){
+
+	public String getTestEventTitle() {
 		return waitAndGetElementText(testEventTitle);
 	}
-	
-	public String getTestEventDetail(String lastName , int index , String desc){
+
+	public String getTestEventDetail(String lastName, int index, String desc) {
 		customeWaitTime(5);
-		WebElement testEventInfo = driver.findElement(By.xpath("//td[text()='"+ lastName +"']/following-sibling::td["+ index + "]"));
+		WebElement testEventInfo = driver.findElement(By.xpath("//td[text()='"
+				+ lastName + "']/following-sibling::td[" + index + "]"));
 		return waitAndGetElementText(testEventInfo);
-		
+
 	}
-	
-	public String getTestClassAverageDetail(int index , String desc){
+
+	public String getTestClassAverageDetail(int index, String desc) {
 		customeWaitTime(5);
-		WebElement testEventInfo = driver.findElement(By.xpath("//td[text()='Class Average']/following-sibling::td["+ index + "]"));
+		WebElement testEventInfo = driver.findElement(By
+				.xpath("//td[text()='Class Average']/following-sibling::td["
+						+ index + "]"));
 		return waitAndGetElementText(testEventInfo);
 	}
-	
+
 	public void filterTestDetailByPerformanceLevel(String quantile) {
 		waitForElementAndClick(testPerformanceLevel);
 		customeWaitTime(2);
@@ -303,7 +314,7 @@ public class Reports extends BasePage {
 		waitForElementAndClick(checkbox);
 		customeWaitTime(5);
 	}
-	
+
 	public void filterTestDetailByStatus(String status) {
 		waitForElementAndClick(testStatus);
 		customeWaitTime(2);
@@ -313,8 +324,20 @@ public class Reports extends BasePage {
 		waitForElementAndClick(checkbox);
 		customeWaitTime(5);
 	}
-	
-	
-	
+
+	public boolean verifyStudentsByStatus(String status) {
+		int usersByStatus = Integer
+				.parseInt(waitForElementPresenceAndGetText("(//div[@data-status='"
+						+ status + "'])[1]"));
+		waitForElementPresenceAndClick("(//div[@data-status='" + status
+				+ "'])[1]");	
+		customeWaitTime(2);
+		waitForElementAndClick(backToReportLink);
+		if (rows.size() == (usersByStatus - 1)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }

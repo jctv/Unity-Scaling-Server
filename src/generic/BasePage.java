@@ -498,6 +498,16 @@ public void selectOption(WebElement dropDownListBox, String option) {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath))).click();
 		 
 	}
-
+	public String  waitForElementPresenceAndGetText(String xpath){
+		String text = "";
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+			text = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath))).getText();
+		} catch (Exception e) {
+			System.out.println("Unable to find and get text from the element" );
+		}
+		
+		 return text;
+	}
 
 }

@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 public class Login extends BasePage {
 
@@ -30,7 +31,8 @@ public class Login extends BasePage {
 			waitForElementAndSendKeys(userField, user);
 			waitForElementAndSendKeys(passwordField, password);
 			waitForElementAndClick(signIn);
-			System.out.println("User logged");
+			customeWaitTime(3);
+			Assert.assertTrue(backPageButton.isDisplayed(), "User Logged");
 		} catch (Exception e) {
 			System.out.println("Unable to login");
 		}
