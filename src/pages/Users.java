@@ -209,7 +209,7 @@ public class Users extends BasePage {
 				waitForElementAndSendKeys(retypePassword, "12345");
 				selectOption(role, "Teacher");
 				try {
-					selectOption(searchOrgField, "Automated School");
+					selectOption(searchOrgField, "Automated");
 				} catch (Exception e) {
 					System.out.println("Error selecting the School");
 				}
@@ -227,7 +227,7 @@ public class Users extends BasePage {
 				selectOption(role, "Student");
 
 				try {
-					selectOption(searchOrgField, "Automated School");
+					selectOption(searchOrgField, "Automated");
 				} catch (Exception e) {
 					System.out.println("Error selecting the School");
 				}

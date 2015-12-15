@@ -9,6 +9,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -35,15 +36,19 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.xml.XmlSuite;
 
+import pages.DashBoard;
+import pages.Items;
 import pages.Login;
+import pages.Users;
 
 public class BaseTest {
 	protected static WebDriver driver;
 	protected XmlSuite xmlSuite;
 	protected String browser, filePath, executionType, url, platform,
-			hubAddress, userName, password;
+			hubAddress, userName, password, domain;
 	protected String waitingTime = "10";
 
+	
 	Properties prop = new Properties();
 	InputStream input = null;
 
@@ -73,6 +78,9 @@ public class BaseTest {
 	public void classSetUp(ITestContext context) {
 		getXMLParameters(context);
 		driverSetUp();
+		
+		
+
 
 	}
 
@@ -81,11 +89,6 @@ public class BaseTest {
 		// driver.quit();
 	}
 
-	@FindBy(id = "navbarDrop1")
-	public WebElement userDrop;
-
-	@FindBy(xpath = "//*[@id='navigationUserName']/ul/li/a")
-	public WebElement logOut;
 
 	static String readFile(String path, Charset encoding) throws IOException {
 		byte[] encoded = Files.readAllBytes(Paths.get(path));
@@ -100,6 +103,7 @@ public class BaseTest {
 		this.executionType = xmlSuite.getParameter("type");
 		this.platform = xmlSuite.getParameter("platform");
 		this.hubAddress = xmlSuite.getParameter("hubAddress");
+		this.domain = xmlSuite.getParameter("domain");
 		this.userName = xmlSuite.getParameter("userName");
 		this.password = xmlSuite.getParameter("password");
 		this.waitingTime = xmlSuite.getParameter("waitingTime");
@@ -264,13 +268,7 @@ public class BaseTest {
 		return driver;
 	}
 
-	public Login logOut() {
 
-		userDrop.click();
-		logOut.click();
-
-		return new Login(driver);
-	}
 
 	public void returnToDashboard() {
 		try {

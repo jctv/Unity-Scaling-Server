@@ -77,6 +77,7 @@ public class BasePage {
 
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
 	public WebElement dashBoardPage;
+	
 
 	@FindBy(xpath = ".//*[@id='globalModalInfoTitle']")
 	public WebElement globalModalInfoTitle;
@@ -148,6 +149,12 @@ public class BasePage {
 	
 	@FindBy(id = "acl-access-ADMIN")
 	public WebElement aclTrusteeAdmin;
+	
+	@FindBy(id = "navbarDrop1")
+	public WebElement userDrop;
+
+	@FindBy(xpath = "//*[@id='navigationUserName']/ul/li/a")
+	public WebElement logOut;
 
 	/** Constructor */
 	public BasePage(WebDriver driver) {
@@ -508,6 +515,19 @@ public void selectOption(WebElement dropDownListBox, String option) {
 		}
 		
 		 return text;
+	}
+	
+	public Login logOut() {
+try {
+	waitForElementAndClick(userDrop);
+	waitForElementAndClick(logOut);
+	waitForJsProcess();
+} catch (Exception e) {
+	System.out.println("Unable to logout" );
+}
+		
+
+		return new Login(driver);
 	}
 
 }

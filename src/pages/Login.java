@@ -25,14 +25,17 @@ public class Login extends BasePage {
 
 	@FindBy(id = "loginButton")
 	public WebElement signIn;
-
+	
+	@FindBy(id = "region-manual-title")
+	public WebElement pageName;
+	
 	public DashBoard loginSuccess(String user, String password) {
 		try {
 			waitForElementAndSendKeys(userField, user);
 			waitForElementAndSendKeys(passwordField, password);
 			waitForElementAndClick(signIn);
 			customeWaitTime(3);
-			Assert.assertTrue(backPageButton.isDisplayed(), "User Logged");
+			Assert.assertTrue(pageName.isDisplayed(), "User Logged");
 		} catch (Exception e) {
 			System.out.println("Unable to login");
 		}

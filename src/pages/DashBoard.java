@@ -607,12 +607,5 @@ public class DashBoard extends BasePage {
 		return new SisImport(driver);
 	}
 	
-	public Login logOut() {
-		customeWaitTime(5);
-		userDrop.click();
-		customeWaitTime(5);
-		logOut.click();
-		customeWaitTime(5);
-		return new Login(driver);
-	}
+
 }
