@@ -194,11 +194,11 @@ public class Users extends BasePage {
 	public String createUser() {
 		for (int x = 0; x <= usersToCreate; x++) {
 			waitTime();
-			customeWaitTime(5);
+			customeWaitTime(2);
 			waitForElementAndClick(createUserLink);
 			takeScreenShot();
 			System.out.println("************************///////////////////////////////////////////////////////////////////////////////////////////******************************************");
-			customeWaitTime(5);
+			customeWaitTime(2);
 			Date date = new Date();
 			String datevalue = date.toString().substring(8, 16)
 					.replace(" ", "_").replace(":", "_");
@@ -209,7 +209,8 @@ public class Users extends BasePage {
 				waitForElementAndSendKeys(retypePassword, "12345");
 				selectOption(role, "Teacher");
 				try {
-					selectOption(searchOrgField, "Automated");
+					
+					waitForElementAndSendKeys(searchOrgField, "Automated");
 				} catch (Exception e) {
 					System.out.println("Error selecting the School");
 				}
@@ -227,7 +228,7 @@ public class Users extends BasePage {
 				selectOption(role, "Student");
 
 				try {
-					selectOption(searchOrgField, "Automated");
+					waitForElementAndSendKeys(searchOrgField, "Automated");
 				} catch (Exception e) {
 					System.out.println("Error selecting the School");
 				}

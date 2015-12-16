@@ -279,7 +279,7 @@ public class BaseTest {
 			customeWaitTime(15);
 		} catch (Exception e) {
 			System.out.println("Error trying to return to the dashboard");
-			driver.get("http://qa.8pnds.com");
+			driver.get(domain);
 		}
 	}
 
