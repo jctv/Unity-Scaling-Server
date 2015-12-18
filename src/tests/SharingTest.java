@@ -3,6 +3,7 @@ package tests;
 import java.io.File;
 import java.util.Properties;
 
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -209,7 +210,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		Assert.assertFalse(itemsBankPage.shareButton.isEnabled());
 		assertItemBankStatisticsPanelContent();
-		itemsBankPage.backLink.click();
+		itemsBankPage.waitForElementAndClick(itemsBankPage.backLink);
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
@@ -222,6 +223,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.deleteItemBank(itemBankName);
+		itemsBankPage.logOut();
 	}
 	
 	/**
@@ -274,7 +276,7 @@ public class SharingTest extends BaseTest {
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
 		Assert.assertTrue(itemsPage.itemEditIcon.isEnabled());
-		dashBoardPage.logOut();
+		itemsPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				unitytestdata.getProperty("genericPassword"));
@@ -282,6 +284,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.deleteItemBank(itemBankName);
+		itemsBankPage.logOut();
 	}
 	
 	
@@ -331,13 +334,13 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		Assert.assertEquals(itemsBankPage.shareButton.getAttribute("disabled"),"true","Verifying the Item bank share icon is disabled");
 		assertItemBankStatisticsPanelContent();
-		itemsBankPage.backLink.click();
+		itemsBankPage.waitForElementAndClick(itemsBankPage.backLink);
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
 		Assert.assertFalse(itemsPage.itemEditIcon.isEnabled());
 		Assert.assertEquals(itemsPage.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
-		dashBoardPage.logOut();
+		itemsPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				unitytestdata.getProperty("genericPassword"));
@@ -345,6 +348,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.deleteItemBank(itemBankName);
+		itemsBankPage.logOut();
 		
 	}
 	
@@ -393,13 +397,13 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		Assert.assertEquals(itemsBankPage.shareButton.getAttribute("disabled"),"true","Verifying the Item bank share icon is disabled");
 		assertItemBankStatisticsPanelContent();
-		itemsBankPage.backLink.click();
+		itemsBankPage.waitForElementAndClick(itemsBankPage.backLink);
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
 		Assert.assertFalse(itemsPage.itemEditIcon.isEnabled());
         Assert.assertTrue(itemsPage.itemDeleteIcon.isEnabled());
-        dashBoardPage.logOut();
+        itemsPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				unitytestdata.getProperty("genericPassword"));
@@ -407,6 +411,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.deleteItemBank(itemBankName);
+		itemsBankPage.logOut();
 		
 	}
 	
@@ -455,13 +460,13 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		Assert.assertTrue(itemsBankPage.shareButton.isEnabled(),"Verifying the Item Bank share icon is editable");
 		assertItemBankStatisticsPanelContent();
-		itemsBankPage.backLink.click();
+		itemsBankPage.waitForElementAndClick(itemsBankPage.backLink);
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
 		Assert.assertTrue(itemsPage.itemEditIcon.isEnabled());
         Assert.assertFalse(itemsPage.itemDeleteIcon.isEnabled());
-        dashBoardPage.logOut();
+        itemsPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
 				unitytestdata.getProperty("genericPassword"));
@@ -469,6 +474,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.deleteItemBank(itemBankName);
+		itemsBankPage.logOut();
 
 	}
 	
@@ -518,7 +524,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		Assert.assertTrue(itemsBankPage.shareButton.isEnabled(),"Verifying the Item Bank share icon is editable");
 		assertItemBankStatisticsPanelContent();
-		itemsBankPage.backLink.click();
+		itemsBankPage.waitForElementAndClick(itemsBankPage.backLink);
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
@@ -533,6 +539,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.deleteItemBank(itemBankName);
+		itemsBankPage.logOut();
 
 	}
 	
@@ -585,7 +592,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		Assert.assertTrue(itemsBankPage.shareButton.isEnabled(),"Verifying the Item Bank share icon is editable");
 		assertItemBankStatisticsPanelContent();
-		itemsBankPage.backLink.click();
+		itemsBankPage.waitForElementAndClick(itemsBankPage.backLink);
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
@@ -610,6 +617,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertEquals(itemsBankPage.itemCount.getText(),"2","Verifying the Item count after adding item in shared bank");
 		itemsBankPage.viewIcon.click();
 		itemsBankPage.deleteItemBank(itemBankName);
+		itemsBankPage.logOut();
 
 	}
 	
@@ -662,7 +670,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		Assert.assertTrue(itemsBankPage.shareButton.isEnabled(),"Verifying the Item Bank share icon is editable");
 		assertItemBankStatisticsPanelContent();
-		itemsBankPage.backLink.click();
+		itemsBankPage.waitForElementAndClick(itemsBankPage.backLink);
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
@@ -685,6 +693,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertEquals(itemsBankPage.itemCount.getText(),"0","Verifying the Item count after deleting item in shared bank");
 		itemsBankPage.viewIcon.click();
 		itemsBankPage.deleteItemBank(itemBankName);
+		itemsBankPage.logOut();
 
 	}
 	
@@ -728,6 +737,7 @@ public class SharingTest extends BaseTest {
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
+		testBankPage.logOut();
 	}
 	
 	/**
@@ -829,7 +839,7 @@ public class SharingTest extends BaseTest {
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
-		
+		testBankPage.logOut();
 		
 	}
 	
@@ -933,6 +943,7 @@ public class SharingTest extends BaseTest {
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
+		testBankPage.logOut();
 	}
 	
 	
@@ -1037,6 +1048,7 @@ public class SharingTest extends BaseTest {
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
+		testBankPage.logOut();
 	}
 	
 	
@@ -1142,6 +1154,7 @@ public class SharingTest extends BaseTest {
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
+		testBankPage.logOut();
 	}
 	
 	
@@ -1246,6 +1259,7 @@ public class SharingTest extends BaseTest {
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
+		testBankPage.logOut();
 	}
 	
 	/**
@@ -1347,6 +1361,7 @@ public class SharingTest extends BaseTest {
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
+		testBankPage.logOut();
 	}
 	
 	
@@ -1458,6 +1473,7 @@ public class SharingTest extends BaseTest {
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
+		testBankPage.logOut();
 	}
 	
 	
@@ -1567,6 +1583,7 @@ public class SharingTest extends BaseTest {
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
+		testBankPage.logOut();
 	}
 	
 	/**
@@ -1666,6 +1683,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertEquals(testName, deliveryPage.getTestinHistoryTable(createdTestId));
 		Assert.assertEquals("100%", deliveryPage.getTestPercentCorrect(createdTestId));
 		Assert.assertEquals("1", deliveryPage.getTestNoOfItems(createdTestId));
+		deliveryPage.logOut();
 	}
 	
 	
@@ -1753,6 +1771,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertEquals(testName, deliveryPage.getTestinHistoryTable(createdTestId));
 		Assert.assertEquals("100%", deliveryPage.getTestPercentCorrect(createdTestId));
 		Assert.assertEquals("1", deliveryPage.getTestPercentCorrect(createdTestId));
+		deliveryPage.logOut();
 	}
 
 	
@@ -1858,6 +1877,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertEquals(testName, deliveryPage.getTestinHistoryTable(createdTestId));
 		Assert.assertEquals("100%", deliveryPage.getTestPercentCorrect(createdTestId));
 		Assert.assertEquals("1", deliveryPage.getTestNoOfItems(createdTestId));
+		deliveryPage.logOut();
 	}
 	
 	/**
@@ -1912,6 +1932,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
 		Assert.assertEquals(itemsBankPage.itemCount.getText().trim(),itemCountOfBank.trim(),"Verifying the Item count");
 		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+		itemsBankPage.logOut();
 
 	}
 	
@@ -1963,6 +1984,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
 		Assert.assertEquals(itemsBankPage.itemCount.getText().trim(),itemCountOfBank.trim(),"Verifying the Item count");
 		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+		itemsBankPage.logOut();
 
 	}
 	private void assertItemBankStatisticsPanelContent(){
