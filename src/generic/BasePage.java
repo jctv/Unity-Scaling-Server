@@ -344,7 +344,6 @@ public class BasePage {
 	public void waitForElementAndSendKeys(WebElement element, String keys) {
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		try {
-			wait.until(ExpectedConditions.visibilityOf(element));
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 			element.click();
 			element.sendKeys(keys);

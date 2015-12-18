@@ -428,7 +428,7 @@ public class Items extends BasePage {
 
 	public String getStrandCategory(){
 		waitForElementAndClick(standardColumn);
-		customeWaitTime(10);
+		customeWaitTime(3);
 		waitForElementAndClick(standards1);
 		customeWaitTime(2);
 		waitForElementAndClick(standards2);
@@ -441,10 +441,10 @@ public class Items extends BasePage {
 	public void searchItem(String item) {
 		try {
 			itemSearchAutoComplete.clear();
-			customeWaitTime(5);
+			customeWaitTime(3);
 			waitForElementAndSendKeys(itemSearchAutoComplete, item);
 			waitForElementAndClick(itemSearchButton);
-			customeWaitTime(5);
+			customeWaitTime(3);
 		} catch (Exception e) {
 
 			System.out.println("Unable to find the Item -->  " + item);

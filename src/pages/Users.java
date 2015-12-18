@@ -110,10 +110,11 @@ public class Users extends BasePage {
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
 	public WebElement homeLink;
 
-	@FindBy(id = "userCreateOrg")
-	public WebElement searchOrgField;
+	@FindBy(xpath = "//button[@data-id = 'userCreateOrg']")
+	public WebElement searchOrgButton;
+	
 
-	@FindBy(xpath = "//input[@type='text' and @class= 'form-control' and @autocomplete='off'] ")
+	@FindBy(xpath = "//div[@class = 'btn-group bootstrap-select user-metadata-required select-search-by-name-organization open']//input")
 	public WebElement searchOrgFieldInput;
 
 	@FindBy(xpath = "//span[text()='Organization']")
@@ -127,7 +128,7 @@ public class Users extends BasePage {
 
 	@FindBy(id = "globalModalOKCancelSaveButton")
 	public WebElement globalModalOKCancelSaveButton;
-
+	
 	@FindBy(xpath = "//button[text()='Delete']")
 	public WebElement deleteButton;
 
@@ -197,7 +198,6 @@ public class Users extends BasePage {
 			customeWaitTime(2);
 			waitForElementAndClick(createUserLink);
 			takeScreenShot();
-			System.out.println("************************///////////////////////////////////////////////////////////////////////////////////////////******************************************");
 			customeWaitTime(2);
 			Date date = new Date();
 			String datevalue = date.toString().substring(8, 16)
@@ -209,8 +209,8 @@ public class Users extends BasePage {
 				waitForElementAndSendKeys(retypePassword, "12345");
 				selectOption(role, "Teacher");
 				try {
-					
-					waitForElementAndSendKeys(searchOrgField, "Automated");
+					waitForElementAndClick(searchOrgButton);
+					waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
 				} catch (Exception e) {
 					System.out.println("Error selecting the School");
 				}
@@ -228,7 +228,8 @@ public class Users extends BasePage {
 				selectOption(role, "Student");
 
 				try {
-					waitForElementAndSendKeys(searchOrgField, "Automated");
+					waitForElementAndClick(searchOrgButton);
+					waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
 				} catch (Exception e) {
 					System.out.println("Error selecting the School");
 				}
@@ -269,8 +270,8 @@ public class Users extends BasePage {
 			waitForElementAndSendKeys(retypePassword, newPassword);
 			waitForElementAndSendKeys(role, newRole);
 
-			waitForElementAndClick(searchOrgField);
-			waitForElementAndSendKeys(searchOrgFieldInput, organization);
+			waitForElementAndClick(searchOrgButton);
+			waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
 			waitTime();
 			waitForElementAndClick(submit);
 

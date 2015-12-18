@@ -152,15 +152,15 @@ public class Delivery extends BasePage {
 									+ "]//input"));
 					if (isCorrectAnswer) {
 						waitForElementAndClick(itemToBeAnswered);
-						customeWaitTime(10);
+						customeWaitTime(2);
 						waitForElementAndClick(btn);
-						customeWaitTime(5);
+						customeWaitTime(1);
 
 					} else {
 						waitForElementAndClick(itemToBeAnswered);
-						customeWaitTime(10);
+						customeWaitTime(2);
 						waitForElementAndClick(btn);
-						customeWaitTime(5);
+						customeWaitTime(1);
 					}
 				}
 			} catch (Exception e) {
@@ -178,15 +178,15 @@ public class Delivery extends BasePage {
 											+ "]//input[@class='i-text-entry form-control form-control-unity']"));
 					if (isCorrectAnswer) {
 						waitForElementAndSendKeys(itemToBeAnswered, answer);
-						customeWaitTime(10);
+						customeWaitTime(2);
 						waitForElementAndClick(btn);
 						customeWaitTime(5);
 
 					} else {
 						waitForElementAndSendKeys(itemToBeAnswered, answer);
-						customeWaitTime(10);
+						customeWaitTime(1);
 						waitForElementAndClick(btn);
-						customeWaitTime(5);
+						customeWaitTime(1);
 					}
 				}
 			} catch (Exception e) {
@@ -202,11 +202,10 @@ public class Delivery extends BasePage {
 		}
 
 		waitForElementAndClick(exitButton);
-		customeWaitTime(5);
+		customeWaitTime(2);
 		waitForElementAndClick(finishTestButton);
-		customeWaitTime(5);
-		// waitForElementAndClick(menu);
-		// waitForElementAndClick(home);
+		customeWaitTime(2);
+
 		System.out.println("Test done as student");
 
 	}
@@ -239,7 +238,7 @@ public class Delivery extends BasePage {
 	}
 
 	public String getScheduledTest(String testId) {
-		String scheduledTestName = null;
+		String scheduledTestName = "";
 		WebElement scheduleTest = driver.findElement(By
 				.xpath("//button[@data-id='" + testId
 						+ "']/../../../div[@class='col-sm-8']/div[1]"));
@@ -255,31 +254,44 @@ public class Delivery extends BasePage {
 	}
 
 	public String getTestinHistoryTable(String testId) {
-		String historyTestName = null;
+		String historyTestName = "";
+		try {
 		WebElement historytest = driver.findElement(By
 				.xpath("//td[@class='test-name' and @data-test='" + testId
 						+ "']"));
 		historyTestName = historytest.getText();
+		} catch (Exception e) {
+			System.out.println("error trying to get the getTestinHistoryTable");
+		}
 
 		return historyTestName;
 	}
 
 	public String getTestPercentCorrect(String testId) {
-		String testCorrectPercent = null;
-		WebElement testpercent = driver.findElement(By
-				.xpath("//td[@class='test-score' and @data-test='" + testId
-						+ "']"));
-		testCorrectPercent = testpercent.getText();
+		String testCorrectPercent = "";
+		try {
+			WebElement testpercent = driver.findElement(By
+					.xpath("//td[@class='test-score' and @data-test='" + testId
+							+ "']"));
+			testCorrectPercent = testpercent.getText();
+		} catch (Exception e) {
+			System.out.println("error trying to get the test percent");
+		}
+		
 
 		return testCorrectPercent;
 	}
 
 	public String getTestNoOfItems(String testId) {
-		String testNoOfItems = null;
+		String testNoOfItems = "";
+		try {
 		WebElement testItems = driver.findElement(By
 				.xpath("//td[@class='test-score' and @data-test='" + testId
 						+ "']/following-sibling::td[1]"));
 		testNoOfItems = testItems.getText();
+		} catch (Exception e) {
+			System.out.println("error trying to get the test NoOfItems");
+		}
 
 		return testNoOfItems;
 	}
