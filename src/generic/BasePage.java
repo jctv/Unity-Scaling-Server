@@ -307,7 +307,7 @@ public class BasePage {
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 			element.click();
 			customeWaitTime(5);
-			System.out.println("Button clicked ");
+			System.out.println("Button "+ element.getText() + "clicked ");
 
 		} catch (Exception e2) {
 			System.out.println("Unable to perform the click on element "

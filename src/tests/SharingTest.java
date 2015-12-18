@@ -1,10 +1,13 @@
 package tests;
 
 import java.io.File;
+import java.util.Properties;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import generic.BaseTest;
@@ -25,18 +28,21 @@ import pages.Users;
 
 public class SharingTest extends BaseTest {
 	String schooladmin1 = "qa/nadmin";
-	String teacher1 = "qa/nteacher1";
-	String stduent1 = "qa/nstudent1";
-	String genericPassword = "12345";
+	//String unitytestdata.getProperty("autoTeacher1") = "qa/nunitytestdata.getProperty("autoTeacher1")";
+	//String stduent1 = "qa/nstudent1";
+	//String unitytestdata.getProperty("genericPassword") = "12345";
 	String defaultAutoAdmin = "at/admin";
 	
 	String defaultAutoPassword = "password";
 
-	String autoschoolAdmin = "at/autoschooladmin";
+	//String autoschoolAdmin = "at/autoschooladmin";
 	
-	String autoTeacher1 = "at/autoteacher1";
-
-	String lastSaharedTeacher= autoTeacher1.split("/")[1].substring(0, 1) + " " +autoTeacher1.split("/")[1].substring(1);
+	//String autounitytestdata.getProperty("autoTeacher1") = "at/autounitytestdata.getProperty("autoTeacher1")";
+	
+	Properties unitytestdata;
+	
+	String lastSaharedTeacher;
+	
 	Login loginPage;
 	DashBoard dashBoardPage;
 	Items itemsPage;
@@ -77,6 +83,9 @@ public class SharingTest extends BaseTest {
 	String bulkItemImportFileName = "Bulk Item Upload.zip";
 	String resources = "src" + File.separator + "resources"
 			+ File.separator;
+	
+	String unitytestDataFile = resources + "unitytestdata.properties";
+	
 	String bulkItemImportFile = resources + bulkItemImportFileName;
 	
 	private static final String DEFINED_LIFECYCLE = "DEFINED";
@@ -88,10 +97,17 @@ public class SharingTest extends BaseTest {
 
 	private static final String QTI_PACKAGE = "QTI";
 
+	
 
 	public SharingTest () {
 		super();
 		
+	}
+	
+	@BeforeTest
+	public void loadUnityMessagesProperty(){
+		unitytestdata = getUnityMessagesProperty(unitytestDataFile);
+		lastSaharedTeacher= unitytestdata.getProperty("autoTeacher1").substring(0, 1) + " " +unitytestdata.getProperty("autoTeacher1").substring(1);
 	}
 	
 	@BeforeMethod
@@ -100,9 +116,8 @@ public class SharingTest extends BaseTest {
 		driver.get(url);
 		loginPage = new Login(driver);
 		System.out.println("******** logging as  school admin  -- " + defaultAutoAdmin  + "******** " );
-		dashBoardPage = loginPage.loginSuccess(autoschoolAdmin, genericPassword);
-		customeWaitTime(5);
-		//dashBoardPage.addTiles();
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
+		dashBoardPage.addTiles();
 		
 	}
 
@@ -145,6 +160,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.deleteItemBank(itemBankName);
+		itemsBankPage.logOut();
 	}
 	
 	/**
@@ -174,7 +190,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "READ");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ");
@@ -182,8 +198,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -201,7 +217,7 @@ public class SharingTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				genericPassword);
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -235,7 +251,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "WRITE");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "WRITE");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE");
@@ -243,8 +259,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -261,7 +277,7 @@ public class SharingTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				genericPassword);
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -296,7 +312,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "CREATE");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "CREATE");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,CREATE");
@@ -304,8 +320,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -324,7 +340,7 @@ public class SharingTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				genericPassword);
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -358,7 +374,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "DELETE");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "DELETE");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,DELETE");
@@ -366,8 +382,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -386,7 +402,7 @@ public class SharingTest extends BaseTest {
         dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				genericPassword);
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -420,7 +436,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "ADMIN");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "ADMIN");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,ADMIN");
@@ -428,8 +444,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -448,7 +464,7 @@ public class SharingTest extends BaseTest {
         dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				genericPassword);
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -483,7 +499,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "READ,WRITE,CREATE,DELETE,ADMIN");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
@@ -491,8 +507,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -512,7 +528,7 @@ public class SharingTest extends BaseTest {
         dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				genericPassword);
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -550,7 +566,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "READ,WRITE,CREATE,DELETE,ADMIN");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
@@ -558,8 +574,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -584,7 +600,7 @@ public class SharingTest extends BaseTest {
         dashBoardPage.logOut();	
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				genericPassword);
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
@@ -627,7 +643,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "READ,WRITE,CREATE,DELETE,ADMIN");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
@@ -635,8 +651,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -657,7 +673,7 @@ public class SharingTest extends BaseTest {
         dashBoardPage.logOut();	
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				genericPassword);
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
@@ -745,7 +761,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "READ");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ");
@@ -773,7 +789,7 @@ public class SharingTest extends BaseTest {
 		testBankPage.searchTestBank(testBankName);;
 		customeWaitTime(5);
 		testBankPage.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "READ");
+		String sharedLastTeacher = testBankPage.shareTestBank(unitytestdata.getProperty("autoTeacher1"), "READ");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
 		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ");
@@ -781,8 +797,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -802,7 +818,7 @@ public class SharingTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				genericPassword);
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -849,7 +865,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "WRITE");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "WRITE");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE");
@@ -877,7 +893,7 @@ public class SharingTest extends BaseTest {
 		testBankPage.searchTestBank(testBankName);;
 		customeWaitTime(5);
 		testBankPage.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "WRITE");
+		String sharedLastTeacher = testBankPage.shareTestBank(unitytestdata.getProperty("autoTeacher1"), "WRITE");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
 		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE");
@@ -885,8 +901,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -906,7 +922,7 @@ public class SharingTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				genericPassword);
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -952,7 +968,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "CREATE");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "CREATE");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,CREATE");
@@ -980,7 +996,7 @@ public class SharingTest extends BaseTest {
 		testBankPage.searchTestBank(testBankName);;
 		customeWaitTime(5);
 		testBankPage.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "CREATE");
+		String sharedLastTeacher = testBankPage.shareTestBank(unitytestdata.getProperty("autoTeacher1"), "CREATE");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
 		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ,CREATE");
@@ -988,8 +1004,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -1010,7 +1026,7 @@ public class SharingTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				genericPassword);
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -1057,7 +1073,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "DELETE");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "DELETE");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,DELETE");
@@ -1085,7 +1101,7 @@ public class SharingTest extends BaseTest {
 		testBankPage.searchTestBank(testBankName);;
 		customeWaitTime(5);
 		testBankPage.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "DELETE");
+		String sharedLastTeacher = testBankPage.shareTestBank(unitytestdata.getProperty("autoTeacher1"), "DELETE");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
 		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ,DELETE");
@@ -1093,8 +1109,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -1115,7 +1131,7 @@ public class SharingTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				genericPassword);
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -1163,7 +1179,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "ADMIN");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "ADMIN");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,ADMIN");
@@ -1190,7 +1206,7 @@ public class SharingTest extends BaseTest {
 		testBankPage.searchTestBank(testBankName);;
 		customeWaitTime(5);
 		testBankPage.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "ADMIN");
+		String sharedLastTeacher = testBankPage.shareTestBank(unitytestdata.getProperty("autoTeacher1"), "ADMIN");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
 		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,ADMIN");
@@ -1198,8 +1214,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -1219,7 +1235,7 @@ public class SharingTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				genericPassword);
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -1264,7 +1280,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "READ,WRITE,CREATE,DELETE,ADMIN");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
@@ -1291,7 +1307,7 @@ public class SharingTest extends BaseTest {
 		testBankPage.searchTestBank(testBankName);;
 		customeWaitTime(5);
 		testBankPage.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		String sharedLastTeacher = testBankPage.shareTestBank(unitytestdata.getProperty("autoTeacher1"), "READ,WRITE,CREATE,DELETE,ADMIN");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
 		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
@@ -1299,8 +1315,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -1320,7 +1336,7 @@ public class SharingTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				genericPassword);
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -1368,7 +1384,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "READ,WRITE,CREATE,DELETE,ADMIN");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
@@ -1395,7 +1411,7 @@ public class SharingTest extends BaseTest {
 		testBankPage.searchTestBank(testBankName);;
 		customeWaitTime(5);
 		testBankPage.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		String sharedLastTeacher = testBankPage.shareTestBank(unitytestdata.getProperty("autoTeacher1"), "READ,WRITE,CREATE,DELETE,ADMIN");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
 		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
@@ -1403,8 +1419,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -1427,7 +1443,7 @@ public class SharingTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				genericPassword);
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.searchTest(testNameByTeacher);
@@ -1479,7 +1495,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "READ,WRITE,CREATE,DELETE,ADMIN");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
@@ -1506,7 +1522,7 @@ public class SharingTest extends BaseTest {
 		testBankPage.searchTestBank(testBankName);;
 		customeWaitTime(5);
 		testBankPage.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		String sharedLastTeacher = testBankPage.shareTestBank(unitytestdata.getProperty("autoTeacher1"), "READ,WRITE,CREATE,DELETE,ADMIN");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
 		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
@@ -1514,8 +1530,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -1536,7 +1552,7 @@ public class SharingTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				genericPassword);
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.searchTest(testName);
@@ -1587,7 +1603,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "READ,WRITE,CREATE,DELETE,ADMIN");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
@@ -1613,7 +1629,7 @@ public class SharingTest extends BaseTest {
 		testBankPage.searchTestBank(testBankName);;
 		customeWaitTime(5);
 		testBankPage.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		String sharedLastTeacher = testBankPage.shareTestBank(unitytestdata.getProperty("autoTeacher1"), "READ,WRITE,CREATE,DELETE,ADMIN");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
 		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
@@ -1621,8 +1637,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -1637,8 +1653,8 @@ public class SharingTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		
-		dashBoardPage = loginPage.loginSuccess(stduent1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoStduent1"),
+				unitytestdata.getProperty("genericPassword"));
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
 		deliveryPage = dashBoardPage.goToDelivery();
@@ -1688,15 +1704,15 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "READ,WRITE,CREATE,DELETE,ADMIN");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
 		itemsBankPage.closeItemBankShareScreen();
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -1724,8 +1740,8 @@ public class SharingTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		
-		dashBoardPage = loginPage.loginSuccess(stduent1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoStduent1"),
+				unitytestdata.getProperty("genericPassword"));
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
 		deliveryPage = dashBoardPage.goToDelivery();
@@ -1777,7 +1793,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.searchItemBank(itemBankName);;
 		customeWaitTime(5);
 		itemsBankPage.openItemBankShareScreen();
-		String sharedTeacher = itemsBankPage.shareItemBank(teacher1.split("/")[1], "READ");
+		String sharedTeacher = itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "READ");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedTeacher, lastSaharedTeacher);
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ");
@@ -1803,7 +1819,7 @@ public class SharingTest extends BaseTest {
 		testBankPage.searchTestBank(testBankName);;
 		customeWaitTime(5);
 		testBankPage.openTestBankShareScreen();
-		String sharedLastTeacher = testBankPage.shareTestBank(teacher1.split("/")[1], "READ");
+		String sharedLastTeacher = testBankPage.shareTestBank(unitytestdata.getProperty("autoTeacher1"), "READ");
 		customeWaitTime(5);
 		Assert.assertEquals(sharedLastTeacher, lastSaharedTeacher);
 		Assert.assertEquals(testBankPage.sharedAccess.getText().trim(), "Access: READ");
@@ -1811,8 +1827,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(teacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -1829,8 +1845,8 @@ public class SharingTest extends BaseTest {
 		dashBoardPage.logOut();
 		customeWaitTime(5);
 		
-		dashBoardPage = loginPage.loginSuccess(stduent1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoStduent1"),
+				unitytestdata.getProperty("genericPassword"));
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
 		deliveryPage = dashBoardPage.goToDelivery();
@@ -1882,12 +1898,12 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
 		String itemCountOfBank = itemsBankPage.itemCount.getText();
 		itemsBankPage.openItemBankShareScreen();
-		itemsBankPage.shareItemBank(autoTeacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "READ,WRITE,CREATE,DELETE,ADMIN");
 		itemsBankPage.closeItemBankShareScreen();
 		returnToDashboard();
 		dashBoardPage.logOut();
-		dashBoardPage = loginPage.loginSuccess(autoTeacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
@@ -1933,12 +1949,12 @@ public class SharingTest extends BaseTest {
 		String itemCountOfBank = itemsBankPage.itemCount.getText();
 		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
 		itemsBankPage.openItemBankShareScreen();
-		itemsBankPage.shareItemBank(autoTeacher1.split("/")[1], "READ,WRITE,CREATE,DELETE,ADMIN");
+		itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "READ,WRITE,CREATE,DELETE,ADMIN");
 		itemsBankPage.closeItemBankShareScreen();
 		returnToDashboard();
 		dashBoardPage.logOut();
-		dashBoardPage = loginPage.loginSuccess(autoTeacher1,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoTeacher1"),
+				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		dashBoardPage.addTiles();
 		customeWaitTime(5);
