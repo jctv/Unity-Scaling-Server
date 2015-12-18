@@ -68,14 +68,13 @@ public class SharingTest extends BaseTest {
 	String itemDesc = "Auto Item";
 	String itemBankDescription = "Auto desc";
 	
-	String interactionChoice = "Choice";
-	String interactionTextEntry = "Text Entry";
-	String simpleMatchScoreProfile = "Simple Match";
-	String mapScoreProfile = "Map";
-	String handScoreProfile  = "Hand Scoring";
-	String choiceCorrectAnswer = "set D correct Answer";
-	String  textEntryCorrcetAnswer = "Auto Text Entry";
-
+	String interactionChoice = unitytestdata.getProperty("interactionChoice");
+	String interactionTextEntry = unitytestdata.getProperty("interactionTextEntry");
+	String simpleMatchScoreProfile = unitytestdata.getProperty("simpleMatchScoreProfile");
+	String mapScoreProfile = unitytestdata.getProperty("mapScoreProfile");;
+	String handScoreProfile  = unitytestdata.getProperty("handScoreProfile");;
+	String choiceCorrectAnswer = unitytestdata.getProperty("choiceCorrectAnswer");;
+	String textEntryCorrcetAnswer = unitytestdata.getProperty("textEntryCorrcetAnswer");;
 	String testBankName ;
 	String testName ;
 	String testDesc = "Auto Test";
