@@ -71,32 +71,24 @@ public class SharingTest extends BaseTest {
 	String interactionChoice = unitytestdata.getProperty("interactionChoice");
 	String interactionTextEntry = unitytestdata.getProperty("interactionTextEntry");
 	String simpleMatchScoreProfile = unitytestdata.getProperty("simpleMatchScoreProfile");
-	String mapScoreProfile = unitytestdata.getProperty("mapScoreProfile");;
-	String handScoreProfile  = unitytestdata.getProperty("handScoreProfile");;
-	String choiceCorrectAnswer = unitytestdata.getProperty("choiceCorrectAnswer");;
-	String textEntryCorrcetAnswer = unitytestdata.getProperty("textEntryCorrcetAnswer");;
+	String mapScoreProfile = unitytestdata.getProperty("mapScoreProfile");
+	String handScoreProfile  = unitytestdata.getProperty("handScoreProfile");
+	String choiceCorrectAnswer = unitytestdata.getProperty("choiceCorrectAnswer");
+	String textEntryCorrcetAnswer = unitytestdata.getProperty("textEntryCorrcetAnswer");
+	
 	String testBankName ;
 	String testName ;
 	String testDesc = "Auto Test";
 	String testBankDescription = "Auto test bank desc";
 	
 	String bulkItemImportFileName = "Bulk Item Upload.zip";
+	
 	String resources = "src" + File.separator + "resources"
 			+ File.separator;
 	
 	String unitytestDataFile = resources + "unitytestdata.properties";
 	
 	String bulkItemImportFile = resources + bulkItemImportFileName;
-	
-	private static final String DEFINED_LIFECYCLE = "DEFINED";
-	private static final String REVIEW_LIFECYCLE = "REVIEW";
-	private static final String ACCEPTED_LIFECYCLE = "ACCEPTED";
-	private static final String REJECTED_LIFECYCLE = "REJECTED";
-	private static final String HOLD_LIFECYCLE = "HOLD";
-	private static final String PUBLISH_LIFECYCLE = "PUBLISH";
-
-	private static final String QTI_PACKAGE = "QTI";
-
 	
 
 	public SharingTest () {
@@ -1903,7 +1895,7 @@ public class SharingTest extends BaseTest {
 		returnToDashboard();
 		customeWaitTime(5);
 		itemsImportPage = dashBoardPage.goToItemImport();
-		itemsImportPage.importItem(bulkItemImportFile, itemBankName, QTI_PACKAGE, DEFINED_LIFECYCLE);
+		itemsImportPage.importItem(bulkItemImportFile, itemBankName, unitytestdata.getProperty("qti_pkg "), unitytestdata.getProperty("define_lifecycle"));
 		customeWaitTime(30);
 		itemsImportPage.refreshPage();
 		Assert.assertEquals(itemsImportPage.waitAndGetElementText(itemsImportPage.itemImportFileNameList)
