@@ -273,13 +273,13 @@ public class BaseTest {
 	public void returnToDashboard() {
 		try {
 			customeWaitTime(15);	
-			driver.findElement(By.xpath("//*[@id='region-navigation']/div/a"))
+			driver.findElement(By.xpath(".//*[@id='region-navigation']/ul/li[1]/a"))
 					.click();
 			
 			customeWaitTime(15);
 		} catch (Exception e) {
 			System.out.println("Error trying to return to the dashboard");
-			driver.get(domain);
+			//driver.get(domain);
 		}
 	}
 

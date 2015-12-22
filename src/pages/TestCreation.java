@@ -21,10 +21,10 @@ public class TestCreation extends BasePage {
 		PageFactory.initElements(driver, this);
 	}
 	
-	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
 	public WebElement homeLink;
 	
-	@FindBy(xpath = "//*[@id='region-navigation']/div/span[1]")
+	@FindBy(xpath = "//a[text()='Create']")
 	public WebElement createTestLink;
 
 	@FindBy(id = "test-option-0")
@@ -112,7 +112,7 @@ public class TestCreation extends BasePage {
 	@FindBy(xpath = "//*[@id='testSaved']/div/div/div[1]/button")
 	public WebElement xbutton;
 	                 
-	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
 	public WebElement testsLink;
 	
 	@FindBy(id = "contentCreateInputName")

@@ -75,7 +75,7 @@ public class BasePage {
 	@FindBy(xpath = "//*[@id='region-workspace']/div/div/div[2]/div/div/div[3]/table/tfoot/tr/td/div/div[1]/ul/li[1]/a")
 	public WebElement backPageButton;
 
-	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
 	public WebElement dashBoardPage;
 	
 
@@ -307,7 +307,7 @@ public class BasePage {
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 			element.click();
 			customeWaitTime(5);
-			System.out.println("Button "+ element.getText() + "clicked ");
+			System.out.println("Button  clicked ");
 
 		} catch (Exception e2) {
 			System.out.println("Unable to perform the click on element "
@@ -517,14 +517,13 @@ public void selectOption(WebElement dropDownListBox, String option) {
 	}
 	
 	public Login logOut() {
-try {
-	waitForElementAndClick(userDrop);
-	waitForElementAndClick(logOut);
-	waitForJsProcess();
-} catch (Exception e) {
-	System.out.println("Unable to logout" );
-}
-		
+		try {
+			waitForElementAndClick(userDrop);
+			waitForElementAndClick(logOut);
+			waitForJsProcess();
+		} catch (Exception e) {
+			System.out.println("Unable to logout");
+		}
 
 		return new Login(driver);
 	}

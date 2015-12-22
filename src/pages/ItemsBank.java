@@ -26,9 +26,8 @@ public class ItemsBank extends BasePage {
 	}
 	
 	// Tabs Ids      
-	@FindBy(xpath = "//*[@id='region-navigation']/div/span[1]")
+	@FindBy(xpath = "//a[text()='Create Item Bank']")
 	public WebElement createItemBank;
-	
 	
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
 	public WebElement backLink;

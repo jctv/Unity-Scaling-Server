@@ -25,12 +25,9 @@ public class TestsBank extends BasePage {
 	}
 
 	// Tabs Ids
-	@FindBy(xpath = "//*[@id='region-navigation']/div/span[1]")
+	@FindBy(xpath = "//a[text()='Create Test Bank']")
 	public WebElement createBankLink;
 	
-	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
-	public WebElement backLink;
-
 	@FindBy(id = "bankCreateInputName")
 	public WebElement bankCreateInputName;
 	

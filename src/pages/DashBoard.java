@@ -20,7 +20,7 @@ public class DashBoard extends BasePage {
 
 	// tiles options
 
-	@FindBy(xpath = "//*[@id='region-navigation']/div/span[1]")
+	@FindBy(xpath = "//a[text()='add tile']")
 	public WebElement addTile;
 
 	@FindBy(xpath = "//*[@id='region-navigation']/div/span[2]")

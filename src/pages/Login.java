@@ -37,6 +37,8 @@ public class Login extends BasePage {
 			customeWaitTime(5);
 			waitForJsProcess();
 			Assert.assertTrue(pageName.isDisplayed(), "User Logged");
+			System.out.println(user + "  login successfully");
+
 		} catch (Exception e) {
 			System.out.println("Unable to login");
 		}

@@ -14,7 +14,7 @@ import generic.BasePage;
 
 public class Items extends BasePage {
 
-	@FindBy(xpath = "//span[text()='Create']")
+	@FindBy(xpath = "//a[text()='Create']")
 	public WebElement createItemButton;
 
 	@FindBy(id = "contentCreateInputName")
@@ -96,10 +96,10 @@ public class Items extends BasePage {
 	@FindBy(id = "previewTabButton")
 	public WebElement previewTabButton;
 
-	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
 	public WebElement backToItems;
 
-	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
 	public WebElement backToDashboard;
 
 	@FindBy(xpath = "//*[@id='tinymce']/div[1]/div[1]/span")
@@ -290,7 +290,8 @@ public class Items extends BasePage {
 		//waitForElementAndSendKeys(selectItemBank, itemBankName);
 		//selectOption(selectItemBank, itemBankName);
 		//selectItemBank(itemBankName);
-		waitForElementAndSendKeys(itemBankDropdown, itemBankName);
+		selectOption(selectItemBank, itemBankName);
+		//waitForElementAndSendKeys(itemBankDropdown, itemBankName);
 		customeWaitTime(5);
 		waitForElementAndSendKeys(itemCreateInputName, name);
 		waitForElementAndSendKeys(itemCreateInputDescription, "Description");
