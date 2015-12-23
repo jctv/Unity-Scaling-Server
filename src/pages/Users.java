@@ -77,7 +77,10 @@ public class Users extends BasePage {
 
 	@FindBy(id = "globalModalInfoOkButton")
 	public WebElement modalOk;
-
+	
+	
+	@FindBy(id = "globalModalInfoBody")
+	public WebElement globalModalInfoBody;
 	public boolean validador = false;
 
 	@FindBy(xpath = "//*[@id='region-workspace']/div/div/div[2]/div/div/div[3]/table/tbody/tr[1]")
@@ -277,7 +280,7 @@ public class Users extends BasePage {
 
 			System.out.println(firstName + " " + lastName + "  Created");
 			try {
-
+				statusMessage =globalModalInfoBody.getText();
 				waitForElementAndClick(modalOk);
 			} catch (Exception e) {
 				System.out.println("Modal not found");
@@ -287,7 +290,7 @@ public class Users extends BasePage {
 			System.out.println("User creation Failed");
 		}
 
-		return firstName.substring(0, 1) + lastName;
+		return statusMessage;
 	}
 
 	public String DeleteCreatedUsers(String[] createdUsers) {
