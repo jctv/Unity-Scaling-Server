@@ -112,7 +112,7 @@ public class SharingTest extends BaseTest {
 		 textEntryCorrcetAnswer = unitytestdata.getProperty("textEntryCorrcetAnswer");
 	}
 	
-	@BeforeClass
+	@BeforeMethod
 	public void setUp() {
 		System.out.println("Load Unity url - " + url);
 		driver.get(url);
@@ -212,15 +212,14 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		Assert.assertFalse(itemsBankPage.shareButton.isEnabled());
 		assertItemBankStatisticsPanelContent();
-		itemsBankPage.waitForElementAndClick(itemsBankPage.backLink);
+		itemsBankPage.backToDashboard();
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
 		Assert.assertFalse(itemsPage.itemEditIcon.isEnabled());
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -275,14 +274,14 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		Assert.assertFalse(itemsBankPage.shareButton.isEnabled());
 		assertItemBankStatisticsPanelContent();
+		itemsBankPage.backToDashboard();
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
 		Assert.assertTrue(itemsPage.itemEditIcon.isEnabled());
 		itemsPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -338,7 +337,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		Assert.assertEquals(itemsBankPage.shareButton.getAttribute("disabled"),"true","Verifying the Item bank share icon is disabled");
 		assertItemBankStatisticsPanelContent();
-		itemsBankPage.waitForElementAndClick(itemsBankPage.backLink);
+		itemsBankPage.backToDashboard();		
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
@@ -346,8 +345,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertEquals(itemsPage.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
 		itemsPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -402,7 +400,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		Assert.assertEquals(itemsBankPage.shareButton.getAttribute("disabled"),"true","Verifying the Item bank share icon is disabled");
 		assertItemBankStatisticsPanelContent();
-		itemsBankPage.waitForElementAndClick(itemsBankPage.backLink);
+		itemsBankPage.backToDashboard();
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
@@ -466,7 +464,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		Assert.assertTrue(itemsBankPage.shareButton.isEnabled(),"Verifying the Item Bank share icon is editable");
 		assertItemBankStatisticsPanelContent();
-		itemsBankPage.waitForElementAndClick(itemsBankPage.backLink);
+		itemsBankPage.backToDashboard();
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
@@ -474,8 +472,7 @@ public class SharingTest extends BaseTest {
         Assert.assertFalse(itemsPage.itemDeleteIcon.isEnabled());
         itemsPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -531,7 +528,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		Assert.assertTrue(itemsBankPage.shareButton.isEnabled(),"Verifying the Item Bank share icon is editable");
 		assertItemBankStatisticsPanelContent();
-		itemsBankPage.waitForElementAndClick(itemsBankPage.backLink);
+		itemsBankPage.backToDashboard();
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
@@ -540,8 +537,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertEquals(itemsPage.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
         dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -614,8 +610,7 @@ public class SharingTest extends BaseTest {
 		returnToDashboard();
         dashBoardPage.logOut();	
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
@@ -689,8 +684,7 @@ public class SharingTest extends BaseTest {
 		itemsPage.deleteItem(itemName);
         dashBoardPage.logOut();	
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		customeWaitTime(5);
@@ -838,8 +832,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -943,8 +936,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -1049,8 +1041,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertEquals(testCreationPage.getSharedTestBank(testBankName),testBankName ,"Verifying Shared Test bank is available in Test bank drop down");
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -1156,8 +1147,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertEquals(testCreationPage.getSharedTestBank(testBankName),testBankName ,"Verifying Shared Test bank is available in Test bank drop down");
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -1262,8 +1252,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -1365,8 +1354,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
@@ -1474,8 +1462,7 @@ public class SharingTest extends BaseTest {
 		returnToDashboard();
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.searchTest(testNameByTeacher);
@@ -1585,8 +1572,7 @@ public class SharingTest extends BaseTest {
 		testCreationPage.deleteTest(testName);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(schooladmin1,
-				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.searchTest(testName);
@@ -2012,12 +1998,12 @@ public class SharingTest extends BaseTest {
 
 	}
 	private void assertItemBankStatisticsPanelContent(){
-		itemsBankPage.viewIcon.click();
+		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+		customeWaitTime(5);
 		Assert.assertTrue(itemsBankPage.itemBankStatisticsPanel.isDisplayed(),"Verifying the Item Bank statisticsPanel is expanded");
-		Assert.assertEquals(itemsBankPage.itemCount.getText(),"1","Verifying the Item count");
-		Assert.assertEquals(itemsBankPage.mediaCount.getText(),"0","Verifying the media count");
-		Assert.assertEquals(itemsBankPage.passageCount.getText(),"0","Verifying the passage count");
-		Assert.assertEquals(itemsBankPage.rubricCount.getText(),"0","Verifying the rubrics count");
-		
+		Assert.assertEquals(itemsBankPage.waitAndGetElementText(itemsBankPage.itemCount),"1","Verifying the Item count");
+		Assert.assertEquals(itemsBankPage.waitAndGetElementText(itemsBankPage.mediaCount),"0","Verifying the media count");
+		Assert.assertEquals(itemsBankPage.waitAndGetElementText(itemsBankPage.passageCount),"0","Verifying the passage count");
+		Assert.assertEquals(itemsBankPage.waitAndGetElementText(itemsBankPage.rubricCount),"0","Verifying the rubrics count");
 	}
 }

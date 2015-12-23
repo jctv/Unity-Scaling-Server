@@ -290,7 +290,11 @@ public class Items extends BasePage {
 		//waitForElementAndSendKeys(selectItemBank, itemBankName);
 		//selectOption(selectItemBank, itemBankName);
 		//selectItemBank(itemBankName);
-		selectOption(selectItemBank, itemBankName);
+		if(selectItemBank.isDisplayed()){
+			selectOption(selectItemBank, itemBankName);
+		}else{
+			selectItemBank(itemBankName);
+		}
 		//waitForElementAndSendKeys(itemBankDropdown, itemBankName);
 		customeWaitTime(5);
 		waitForElementAndSendKeys(itemCreateInputName, name);

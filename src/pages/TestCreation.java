@@ -197,7 +197,13 @@ public class TestCreation extends BasePage {
 	public void createTest(String testName , String testBankName ,  String itemName) {
 		try {
 			waitForElementAndClick(createTestLink);
-			selectOption(bankDropDown, testBankName);
+			
+			if(bankDropDown.isDisplayed()){
+				selectOption(bankDropDown, testBankName);
+
+			}else{
+				selectTestBank(testBankName);
+			}
 			//selectTestBank(testBankName);
 			customeWaitTime(2);
 			//waitForElementAndSendKeys(bankDropDown, "My Tests");

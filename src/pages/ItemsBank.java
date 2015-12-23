@@ -29,7 +29,7 @@ public class ItemsBank extends BasePage {
 	@FindBy(xpath = "//a[text()='Create Item Bank']")
 	public WebElement createItemBank;
 	
-	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
 	public WebElement backLink;
 
 
