@@ -20,8 +20,8 @@ public class ClassRoster extends BasePage {
 
 	@FindBy(id = "loginButton")
 	public WebElement signIn;
-
-	@FindBy(xpath = "//*[@id='region-navigation']/div/a[2]")
+	
+	@FindBy(xpath = "//*[@id='region-navigation']/ul/li[2]/a")
 	public WebElement createClassRosterLink;
 	
 	@FindBy(xpath = "//a[text()=' Class Roster Home']")
@@ -71,8 +71,8 @@ public class ClassRoster extends BasePage {
 
 	@FindBy(id = "globalModalInfoOkButton")
 	public WebElement confirmOkButton;
-
-	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
+	
+	@FindBy(xpath = "//*[@id='region-navigation']/ul/li[1]/a")
 	public WebElement homeLink;
 
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a[1]")

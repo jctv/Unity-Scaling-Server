@@ -44,9 +44,15 @@ public class Users extends BasePage {
 
 	@FindBy(id = "userCreateInputFName")
 	public WebElement firstNameField;
+	
+	@FindBy(xpath = "//*[@id='globalModalView']/div/div/div[1]/button")
+	public WebElement closeModal;
 
 	@FindBy(id = "userCreateInputLName")
 	public WebElement lastNameField;
+	
+	@FindBy(id = "last_name")
+	public WebElement last_name;
 
 	@FindBy(id = "userCreateInputPW1")
 	public WebElement password;
@@ -109,7 +115,7 @@ public class Users extends BasePage {
 	@FindBy(xpath = "//*[@id='quickViewUserCreate']/div/div/div[3]/div[3]/div/div/button")
 	public WebElement userCreateOrg;
 
-	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
+	@FindBy(xpath = "//*[@id='region-navigation']/ul/li[1]/a")
 	public WebElement homeLink;
 
 	@FindBy(xpath = "//button[@data-id = 'userCreateOrg']")
@@ -196,7 +202,6 @@ public class Users extends BasePage {
 	public String createUser() {
 		for (int x = 0; x <= usersToCreate; x++) {
 			waitTime();
-			customeWaitTime(2);
 			waitForElementAndClick(createUserLink);
 			takeScreenShot();
 			customeWaitTime(2);
@@ -289,7 +294,7 @@ public class Users extends BasePage {
 		} catch (Exception e) {
 			System.out.println("User creation Failed");
 		}
-		if (statusMessage == "Passwords Don't Match!") {
+		if (statusMessage.contains("Passwords Don't Match!")) {
 			waitForElementAndClick(createUserLink);
 		}
 		return statusMessage;
