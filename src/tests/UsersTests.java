@@ -27,7 +27,7 @@ public class UsersTests extends BaseTest {
 
 	Properties unityUsersData = null;
 	String unityUsersDataFile = "src" + File.separator + "resources"
-			+ File.separator + "unitytestdata.properties";
+			+ File.separator + "unityUsersData.properties";
 	String firstName;
 	String organization;
 	String lastName;
@@ -45,11 +45,11 @@ public class UsersTests extends BaseTest {
 	public void loadUnityMessagesProperty() {
 		unitymessages = getUnityMessagesProperty(unityMessageFile);
 		unityUsersData = getUnityMessagesProperty(unityUsersDataFile);
-		firstName = unityUsersData.getProperty("interactionChoice");
-		organization = unityUsersData.getProperty("interactionChoice");
-		lastName = unityUsersData.getProperty("interactionChoice");
-		genericPassword = unityUsersData.getProperty("interactionChoice");
-		role = unityUsersData.getProperty("interactionChoice");
+		firstName = unityUsersData.getProperty("tOneName");
+		organization = unityUsersData.getProperty("school");
+		lastName = unityUsersData.getProperty("tOneLastName");
+		genericPassword = unityUsersData.getProperty("genericPassword");
+		role = unityUsersData.getProperty("tOneName");
 		// unitymessages.getProperty(key)
 
 	}
@@ -64,11 +64,10 @@ public class UsersTests extends BaseTest {
 		waitTime();
 	}
 
-
 	/**
 	 * Login into the unity go to the user tile Click on Create user navigation
-	 * Enter not match password and verify the alert messages enter valid user
-	 * information validated user created message
+	 * Enter not match password and verify the alert messages,then enter valid
+	 * user information validated user created message
 	 * 
 	 */
 
@@ -77,14 +76,11 @@ public class UsersTests extends BaseTest {
 
 		usersPageObject = dashBoardPageObject.goToUsers();
 		waitTime();
-		Assert.assertEquals(usersPageObject.createSpecificUser(firstName, lastName, genericPassword, role, organization), unitymessages.getProperty("userpassworddontmatch"));
-		waitTime();
-		usersPageObject.enterUserInformation(firstName, lastName, password,
-				password, firstName, organization);
-		waitTime();
-		Assert.assertEquals(
-				usersPageObject.globalModalInfoBody.getText().trim(),
-				unitymessages
+		Assert.assertEquals(usersPageObject.createSpecificUser(firstName,
+				lastName, genericPassword, "12345789", role, organization),
+				unitymessages.getProperty("userpassworddontmatch"));
+		customeWaitTime(2);
+		System.out.println(				unitymessages
 						.getProperty("usercreated")
 						.replace("first_name", firstName)
 						.replace("last_name", lastName)
@@ -92,7 +88,18 @@ public class UsersTests extends BaseTest {
 								"user_name",
 								firstName.substring(0, 1).toLowerCase()
 										+ lastName));
-		usersPageObject.globalModalInfoOkButton.click();
+		Assert.assertTrue(
+				usersPageObject.createSpecificUser(firstName, lastName,
+						genericPassword, genericPassword, role, organization).equalsIgnoreCase(
+				unitymessages
+						.getProperty("usercreated")
+						.replace("first_name", firstName)
+						.replace("last_name", lastName)
+						.replace(
+								"user_name",
+								firstName.substring(0, 1).toLowerCase()
+										+ lastName)));
+
 	}
 
 	/**
@@ -104,6 +111,7 @@ public class UsersTests extends BaseTest {
 	 * first name save the user information Validate message "User Saved!"
 	 * 
 	 */
+	/*
 	@Test(priority = 2)
 	public void testUserEditingAlertMessages() {
 
@@ -155,14 +163,14 @@ public class UsersTests extends BaseTest {
 		Assert.assertEquals(usersPageObject.globalModalInfoBody.getText()
 				.trim(), unitymessages.getProperty("usersaved"));
 
-	}
+	}*/
 
 	/**
 	 * Login into the unity' Create user Search user Delete user Validate
 	 * message "Are you certain you want to delete the user"
 	 * 
 	 */
-
+/*
 	@Test(priority = 3)
 	public void testUserDeleteAlertMessage() {
 
@@ -198,5 +206,5 @@ public class UsersTests extends BaseTest {
 		usersPageObject
 				.waitForElementAndClick(usersPageObject.globalModalDeleteButton);
 	}
-
+*/
 }

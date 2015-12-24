@@ -27,7 +27,7 @@ public class BasePage {
 
 	protected WebDriver driver;
 	
-	long timeOutInSeconds = 20 ;
+	long timeOutInSeconds = 25 ;
 
 	@FindBy(xpath = "//*[@id='quickViewHelp']/a")
 	public WebElement addHelpContent;
@@ -171,7 +171,7 @@ public class BasePage {
 
 	public void waitTime() {
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			this.waitForJsProcess();
 
 		} catch (InterruptedException e) {
@@ -303,11 +303,10 @@ public class BasePage {
 	public void waitForElementAndClick(final WebElement element) {
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		try {
-			customeWaitTime(5);
 			wait.until(ExpectedConditions.elementToBeClickable(element));
+			waitTime();
 			element.click();
-			customeWaitTime(5);
-			System.out.println("Button  clicked ");
+			System.out.println("Button  clicked " + element.getText());
 
 		} catch (Exception e2) {
 			System.out.println("Unable to perform the click on element "
@@ -345,6 +344,12 @@ public class BasePage {
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		try {
 			wait.until(ExpectedConditions.elementToBeClickable(element));
+			try {
+				element.clear();
+			} catch (Exception e) {
+				System.out.println("Unable to clear the element  ");
+			}
+			
 			element.click();
 			element.sendKeys(keys);
 			waitTime();

@@ -39,7 +39,7 @@ public class Users extends BasePage {
 	@FindBy(id = "globalModalDeleteButton")
 	public WebElement globalModalDeleteButton;
 
-	@FindBy(xpath = "//*[@id='region-navigation']/div/span[1]")
+	@FindBy(xpath = "//*[@id='region-navigation']/ul/li[2]/a")
 	public WebElement createUserLink;
 
 	@FindBy(id = "userCreateInputFName")
@@ -77,8 +77,7 @@ public class Users extends BasePage {
 
 	@FindBy(id = "globalModalInfoOkButton")
 	public WebElement modalOk;
-	
-	
+
 	@FindBy(id = "globalModalInfoBody")
 	public WebElement globalModalInfoBody;
 	public boolean validador = false;
@@ -115,7 +114,6 @@ public class Users extends BasePage {
 
 	@FindBy(xpath = "//button[@data-id = 'userCreateOrg']")
 	public WebElement searchOrgButton;
-	
 
 	@FindBy(xpath = "//div[@class = 'btn-group bootstrap-select user-metadata-required select-search-by-name-organization open']//input")
 	public WebElement searchOrgFieldInput;
@@ -131,7 +129,7 @@ public class Users extends BasePage {
 
 	@FindBy(id = "globalModalOKCancelSaveButton")
 	public WebElement globalModalOKCancelSaveButton;
-	
+
 	@FindBy(xpath = "//button[text()='Delete']")
 	public WebElement deleteButton;
 
@@ -262,25 +260,27 @@ public class Users extends BasePage {
 	}
 
 	public String createSpecificUser(String firstName, String lastName,
-			String newPassword, String newRole, String organization) {
+			String newPassword, String confirmPassword, String newRole,
+			String organization) {
 		try {
+			// statusMessage ="";
 			waitTime();
 			waitForElementAndClick(createUserLink);
 			waitTime();
 			waitForElementAndSendKeys(firstNameField, firstName);
 			waitForElementAndSendKeys(lastNameField, lastName);
 			waitForElementAndSendKeys(password, newPassword);
-			waitForElementAndSendKeys(retypePassword, newPassword);
+			waitForElementAndSendKeys(retypePassword, confirmPassword);
 			waitForElementAndSendKeys(role, newRole);
 
 			waitForElementAndClick(searchOrgButton);
 			waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
 			waitTime();
 			waitForElementAndClick(submit);
-
-			System.out.println(firstName + " " + lastName + "  Created");
 			try {
-				statusMessage =globalModalInfoBody.getText();
+				statusMessage = waitAndGetElementText(globalModalInfoBody);
+				System.out.println(statusMessage);
+
 				waitForElementAndClick(modalOk);
 			} catch (Exception e) {
 				System.out.println("Modal not found");
@@ -289,7 +289,9 @@ public class Users extends BasePage {
 		} catch (Exception e) {
 			System.out.println("User creation Failed");
 		}
-
+		if (statusMessage == "Passwords Don't Match!") {
+			waitForElementAndClick(createUserLink);
+		}
 		return statusMessage;
 	}
 
@@ -303,10 +305,9 @@ public class Users extends BasePage {
 			for (String user : createdUsers) {
 				waitTime();
 				waitForElementAndClick(deleteIcon);
-
+				statusMessage = globalModalInfoBody.getText();
 				waitForElementAndClick(deleteButton);
 			}
-			statusMessage = "User Deleted";
 
 		} catch (Exception e) {
 			statusMessage = e.getMessage();
