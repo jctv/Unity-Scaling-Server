@@ -315,6 +315,7 @@ public class Items extends BasePage {
 		System.out.println("The Item " + name + " has been created");
 		customeWaitTime(5);
 		waitForElementAndClick(backToItems);
+		customeWaitTime(5);
 		searchItem(name);
 		this.addStandards();
 
@@ -446,7 +447,7 @@ public class Items extends BasePage {
 	public void searchItem(String item) {
 		try {
 			itemSearchAutoComplete.clear();
-			customeWaitTime(3);
+			customeWaitTime(10);
 			waitForElementAndSendKeys(itemSearchAutoComplete, item);
 			waitForElementAndClick(itemSearchButton);
 			customeWaitTime(3);

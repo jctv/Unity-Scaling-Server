@@ -30,16 +30,9 @@ import pages.Users;
 public class SharingTest extends BaseTest {
 	
 	String schooladmin1 = "qa/nadmin";
-	//String unitytestdata.getProperty("autoTeacher1") = "qa/nunitytestdata.getProperty("autoTeacher1")";
-	//String stduent1 = "qa/nstudent1";
-	//String unitytestdata.getProperty("genericPassword") = "12345";
-	String defaultAutoAdmin = "at/admin";
+	String defaultAutoAdmin = "admin";
 	
 	String defaultAutoPassword = "password";
-
-	//String autoschoolAdmin = "at/autoschooladmin";
-	
-	//String autounitytestdata.getProperty("autoTeacher1") = "at/autounitytestdata.getProperty("autoTeacher1")";
 	
 	Properties unitytestdata = null;
 	
@@ -112,14 +105,57 @@ public class SharingTest extends BaseTest {
 		 textEntryCorrcetAnswer = unitytestdata.getProperty("textEntryCorrcetAnswer");
 	}
 	
+	@BeforeClass
+	public void setTestData(){
+		System.out.println("Setting test data like item bank , test bank  . item and test creation");
+		driver.get(url);
+		loginPage = new Login(driver);
+		System.out.println("******** logging as  school admin ******** " );
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
+		dashBoardPage.addTiles();
+		long timestamp = System.currentTimeMillis();
+		customeWaitTime(5);
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		customeWaitTime(5);
+		itemBankName = "AUTO_IB_" + timestamp;
+		System.out.println("******** " + itemBankName + "  Item bank creation ********");
+		itemsBankPage.createBank(itemBankName, itemBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		customeWaitTime(5);
+		itemName = "I_" + itemBankName;
+		System.out.println("******** " + itemName + "  Item creation ********");
+		itemsPage.createItem(itemName , itemBankName);
+		customeWaitTime(5);
+		returnToDashboard();
+		testBankPage = dashBoardPage.goToTestsBank();
+		customeWaitTime(5);
+		testBankName = "AUTO_TB_" + timestamp;
+		System.out.println("******** " + testBankName + "  Test bank creation ********");
+		testBankPage.createBank(testBankName, testBankDescription);
+		customeWaitTime(5);
+		returnToDashboard();
+		customeWaitTime(5);
+		testCreationPage = dashBoardPage.goToTestCreation();
+		testName = "T_" + testBankName;
+		System.out.println("******** " + testName + "  Test creation ********");
+		customeWaitTime(5);
+		testCreationPage.createTest(testName , testBankName , itemName);
+		customeWaitTime(5);
+		returnToDashboard();
+		
+		
+	}
 	@BeforeMethod
 	public void setUp() {
 		System.out.println("Load Unity url - " + url);
 		driver.get(url);
 		loginPage = new Login(driver);
-		System.out.println("******** logging as  school admin  -- " + defaultAutoAdmin  + "******** " );
+		System.out.println("******** logging as  school admin  -- ******** " );
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
-		dashBoardPage.addTiles();
+		//dashBoardPage.addTiles();
 		
 	}
 
@@ -131,7 +167,7 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 1)
 	public void testVerifyDefaulltAclTrusteeForItemBank(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
@@ -140,6 +176,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		returnToDashboard();
 		customeWaitTime(5);
+		*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -156,14 +193,14 @@ public class SharingTest extends BaseTest {
 		Assert.assertTrue(itemsBankPage.aclTrusteeDelete.isDisplayed());
 		Assert.assertFalse(itemsBankPage.aclTrusteeAdmin.isSelected());
 		Assert.assertTrue(itemsBankPage.aclTrusteeAdmin.isDisplayed());
-		itemsBankPage.closeItemBankShareScreen();
+		/*itemsBankPage.closeItemBankShareScreen();
 		itemsBankPage.backToDashboard();
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.deleteItemBank(itemBankName);
 		//itemsBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 	}
 	
 	/**
@@ -172,7 +209,7 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 2)
 	public void testShareItemBankwithReadACL(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
@@ -187,7 +224,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -217,7 +254,7 @@ public class SharingTest extends BaseTest {
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
 		Assert.assertFalse(itemsPage.itemEditIcon.isEnabled());
-		dashBoardPage.logOut();
+		/*dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
@@ -225,7 +262,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		itemsBankPage.deleteItemBank(itemBankName);
 		//itemsBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 	}
 	
 	/**
@@ -234,7 +271,7 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 3)
 	public void testShareItemBankWithWriteACL(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
@@ -249,7 +286,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -279,7 +316,7 @@ public class SharingTest extends BaseTest {
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
 		Assert.assertTrue(itemsPage.itemEditIcon.isEnabled());
-		itemsPage.logOut();
+		/*itemsPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
@@ -287,7 +324,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		itemsBankPage.deleteItemBank(itemBankName);
 		//itemsBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 	}
 	
 	
@@ -297,7 +334,7 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 4)
 	public void testShareItemBankwithCreateACL(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_ " + System.currentTimeMillis();
@@ -312,7 +349,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -343,7 +380,7 @@ public class SharingTest extends BaseTest {
 		itemsPage.searchItem(itemName);
 		Assert.assertFalse(itemsPage.itemEditIcon.isEnabled());
 		Assert.assertEquals(itemsPage.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
-		itemsPage.logOut();
+		/*itemsPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
@@ -351,7 +388,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		itemsBankPage.deleteItemBank(itemBankName);
 		//itemsBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 		
 	}
 	
@@ -360,7 +397,7 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority = 5)
 	public void testShareBlankItemBankwithDeleteACL(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_ " + System.currentTimeMillis();
@@ -375,7 +412,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item  creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -406,7 +443,7 @@ public class SharingTest extends BaseTest {
 		itemsPage.searchItem(itemName);
 		Assert.assertFalse(itemsPage.itemEditIcon.isEnabled());
         Assert.assertTrue(itemsPage.itemDeleteIcon.isEnabled());
-        itemsPage.logOut();
+        /*itemsPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"),
 				unitytestdata.getProperty("genericPassword"));
@@ -415,7 +452,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		itemsBankPage.deleteItemBank(itemBankName);
 		//itemsBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 		
 	}
 	
@@ -424,7 +461,7 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority = 6)
 	public void testShareItemBankwithAdminACL(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_ " + System.currentTimeMillis();
@@ -439,7 +476,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -470,7 +507,7 @@ public class SharingTest extends BaseTest {
 		itemsPage.searchItem(itemName);
 		Assert.assertTrue(itemsPage.itemEditIcon.isEnabled());
         Assert.assertFalse(itemsPage.itemDeleteIcon.isEnabled());
-        itemsPage.logOut();
+       /* itemsPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
@@ -478,7 +515,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		itemsBankPage.deleteItemBank(itemBankName);
 		//itemsBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 
 	}
 	
@@ -488,7 +525,7 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority = 7)
 	public void testShareItemBankwithAllACL(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_ " + System.currentTimeMillis();
@@ -503,7 +540,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -536,14 +573,14 @@ public class SharingTest extends BaseTest {
         Assert.assertTrue(itemsPage.itemDeleteIcon.isEnabled());
 		Assert.assertEquals(itemsPage.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
         dashBoardPage.logOut();
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.deleteItemBank(itemBankName);
 		//itemsBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 
 	}
 	
@@ -556,7 +593,7 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority = 8)
 	public void testAddItemsInSharedItemBankwithAllACL(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_ " + System.currentTimeMillis();
@@ -571,7 +608,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -618,10 +655,10 @@ public class SharingTest extends BaseTest {
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		Assert.assertEquals(itemsBankPage.itemCount.getText(),"2","Verifying the Item count after adding item in shared bank");
-		itemsBankPage.viewIcon.click();
+	/*	itemsBankPage.viewIcon.click();
 		itemsBankPage.deleteItemBank(itemBankName);
 		//itemsBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 
 	}
 	
@@ -634,7 +671,7 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority = 9)
 	public void testDeleteItemsInSharedItemBankwithAllACL(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_ " + System.currentTimeMillis();
@@ -649,7 +686,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -695,9 +732,9 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		Assert.assertEquals(itemsBankPage.itemCount.getText(),"0","Verifying the Item count after deleting item in shared bank");
 		itemsBankPage.viewIcon.click();
-		itemsBankPage.deleteItemBank(itemBankName);
+		/*itemsBankPage.deleteItemBank(itemBankName);
 		//itemsBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 
 	}
 	
@@ -710,7 +747,7 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 10)
 	public void testVerifyDefaulltAclTrusteeForTestBank(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
@@ -719,6 +756,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		returnToDashboard();
 		customeWaitTime(5);
+		*/
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -735,14 +773,14 @@ public class SharingTest extends BaseTest {
 		Assert.assertTrue(testBankPage.aclTrusteeDelete.isDisplayed());
 		Assert.assertFalse(testBankPage.aclTrusteeAdmin.isSelected());
 		Assert.assertTrue(testBankPage.aclTrusteeAdmin.isDisplayed());
-		testBankPage.closeTestBankShareScreen();
+		/*testBankPage.closeTestBankShareScreen();
 		testBankPage.backToDashboard();
 		customeWaitTime(5);
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
 		//testBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 	}
 	
 	/**
@@ -755,7 +793,7 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority = 11)
 	public void testShareTestBankWithReadACL(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
@@ -770,7 +808,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -784,7 +822,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		itemsBankPage.backToDashboard();
 		testBankPage = dashBoardPage.goToTestsBank();
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
 		testBankPage.createBank(testBankName, testBankDescription);
@@ -798,7 +836,7 @@ public class SharingTest extends BaseTest {
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
 		returnToDashboard();
-		customeWaitTime(5);
+		customeWaitTime(5);*/
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -830,7 +868,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertFalse(testCreationPage.testDeleteIcon.isEnabled());
 		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
 		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
-		dashBoardPage.logOut();
+		/*dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
@@ -844,7 +882,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
 		//testBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 		
 	}
 	
@@ -861,7 +899,7 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 12)
 	public void testShareTestBankWithWriteACL(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
@@ -874,7 +912,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -887,7 +925,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.closeItemBankShareScreen();
 		customeWaitTime(5);
 		itemsBankPage.backToDashboard();
-		testBankPage = dashBoardPage.goToTestsBank();
+		/*testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
@@ -902,7 +940,7 @@ public class SharingTest extends BaseTest {
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
 		returnToDashboard();
-		customeWaitTime(5);
+		customeWaitTime(5);*/
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -934,7 +972,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertFalse(testCreationPage.testDeleteIcon.isEnabled());
 		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
 		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
-		dashBoardPage.logOut();
+		/*dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
@@ -948,7 +986,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
 		//testBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 	}
 	
 	
@@ -963,7 +1001,7 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 13)
 	public void testShareTestBankWithCreateACL(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
@@ -978,7 +1016,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -991,7 +1029,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.closeItemBankShareScreen();
 		customeWaitTime(5);
 		itemsBankPage.backToDashboard();
-		testBankPage = dashBoardPage.goToTestsBank();
+		/*testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
@@ -1006,7 +1044,7 @@ public class SharingTest extends BaseTest {
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
 		returnToDashboard();
-		customeWaitTime(5);
+		customeWaitTime(5);*/
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -1039,7 +1077,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
 		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
 		Assert.assertEquals(testCreationPage.getSharedTestBank(testBankName),testBankName ,"Verifying Shared Test bank is available in Test bank drop down");
-		dashBoardPage.logOut();
+		/*dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
@@ -1054,7 +1092,7 @@ public class SharingTest extends BaseTest {
 		testBankPage.deleteTestBank(testBankName);
 		//testBankPage.logOut();
 		returnToDashboard();
-	}
+*/	}
 	
 	
 	
@@ -1069,7 +1107,7 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 14)
 	public void testShareTestBankWithDeleteACL(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
@@ -1084,7 +1122,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -1097,7 +1135,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.closeItemBankShareScreen();
 		customeWaitTime(5);
 		itemsBankPage.backToDashboard();
-		testBankPage = dashBoardPage.goToTestsBank();
+		/*testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
@@ -1112,7 +1150,7 @@ public class SharingTest extends BaseTest {
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
 		returnToDashboard();
-		customeWaitTime(5);
+		customeWaitTime(5);*/
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -1145,7 +1183,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
 		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
 		Assert.assertEquals(testCreationPage.getSharedTestBank(testBankName),testBankName ,"Verifying Shared Test bank is available in Test bank drop down");
-		dashBoardPage.logOut();
+		/*dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
@@ -1159,7 +1197,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
 		//testBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 	}
 	
 	
@@ -1176,7 +1214,7 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 15)
 	public void testShareTestBankWithAdminACL(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
@@ -1191,7 +1229,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -1204,7 +1242,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.closeItemBankShareScreen();
 		customeWaitTime(5);
 		itemsBankPage.backToDashboard();
-		testBankPage = dashBoardPage.goToTestsBank();
+		/*testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
@@ -1218,7 +1256,7 @@ public class SharingTest extends BaseTest {
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -1250,7 +1288,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertFalse(testCreationPage.testDeleteIcon.isEnabled());
 		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
 		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
-		dashBoardPage.logOut();
+		/*dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
@@ -1264,7 +1302,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
 		//testBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 	}
 	
 	/**
@@ -1278,7 +1316,7 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 16)
 	public void testShareTestBankWithAllACL(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
@@ -1293,7 +1331,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -1306,7 +1344,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.closeItemBankShareScreen();
 		customeWaitTime(5);
 		itemsBankPage.backToDashboard();
-		testBankPage = dashBoardPage.goToTestsBank();
+		/*testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
@@ -1320,7 +1358,7 @@ public class SharingTest extends BaseTest {
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -1352,7 +1390,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertTrue(testCreationPage.testDeleteIcon.isEnabled());
 		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
 		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
-		dashBoardPage.logOut();
+		/*dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
@@ -1366,7 +1404,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
 		//testBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 	}
 	
 	
@@ -1383,7 +1421,7 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 17)
 	public void testAddTestinShareTestBankWithAllACL(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
@@ -1398,7 +1436,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -1411,7 +1449,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.closeItemBankShareScreen();
 		customeWaitTime(5);
 		itemsBankPage.backToDashboard();
-		testBankPage = dashBoardPage.goToTestsBank();
+		/*testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
@@ -1425,7 +1463,7 @@ public class SharingTest extends BaseTest {
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -1467,7 +1505,7 @@ public class SharingTest extends BaseTest {
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.searchTest(testNameByTeacher);
 		Assert.assertEquals(testCreationPage.testResultCount.getText(),"1","Verifying the Item is added");
-		testCreationPage.backToDashboard();
+		/*testCreationPage.backToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.deleteItemBank(itemBankName);
@@ -1478,7 +1516,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
 		//testBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 	}
 	
 	
@@ -1495,7 +1533,7 @@ public class SharingTest extends BaseTest {
 	
 	@Test(priority = 18)
 	public void testDeleteTestinShareTestBankWithAllACL(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
@@ -1510,7 +1548,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -1523,7 +1561,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage.closeItemBankShareScreen();
 		customeWaitTime(5);
 		itemsBankPage.backToDashboard();
-		testBankPage = dashBoardPage.goToTestsBank();
+		/*testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
 		System.out.println("******** " + testBankName + "  Test bank creation ********");
@@ -1537,7 +1575,7 @@ public class SharingTest extends BaseTest {
 		//Temp comment -Need to update the create test bank method to pass test bank and item in method parameter after discussing with team and Camilo
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -1577,7 +1615,7 @@ public class SharingTest extends BaseTest {
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.searchTest(testName);
 		Assert.assertEquals(testCreationPage.testResultCount.getText(),"0","Verifying the Item is added");
-		testCreationPage.backToDashboard();
+		/*testCreationPage.backToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.deleteItemBank(itemBankName);
@@ -1588,7 +1626,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		testBankPage.deleteTestBank(testBankName);
 		//testBankPage.logOut();
-		returnToDashboard();
+		returnToDashboard();*/
 	}
 	
 	/**
@@ -1604,7 +1642,7 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority=19)
 	public void  testScheduledEventForSharedTestbySchoolAdmin(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
@@ -1619,7 +1657,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
@@ -1631,7 +1669,7 @@ public class SharingTest extends BaseTest {
 		Assert.assertEquals(itemsBankPage.sharedAccess.getText().trim(), "Access: READ,WRITE,CREATE,DELETE,ADMIN");
 		itemsBankPage.closeItemBankShareScreen();
 		customeWaitTime(5);
-		itemsBankPage.backToDashboard();
+		/*itemsBankPage.backToDashboard();
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankName = "Auto_TB_" + System.currentTimeMillis();
@@ -1645,7 +1683,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + testName + "  Test creation ********");
 		testCreationPage.createTest(testName , testBankName , itemName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
 		testBankPage.searchTestBank(testBankName);;
@@ -1707,7 +1745,7 @@ public class SharingTest extends BaseTest {
 	 */
 	@Test(priority=20)
 	public void  testScheduledEventForSharedItemBySchoolAdmin(){
-		customeWaitTime(5);
+		/*customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
@@ -1722,7 +1760,7 @@ public class SharingTest extends BaseTest {
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName , itemBankName);
 		customeWaitTime(5);
-		returnToDashboard();
+		returnToDashboard();*/
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		itemsBankPage.searchItemBank(itemBankName);;
