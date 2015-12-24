@@ -408,7 +408,7 @@ public class SharingTest extends BaseTest {
         Assert.assertTrue(itemsPage.itemDeleteIcon.isEnabled());
         itemsPage.logOut();
 		customeWaitTime(5);
-		dashBoardPage = loginPage.loginSuccess(schooladmin1,
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"),
 				unitytestdata.getProperty("genericPassword"));
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
