@@ -31,8 +31,8 @@ public class HappyPathTest extends BaseTest {
 
 	HappyPathTest Nav;
 	public String user = "admin";
-	public String adminPassword = "password";
-	public String domain = "at1/";
+	public String adminPassword = "@simple1";
+	public String domain = "";
 	public String genericPassword = "12345";
 	Login loginPageObject;
 	DashBoard dashBoardPageObject;
@@ -62,36 +62,7 @@ public class HappyPathTest extends BaseTest {
 		driver.get(url);
 
 		loginPageObject = new Login(driver);
-		System.out.println("******** logging as super administrator ********");
-
-		dashBoardPageObject = loginPageObject.loginSuccess("admin", "@simple1");
-		domainPageObject = dashBoardPageObject.goToDomain();
-		if (domainPageObject.isDomainExist("at1")) {
-			domainPageObject.deleteDomain("at1");
-			domainPageObject.createDomain("at1", "Auto Testing");
-		} else {
-			domainPageObject.createDomain("at1", "Auto Testing");
-		}
-		returnToDashboard();
-		dashBoardPageObject.logOut();
-		loginPageObject.loginSuccess(domain + user, adminPassword);
-		rolePageObject = dashBoardPageObject.goToRole();
-		rolePageObject.enableTileByRole("System Administrator", "standard");
-		rolePageObject.addPermissions("Class Roster", "Teacher",
-				"create,edit,delete");
-		rolePageObject.addPermissions("Standards", "System Administrator",
-				"create,edit");
 		
-		
-		
-		standardPageObject.installStandards();
-
-		dashBoardPageObject.logOut();
-
-		// driver.get(url + "#dashboard");
-		waitTime();
-
-		// System.out.println(dashBoardPageObject.addTiles());
 
 	}
 
@@ -109,16 +80,16 @@ public class HappyPathTest extends BaseTest {
 
 		dashBoardPageObject = loginPageObject.loginSuccess(domain + user,
 				adminPassword);
-		customeWaitTime(10);
-
+		customeWaitTime(3);
+/*
 		System.out.println("******** Creating a new organization ********");
 		organizationPageObject = dashBoardPageObject.goToOrganization();
 		waitTime();
 		organizationPageObject.createNewOrganization("Automated School");
 		returnToDashboard();
 		System.out.println("************************************************");
-
-		waitTime();
+*/
+		
 
 		System.out.println("***** Student and teacher creation started *****");
 		usersPageObject = dashBoardPageObject.goToUsers();
