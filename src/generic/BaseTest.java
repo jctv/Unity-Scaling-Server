@@ -49,7 +49,7 @@ public class BaseTest {
 	protected String waitingTime = "10";
 
 	
-	Properties prop = new Properties();
+	Properties prop = null;
 	InputStream input = null;
 
 	// Constructor
@@ -284,10 +284,11 @@ public class BaseTest {
 	}
 
 	public Properties getUnityMessagesProperty(String unitymessageFileLoc) {
-
+       
 		try {
 			input = new FileInputStream(unitymessageFileLoc);
 			// load a properties file
+			prop = new Properties();
 			prop.load(input);
 		} catch (Exception e) {
 

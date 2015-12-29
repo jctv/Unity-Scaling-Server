@@ -9,18 +9,22 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import pages.DashBoard;
+import pages.Items;
+import pages.ItemsBank;
 import pages.Login;
 import pages.TestCreation;
 import pages.TestsBank;
 import generic.BaseTest;
 
 public class TestCreationTest extends BaseTest {
-	Login loginPageObject;
-	DashBoard dashBoardPageObject;
-	TestCreation testCreationPageObject;
-	TestsBank testBankPageObject;
-
-	Properties unitymessages;
+	Login loginPage;
+	DashBoard dashBoardPage;
+	TestCreation testCreationPage;
+	TestsBank testBankPage;
+	Items itemsPage;
+	ItemsBank itemsBankPage;
+	Properties unitymessages = null;
+	Properties unitytestcreationdata = null ;
 
 	String defaultUser = "admin";
 	String defaultPassword = "@simple1";
@@ -28,10 +32,15 @@ public class TestCreationTest extends BaseTest {
 	String unityMessageFile = "src" + File.separator + "resources"
 			+ File.separator + "unitymessages.properties";
 	
+	String unityTestCreationDataFile = "src" + File.separator + "resources"
+			+ File.separator + "unitytestcreationdata.properties";
+	
 	String testBankName;
 	String copyTestBankName ;
 	String testName;
 	String copiedTestName;
+	String itemBankName;
+	String itemName;
 	
 	public TestCreationTest() {
 		super();
@@ -41,20 +50,20 @@ public class TestCreationTest extends BaseTest {
 	@BeforeTest
 	public void loadUnityMessagesProperty(){
 		unitymessages = getUnityMessagesProperty(unityMessageFile);
-		
+		unitytestcreationdata = getUnityMessagesProperty(unityTestCreationDataFile);
 	}
 	
 	@BeforeMethod
 	public void setUp() {
 		System.out.println("Load Unity url - " + url);
 		driver.get(url);
-		loginPageObject = new Login(driver);
+		loginPage = new Login(driver);
 		System.out.println("******** logging as System Admin -- " + defaultUser
 				+ "******** ");
-		dashBoardPageObject = loginPageObject.loginSuccess(defaultUser,
+		dashBoardPage = loginPage.loginSuccess(defaultUser,
 				defaultPassword);
 		waitTime();
-		dashBoardPageObject.addTiles();
+		dashBoardPage.addTiles();
 		waitTime();
 	}
 	
@@ -75,82 +84,107 @@ public class TestCreationTest extends BaseTest {
 	 * Delete both the test Bank
 	 */
 	
-	@Test(priority = 0)
+	@Test(priority = 1)
 	public void testItemAlertMessage(){
-		testBankName = "TB_" + System.currentTimeMillis();
-		copyTestBankName = "Copy_" + testBankName;	
-		testName = "T_" + testBankName;
-	    copiedTestName = "copy_" + testName;
-	    testBankPageObject = dashBoardPageObject.goToTestsBank();
+		long timestamp = System.currentTimeMillis();
+		testBankName = unitytestcreationdata.getProperty("testBankName") + timestamp ;
+		copyTestBankName = unitytestcreationdata.getProperty("copiedtestBank") + timestamp;	
+		testName =  unitytestcreationdata.getProperty("testName") + timestamp;
+	    copiedTestName = unitytestcreationdata.getProperty("copiedTestName") + timestamp;
+	    testBankPage = dashBoardPage.goToTestsBank();
 	    customeWaitTime(2);
-		testBankPageObject.createBank(testBankName, "Desc");
+		testBankPage.createBank(testBankName, "Desc");
 	    customeWaitTime(2);
-		testBankPageObject.createBank(copyTestBankName, "Desc");
+		testBankPage.createBank(copyTestBankName , "Desc");
 		/*returnToDashboard();
 		customeWaitTime(5);
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
+		testBankPage = dashBoardPage.goToTestsBank();
 		customeWaitTime(5);
-		testBankPageObject.createBank(copyTestBankName, "Desc");
+		testBankPage.createBank(copyTestBankName, "Desc");
 		customeWaitTime(5);
 	    returnToDashboard();*/
 		returnToDashboard();
 		customeWaitTime(5);
-	    testCreationPageObject = dashBoardPageObject.goToTestCreation();
+	    testCreationPage = dashBoardPage.goToTestCreation();
 	    customeWaitTime(5);
-	    testCreationPageObject.waitForElementAndClick(testCreationPageObject.createTestLink);
+	    testCreationPage.waitForElementAndClick(testCreationPage.createTestLink);
 	    customeWaitTime(5);
-	    if(testCreationPageObject.bankDropDown.isDisplayed()){
-	    	testCreationPageObject.selectOption(testCreationPageObject.bankDropDown, testBankName);
+	    if(testCreationPage.bankDropDown.isDisplayed()){
+	    	testCreationPage.selectOption(testCreationPage.bankDropDown, testBankName);
 	    }else{
-		    testCreationPageObject.selectTestBank(testBankName);
+		    testCreationPage.selectTestBank(testBankName);
 	    }
 	    customeWaitTime(2);
-	    testCreationPageObject.waitForElementAndSendKeys(testCreationPageObject.contentCreateInputName, testName);
+	    testCreationPage.waitForElementAndSendKeys(testCreationPage.contentCreateInputName, testName);
 	    customeWaitTime(2);
-	    testCreationPageObject.waitForElementAndSendKeys(testCreationPageObject.contentCreateInputDescription, "Description");
+	    testCreationPage.waitForElementAndSendKeys(testCreationPage.contentCreateInputDescription, "Description");
 	    customeWaitTime(2);
-	    testCreationPageObject.waitForElementAndClick(testCreationPageObject.createAndEditButton);
+	    testCreationPage.waitForElementAndClick(testCreationPage.createAndEditButton);
 	    customeWaitTime(5);
-	    testCreationPageObject.waitForElementAndClick(testCreationPageObject.saveTestButton);
+	    testCreationPage.waitForElementAndClick(testCreationPage.saveTestButton);
 	    customeWaitTime(5);
-		Assert.assertEquals(testCreationPageObject.globalModalInfoBody.getText().trim(), unitymessages.getProperty("testNoChange").trim());
+		Assert.assertEquals(testCreationPage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("testNoChange").trim());
 	    customeWaitTime(2);
-	    testCreationPageObject.waitForElementAndClick(testCreationPageObject.globalModalInfoOkButton);
+	    testCreationPage.waitForElementAndClick(testCreationPage.globalModalInfoOkButton);
 	    customeWaitTime(5);
-	    testCreationPageObject.waitForElementAndClick(testCreationPageObject.testPrintButton);
+	    testCreationPage.waitForElementAndClick(testCreationPage.testPrintButton);
 	    customeWaitTime(5);
-		Assert.assertEquals(testCreationPageObject.globalModalInfoBody.getText().trim(), unitymessages.getProperty("testPrintWithOutAddItem").trim());
-		testCreationPageObject.waitForElementAndClick(testCreationPageObject.globalModalInfoOkButton);
+		Assert.assertEquals(testCreationPage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("testPrintWithOutAddItem").trim());
+		testCreationPage.waitForElementAndClick(testCreationPage.globalModalInfoOkButton);
 	    customeWaitTime(5);
-		testCreationPageObject.waitForElementAndClick(testCreationPageObject.homeLink);
+		testCreationPage.waitForElementAndClick(testCreationPage.homeLink);
 	    customeWaitTime(5);
-	    testCreationPageObject.searchTest(testName);
+	    testCreationPage.searchTest(testName);
 	    customeWaitTime(2);
-	    testCreationPageObject.waitForElementAndClick(testCreationPageObject.copyIconList);
+	    testCreationPage.waitForElementAndClick(testCreationPage.copyIconList);
 	    customeWaitTime(2);
-	    testCreationPageObject.copyTest(copyTestBankName ,copiedTestName);
+	    testCreationPage.copyTest(copyTestBankName ,copiedTestName);
 	    customeWaitTime(5);
-	    Assert.assertEquals(testCreationPageObject.globalModalInfoTitle.getText().trim(), unitymessages.getProperty("testCopySuccess").trim());
-		Assert.assertEquals(testCreationPageObject.globalModalInfoBody.getText().trim(), unitymessages.getProperty("testCreated").trim());
-		testCreationPageObject.waitForElementAndClick(testCreationPageObject.globalModalInfoOkButton);
+	    Assert.assertEquals(testCreationPage.globalModalInfoTitle.getText().trim(), unitymessages.getProperty("testCopySuccess").trim());
+		Assert.assertEquals(testCreationPage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("testCreated").trim());
+		testCreationPage.waitForElementAndClick(testCreationPage.globalModalInfoOkButton);
 	    customeWaitTime(5);
-	    testCreationPageObject.searchTest(testName);
+	    testCreationPage.searchTest(testName);
 	    customeWaitTime(2);
-	    testCreationPageObject.waitForElementAndClick(testCreationPageObject.deleteIconList);
+	    testCreationPage.waitForElementAndClick(testCreationPage.deleteIconList);
 	    customeWaitTime(2);
-		Assert.assertEquals(testCreationPageObject.globalModalDeleteBody.getText().trim(), unitymessages.getProperty("testDelete").trim());
-		testCreationPageObject.waitForElementAndClick(testCreationPageObject.globalModalDeleteButton);
+		Assert.assertEquals(testCreationPage.globalModalDeleteBody.getText().trim(), unitymessages.getProperty("testDelete").trim());
+		testCreationPage.waitForElementAndClick(testCreationPage.globalModalDeleteButton);
 	    customeWaitTime(2);
-	    testCreationPageObject.deleteTest(copiedTestName);
-	    testCreationPageObject.backToDashboard();
+	    testCreationPage.deleteTest(copiedTestName);
+	    testCreationPage.backToDashboard();
 	    customeWaitTime(2);
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
+		testBankPage = dashBoardPage.goToTestsBank();
 	    customeWaitTime(2);
-		testBankPageObject.deleteTestBank(testBankName);
+		testBankPage.deleteTestBank(testBankName);
 	    customeWaitTime(2);
-		testBankPageObject.deleteTestBank(copyTestBankName);
+		testBankPage.deleteTestBank(copyTestBankName);
 	}
-
 	
+    @Test(priority = 0)
+    public void testAddtest(){
+    	long timestamp = System.currentTimeMillis();
+		testBankName = unitytestcreationdata.getProperty("testBankName") + timestamp ;
+		testName =  unitytestcreationdata.getProperty("testName") + timestamp;
+		itemBankName = unitytestcreationdata.getProperty("itemBankName") + timestamp ;
+		itemName =  unitytestcreationdata.getProperty("itemName") + timestamp;
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		itemsBankPage.createBank(itemBankName, "desc");
+		returnToDashboard();
+		itemsPage = dashBoardPage.goToItems();
+		itemsPage.createItem(itemName, itemBankName);
+		returnToDashboard();
+	    testBankPage = dashBoardPage.goToTestsBank();
+	    customeWaitTime(2);
+		testBankPage.createBank(testBankName, "Desc");
+	    customeWaitTime(5);
+	    testCreationPage = dashBoardPage.goToTestCreation();
+	    customeWaitTime(5);
+	    returnToDashboard();
+	    testCreationPage.createTest(testName, testBankName, itemName);
+	    testCreationPage.searchTest(testName);
+		Assert.assertEquals(testCreationPage.waitAndGetElementText(testCreationPage.testNameList).trim(), testName);
 
+    }
+	
 }

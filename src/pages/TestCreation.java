@@ -194,6 +194,9 @@ public class TestCreation extends BasePage {
 	@FindBy(xpath = "//div[@class='dropdown-menu open']//input")
 	public WebElement searchItemBankInputField;
 	
+	@FindBy(xpath = "//td[@class='watable-col-name']")
+	public WebElement testNameList;
+	
 	public void createTest(String testName , String testBankName ,  String itemName) {
 		try {
 			waitForElementAndClick(createTestLink);
