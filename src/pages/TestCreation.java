@@ -435,6 +435,7 @@ public class TestCreation extends BasePage {
 		testBankDropdown.click();
 		customeWaitTime(5);
 		waitForElementAndSendKeys(searchItemBankInputField, option);
+		customeWaitTime(5);
 		List<WebElement> testBankoptions= driver.findElements(By.xpath("//div[@class='btn-group bootstrap-select content-bank select-search-by-name-test_bank open']//ul/li"));
 		for (WebElement testBank : testBankoptions){
 			try{
