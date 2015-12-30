@@ -104,6 +104,12 @@ public class ItemsBank extends BasePage {
 	@FindBy(id = "globalModalDeleteButton")
 	public WebElement deletebuttonItemBankPopUp;
 	
+	@FindBy(xpath = "//input[@class='form-control input-sm']")
+	public WebElement inputItemBankNameField;
+	
+	@FindBy(xpath = "//span[text()='Name']")
+	public WebElement itemBankNameFilter;
+	
 	
 	
 	public void createBank(String bank, String description) {
@@ -279,6 +285,22 @@ public class ItemsBank extends BasePage {
 		}catch(Exception e){
 			 System.out.println("Unable to delete the Item Bank  " + itemBank);
 		}
+		
+	}
+	
+	
+	public void filterItemBank(String itemName){
+		try{
+			customeWaitTime(5);
+			waitForElementAndClick(itemBankNameFilter);
+			customeWaitTime(5);
+			waitForElementAndSendKeys(inputItemBankNameField, itemName);
+			customeWaitTime(5);
+		}catch(Exception e){
+			 System.out.println("Unable to filter the Item Bank with Name  " + itemName);
+
+		}
+		
 		
 	}
 }

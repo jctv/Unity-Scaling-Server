@@ -40,7 +40,9 @@ public class BasePage {
 
 	@FindBy(xpath = "//button[@class='close close-black']")
 	public WebElement closeIcon;
-
+	
+	@FindBy(xpath = "//button[@class='close']")
+	public WebElement alertCloseIcon;
 
 	@FindBy(xpath = "(//i[@class='fa fa-edit'])[last()]")
 	public WebElement editLastIcon;
@@ -107,6 +109,11 @@ public class BasePage {
 	@FindBy(xpath = "//div[@id='globalModalDelete']//*[@id='cancelChanges']")
 	public WebElement globalModalDeleteCancelButton;
 
+	@FindBy(id = "globalModalDeleteCancelButton")
+	public WebElement globalModalDeleteCancelButton1;
+
+	
+	
 	@FindBy(id = "globalModalUploadOkButton")
 	public WebElement globalModalUploadOkButton;
 	
@@ -118,6 +125,9 @@ public class BasePage {
 
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link copyRow']")
 	public WebElement copyIconList;
+	
+	@FindBy(xpath = "//button[@class='btn btn-xs btn-link previewRow']")
+	public WebElement previewIconList;
 
 	@FindBy(id = "fileupload")
 	public WebElement fileupload;
