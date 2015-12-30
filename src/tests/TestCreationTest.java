@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Properties;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -178,13 +179,12 @@ public class TestCreationTest extends BaseTest {
 	    customeWaitTime(2);
 		testBankPage.createBank(testBankName, "Desc");
 	    customeWaitTime(5);
+	    returnToDashboard();
 	    testCreationPage = dashBoardPage.goToTestCreation();
 	    customeWaitTime(5);
-	    returnToDashboard();
 	    testCreationPage.createTest(testName, testBankName, itemName);
 	    testCreationPage.searchTest(testName);
 		Assert.assertEquals(testCreationPage.waitAndGetElementText(testCreationPage.testNameList).trim(), testName);
-
     }
 	
 }
