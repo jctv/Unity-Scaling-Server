@@ -90,7 +90,17 @@ public class ClassRoster extends BasePage {
 	@FindBy(id = "rosterTeacher")
 	public WebElement selectRosterTeacher;
 	
-
+	@FindBy(xpath = "//button[@data-id='rosterSchool']")
+	public WebElement schoolDropDownButton;
+	
+	@FindBy(xpath = "//div[@class='btn-group bootstrap-select select-search-by-name-organization open']//input")
+	public WebElement schoolSearchInputField;
+	
+	@FindBy(xpath = "//div[@class='btn-group bootstrap-select select-search-by-name-organization open']//ul/li[1]/a")
+	public WebElement selectedSchool;
+	
+	
+	
 	public void createRoster(ArrayList<String> students, String school, String name) {
 		try {
 			waitTime();
@@ -101,13 +111,11 @@ public class ClassRoster extends BasePage {
 			waitForElementAndSendKeys(rosterNameField, name);
 
 			waitForElementAndSendKeys(descriptionField, "QA roster");
-			waitForElementAndSendKeys(selectSchoolField,"Automated School");
+			//waitForElementAndSendKeys(selectSchoolField,"Automated School");
 			//selectOption(selectSchoolField , "Automated School" );
+			selectSchool("Automated");
 			for (String student : students) {
 				try {
-					
-
-				
 				waitTime();
 				waitForElementAndSendKeys(searchAutoCompleteField, student);
 				waitForElementAndClick(searchButton);
@@ -148,4 +156,14 @@ public class ClassRoster extends BasePage {
 		waitForElementAndClick(searchButton);
 		waitTime();
 	}
+	
+	public void selectSchool(String schoolName){
+		waitForElementAndClick(schoolDropDownButton);
+		waitTime();
+		waitForElementAndSendKeys(schoolSearchInputField, schoolName);
+		waitTime();
+		waitForElementAndClick(selectedSchool);
+		waitTime();
+	}
+	
 }
