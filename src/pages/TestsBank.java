@@ -94,6 +94,15 @@ public class TestsBank extends BasePage {
 	@FindBy(xpath = "//*[@id='acls_sortable']/li[1]//div[@class='col-sm-8']")
 	public WebElement sharedAccess;
 	
+	@FindBy(xpath = "//td[@class='watable-col-name']")
+	public WebElement testBankNameField;
+	
+	@FindBy(xpath = "//input[@class='form-control input-sm']")
+	public WebElement inputTestBankNameField;
+	
+	@FindBy(xpath = "//span[text()='Name']")
+	public WebElement testBankNameFilter;
+	
 	
 	
 
@@ -234,4 +243,17 @@ public class TestsBank extends BasePage {
 		
 	}
 
+	public void filterTestBank(String testBankName){
+		try{
+			customeWaitTime(5);
+			waitForElementAndClick(testBankNameFilter);
+			customeWaitTime(5);
+			waitForElementAndSendKeys(inputTestBankNameField, testBankName);
+			customeWaitTime(5);
+		}catch(Exception e){
+			 System.out.println("Unable to filter the Test Bank with Name  " + testBankName);
+
+		}
+		
+	}
 }
