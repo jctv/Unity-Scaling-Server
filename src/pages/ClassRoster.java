@@ -24,7 +24,7 @@ public class ClassRoster extends BasePage {
 	@FindBy(xpath = "//*[@id='region-navigation']/ul/li[2]/a")
 	public WebElement createClassRosterLink;
 	
-	@FindBy(xpath = "//a[text()=' Class Roster Home']")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
 	public WebElement classRosterHomeLink;
 	
 
@@ -53,7 +53,7 @@ public class ClassRoster extends BasePage {
 	@FindBy(id = "classRosterCancel")
 	public WebElement cancelRosterButton;
 	
-	@FindBy(xpath = "//*[@id='sortable1']/li")
+	@FindBy(xpath = "//ul[@id='sortable1']//li")
 	public WebElement element;
 	
 	@FindBy(id = "sortable2")
@@ -96,7 +96,7 @@ public class ClassRoster extends BasePage {
 	@FindBy(xpath = "//div[@class='btn-group bootstrap-select select-search-by-name-organization open']//input")
 	public WebElement schoolSearchInputField;
 	
-	@FindBy(xpath = "//div[@class='btn-group bootstrap-select select-search-by-name-organization open']//ul/li[1]/a")
+	@FindBy(xpath = "//div[@class='btn-group bootstrap-select select-search-by-name-organization open']//ul/li[1]/a/span[1]")
 	public WebElement selectedSchool;
 	
 	
@@ -109,29 +109,33 @@ public class ClassRoster extends BasePage {
 			//waitForElementAndClick(schoolDropDown);
 			//waitForElementAndSendKeys(schoolSearchField, school);
 			waitForElementAndSendKeys(rosterNameField, name);
-
+			selectOption(gradeField, "Any");
 			waitForElementAndSendKeys(descriptionField, "QA roster");
 			//waitForElementAndSendKeys(selectSchoolField,"Automated School");
 			//selectOption(selectSchoolField , "Automated School" );
-			selectSchool("Automated");
+			waitTime();
+			selectSchool(school);
 			for (String student : students) {
 				try {
 				waitTime();
 				waitForElementAndSendKeys(searchAutoCompleteField, student);
 				waitForElementAndClick(searchButton);
-				waitTime();	
+				customeWaitTime(5);
+				waitAndFocus(element);
 				waitForElementAndClick(element);
-				
+				customeWaitTime(5);
 				dragAndDrop(element, target);
+				customeWaitTime(5);
 				clearSearchFilter();
+				customeWaitTime(2);
 				System.out.println("Student added to the rosters");
 				
 				} catch (Exception e) {
 					clearSearchFilter();
 				}
 			}
-			waitForElementAndClick(gradeField);
-			waitForElementAndClick(gradeSelect);
+			//waitForElementAndClick(gradeField);
+			//waitForElementAndClick(gradeSelect);
 			waitForElementAndClick(saveRosterButton);
 			waitForElementAndClick(confirmOkButton);
 			waitTime();
@@ -162,7 +166,7 @@ public class ClassRoster extends BasePage {
 		waitTime();
 		waitForElementAndSendKeys(schoolSearchInputField, schoolName);
 		waitTime();
-		waitForElementAndClick(selectedSchool);
+		//waitForElementAndClick(selectedSchool);
 		waitTime();
 	}
 	

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
@@ -40,8 +41,9 @@ public class ClassRosterTest extends BaseTest{
 	
 	Properties unityRosterdata;
 
-	
-	
+	ArrayList<String> createdUsersA = new ArrayList<String>();
+
+   String createdStudent;
 	
 	String rosterName;
 	String schoolName;
@@ -70,16 +72,16 @@ public class ClassRosterTest extends BaseTest{
 		dashBoardPage.addTiles();
 		waitTime();
 		usersPage = dashBoardPage.goToUsers();
+		waitTime();
 		long timestamp = System.currentTimeMillis();
 		schoolName = unityRosterdata.getProperty("schoolName");
 		String userMessage = usersPage.createSpecificUser(unityRosterdata.getProperty("s_FirstName"), unityRosterdata.getProperty("s_LastName") + timestamp , unityRosterdata.getProperty("password"), unityRosterdata.getProperty("password"), "Student", schoolName);
-		String createdStudent = userMessage.split("user name - ")[1].split(" !")[0];
+		createdStudent = userMessage.split("user name - ")[1].split(" !")[0];
 		returnToDashboard();
 		rosterName = unityRosterdata.getProperty("rosterName") + timestamp;
 		grade = unityRosterdata.getProperty("grade");
 		desciption  = unityRosterdata.getProperty("rosterDesc");
 		classRosterPage = dashBoardPage.goToClassRoster();
-		ArrayList<String> createdUsersA = new ArrayList<String>();
 		createdUsersA.add(createdStudent);
 		classRosterPage.createRoster(createdUsersA, schoolName, rosterName);
 		classRosterPage.backToDashboard();
@@ -96,7 +98,6 @@ public class ClassRosterTest extends BaseTest{
 	
 	@Test
 	public void testRosterAlertMessages(){
-		
 		classRosterPage = dashBoardPage.goToClassRoster();
 		waitTime();
 		waitTime();
@@ -143,12 +144,20 @@ public class ClassRosterTest extends BaseTest{
 		classRosterPage.waitForElementAndClick(classRosterPage.globalModalInfoOkButton);
 		waitTime();
 		waitTime();
-		classRosterPage.selectOption(classRosterPage.selectSchoolField, schoolName);
-		waitTime();
+		//classRosterPage.selectOption(classRosterPage.selectSchoolField, schoolName);
+		classRosterPage.selectSchool(schoolName);
+		customeWaitTime(5);
+		classRosterPage.waitForElementAndSendKeys(classRosterPage.searchAutoCompleteField, createdStudent);
+		customeWaitTime(2);
+		classRosterPage.waitForElementAndClick(classRosterPage.searchButton);
+		customeWaitTime(5);	
+		classRosterPage.waitAndFocus(classRosterPage.element);
+		classRosterPage.waitForElementAndClick(classRosterPage.element);
+		customeWaitTime(5);
 		classRosterPage.dragAndDrop(classRosterPage.element, classRosterPage.target);
-		waitTime();
+		customeWaitTime(2);
 		classRosterPage.waitForElementAndClick(classRosterPage.removeStudentButton);
-		waitTime();
+		customeWaitTime(5);
 		Assert.assertEquals(classRosterPage.globalModalOKCancelBody.getText().trim(), unitymessages.getProperty("rosterRemoveStudent").trim());
 		classRosterPage.waitForElementAndClick(classRosterPage.globalModalOKCancelSaveButton);
 		waitTime();
@@ -158,18 +167,24 @@ public class ClassRosterTest extends BaseTest{
 		Assert.assertEquals(classRosterPage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("rosterUpdate").trim());
 		Assert.assertEquals(classRosterPage.globalModalInfoTitle.getText().trim(), unitymessages.getProperty("rosterSave").trim());
 		classRosterPage.waitForElementAndClick(classRosterPage.globalModalInfoOkButton);
-		waitTime();
+		customeWaitTime(2);
 		classRosterPage.waitForElementAndClick(classRosterPage.classRosterHomeLink);
-		waitTime();
-		waitTime();
-		classRosterPage.waitForElementAndClick(classRosterPage.deleteIconList);
-		waitTime();
-		waitTime();
+		
+	}
+	
+	
+	@AfterClass
+	
+	public void cleanUpData(){
+		customeWaitTime(2);
 		classRosterPage.searchRoster(rosterName);
-		waitTime();
+		customeWaitTime(2);
+		classRosterPage.waitForElementAndClick(classRosterPage.deleteIconList);
+		customeWaitTime(2);
 		Assert.assertEquals(classRosterPage.globalModalDeleteBody.getText().trim(), unitymessages.getProperty("rosterDelete").trim());
 		classRosterPage.waitForElementAndClick(classRosterPage.globalModalDeleteButton);
 
+		
 	}
 
 }

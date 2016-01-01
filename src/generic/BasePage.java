@@ -218,7 +218,7 @@ public class BasePage {
 	}
 
 	public void dragAndDrop(WebElement item, WebElement target) {
-		waitTime();
+		customeWaitTime(5);
 		try {
 			(new Actions(driver)).dragAndDrop(item, target).perform();
 		} catch (Exception e) {
@@ -229,7 +229,6 @@ public class BasePage {
 
 	public boolean addHelp(WebElement helpLink) {
 		waitTime();
-
 		try {
 			helpLink.click();
 			addHelpContent.click();
