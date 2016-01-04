@@ -27,7 +27,6 @@ public class ClassRoster extends BasePage {
 	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
 	public WebElement classRosterHomeLink;
 	
-
 	@FindBy(id = "rosterSchool")
 	public WebElement selectSchoolField;
 
@@ -99,6 +98,39 @@ public class ClassRoster extends BasePage {
 	@FindBy(xpath = "//div[@class='btn-group bootstrap-select select-search-by-name-organization open']//ul/li[1]/a/span[1]")
 	public WebElement selectedSchool;
 	
+	@FindBy(xpath = "//div[@class='panel-heading']")
+	public WebElement studentRosterHeader;
+	
+	@FindBy(xpath = "//div[@class='panel-heading']/span")
+	public WebElement rosterSchoolName;
+	
+	
+	@FindBy(xpath = ".//*[contains(@id, 'DataTables_Table')]/tbody/tr/td[1]")
+	public WebElement rosterStudentFirstName;
+	
+	@FindBy(xpath = ".//*[contains(@id, 'DataTables_Table')]/tbody/tr/td[3]")
+	public WebElement rosterStudentLastName;
+	
+	@FindBy(xpath = ".//*[contains(@id, 'DataTables_Table')]/tbody/tr/td[4]")
+	public WebElement rosterStudentRole;
+	
+	@FindBy(xpath = "//td[@class='watable-col-name']")
+	public WebElement rosterNameList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-description']")
+	public WebElement rosterDescList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-grade']")
+	public WebElement rosterGradeList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-created_by']")
+	public WebElement rosterCreatedByList;
+	
+	@FindBy(xpath = "//td[@class='watable-col-school']")
+	public WebElement rosterSchoolNameList;
+	
+	
+	
 	
 	
 	public void createRoster(ArrayList<String> students, String school, String name) {
@@ -169,5 +201,23 @@ public class ClassRoster extends BasePage {
 		//waitForElementAndClick(selectedSchool);
 		waitTime();
 	}
+	
+	
+	public String  getRosterSchoolName(){
+		return waitAndGetElementText(rosterSchoolName).trim();
+	}
+	
+	public String  getRosterStundentFirstName(){
+		return waitAndGetElementText(rosterStudentFirstName).trim();
+	}
+	
+	public String  getRosterStundentLastName(){
+		return waitAndGetElementText(rosterStudentLastName).trim();
+	}
+	
+	public String  getRosterStundentRole(){
+		return waitAndGetElementText(rosterStudentRole).trim();
+	}
+	
 	
 }

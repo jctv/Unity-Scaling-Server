@@ -22,10 +22,7 @@ public class ClassRosterTest extends BaseTest{
 	Login loginPage;
 	DashBoard dashBoardPage;
 	ClassRoster classRosterPage;
-	
 	Users usersPage;
-
-	
 	String unityMessageFile = "src" + File.separator + "resources"
 			+ File.separator + "unitymessages.properties";
 	
@@ -36,19 +33,19 @@ public class ClassRosterTest extends BaseTest{
 			+ File.separator + "rosterdata.properties";
 	
 	Properties unitymessages;
-	
 	Properties unitytestdata;
-	
 	Properties unityRosterdata;
 
-	ArrayList<String> createdUsersA = new ArrayList<String>();
+    ArrayList<String> createdUsersA = new ArrayList<String>();
 
-   String createdStudent;
-	
+    String createdStudent;
+    
 	String rosterName;
 	String schoolName;
 	String grade ;
 	String desciption;
+	
+	long timestamp;
 	
 	public ClassRosterTest() {
 		super();
@@ -73,7 +70,7 @@ public class ClassRosterTest extends BaseTest{
 		waitTime();
 		usersPage = dashBoardPage.goToUsers();
 		waitTime();
-		long timestamp = System.currentTimeMillis();
+		 timestamp = System.currentTimeMillis();
 		schoolName = unityRosterdata.getProperty("schoolName");
 		String userMessage = usersPage.createSpecificUser(unityRosterdata.getProperty("s_FirstName"), unityRosterdata.getProperty("s_LastName") + timestamp , unityRosterdata.getProperty("password"), unityRosterdata.getProperty("password"), "Student", schoolName);
 		createdStudent = userMessage.split("user name - ")[1].split(" !")[0];
@@ -84,10 +81,35 @@ public class ClassRosterTest extends BaseTest{
 		classRosterPage = dashBoardPage.goToClassRoster();
 		createdUsersA.add(createdStudent);
 		classRosterPage.createRoster(createdUsersA, schoolName, rosterName);
-		classRosterPage.backToDashboard();
+		//classRosterPage.backToDashboard();
 		
 	}
 	
+	
+	
+	@Test(priority =1 )
+	public void testSearchAndVerifyRosterListings(){
+		classRosterPage.searchRoster(rosterName);
+		customeWaitTime(2);
+		Assert.assertEquals(classRosterPage.waitAndGetElementText(classRosterPage.rosterNameList), rosterName);
+		Assert.assertEquals(classRosterPage.waitAndGetElementText(classRosterPage.rosterDescList), "QA roster");
+		Assert.assertEquals(classRosterPage.waitAndGetElementText(classRosterPage.rosterGradeList), "Any");
+		Assert.assertEquals(classRosterPage.waitAndGetElementText(classRosterPage.rosterCreatedByList), "Admin Admin");
+		Assert.assertEquals(classRosterPage.waitAndGetElementText(classRosterPage.rosterSchoolNameList), schoolName);
+	}
+
+	@Test(priority = 2)
+	public void testVerifyRosterInformationInPreview(){
+		classRosterPage.searchRoster(rosterName);
+		customeWaitTime(2);
+		classRosterPage.waitForElementAndClick(classRosterPage.previewIconList);
+		customeWaitTime(5);
+		Assert.assertTrue(classRosterPage.getRosterSchoolName().contains(schoolName));
+		Assert.assertEquals(classRosterPage.getRosterStundentFirstName(), unityRosterdata.getProperty("s_FirstName"));
+		Assert.assertEquals(classRosterPage.getRosterStundentLastName(), unityRosterdata.getProperty("s_LastName"));
+		Assert.assertEquals(classRosterPage.getRosterStundentRole(), "Student");
+
+	}
 	
 	/**
 	 * Login into the unity 
@@ -96,10 +118,11 @@ public class ClassRosterTest extends BaseTest{
 	 * validated Roster alerts created message
 	 */
 	
-	@Test
+	@Test(priority = 3)
 	public void testRosterAlertMessages(){
-		classRosterPage = dashBoardPage.goToClassRoster();
+		classRosterPage.waitForElementAndClick(classRosterPage.previewIconList);
 		waitTime();
+		classRosterPage.searchRoster(rosterName);
 		waitTime();
 		classRosterPage.waitForElementAndClick(classRosterPage.createClassRosterLink);
 		waitTime();
@@ -128,12 +151,10 @@ public class ClassRosterTest extends BaseTest{
 		classRosterPage.waitForElementAndClick(classRosterPage.globalModalInfoOkButton);
 		waitTime();
 		waitTime();
-		
 		classRosterPage.waitForElementAndSendKeys(classRosterPage.rosterNameField, rosterName + 1);
 		waitTime();
 		classRosterPage.selectOption(classRosterPage.gradeField, grade);
 		waitTime();
-		
 		classRosterPage.waitForElementAndSendKeys(classRosterPage.descriptionField, desciption);
 		waitTime();
 		classRosterPage.waitForElementAndClick(classRosterPage.saveRosterButton);
