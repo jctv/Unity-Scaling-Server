@@ -19,7 +19,7 @@ public class Role extends BasePage {
 		PageFactory.initElements(driver, this);
 	}
 
-	@FindBy(xpath = "//span[text()='Create Role']")
+	@FindBy(xpath = "//a[text()='Create Role']")
 	public WebElement createRoleLink;
 
 	@FindBy(xpath = "//td[text()='System Administrator']/..//td[@class='watable-col-add_tile']/button")
