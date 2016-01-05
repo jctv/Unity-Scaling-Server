@@ -120,8 +120,8 @@ public class Users extends BasePage {
 
 	@FindBy(xpath = "//button[@data-id = 'userCreateOrg']")
 	public WebElement searchOrgButton;
-
-	@FindBy(xpath = ".//*[@id='globalModalViewBody']/div/form/div[6]/div/div/div/div/input")
+	
+	@FindBy(xpath = "//*[@id='globalModalViewBody']/div/form/div[6]/div/div/div/div/input")
 	public WebElement searchOrgFieldInput;
 
 	@FindBy(xpath = "//span[text()='Organization']")
@@ -271,13 +271,13 @@ public class Users extends BasePage {
 			// statusMessage ="";
 			waitTime();
 			waitForElementAndClick(createUserLink);
-			customeWaitTime(5);
+			waitTime();
 			waitForElementAndSendKeys(firstNameField, firstName);
 			waitForElementAndSendKeys(lastNameField, lastName);
 			waitForElementAndSendKeys(password, newPassword);
 			waitForElementAndSendKeys(retypePassword, confirmPassword);
-			//waitForElementAndSendKeys(role, newRole);
-			selectOption(role, newRole);
+			waitForElementAndSendKeys(role, newRole);
+
 			waitForElementAndClick(searchOrgButton);
 			waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
 			waitTime();

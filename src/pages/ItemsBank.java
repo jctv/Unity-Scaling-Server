@@ -121,8 +121,8 @@ public class ItemsBank extends BasePage {
 			waitForElementAndSendKeys(bankCreateInputDescription, description);
 			waitForElementAndClick(bankCreateInputSubmit);
 			System.out.println("Bank created");
-			//waitForElementAndClick(backLink);
-			customeWaitTime(5);
+			waitForElementAndClick(globalModalInfoOkButton);
+			customeWaitTime(2);
 		} catch (Exception e) {
 			System.out.println("Unable to create the bank");
 		}

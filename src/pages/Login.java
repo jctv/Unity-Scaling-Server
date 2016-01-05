@@ -34,8 +34,9 @@ public class Login extends BasePage {
 			waitForElementAndSendKeys(userField, user);
 			waitForElementAndSendKeys(passwordField, password);
 			waitForElementAndClick(signIn);
-			customeWaitTime(5);
+			customeWaitTime(8);
 			waitForJsProcess();
+			
 			Assert.assertTrue(pageName.isDisplayed(), "User Logged");
 			System.out.println(user + "  login successfully");
 

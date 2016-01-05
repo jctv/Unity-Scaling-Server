@@ -62,7 +62,6 @@ public class HappyPathTest extends BaseTest {
 		driver.get(url);
 
 		loginPageObject = new Login(driver);
-		
 
 	}
 
@@ -81,16 +80,17 @@ public class HappyPathTest extends BaseTest {
 		dashBoardPageObject = loginPageObject.loginSuccess(domain + user,
 				adminPassword);
 		customeWaitTime(3);
-/*
-		System.out.println("******** Creating a new organization ********");
-		organizationPageObject = dashBoardPageObject.goToOrganization();
-		waitTime();
-		organizationPageObject.createNewOrganization("Automated School");
-		returnToDashboard();
-		System.out.println("************************************************");
-*/
 		
 
+		/*
+		 * System.out.println("******** Creating a new organization ********");
+		 * organizationPageObject = dashBoardPageObject.goToOrganization();
+		 * waitTime();
+		 * organizationPageObject.createNewOrganization("Automated School");
+		 * returnToDashboard();
+		 * System.out.println("************************************************"
+		 * );
+		 */
 		System.out.println("***** Student and teacher creation started *****");
 		usersPageObject = dashBoardPageObject.goToUsers();
 		waitTime();
@@ -105,13 +105,13 @@ public class HappyPathTest extends BaseTest {
 		dashBoardPageObject.logOut();
 		System.out.println("************************************************");
 		waitTime();
+
 		System.out.println("******** logging as the created teacher ********");
-		dashBoardPageObject = loginPageObject.loginSuccess(domain
-				+ createdUsers[0], genericPassword);
+		dashBoardPageObject = loginPageObject.loginSuccess(
+				domain +  createdUsers[0], genericPassword);
 		waitTime();
 		dashBoardPageObject.addTiles();
 		waitTime();
-
 		classRosterPageObject = dashBoardPageObject.goToClassRoster();
 		waitTime();
 		System.out.println("******** Class Roster creation ********");
@@ -148,6 +148,7 @@ public class HappyPathTest extends BaseTest {
 		returnToDashboard();
 		customeWaitTime(5);
 		waitTime();
+
 		testCreationPageObject = dashBoardPageObject.goToTestCreation();
 		waitTime();
 		System.out.println("******** Test creation ********");
@@ -247,7 +248,7 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 
 		System.out.println("******** Deleting the created users ********");
-		usersPageObject.DeleteCreatedUsers(createdUsers);
+		//usersPageObject.DeleteCreatedUsers(createdUsers);
 		waitTime();
 		System.out.println("******** Deleting the created School ********");
 		organizationPageObject = dashBoardPageObject.goToOrganization();
