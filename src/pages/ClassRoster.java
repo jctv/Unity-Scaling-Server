@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import generic.BasePage;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -92,7 +93,7 @@ public class ClassRoster extends BasePage {
 	@FindBy(xpath = "//button[@data-id='rosterSchool']")
 	public WebElement schoolDropDownButton;
 	
-	@FindBy(xpath = "//div[@class='btn-group bootstrap-select select-search-by-name-organization open']//input")
+	@FindBy(xpath = "//*[@id='region-workspace']/div/div[2]/div[2]/div/div/div/input")
 	public WebElement schoolSearchInputField;
 	
 	@FindBy(xpath = "//div[@class='btn-group bootstrap-select select-search-by-name-organization open']//ul/li[1]/a/span[1]")
@@ -129,6 +130,17 @@ public class ClassRoster extends BasePage {
 	@FindBy(xpath = "//td[@class='watable-col-school']")
 	public WebElement rosterSchoolNameList;
 	
+	@FindBy(xpath = ".//*[@id='searchFilter']//span[text()='School']")
+	public WebElement schoolFilter;
+	
+	@FindBy(xpath = "//span[text()='School']/../..//div[text()='Click to Select']")
+	public WebElement selectschoolFilter;
+	
+	@FindBy(xpath = "//div[@class='col-md-10']")
+	public WebElement filteredSchool;
+	
+	@FindBy(xpath = "//span[text()='Confirm']")
+	public WebElement confirmationAlertButton;
 	
 	
 	
@@ -172,10 +184,13 @@ public class ClassRoster extends BasePage {
 			waitForElementAndClick(confirmOkButton);
 			waitTime();
 			waitForElementAndClick(homeLink);
+			waitTime();
 			System.out.println("Class Roster Created");
+			if(confirmationAlertButton.isDisplayed()){
+				waitForElementAndClick(confirmationAlertButton);
+			}
 			waitTime();
 			//waitForElementAndClick(dashBoardLink);
-
 		} catch (Exception e) {
 			System.out.println("Class Roster Creation Failed");
 			System.out.println(e.getMessage());
@@ -220,4 +235,27 @@ public class ClassRoster extends BasePage {
 	}
 	
 	
+	public void filterRosterBySchool(String schooName){
+		
+		try{
+		waitForElementAndClick(schoolFilter);
+		waitTime();
+		waitForElementAndClick(selectschoolFilter);
+		customeWaitTime(5);
+		WebElement selectSchool = driver.findElement(By.xpath(".//*[@id='treeNavigation']//span[text()='"+ schooName +"']"));
+		waitForElementAndClick(selectSchool);
+		customeWaitTime(5);
+		if(filteredSchool.getText().equals(schooName)){
+			waitForElementAndClick(globalModalOKCancelSaveButton);
+			
+		}
+		
+		}catch(Exception e ){
+			
+			System.out.println("Unable to filter the roter by school");
+	
+			
+		}
+		
+	}
 }

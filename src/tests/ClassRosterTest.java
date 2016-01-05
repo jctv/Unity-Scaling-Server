@@ -89,6 +89,8 @@ public class ClassRosterTest extends BaseTest{
 	
 	@Test(priority =1 )
 	public void testSearchAndVerifyRosterListings(){
+		classRosterPage.waitForElementAndClick(classRosterPage.resetSearchFilter);
+		customeWaitTime(5);
 		classRosterPage.searchRoster(rosterName);
 		customeWaitTime(2);
 		Assert.assertEquals(classRosterPage.waitAndGetElementText(classRosterPage.rosterNameList), rosterName);
@@ -100,14 +102,32 @@ public class ClassRosterTest extends BaseTest{
 
 	@Test(priority = 2)
 	public void testVerifyRosterInformationInPreview(){
+		classRosterPage.waitForElementAndClick(classRosterPage.resetSearchFilter);
+		customeWaitTime(5);
 		classRosterPage.searchRoster(rosterName);
 		customeWaitTime(2);
 		classRosterPage.waitForElementAndClick(classRosterPage.previewIconList);
 		customeWaitTime(5);
 		Assert.assertTrue(classRosterPage.getRosterSchoolName().contains(schoolName));
 		Assert.assertEquals(classRosterPage.getRosterStundentFirstName(), unityRosterdata.getProperty("s_FirstName"));
-		Assert.assertEquals(classRosterPage.getRosterStundentLastName(), unityRosterdata.getProperty("s_LastName"));
+		Assert.assertEquals(classRosterPage.getRosterStundentLastName(), unityRosterdata.getProperty("s_LastName") + timestamp);
 		Assert.assertEquals(classRosterPage.getRosterStundentRole(), "Student");
+
+	}
+	
+	@Test(priority = 3)
+	public void testfilterRoster(){
+		classRosterPage.waitForElementAndClick(classRosterPage.resetSearchFilter);
+		customeWaitTime(5);
+		classRosterPage.filterRosterBySchool(schoolName);
+		customeWaitTime(2);
+		classRosterPage.searchRoster(rosterName);
+		customeWaitTime(2);
+		Assert.assertEquals(classRosterPage.waitAndGetElementText(classRosterPage.rosterNameList), rosterName);
+		Assert.assertEquals(classRosterPage.waitAndGetElementText(classRosterPage.rosterDescList), "QA roster");
+		Assert.assertEquals(classRosterPage.waitAndGetElementText(classRosterPage.rosterGradeList), "Any");
+		Assert.assertEquals(classRosterPage.waitAndGetElementText(classRosterPage.rosterCreatedByList), "Admin Admin");
+		Assert.assertEquals(classRosterPage.waitAndGetElementText(classRosterPage.rosterSchoolNameList), schoolName);
 
 	}
 	
@@ -118,10 +138,12 @@ public class ClassRosterTest extends BaseTest{
 	 * validated Roster alerts created message
 	 */
 	
-	@Test(priority = 3)
+	@Test(priority = 4)
 	public void testRosterAlertMessages(){
-		classRosterPage.waitForElementAndClick(classRosterPage.previewIconList);
-		waitTime();
+		classRosterPage.waitForElementAndClick(classRosterPage.resetSearchFilter);
+		customeWaitTime(5);
+		//classRosterPage.waitForElementAndClick(classRosterPage.previewIconList);
+		//waitTime();
 		classRosterPage.searchRoster(rosterName);
 		waitTime();
 		classRosterPage.waitForElementAndClick(classRosterPage.createClassRosterLink);
@@ -190,6 +212,9 @@ public class ClassRosterTest extends BaseTest{
 		classRosterPage.waitForElementAndClick(classRosterPage.globalModalInfoOkButton);
 		customeWaitTime(2);
 		classRosterPage.waitForElementAndClick(classRosterPage.classRosterHomeLink);
+		if(classRosterPage.confirmationAlertButton.isDisplayed()){
+			classRosterPage.waitForElementAndClick(classRosterPage.confirmationAlertButton);
+		}
 		
 	}
 	
