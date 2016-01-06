@@ -1,28 +1,81 @@
 package tests;
 
+import java.io.File;
+import java.util.Properties;
+
 import generic.BaseTest;
 
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.apache.commons.lang3.StringUtils;
+
 import pages.Login;
 
 public class LoginTests extends BaseTest {
 
-	Login Nav;
+	Login loginPage;
+	
+	String unityTestDataFile = "src" + File.separator + "resources"
+			+ File.separator + "unitytestdata.properties";
+	Properties unitymessages;
+	
+	Properties unitytestdata;
 
 	public LoginTests() {
 		super();
 
 	}
 
-	@BeforeMethod
-	public void setUp() {
+	
+		
+		@BeforeTest
+		public void loadUnityMessagesProperty(){
+			unitytestdata = getUnityMessagesProperty(unityTestDataFile);
+		}
 
-	}
+		@BeforeMethod
+		public void setUp() {
+			driver.get(url);
+			loginPage = new Login(driver);
+		}
+		
+		@Test(priority = 1)
+		public void testInValidUserAndPasswordLoginFail(){
+			loginPage.waitForElementAndSendKeys(loginPage.userField, unitytestdata.getProperty("invalidAdminUser"));
+			loginPage.waitForElementAndSendKeys(loginPage.passwordField, unitytestdata.getProperty("invalidAdminPassword"));
+			loginPage.waitForElementAndClick(loginPage.signIn);
+			customeWaitTime(2);
+			Assert.assertEquals(loginPage.waitAndGetElementText(loginPage.invalidUserAndPasswordLabel), unitytestdata.getProperty("invalidLoginMessage"));
+			Assert.assertTrue(driver.getCurrentUrl().contains("login-fail."));
+		}
+		
+		@Test(priority = 2)
+		public void testInValidUserLoginFail(){
+			loginPage.waitForElementAndSendKeys(loginPage.userField, unitytestdata.getProperty("defaultAdmin"));
+			loginPage.waitForElementAndSendKeys(loginPage.passwordField, unitytestdata.getProperty("invalidAdminPassword"));
+			loginPage.waitForElementAndClick(loginPage.signIn);
+			customeWaitTime(2);
+			Assert.assertEquals(loginPage.waitAndGetElementText(loginPage.invalidUserAndPasswordLabel), unitytestdata.getProperty("invalidLoginMessage"));
+			Assert.assertTrue(driver.getCurrentUrl().contains("login-fail."));
+		}
+		
+		@Test(priority = 3)
+		public void testInValidPasswordLoginFail(){
+			loginPage.waitForElementAndSendKeys(loginPage.userField, unitytestdata.getProperty("invalidAdminUser"));
+			loginPage.waitForElementAndSendKeys(loginPage.passwordField, unitytestdata.getProperty("defaultPassword"));
+			loginPage.waitForElementAndClick(loginPage.signIn);
+			customeWaitTime(2);
+			Assert.assertEquals(loginPage.waitAndGetElementText(loginPage.invalidUserAndPasswordLabel), unitytestdata.getProperty("invalidLoginMessage"));
+			Assert.assertTrue(driver.getCurrentUrl().contains("login-fail."));
+		}
+		
+		
 
-	@Test
+	@Test(enabled = false)
 	public void login() {
 /*		int[] a = new int[8];
 		a[0] = -1;

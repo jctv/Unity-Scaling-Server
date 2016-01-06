@@ -29,6 +29,10 @@ public class Login extends BasePage {
 	@FindBy(id = "region-manual-title")
 	public WebElement pageName;
 	
+	@FindBy(xpath = ".//*[@id='passwordFormGrp']/label")
+	public WebElement invalidUserAndPasswordLabel;
+	
+	
 	public DashBoard loginSuccess(String user, String password) {
 		try {
 			waitForElementAndSendKeys(userField, user);
