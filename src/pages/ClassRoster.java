@@ -139,11 +139,6 @@ public class ClassRoster extends BasePage {
 	@FindBy(xpath = "//div[@class='col-md-10']")
 	public WebElement filteredSchool;
 	
-	@FindBy(xpath = "//span[text()='Confirm']")
-	public WebElement confirmationAlertButton;
-	
-	
-	
 	
 	public void createRoster(ArrayList<String> students, String school, String name) {
 		try {

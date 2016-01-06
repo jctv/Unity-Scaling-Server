@@ -33,7 +33,7 @@ public class Items extends BasePage {
 	@FindBy(xpath = "//select[@name='bank']")
 	public WebElement selectItemBank;
 
-	@FindBy(xpath = "//*[@id='quickViewContentCreate']/div/form/button[1]")
+	@FindBy(xpath = ".//*[@id='globalModalViewBody']/div/form/div[5]/div/button[1]")
 	public WebElement itemCreateEditInputSubmit;
 
 	@FindBy(id = "itemCreateInputSubmit")
@@ -66,7 +66,7 @@ public class Items extends BasePage {
 	@FindBy(id = "textEditorSaveButton")
 	public WebElement textEditorSaveButton;
 
-	@FindBy(xpath = "//*[@id='itemSaved']/div/div/div[1]/button")
+	@FindBy(xpath = "//div[@id='itemSaved']/div/div/div[1]/button")
 	public WebElement confirmationMessage;
 
 	@FindBy(xpath = "//*[@id='itemSaved']/div/div/div[1]/h4")
@@ -265,7 +265,7 @@ public class Items extends BasePage {
 	@FindBy(xpath = "//select[@name='bank']")
 	public WebElement itemBankDropdown;
 
-	@FindBy(xpath = ".//*[@id='quickViewContentCreate']/div/form/div[1]/div/button")
+	@FindBy(xpath = ".//*[@id='globalModalViewBody']/div/form/div[1]/div/div/button")
 	public WebElement itemBankDropdown1;
 	
 	@FindBy(xpath = "//input[@data-interaction='textEntry']")
@@ -336,18 +336,21 @@ public class Items extends BasePage {
 		customeWaitTime(5);
 		waitForElementAndClick(createItemButton);
 		customeWaitTime(5);
-		//selectItemBank(itemBankName);
-		selectOption(selectItemBank, itemBankName);
+		if(selectItemBank.isDisplayed()){
+			selectOption(selectItemBank, itemBankName);
+		}else{
+			selectItemBank(itemBankName);
+		}
 		customeWaitTime(5);
 		waitForElementAndSendKeys(itemCreateInputName, name);
 		waitForElementAndSendKeys(itemCreateInputDescription, "Description");
 		waitForElementAndClick(itemCreateEditInputSubmit);
-		customeWaitTime(10);
+		customeWaitTime(5);
 		selectOption(templates, interactionType);
-		customeWaitTime(5);
-		waitForElementAndClick(textEditorSaveButton);
-		customeWaitTime(5);
-		clickOnConfirmationMessage();
+		customeWaitTime(2);
+		//waitForElementAndClick(textEditorSaveButton);
+		//customeWaitTime(5);
+		//clickOnConfirmationMessage();
 		waitForElementAndClick(scoreTabButton);
 		switch (interactionType) {
         case "Choice":
@@ -375,6 +378,10 @@ public class Items extends BasePage {
 		System.out.println("The Item type >  " + interactionType  +"  name -> " + name +  " score profile >  " + scoringType + " has been created successfully");
 		customeWaitTime(5);
 		waitForElementAndClick(backToItems);
+		if(confirmationAlertButton.isDisplayed()){
+			waitForElementAndClick(confirmationAlertButton);
+		}
+		waitTime();
 		//searchItem(name);
 		//this.addStandards();
 		//waitForElementAndClick(backToDashboard);
@@ -640,7 +647,7 @@ public class Items extends BasePage {
 		customeWaitTime(5);
 		waitForElementAndSendKeys(searchItemBankInputField, option);
 		customeWaitTime(5);
-		List<WebElement> itemBankoptions= driver.findElements(By.xpath("//div[@class='btn-group bootstrap-select content-bank select-search-by-name-item_bank open']//ul/li"));
+		List<WebElement> itemBankoptions= driver.findElements(By.xpath(".//*[@id='globalModalViewBody']/div/form/div[1]/div/div/div/ul/li[1]/a/span[1]"));
 		for (WebElement itemBank : itemBankoptions){
 			try{
 			if(itemBank.getText().equals(option)){
@@ -658,9 +665,11 @@ public class Items extends BasePage {
 
 
 	public void clickOnConfirmationMessage(){
+		waitAndFocus(confirmationMessage);
 		waitForElementAndClick(confirmationMessage);
 		try {
-			customeWaitTime(5);
+			customeWaitTime(1);
+			waitAndFocus(confirmationMessage);
 			waitForElementAndClick(confirmationMessage);
 		} catch (Exception e) {
 
@@ -670,103 +679,115 @@ public class Items extends BasePage {
 	}
 
 	public String updateItemName(String name ){
-		itemNameList.click();
-		customeWaitTime(5);
-		itemNameListInput.clear();
-		customeWaitTime(5);
-		itemNameListInput.sendKeys(name);
-		customeWaitTime(5);
-		itemNamePreviewColoumn.click();
-		customeWaitTime(5);
+		waitForElementAndClick(itemNameList);
+		customeWaitTime(2);
+		waitForElementAndSendKeys(itemNameListInput, name);
+		//itemNameListInput.clear();
+		customeWaitTime(2);
+		//itemNameListInput.sendKeys(name);
+		//customeWaitTime(5);
+		//waitAndFocus(itemNamePreviewColoumn);
+		waitForElementAndClick(resultListCount);
+		//itemNamePreviewColoumn.click();
+		customeWaitTime(2);
 		return itemNameList.getText();
 	}
 
 
 	public String updateItemTitle(String title ){
-		itemTilteList.click();
-		customeWaitTime(5);
-		itemTitleListInput.clear();
-		customeWaitTime(5);
-		itemTitleListInput.sendKeys(title);
-		customeWaitTime(5);
-		itemNamePreviewColoumn.click();
-		customeWaitTime(5);
+		waitForElementAndClick(itemTilteList);
+		//itemTilteList.click();
+		customeWaitTime(2);
+		waitForElementAndSendKeys(itemTitleListInput, title);
+		//itemTitleListInput.clear();
+		//customeWaitTime(5);
+		//itemTitleListInput.sendKeys(title);
+		customeWaitTime(2);
+		waitForElementAndClick(resultListCount);
+		customeWaitTime(2);
 		return itemTilteList.getText();
 	}
 
 
 	public  String updateItemContentArea(String contentArea){
-		itemContentAreaList.click();
+		waitForElementAndClick(itemContentAreaList);
+		//itemContentAreaList.click();
 		customeWaitTime(5);
 		selectOption(itemContentAreaSelectList , contentArea );
 		customeWaitTime(5);
-		itemNamePreviewColoumn.click();
+		waitForElementAndClick(resultListCount);
 		customeWaitTime(5);
 		return itemContentAreaList.getText();
 	}
 
 	public  String updateItemGrade(String grade){
-		itemGradeList.click();
-		customeWaitTime(5);
+		waitForElementAndClick(itemGradeList);
+		//itemGradeList.click();
+		customeWaitTime(2);
 		selectOption(itemGradeSelectList , grade );
 		customeWaitTime(5);
-		itemNamePreviewColoumn.click();
+		waitForElementAndClick(resultListCount);
 		customeWaitTime(5);
 		return itemGradeList.getText();
 	}
 
 	public String updateItemBloom(String bloom ){
-		itemBloomList.click();
+		waitForElementAndClick(itemBloomList);
+		//itemBloomList.click();
 		customeWaitTime(5);
-		itemBloomListInput.clear();
+		waitForElementAndSendKeys(itemBloomListInput, bloom);
+		//itemBloomListInput.clear();
+		//customeWaitTime(2);
+		//itemBloomListInput.sendKeys(bloom);
 		customeWaitTime(5);
-		itemBloomListInput.sendKeys(bloom);
-		customeWaitTime(5);
-		itemNamePreviewColoumn.click();
+		waitForElementAndClick(resultListCount);
 		customeWaitTime(5);
 		return itemBloomList.getText();
 	}
 
 	public  String updateItemDOK(String dok){
-		itemDepthOfKnowledgeList.click();
+		waitForElementAndClick(itemDepthOfKnowledgeList);
+		//itemDepthOfKnowledgeList.click();
 		customeWaitTime(5);
 		selectOption(itemDepthOfKnowledgeSelectList , dok );
 		customeWaitTime(5);
-		itemNamePreviewColoumn.click();
+		waitForElementAndClick(resultListCount);
 		customeWaitTime(5);
 		return itemDepthOfKnowledgeList.getText();
 	}
 
 
 	public String updateItemDifficulty(String difficulty){
-		itemDifficultyList.click();
-		customeWaitTime(5);
+		waitForElementAndClick(itemDifficultyList);
+		//itemDifficultyList.click();
+		customeWaitTime(2);
 		selectOption(itemDifficultySelectList , difficulty );
-		customeWaitTime(5);
-		itemNamePreviewColoumn.click();
-		customeWaitTime(5);
+		customeWaitTime(2);
+		waitForElementAndClick(resultListCount);
+		customeWaitTime(2);
 		return itemDifficultyList.getText();
 	}
 
 	public String updateItemLifeCycle(String lifeCycle){
-		itemLifeCycleList.click();
+		waitForElementAndClick(itemLifeCycleList);
+		//itemLifeCycleList.click();
 		customeWaitTime(5);
 		selectOption(itemLifeCycleSelectList , lifeCycle);
 		customeWaitTime(5);
-		itemNamePreviewColoumn.click();
+		waitForElementAndClick(resultListCount);
 		customeWaitTime(5);
 		return itemLifeCycleList.getText();
 	}
 
 	public String updateItemReadability(String readability ){
-		itemReadabilityList.click();
-		customeWaitTime(5);
-		itemReadabilityListInput.clear();
-		customeWaitTime(5);
-		itemReadabilityListInput.sendKeys(readability);
-		customeWaitTime(5);
-		itemNamePreviewColoumn.click();
-		customeWaitTime(5);
+		waitForElementAndClick(itemReadabilityList);
+		//itemReadabilityList.click();
+		customeWaitTime(2);
+		waitForElementAndSendKeys(itemReadabilityListInput, readability);
+		customeWaitTime(2);
+		customeWaitTime(2);
+		waitForElementAndClick(resultListCount);
+		customeWaitTime(2);
 		return itemReadabilityList.getText();
 	}
 

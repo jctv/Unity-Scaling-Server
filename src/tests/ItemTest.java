@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Properties;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -53,6 +55,8 @@ public class ItemTest extends BaseTest{
 	String handScoreProfile  = "Hand Scoring";
 	String choiceCorrectAnswer = "set D correct Answer";
 	String  textEntryCorrcetAnswer = "Auto Text Entry";
+	
+	long timestamp;
 
 	public ItemTest() {
 		super();
@@ -65,17 +69,30 @@ public class ItemTest extends BaseTest{
 		
 	}
 	
-	@BeforeMethod
+	@BeforeClass
 	public void setUp() {
 		System.out.println("Load Unity url - " + url);
 		driver.get(url);
 		loginPage = new Login(driver);
-		System.out.println("******** logging as System Admin -- " + loggedUser
+		System.out.println("******** logging as System Admin -- " + defaultUser
 				+ "******** ");
-		dashBoardPage = loginPage.loginSuccess(loggedUser,
-				genericPassword);
+		dashBoardPage = loginPage.loginSuccess(defaultUser,
+				defaultPassword);
 		waitTime();
 		dashBoardPage.addTiles();
+		waitTime();
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		waitTime();
+		timestamp = System.currentTimeMillis();
+		itemBankName = "Common_IB_" + timestamp;
+		itemsBankPage.createBank(itemBankName, "Desc");
+		waitTime(); 
+		copyItemBankName = "Copy" + itemBankName;	
+	    itemsBankPage.createBank(copyItemBankName, "Desc");
+		waitTime(); 
+		returnToDashboard();
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
 		waitTime();
 	}
 	
@@ -90,15 +107,6 @@ public class ItemTest extends BaseTest{
 	
 	@Test(priority =1 )
 	public void testCreateItemChoiceType(){
-		itemsBankPage = dashBoardPage.goToItemsBank();
-		waitTime();
-		itemBankName = "Choice_IB_" + System.currentTimeMillis();
-		itemsBankPage.createBank(itemBankName, "Desc");
-		waitTime(); 
-		returnToDashboard();
-		customeWaitTime(5);
-		itemsPage = dashBoardPage.goToItems();
-		waitTime();
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName, itemBankName ,interactionChoice , simpleMatchScoreProfile , choiceCorrectAnswer);
@@ -111,11 +119,8 @@ public class ItemTest extends BaseTest{
 		Assert.assertEquals(itemsPage.itemPointsList.getText().trim(), "1");
 		Assert.assertEquals(itemsPage.itemBankList.getText().trim(), itemBankName);
 		itemsPage.deleteItem(itemName);
-		itemsPage.backToDashboard();
-		waitTime();
-		itemsBankPage = dashBoardPage.goToItemsBank();
-		waitTime();
-		itemsBankPage.deleteItemBank(itemBankName);
+		//itemsPage.backToDashboard();
+		
 	}
 	
 	
@@ -130,15 +135,15 @@ public class ItemTest extends BaseTest{
 	
 	@Test(priority = 2)
 	public void testCreateTextEntryItemWithMapScoring(){
-		itemsBankPage = dashBoardPage.goToItemsBank();
-		waitTime();
+		/*//itemsBankPage = dashBoardPage.goToItemsBank();
+		//waitTime();
 		itemBankName = "TextEntry_IB_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime(); 
 		returnToDashboard();
 		customeWaitTime(5);
-		itemsPage = dashBoardPage.goToItems();
-		itemName = "I_" + itemBankName;
+		itemsPage = dashBoardPage.goToItems();*/
+		itemName = "Map_I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName, itemBankName ,interactionTextEntry , mapScoreProfile , textEntryCorrcetAnswer);
 		itemsPage.searchItem(itemName);
@@ -149,11 +154,11 @@ public class ItemTest extends BaseTest{
 		Assert.assertEquals(itemsPage.itemPointsList.getText().trim(), "1");
 		Assert.assertEquals(itemsPage.itemBankList.getText().trim(), itemBankName);
 		itemsPage.deleteItem(itemName);
-		itemsPage.backToDashboard();
+		/*itemsPage.backToDashboard();
 		waitTime();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
-		itemsBankPage.deleteItemBank(itemBankName);
+		itemsBankPage.deleteItemBank(itemBankName);*/
 	}
 	
 	
@@ -170,7 +175,7 @@ public class ItemTest extends BaseTest{
 	@Test(priority = 3)
 	public void testUpadteItemInListing(){
 		String updated = "Updated";
-		itemsBankPage = dashBoardPage.goToItemsBank();
+		/*itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		itemBankName = "Choice_IB_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
@@ -178,7 +183,7 @@ public class ItemTest extends BaseTest{
 		returnToDashboard();
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
-		waitTime();
+		waitTime();*/
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName, itemBankName ,interactionChoice , simpleMatchScoreProfile , choiceCorrectAnswer);
@@ -195,6 +200,7 @@ public class ItemTest extends BaseTest{
 		updatedItemDifficulty = "HIGH";
 		updatedItemLifeCycle = "DEFINED";
 		updatedItemReadability = "Update Readability";
+		waitTime();
 		Assert.assertEquals(itemsPage.updateItemName(updatedItemName), updatedItemName);
 		Assert.assertEquals(itemsPage.updateItemTitle(updatedTitleName), updatedTitleName);
 		Assert.assertEquals(itemsPage.updateItemContentArea(updatedItemContentArea), updatedItemContentArea);
@@ -205,7 +211,9 @@ public class ItemTest extends BaseTest{
 		Assert.assertEquals(itemsPage.updateItemLifeCycle(updatedItemLifeCycle), updatedItemLifeCycle);
 		Assert.assertEquals(itemsPage.updateItemReadability(updatedItemReadability), updatedItemReadability);
 		Assert.assertEquals(itemsPage.itemPointsList.getText().trim(), "1");
-		itemsPage.itemPointsList.click();
+		itemsPage.deleteItem(itemName);
+
+		/*itemsPage.itemPointsList.click();
 		waitTime();
 		Assert.assertFalse(itemsPage.itemPointsListInput.isEnabled(), "Point colums is not editable");
 		itemsPage.deleteItem(updatedItemName);
@@ -213,7 +221,7 @@ public class ItemTest extends BaseTest{
 		waitTime();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
-		itemsBankPage.deleteItemBank(itemBankName);
+		itemsBankPage.deleteItemBank(itemBankName);*/
 	}
 	
 	/**
@@ -234,7 +242,7 @@ public class ItemTest extends BaseTest{
 	
 	@Test(priority = 4)
 	public void testItemAlertMessage(){
-		itemBankName = "IB_" + System.currentTimeMillis();
+		/*itemBankName = "IB_" + System.currentTimeMillis();
 		copyItemBankName = "Copy" + itemBankName;	
 		itemName = "I" + itemBankName;
 	    copiedItemName = "copy " + itemName;
@@ -253,7 +261,9 @@ public class ItemTest extends BaseTest{
 		customeWaitTime(5);
 	    itemsPage = dashBoardPage.goToItems();
 	    waitTime();
-	    waitTime();
+	    waitTime();*/
+		itemName = "I" + itemBankName;
+	    copiedItemName = "copy " + itemName;
 	    itemsPage.waitForElementAndClick(itemsPage.createItemButton);
 	    waitTime();
 	    waitTime();
@@ -299,13 +309,13 @@ public class ItemTest extends BaseTest{
 	    itemsPage.waitForElementAndClick(itemsPage.globalModalDeleteButton);
 	    waitTime();
 	    itemsPage.deleteItem(copiedItemName);
-	    itemsPage.backToDashboard();
+	   /* itemsPage.backToDashboard();
 	    waitTime();
 	    waitTime();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		itemsBankPage.deleteItemBank(itemBankName);
 		waitTime();
-		itemsBankPage.deleteItemBank(copyItemBankName);
+		itemsBankPage.deleteItemBank(copyItemBankName);*/
 	}
 
 	
@@ -320,7 +330,7 @@ public class ItemTest extends BaseTest{
 	
 	@Test(priority = 5)
 	public void testCreateTextEntryItemWithSimpleMatchScoring(){
-		waitTime();
+		/*waitTime();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		waitTime();
@@ -329,7 +339,7 @@ public class ItemTest extends BaseTest{
 		waitTime(); 
 		returnToDashboard();
 		customeWaitTime(5);
-		itemsPage = dashBoardPage.goToItems();
+		itemsPage = dashBoardPage.goToItems();*/
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName, itemBankName ,interactionTextEntry , simpleMatchScoreProfile , textEntryCorrcetAnswer);
@@ -341,11 +351,11 @@ public class ItemTest extends BaseTest{
 		Assert.assertEquals(itemsPage.itemPointsList.getText().trim(), "1");
 		Assert.assertEquals(itemsPage.itemBankList.getText().trim(), itemBankName);
 		itemsPage.deleteItem(itemName);
-		itemsPage.backToDashboard();
+		/*itemsPage.backToDashboard();
 		waitTime();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
-		itemsBankPage.deleteItemBank(itemBankName);
+		itemsBankPage.deleteItemBank(itemBankName);*/
 	}
 	
 	
@@ -360,14 +370,14 @@ public class ItemTest extends BaseTest{
 	
 	@Test(priority = 6)
 	public void testCreateTextEntryItemWithHandScoring(){
-		itemsBankPage = dashBoardPage.goToItemsBank();
+		/*itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		itemBankName = "TextEntry_match_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Hand Scoring");
 		returnToDashboard();
 		customeWaitTime(5);
 		waitTime(); 
-		itemsPage = dashBoardPage.goToItems();
+		itemsPage = dashBoardPage.goToItems();*/
 		itemName = "I_" + itemBankName;
 		System.out.println("******** " + itemName + "  Item creation ********");
 		itemsPage.createItem(itemName, itemBankName ,interactionTextEntry , mapScoreProfile , textEntryCorrcetAnswer);
@@ -379,13 +389,22 @@ public class ItemTest extends BaseTest{
 		Assert.assertEquals(itemsPage.itemPointsList.getText().trim(), "1");
 		Assert.assertEquals(itemsPage.itemBankList.getText().trim(), itemBankName);
 		itemsPage.deleteItem(itemName);
-		itemsPage.backToDashboard();
+		/*itemsPage.backToDashboard();
+		waitTime();
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		waitTime();
+		itemsBankPage.deleteItemBank(itemBankName);*/
+	}
+	
+	
+	@AfterClass
+	public void cleanUpData(){
 		waitTime();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		itemsBankPage.deleteItemBank(itemBankName);
+		waitTime();
+		itemsBankPage.deleteItemBank(copyItemBankName);
 	}
-	
-	
 	
 }

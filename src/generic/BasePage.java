@@ -165,6 +165,10 @@ public class BasePage {
 
 	@FindBy(xpath = "//*[@id='navigationUserName']/ul/li/a")
 	public WebElement logOut;
+	
+	@FindBy(xpath = "//span[text()='Confirm']")
+	public WebElement confirmationAlertButton;
+	
 
 	/** Constructor */
 	public BasePage(WebDriver driver) {
