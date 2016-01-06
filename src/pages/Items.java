@@ -33,7 +33,11 @@ public class Items extends BasePage {
 	@FindBy(xpath = "//select[@name='bank']")
 	public WebElement selectItemBank;
 
-	@FindBy(xpath = ".//*[@id='globalModalViewBody']/div/form/div[5]/div/button[1]")
+
+	//@FindBy(xpath = ".//*[@id='globalModalViewBody']/div/form/div[5]/div/button[1]")
+
+	@FindBy(xpath = "//button[text()='Create & Edit']")
+	
 	public WebElement itemCreateEditInputSubmit;
 
 	@FindBy(id = "itemCreateInputSubmit")
@@ -75,6 +79,10 @@ public class Items extends BasePage {
 
 	@FindBy(xpath = "//*[@id='itemSaved']/div/div/div[2]/p")
 	public WebElement itemconfirmationMessageBody;
+	
+	@FindBy(xpath = "/html/body/div[22]/div[3]/div/button[1]/span")
+	public WebElement confirmationMessageDefect;
+	
 
 
 	@FindBy(id = "itemSaved")
@@ -315,6 +323,11 @@ public class Items extends BasePage {
 		System.out.println("The Item " + name + " has been created");
 		customeWaitTime(5);
 		waitForElementAndClick(backToItems);
+		try{	
+			waitForElementAndClick(confirmationMessageDefect);
+		}catch(Exception e){
+			System.out.println("Unable to find th confirmation message");
+		}
 		customeWaitTime(5);
 		searchItem(name);
 		this.addStandards();
@@ -333,7 +346,7 @@ public class Items extends BasePage {
 	 */
 	public void createItem(String name, String itemBankName ,String interactionType , String scoringType , String setAnswer) {
 		try{
-		customeWaitTime(5);
+		customeWaitTime(2);
 		waitForElementAndClick(createItemButton);
 		customeWaitTime(5);
 		if(selectItemBank.isDisplayed()){
@@ -348,16 +361,29 @@ public class Items extends BasePage {
 		customeWaitTime(5);
 		selectOption(templates, interactionType);
 		customeWaitTime(2);
-		//waitForElementAndClick(textEditorSaveButton);
-		//customeWaitTime(5);
-		//clickOnConfirmationMessage();
+		waitForElementAndClick(textEditorSaveButton);
+		customeWaitTime(5);
+		clickOnConfirmationMessage();
+		customeWaitTime(2);
+		//selectItemBank(itemBankName);
+		/*selectOption(selectItemBank, itemBankName);
+		customeWaitTime(2);
+		waitForElementAndSendKeys(itemCreateInputName, name);
+		waitForElementAndSendKeys(itemCreateInputDescription, "Description");
+		waitForElementAndClick(itemCreateEditInputSubmit);
+		customeWaitTime(3);
+		selectOption(templates, interactionType);
+		customeWaitTime(2);
+		waitForElementAndClick(textEditorSaveButton);
+		customeWaitTime(2);
+		clickOnConfirmationMessage();*/
 		waitForElementAndClick(scoreTabButton);
 		switch (interactionType) {
         case "Choice":
         	waitForElementAndClick(answerOne);
-    		customeWaitTime(5);
+    		customeWaitTime(3);
     		waitForElementAndClick(saveAnswer);
-    		customeWaitTime(5);
+    		customeWaitTime(2);
             break;
         case "Text Entry":
         	waitForElementAndSendKeys(inputTextEntry, setAnswer);
@@ -472,16 +498,16 @@ public class Items extends BasePage {
 				customeWaitTime(1);
 				WebElement elementToCopy = driver.findElement(By.xpath("(//button[@title='Copy'])["+itemIndex+"]"));
 				waitForElementAndClick(elementToCopy);
-				customeWaitTime(2);
+				customeWaitTime(1);
 				selectOption(selectCopyBank, itemBank);
-				customeWaitTime(2);
+				customeWaitTime(1);
 				waitAndClearField(copyitemBankField);
 				waitForElementAndSendKeys(copyitemBankField, copyItemName);
-				customeWaitTime(2);
+				customeWaitTime(1);
 				waitForElementAndClick(copyItemButton);
-				customeWaitTime(2);
+				customeWaitTime(1);
 				waitForElementAndClick(globalModalInfoOkButton);
-				customeWaitTime(2);
+				customeWaitTime(1);
 				return driver.findElement(By.xpath("//td[@class = 'watable-col-name' and text()='"+copyItemName+"']")).isDisplayed();
 			} catch (Exception e) {
 

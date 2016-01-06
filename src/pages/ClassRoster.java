@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import generic.BasePage;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,7 +20,7 @@ public class ClassRoster extends BasePage {
 
 	@FindBy(id = "loginButton")
 	public WebElement signIn;
-	
+				
 	@FindBy(xpath = "//*[@id='region-navigation']/ul/li[2]/a")
 	public WebElement createClassRosterLink;
 	
@@ -93,7 +92,7 @@ public class ClassRoster extends BasePage {
 	@FindBy(xpath = "//button[@data-id='rosterSchool']")
 	public WebElement schoolDropDownButton;
 	
-	@FindBy(xpath = "//*[@id='region-workspace']/div/div[2]/div[2]/div/div/div/input")
+	@FindBy(xpath = "//div[@class='btn-group bootstrap-select select-search-by-name-organization open']//input")
 	public WebElement schoolSearchInputField;
 	
 	@FindBy(xpath = "//div[@class='btn-group bootstrap-select select-search-by-name-organization open']//ul/li[1]/a/span[1]")
@@ -138,12 +137,12 @@ public class ClassRoster extends BasePage {
 	
 	@FindBy(xpath = "//div[@class='col-md-10']")
 	public WebElement filteredSchool;
+
 	
 	
 	public void createRoster(ArrayList<String> students, String school, String name) {
 		try {
-			waitTime();
-			waitTime();
+			customeWaitTime(3);
 			waitForElementAndClick(createClassRosterLink);
 			//waitForElementAndClick(schoolDropDown);
 			//waitForElementAndSendKeys(schoolSearchField, school);
@@ -153,7 +152,7 @@ public class ClassRoster extends BasePage {
 			//waitForElementAndSendKeys(selectSchoolField,"Automated School");
 			//selectOption(selectSchoolField , "Automated School" );
 			waitTime();
-			selectSchool(school);
+			System.out.println("Adding the created students");			
 			for (String student : students) {
 				try {
 				waitTime();
@@ -179,13 +178,10 @@ public class ClassRoster extends BasePage {
 			waitForElementAndClick(confirmOkButton);
 			waitTime();
 			waitForElementAndClick(homeLink);
-			waitTime();
 			System.out.println("Class Roster Created");
-			if(confirmationAlertButton.isDisplayed()){
-				waitForElementAndClick(confirmationAlertButton);
-			}
 			waitTime();
 			//waitForElementAndClick(dashBoardLink);
+
 		} catch (Exception e) {
 			System.out.println("Class Roster Creation Failed");
 			System.out.println(e.getMessage());
@@ -230,27 +226,4 @@ public class ClassRoster extends BasePage {
 	}
 	
 	
-	public void filterRosterBySchool(String schooName){
-		
-		try{
-		waitForElementAndClick(schoolFilter);
-		waitTime();
-		waitForElementAndClick(selectschoolFilter);
-		customeWaitTime(5);
-		WebElement selectSchool = driver.findElement(By.xpath(".//*[@id='treeNavigation']//span[text()='"+ schooName +"']"));
-		waitForElementAndClick(selectSchool);
-		customeWaitTime(5);
-		if(filteredSchool.getText().equals(schooName)){
-			waitForElementAndClick(globalModalOKCancelSaveButton);
-			
-		}
-		
-		}catch(Exception e ){
-			
-			System.out.println("Unable to filter the roter by school");
-	
-			
-		}
-		
-	}
 }

@@ -106,7 +106,7 @@ public class TestCreation extends BasePage {
 	@FindBy(id = "sortable2")
 	public WebElement target;
 	
-	@FindBy(xpath = "//*[@id='region-workspace']/div/div[2]/div[3]/div/div[1]/div/div[2]/span/button[3]")
+	@FindBy(xpath = "//button[@class='btn btn-sm test-save btn-danger']")
 	public WebElement saveTestButton;
 
 	@FindBy(xpath = "//*[@id='testSaved']/div/div/div[1]/button")
@@ -123,7 +123,7 @@ public class TestCreation extends BasePage {
 	
 	
 
-	@FindBy(xpath = "//*[@id='quickViewContentCreate']/div/form/button[1]")
+	@FindBy(xpath = "//button[text() = 'Create & Edit']")
 	public WebElement  createAndEditButton;
 	
 	
@@ -196,6 +196,10 @@ public class TestCreation extends BasePage {
 	
 	@FindBy(xpath = "//td[@class='watable-col-name']")
 	public WebElement testNameList;
+	
+	@FindBy(xpath = "/html/body/div[22]/div[3]/div/button[1]/span")
+	public WebElement confirmationMessage;
+	
 	
 	public void createTest(String testName , String testBankName ,  String itemName) {
 		try {
@@ -284,43 +288,44 @@ public class TestCreation extends BasePage {
 	public void createTestWithMultipleItems(String testName , String testBankName ,  String itemBank , int itemCount) {
 		try {
 			waitForElementAndClick(createTestLink);
-			customeWaitTime(5);
+			customeWaitTime(2);
 			//selectOption(bankDropDown, testBankName);
-			selectTestBank(testBankName);
-			customeWaitTime(5);
+			//selectTestBank(testBankName);
 			waitForElementAndSendKeys(contentCreateInputName, testName);
 			waitForElementAndSendKeys(contentCreateInputDescription, testName);
 			waitForElementAndClick(createAndEditButton);
-			filterItemBank(itemBank);
+			//filterItemBank(itemBank);
+			customeWaitTime(2);
+			waitForElementAndClick(resetSearchFilter);
+			customeWaitTime(2);
 			List <WebElement>  totalItems = driver.findElements(By.xpath("//ul[@id='sortable1']//li"));
 			for (int i=totalItems.size(); i >= 1; i--){
+				customeWaitTime(1);
 				WebElement itemToSelect = driver.findElement(By.xpath("//ul[@id='sortable1']//li["+ i +"]"));
 				customeWaitTime(1);
 				dragAndDrop(itemToSelect, target);
-				customeWaitTime(1);
 				
 				List <WebElement>  totalDropedItems = driver.findElements(By.xpath("//ul[@id='sortable2']//li"));
-				
+				System.out.println("Adding the item number " +i);
 				
 			}
 			waitForElementAndSendKeys(testContentField, "N/A");
-			selectOption(testContentField, "N/A");
 
 			waitForElementAndSendKeys(testGradeField, "05");
-			selectOption(testGradeField, "05");
 			waitForElementAndClick(saveTestButton);
-			customeWaitTime(5);
+			customeWaitTime(2);
 			waitForElementAndClick(xbutton);
-			customeWaitTime(5);
+			customeWaitTime(2);
 			try {
 				waitForElementAndClick(xbutton);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-			customeWaitTime(5);
+			customeWaitTime(2);
 			System.out.println("Test "+ testName +" created successfully ");
 			waitForElementAndClick(testsLink);
-			customeWaitTime(5);
+			customeWaitTime(2);
+			waitForElementAndClick(confirmationMessage);
 			/*waitForElementAndClick(homeLink);
 			try {
 				waitForElementAndClick(homeLink);

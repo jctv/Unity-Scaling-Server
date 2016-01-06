@@ -124,7 +124,6 @@ public class ItemsBank extends BasePage {
 			customeWaitTime(2);
 			waitForElementAndClick(globalModalInfoOkButton);
 			customeWaitTime(2);
-
 		} catch (Exception e) {
 			System.out.println("Unable to create the bank");
 		}

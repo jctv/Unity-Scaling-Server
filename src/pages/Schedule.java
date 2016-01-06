@@ -27,15 +27,15 @@ public class Schedule extends BasePage {
 	@FindBy(xpath = "//*[@id='region-workspace']/div/div[1]/div[2]/div/table/tbody/tr/td/div[2]/div/div[2]/table")
 	public WebElement calendar;
 	
-	@FindBy(xpath = "//div[@class='fc-time-grid-container']//div[@class='fc-slats']//tr[@class='fc-minor'][1]")
+	@FindBy(xpath = "//*[@id='region-workspace']/div/div[1]/div[2]/div/table/tbody/tr/td/div[2]/div/div[2]/table/tbody/tr[1]/td[2]")
 	public WebElement calendarArea;
 	
-	@FindBy(xpath = "//div[@class='fc-time-grid-container']//div[@class='fc-slats']//tr[@class='fc-minor'][1]/../../../../div[3]//div[@class='fc-title']")
+	@FindBy(xpath = "//div[@class= 'fc-time']")
 	public WebElement scheduledTestEvent;
 	
 	
 	
-	@FindBy(xpath = "//*[@id='region-workspace']/div/div[1]/div[2]/div/table/tbody/tr/td/div[2]/div/div[3]/table/tbody/tr/td[5]/div/a/div[1]/div[1]")
+	@FindBy(xpath = "//*[@id='region-workspace']/div/div[1]/div[2]/div/table/tbody/tr/td/div[2]/div/div[3]/table/tbody/tr/td[2]/div/a/div[1]/div[1]")
 	public WebElement createdEvent;
 
 	@FindBy(xpath = "//button[text()='day']")
@@ -96,8 +96,8 @@ public class Schedule extends BasePage {
 
 	@FindBy(id = "startNow")
 	public WebElement startNowEventClick;
-	                
-	@FindBy(xpath = "//button[@class ='fc-next-button ui-button ui-state-default ui-corner-right']")
+	
+	@FindBy(xpath = "//*[@id='region-workspace']/div/div[1]/div[1]/div[1]/div/button[2]")
 	public WebElement nextButton;
 	
 	@FindBy(xpath = "//button[@class ='fc-prev-button ui-button ui-state-default ui-corner-left']")
@@ -126,9 +126,8 @@ public class Schedule extends BasePage {
 		try {
 			waitTime();
 			waitForElementAndClick(dayButton);
-			customeWaitTime(5);
 			waitForElementAndClick(nextButton);
-			customeWaitTime(5);
+			customeWaitTime(1);
 			(new Actions(driver)).doubleClick(calendarArea).build().perform();
 			(new Actions(driver)).doubleClick().build().perform();
 			System.out.println("click on calendar");
@@ -158,13 +157,13 @@ public class Schedule extends BasePage {
 			selectOption(masterToolSelect, tools);
 			waitForElementAndClick(btnCreate);
 			System.out.println(test + "event is created");
-			customeWaitTime(10);
+			customeWaitTime(1);
 			//waitForElementAndClick(createdEvent);
 			waitForElementAndClick(scheduledTestEvent);
 			System.out.println("click on event");
-			customeWaitTime(5);
+			
 			waitForElementAndClick(startNowEventClick);
-			customeWaitTime(5);
+			customeWaitTime(2);
 			//waitForElementAndClick(homeLink);
 			System.out.println(test + "Event Created success");
 		} catch (Exception e) {

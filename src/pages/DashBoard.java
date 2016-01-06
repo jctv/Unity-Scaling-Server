@@ -178,6 +178,7 @@ public class DashBoard extends BasePage {
 	
 
 	public Users goToUsers() {
+		customeWaitTime(2);	
 		System.out.println("Users Tile is enable " + usersTile.isEnabled());
 		
 		try {
