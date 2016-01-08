@@ -74,6 +74,14 @@ public class LoginTests extends BaseTest {
 		}
 		
 		
+	   @Test(priority = 4)
+	   public void testLogout(){
+		   loginPage.loginSuccess(unitytestdata.getProperty("defaultAdmin"), unitytestdata.getProperty("defaultPassword"));
+		   customeWaitTime(5);
+		   loginPage.logOut();
+		   Assert.assertTrue(driver.getCurrentUrl().contains("logout"));
+	   }
+		
 
 	@Test(enabled = false)
 	public void login() {
