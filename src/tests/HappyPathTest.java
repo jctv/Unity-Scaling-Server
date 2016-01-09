@@ -136,10 +136,7 @@ public class HappyPathTest extends BaseTest {
 					"Item Copied Successfully");
 		}
 		returnToDashboard();
-		/*
-		 * itemsPageObject = dashBoardPageObject.goToItems(); waitTime();
-		 * itemsPageObject.createItem("item 1"); waitTime();
-		 */
+	
 
 		testBankPageObject = dashBoardPageObject.goToTestsBank();
 		waitTime();

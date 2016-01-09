@@ -106,7 +106,7 @@ public class TestCreation extends BasePage {
 	@FindBy(id = "sortable2")
 	public WebElement target;
 	
-	@FindBy(xpath = "//button[@class='btn btn-sm test-save btn-danger']")
+	@FindBy(xpath = "//*[@id='region-workspace']/div/div[2]/div[3]/div/div[1]/div/div[2]/span/button[3]")
 	public WebElement saveTestButton;
 
 	@FindBy(xpath = "//*[@id='testSaved']/div/div/div[1]/button")
@@ -304,8 +304,6 @@ public class TestCreation extends BasePage {
 				WebElement itemToSelect = driver.findElement(By.xpath("//ul[@id='sortable1']//li["+ i +"]"));
 				customeWaitTime(1);
 				dragAndDrop(itemToSelect, target);
-				
-				List <WebElement>  totalDropedItems = driver.findElements(By.xpath("//ul[@id='sortable2']//li"));
 				System.out.println("Adding the item number " +i);
 				
 			}
@@ -325,13 +323,6 @@ public class TestCreation extends BasePage {
 			System.out.println("Test "+ testName +" created successfully ");
 			waitForElementAndClick(testsLink);
 			customeWaitTime(2);
-			waitForElementAndClick(confirmationMessage);
-			/*waitForElementAndClick(homeLink);
-			try {
-				waitForElementAndClick(homeLink);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}*/
 		} catch (Exception e) {
 			System.out.println("Test "+ testName +" Creation Failed ");
 		}

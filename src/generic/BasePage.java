@@ -322,8 +322,7 @@ public class BasePage {
 			System.out.println("Button  clicked " + element.getText());
 
 		} catch (Exception e2) {
-			System.out.println("Unable to perform the click on element "
-					+ element.getText());
+			System.out.println("Unable to perform the click on element ");
 
 		}
 

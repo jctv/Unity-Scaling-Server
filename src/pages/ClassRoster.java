@@ -144,13 +144,10 @@ public class ClassRoster extends BasePage {
 		try {
 			customeWaitTime(3);
 			waitForElementAndClick(createClassRosterLink);
-			//waitForElementAndClick(schoolDropDown);
-			//waitForElementAndSendKeys(schoolSearchField, school);
 			waitForElementAndSendKeys(rosterNameField, name);
 			selectOption(gradeField, "Any");
 			waitForElementAndSendKeys(descriptionField, "QA roster");
-			//waitForElementAndSendKeys(selectSchoolField,"Automated School");
-			//selectOption(selectSchoolField , "Automated School" );
+			
 			waitTime();
 			System.out.println("Adding the created students");			
 			for (String student : students) {
@@ -172,16 +169,11 @@ public class ClassRoster extends BasePage {
 					clearSearchFilter();
 				}
 			}
-			//waitForElementAndClick(gradeField);
-			//waitForElementAndClick(gradeSelect);
 			waitForElementAndClick(saveRosterButton);
 			waitForElementAndClick(confirmOkButton);
 			waitTime();
-			waitForElementAndClick(homeLink);
 			System.out.println("Class Roster Created");
 			waitTime();
-			//waitForElementAndClick(dashBoardLink);
-
 		} catch (Exception e) {
 			System.out.println("Class Roster Creation Failed");
 			System.out.println(e.getMessage());

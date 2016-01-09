@@ -304,31 +304,26 @@ public class Items extends BasePage {
 			selectItemBank(itemBankName);
 		}
 		//waitForElementAndSendKeys(itemBankDropdown, itemBankName);
-		customeWaitTime(5);
+		customeWaitTime(2);
 		waitForElementAndSendKeys(itemCreateInputName, name);
 		waitForElementAndSendKeys(itemCreateInputDescription, "Description");
 		waitForElementAndClick(itemCreateEditInputSubmit);
-		customeWaitTime(5);
+		customeWaitTime(2);
 		// waitForElementAndSendKeys(templates, "Choice");
 		selectOption(templates, "Choice");
 		waitForElementAndClick(textEditorSaveButton);
-		customeWaitTime(5);
+		customeWaitTime(2);
 		clickOnConfirmationMessage();
 		waitForElementAndClick(scoreTabButton);
 		waitForElementAndClick(answerOne);
 		waitForElementAndClick(saveAnswer);
 		waitForElementAndClick(saveAndPublish);
-		customeWaitTime(5);
+		customeWaitTime(2);
 		clickOnConfirmationMessage();
 		System.out.println("The Item " + name + " has been created");
-		customeWaitTime(5);
+		customeWaitTime(2);
 		waitForElementAndClick(backToItems);
-		try{	
-			waitForElementAndClick(confirmationMessageDefect);
-		}catch(Exception e){
-			System.out.println("Unable to find th confirmation message");
-		}
-		customeWaitTime(5);
+		customeWaitTime(2);
 		searchItem(name);
 		this.addStandards();
 
