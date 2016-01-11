@@ -311,7 +311,8 @@ public class Users extends BasePage {
 				waitTime();
 				waitForElementAndClick(deleteIcon);
 				statusMessage = globalModalInfoBody.getText();
-				waitForElementAndClick(deleteButton);
+				waitForElementAndClick(globalModalDeleteButton);
+				
 			}
 
 		} catch (Exception e) {

@@ -81,14 +81,15 @@ public class HappyPathTest extends BaseTest {
 		dashBoardPageObject = loginPageObject.loginSuccess(domain + user,
 				adminPassword);
 		customeWaitTime(3);
-/*
+
 		System.out.println("******** Creating a new organization ********");
 		organizationPageObject = dashBoardPageObject.goToOrganization();
 		waitTime();
 		organizationPageObject.createNewOrganization("Automated School");
 		returnToDashboard();
+		returnToDashboard();
 		System.out.println("************************************************");
-*/
+
 		
 
 		System.out.println("***** Student and teacher creation started *****");

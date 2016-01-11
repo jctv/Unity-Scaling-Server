@@ -83,12 +83,10 @@ public class Organization extends BasePage {
 
 	public void deleteCreatedOrganization() {
 		try {
-			waitTime();
-
 			waitAndFocus(schoolCreated);
 			waitForElementAndClick(deleteSchoolIcon);
 			waitForElementAndClick(globalModalOKCancelSaveButton);
-
+			System.out.println("School deleted");
 		} catch (Exception e) {
 
 			System.out.println("Unable to delete the created school");
