@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Properties;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -24,8 +25,18 @@ public class HelpTest extends BaseTest{
 	String unityMessageFile = "src" + File.separator + "resources"
 			+ File.separator + "unitymessages.properties";
 	
-	Properties unitymessages;
+	String unityTestDataFile = "src" + File.separator + "resources"
+			+ File.separator + "unitytestdata.properties";
 	
+	Properties unitymessages;
+	Properties unitytestdata;
+	
+	String resourcesLocation = "src" + File.separator + "resources"
+			+ File.separator;
+	
+	String mediaFile = resourcesLocation + "tutorial-test.mp4";
+	String userGuideFile = resourcesLocation + "Import an SIS File.pdf";
+
 	public HelpTest() {
 		super();
 		
@@ -34,25 +45,25 @@ public class HelpTest extends BaseTest{
 	@BeforeTest
 	public void loadUnityMessagesProperty(){
 		unitymessages = getUnityMessagesProperty(unityMessageFile);
-		
+		unitytestdata = getUnityMessagesProperty(unityTestDataFile);;
 	}
 	
-	@BeforeMethod
+	@BeforeClass
 	public void setUp() {
 		driver.get(url);
 		loginPage = new Login(driver);
-		dashBoardPage = loginPage.loginSuccess(defaultQaUser,
-				defaultQaPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("defaultAdmin"),
+				unitytestdata.getProperty("defaultPassword"));
+		dashBoardPage.addTiles();
 		waitTime();
-		//dashBoardPageObject.addTiles();
-		waitTime();
+		helpPage = dashBoardPage.goToHelp();
+    	waitTime();
+    	waitTime();
 	}
 	
-    @Test
+    @Test(priority =1 )
 	public void testHelpAlertMessage(){
-    	helpPage = dashBoardPage.goToHelp();
-    	waitTime();
-    	waitTime();
+    	
     	helpPage.waitForElementAndClick(helpPage.exportHelpLink);
     	waitTime();
     	waitTime();
@@ -60,5 +71,11 @@ public class HelpTest extends BaseTest{
     	helpPage.waitForElementAndClick(helpPage.globalModalInfoOkButton);
 
 	}
+    
+    @Test(priority = 0)
+    public void testAddHelp(){
+    	helpPage.addHelp("Item Import", "test hint", mediaFile, userGuideFile);
+    	
+    }
 	
 }
