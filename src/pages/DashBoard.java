@@ -1,11 +1,14 @@
 package pages;
 
+import java.util.List;
+
 import generic.BasePage;
 import generic.BaseTest;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -150,6 +153,10 @@ public class DashBoard extends BasePage {
 	
 	@FindBy(id = "messageLink")
 	public WebElement messageLink;
+	
+	@FindBy(xpath = ".//*[@id='quick_links']/li/i")
+	public WebElement deleteQuickLinks;
+	
 	
 	
 
@@ -337,7 +344,7 @@ public class DashBoard extends BasePage {
 	public String addTiles() {
 		//*[@id="tileSelectionContainer"]/div[1]
 		waitForElementAndDoubleClick(addTile);
-		customeWaitTime(2);
+		customeWaitTime(5);
 		for (int x = 1; x < 26; x++) {
 			try {
 				String path = "//*[@id='tileSelectionContainer']/div[" + x + "]";
@@ -398,14 +405,12 @@ public class DashBoard extends BasePage {
 	
 	public boolean changeTileConfig() {
 		customeWaitTime(2);
-		
 		try {
 			configLink.click();
 			quickLinkInput.click();
 			globalModalOKCancelSaveButton.click();
 			customeWaitTime(2);
 			quickLinkList.isDisplayed();
-			
 			validator = true;
 		} catch (Exception e) {
 			System.out.println("Unable to move a Tile");
@@ -413,6 +418,29 @@ public class DashBoard extends BasePage {
 		return validator;
 	}
 	
+	public void addQuickLinkToTiles(){
+		try{
+		customeWaitTime(5);
+		List <WebElement> noOfTiles = driver.findElements(By.xpath("//div[@id='dashboardGrid']/ul/li"));
+        for (int x = 1; x <= noOfTiles.size(); x++) {
+				WebElement tile =  driver.findElement(By.xpath("//div[@id='dashboardGrid']//ul//li[" + x + "]/i"));
+				new Actions(driver).moveToElement(tile).perform();
+				//customeWaitTime(2);
+				tile.click();
+				//waitForElementAndClick(tile);
+				//quickLinkInput.click();
+				waitForElementAndClick(quickLinkInput);
+				waitForElementAndClick(globalModalOKCancelSaveButton);
+				customeWaitTime(2);
+				quickLinkList.isDisplayed();
+				System.out.println(x + " > " + quickLinkList.getText() +" tile quick link is added");
+    			waitForElementAndClick(deleteQuickLinks);
+    			customeWaitTime(2);
+        }
+        }catch(Exception e){
+			System.out.println("Error while create/detete the quick link");
+        }
+	}
 	
 	public boolean goToMessages() {
 		customeWaitTime(2);		
