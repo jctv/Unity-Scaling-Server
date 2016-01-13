@@ -34,6 +34,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.asserts.SoftAssert;
 import org.testng.xml.XmlSuite;
 
 import pages.DashBoard;
@@ -51,10 +52,11 @@ public class BaseTest {
 	
 	Properties prop = null;
 	InputStream input = null;
+	protected SoftAssert softAssert= new SoftAssert();
 
 	// Constructor
 	public BaseTest() {
-
+		 
 	}
 
 	@BeforeMethod

@@ -11,6 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import pages.DashBoard;
 import pages.Login;
@@ -37,9 +38,10 @@ public class UsersTests extends BaseTest {
 	String role;
 	String passwordNotMatch = "a" + password;
 
+
 	public UsersTests() {
 		super();
-
+		 
 	}
 
 	@BeforeTest
@@ -77,7 +79,8 @@ public class UsersTests extends BaseTest {
 
 		usersPageObject = dashBoardPageObject.goToUsers();
 		waitTime();
-		Assert.assertEquals(usersPageObject.createSpecificUser(firstName,
+		
+		softAssert.assertEquals(usersPageObject.createSpecificUser(firstName,
 				lastName, genericPassword, "12345789", role, organization),
 				unitymessages.getProperty("userpassworddontmatch"));
 		customeWaitTime(2);
@@ -87,7 +90,7 @@ public class UsersTests extends BaseTest {
 				.replace("last_name", lastName)
 				.replace("user_name",
 						firstName.substring(0, 1).toLowerCase() + lastName));
-		Assert.assertTrue(usersPageObject.createSpecificUser(firstName,
+		softAssert.assertTrue(usersPageObject.createSpecificUser(firstName,
 				lastName, genericPassword, genericPassword, role, organization)
 				.equalsIgnoreCase(
 						unitymessages
@@ -174,4 +177,10 @@ public class UsersTests extends BaseTest {
 				.waitForElementAndClick(usersPageObject.globalModalDeleteButton);
 	}
 
+	
+	@Test(priority =4)
+	public void testFilterUserByMyUsersFilter(){
+		
+	}
+	
 }

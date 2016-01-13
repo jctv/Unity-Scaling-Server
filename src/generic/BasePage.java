@@ -169,6 +169,10 @@ public class BasePage {
 	@FindBy(xpath = "//span[text()='Confirm']")
 	public WebElement confirmationAlertButton;
 	
+	@FindBy(xpath = "//p[contains(text(),'Rows')]")
+	public WebElement encouteredRecords;
+
+	
 
 	/** Constructor */
 	public BasePage(WebDriver driver) {

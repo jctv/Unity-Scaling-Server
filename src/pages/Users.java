@@ -153,6 +153,10 @@ public class Users extends BasePage {
 
 	@FindBy(id = "last_name")
 	public WebElement userEditLastName;
+	
+	@FindBy(id = "searchMine")
+	public WebElement searchMine;
+	
 
 	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 	String createdUsers = "";
@@ -389,5 +393,11 @@ public class Users extends BasePage {
 		}
 
 	}
+	public String filterUserMyUsers(){
+		waitForElementAndClick(searchMine);
+		
+		return waitAndGetElementText(encouteredRecords);
+	}
+	
 
 }
