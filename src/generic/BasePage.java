@@ -537,6 +537,18 @@ public void selectOption(WebElement dropDownListBox, String option) {
 		 return text;
 	}
 	
+	public String  waitForElementPresenceAndSendKeys(String xpath, String arg0){
+		String text = "";
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+			wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath))).sendKeys(arg0);;
+		} catch (Exception e) {
+			System.out.println("Unable to find and send keys to the element" );
+		}
+		
+		 return text;
+	}
+	
 	public Login logOut() {
 		try {
 			waitForElementAndClick(userDrop);
