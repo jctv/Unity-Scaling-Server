@@ -6,7 +6,7 @@
 <parameter name="url" value="http://qa.8pnds.com/login.html"/>
 <parameter name="platform" value="Any"/>
 <parameter name="type" value="Remote"/>
-<parameter name="hubAddress" value="10.1.100.201"/>
+<parameter name="hubAddress" value="-DhubAddress"/>
 <parameter name="userName" value="bil/ctribin"/>
 <parameter name="password" value="ctribin1"/>
 <parameter name="waitingTime" value="30"/>
