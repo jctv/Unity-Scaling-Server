@@ -206,7 +206,7 @@ public class BaseTest {
 					driver = new RemoteWebDriver(new URL(
 							"http://localhost:4444/wd/hub"), capability);
 				else
-					driver = new RemoteWebDriver(new URL(hubAddress +"/wd/hub"
+					driver = new RemoteWebDriver(new URL(hubAddress +":4444/wd/hub"
 							), capability);
 				driver.manage().window().maximize();
 			} catch (MalformedURLException e) {
