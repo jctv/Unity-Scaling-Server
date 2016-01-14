@@ -31,8 +31,8 @@ public class HappyPathTest extends BaseTest {
 
 	HappyPathTest Nav;
 	public String user = "admin";
-	public String adminPassword = "password";
-	public String domain = "auto/";
+	public String adminPassword = "@simple1";
+	public String domain = "";
 	public String genericPassword = "12345";
 	Login loginPageObject;
 	DashBoard dashBoardPageObject;

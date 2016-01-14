@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 public class Login extends BasePage {
 
@@ -41,8 +42,9 @@ public class Login extends BasePage {
 			customeWaitTime(8);
 			waitForJsProcess();
 			
-			Assert.assertTrue(pageName.isDisplayed(), "User Logged");
+			if(pageName.isDisplayed()){
 			System.out.println(user + "  login successfully");
+			}
 
 		} catch (Exception e) {
 			System.out.println("Unable to login");
