@@ -57,17 +57,6 @@ public class Help extends BasePage {
 	@FindBy(xpath = ".//*[@id='createText']']")
 	public WebElement editPermissionInputField;
 	
-	@FindBy(id = "searchAutoComplete")
-	public WebElement searchAutoCompleteField;
-	
-	@FindBy(xpath = "//button[@class='btn btn-xs btn-link deleteRow']")
-	public WebElement deleteHelp;
-	
-	@FindBy(id = "globalModalDelete")
-	public WebElement deleteHelpPopUp;
-	
-	@FindBy(id = "globalModalDeleteButton")
-	public WebElement deletebuttonHelpPopUp;
 	
 	public void addHelp(String tile , String helpHint , String mediafilePath, String userguideFilePath ){
 		try{
@@ -90,39 +79,5 @@ public class Help extends BasePage {
 			
 		}
 	}
-	
-	public void searchHelp(String help){
-		try{
-		  customeWaitTime(5);
-		  searchAutoCompleteField.clear();
-		  customeWaitTime(5);
-		  waitForElementAndSendKeys(searchAutoCompleteField, help);
-		  waitForElementAndClick(searchButton);
-		  customeWaitTime(5);
-		}catch(Exception e){
-			System.out.println("Unable to find the Help "  + help);
-
-		}
-		
-	}
-	
-	public void deleteHelp(String help){
-		try{
-		searchHelp(help);	
-		customeWaitTime(5);
-		waitForElementAndClick(deleteHelp);
-		customeWaitTime(10);
-		if(deleteHelpPopUp.isDisplayed()){
-		   waitForElementAndClick(deletebuttonHelpPopUp);
-		}
-			
-		}catch(Exception e){
-			 System.out.println("Unable to delete the Help  " + help);
-		}
-		
-	}
-	
-	
-	
 
 }
