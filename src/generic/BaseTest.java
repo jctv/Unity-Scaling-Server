@@ -211,7 +211,7 @@ public class BaseTest {
 				driver.manage().window().maximize();
 			} catch (MalformedURLException e) {
 				System.out
-						.println("[ERROR] There was a problem setting up the  WebDriver Grid hub");
+						.println("[ERROR] There was a problem setting up the  WebDriver Grid hub" + e.getMessage());
 			}
 		} else
 			System.out
