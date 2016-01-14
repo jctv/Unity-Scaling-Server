@@ -58,7 +58,7 @@ public class HappyPathTest extends BaseTest {
 
 	@BeforeMethod
 	public void setUp() {
-
+		System.out.println("+++hub++++ "+hubAddress);
 		driver.get(url);
 
 		loginPageObject = new Login(driver);
