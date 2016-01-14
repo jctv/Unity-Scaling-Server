@@ -44,13 +44,13 @@ public class Users extends BasePage {
 
 	@FindBy(id = "userCreateInputFName")
 	public WebElement firstNameField;
-	
+
 	@FindBy(xpath = "//*[@id='globalModalView']/div/div/div[1]/button")
 	public WebElement closeModal;
 
 	@FindBy(id = "userCreateInputLName")
 	public WebElement lastNameField;
-	
+
 	@FindBy(id = "last_name")
 	public WebElement last_name;
 
@@ -94,15 +94,6 @@ public class Users extends BasePage {
 	@FindBy(xpath = "//*[@id='region-workspace']/div/div/div[2]/div/div/div[3]/table/tbody/tr[1]/td[2]/div/button[1]/i")
 	public WebElement editIcon;
 
-	@FindBy(xpath = "//*[@id='searchFilter']/ul/li[1]/div/a")
-	public List<WebElement> groupsFilter;
-
-	@FindBy(xpath = "//*[@id='searchFilter']/ul/li[2]/div/a")
-	public List<WebElement> firstNameFilter;
-
-	@FindBy(xpath = "//*[@id='searchFilter']/ul/li[3]/div/a")
-	public List<WebElement> lastNameFilter;
-
 	@FindBy(xpath = "//*[@id='region-workspace']/div/div/div[2]/div/div/div[3]/table/tbody/tr[1]/td[6]")
 	public WebElement groupColumn;
 
@@ -120,7 +111,7 @@ public class Users extends BasePage {
 
 	@FindBy(xpath = "//button[@data-id = 'userCreateOrg']")
 	public WebElement searchOrgButton;
-	
+
 	@FindBy(xpath = "//*[@id='globalModalViewBody']/div/form/div[6]/div/div/div/div/input")
 	public WebElement searchOrgFieldInput;
 
@@ -153,10 +144,22 @@ public class Users extends BasePage {
 
 	@FindBy(id = "last_name")
 	public WebElement userEditLastName;
-	
+
 	@FindBy(id = "searchMine")
 	public WebElement searchMine;
-	
+
+	@FindBy(xpath = "(//a[@class='jqtree_common jqtree-toggler'])[1]")
+	public WebElement roleBullet;
+	@FindBy(xpath = "(//a[@class='jqtree_common jqtree-toggler'])[2]")
+	public WebElement firstNameBullet;
+	@FindBy(xpath = "(//a[@class='jqtree_common jqtree-toggler'])[3]")
+	public WebElement middleNameBullet;
+	@FindBy(xpath = "(//a[@class='jqtree_common jqtree-toggler'])[4]")
+	public WebElement lastNameBullet;
+	@FindBy(xpath = "(//a[@class='jqtree_common jqtree-toggler'])[5]")
+	public WebElement stateIDBullet;
+	@FindBy(xpath = "(//a[@class='jqtree_common jqtree-toggler'])[6]")
+	public WebElement gradeBullet;
 
 	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 	String createdUsers = "";
@@ -177,31 +180,9 @@ public class Users extends BasePage {
 		return validator;
 	}
 
-	public boolean searchByCheck() {
-		try {
-			waitTime();
-			validator = base.searchFilters(groupsFilter, groupColumn, "");
-			waitTime();
-			System.out.println("filter testing finished");
-		} catch (Exception e) {
-			System.out.println("Record not found");
-		}
-		return validator;
-	}
 
-	public boolean searchByCriteria(String criteria) {
-		try {
-			waitTime();
-			validator = base.searchFilters(firstNameFilter, firstNameColumn,
-					criteria);
 
-			waitTime();
-			System.out.println("filter testing finished");
-		} catch (Exception e) {
-			System.out.println("Record not found");
-		}
-		return validator;
-	}
+
 
 	public String createUser() {
 		for (int x = 0; x <= usersToCreate; x++) {
@@ -316,7 +297,7 @@ public class Users extends BasePage {
 				waitForElementAndClick(deleteIcon);
 				statusMessage = globalModalInfoBody.getText();
 				waitForElementAndClick(globalModalDeleteButton);
-				
+
 			}
 
 		} catch (Exception e) {
@@ -393,11 +374,56 @@ public class Users extends BasePage {
 		}
 
 	}
-	public String filterUserMyUsers(){
+
+	public String filterUserMyUsers() {
 		waitForElementAndClick(searchMine);
-		
 		return waitAndGetElementText(encouteredRecords);
 	}
-	
 
+	public String filterByArgunent(String arg, String value) {
+
+		switch (arg) {
+		case "firstName":
+			waitForElementAndClick(firstNameBullet);
+			waitForElementPresenceAndSendKeys("(//input[@class='form-control input-sm'])[1]",value);
+
+			break;
+		case "middleName":
+			waitForElementAndClick(middleNameBullet);
+			waitForElementPresenceAndSendKeys("(//input[@class='form-control input-sm'])[2]",value);
+			break;
+		case "lastName":
+			waitForElementAndClick(lastNameBullet);
+			waitForElementPresenceAndSendKeys("(//input[@class='form-control input-sm'])[3]",value);
+			break;
+		case "stateId":
+			waitForElementAndClick(stateIDBullet);
+			waitForElementPresenceAndSendKeys("(//input[@class='form-control input-sm'])[4]",value);
+			break;
+		default:
+			break;
+		}
+		waitForElementAndClick(searchMine);
+		return waitAndGetElementText(encouteredRecords);
+	}
+
+	
+	public String filterByCheck(String arg, String value) {
+
+		switch (arg) {
+		case "Role":
+			waitForElementAndClick(roleBullet); 
+			waitForElementPresenceAndClick("//i[./following-sibling::span[text()='"+value+"']]");
+
+			break;
+		case "Grade":
+			waitForElementAndClick(gradeBullet); 
+			waitForElementPresenceAndClick("//i[./following-sibling::span[text()='"+value+"']]");
+			break;
+		default:
+			break;
+		}
+		waitForElementAndClick(searchMine);
+		return waitAndGetElementText(encouteredRecords);
+	}
 }
