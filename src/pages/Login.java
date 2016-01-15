@@ -38,8 +38,9 @@ public class Login extends BasePage {
 		try {
 			waitForElementAndSendKeys(userField, user);
 			waitForElementAndSendKeys(passwordField, password);
+			customeWaitTime(1);
 			waitForElementAndClick(signIn);
-			customeWaitTime(8);
+			customeWaitTime(5);
 			waitForJsProcess();
 			
 			if(pageName.isDisplayed()){

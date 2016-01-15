@@ -53,7 +53,7 @@ public class Help extends BasePage {
 	
 	@FindBy(xpath = ".//*[@id='createText']']")
 	public WebElement createPermissionInputField;
-	//Comment
+	
 	@FindBy(xpath = ".//*[@id='createText']']")
 	public WebElement editPermissionInputField;
 	

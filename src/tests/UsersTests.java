@@ -33,6 +33,7 @@ public class UsersTests extends BaseTest {
 	String firstName;
 	String organization;
 	String lastName;
+	String foundRecords;
 
 	String genericPassword;
 	String role;
@@ -180,7 +181,38 @@ public class UsersTests extends BaseTest {
 	
 	@Test(priority =4)
 	public void testFilterUserByMyUsersFilter(){
-		
+	softAssert.assertFalse(foundRecords.equals(usersPageObject.filterMyUsers()),"Filter by my users is not working");
+	usersPageObject.waitForElementAndClick(usersPageObject.resetSearchFilter);
+	}
+	@Test(priority =5)
+	public void testFilterUserByFirstName(){
+	softAssert.assertTrue(usersPageObject.filterByArgunent("firstName","Teacher" ),"Filter by my firstName is not working");
+	usersPageObject.waitForElementAndClick(usersPageObject.resetSearchFilter);
+	}
+	@Test(priority =6)
+	public void testFilterUserBymiddleName(){
+	softAssert.assertTrue(usersPageObject.filterByArgunent("middleName","middle" ),"Filter by my middleName is not working");
+	usersPageObject.waitForElementAndClick(usersPageObject.resetSearchFilter);
+	}
+	@Test(priority =7)
+	public void testFilterUserByLastNameName(){
+	softAssert.assertTrue(usersPageObject.filterByArgunent("lastName","camilo" ),"Filter by my lastName is not working");
+	usersPageObject.waitForElementAndClick(usersPageObject.resetSearchFilter);
+	}
+	@Test(priority =8)
+	public void testFilterUserByStateId(){
+	softAssert.assertTrue(usersPageObject.filterByArgunent("stateId","123" ),"Filter by my statedId is not working");
+	usersPageObject.waitForElementAndClick(usersPageObject.resetSearchFilter);
 	}
 	
+	@Test(priority =9)
+	public void testFilterUserByGrade(){
+	softAssert.assertTrue(usersPageObject.filterByCheck("grade","05" ),"Filter by my grade is not working");
+	usersPageObject.waitForElementAndClick(usersPageObject.resetSearchFilter);
+	}
+	@Test(priority =10)
+	public void testFilterUserByRole(){
+	softAssert.assertTrue(usersPageObject.filterByCheck("role","Teacher" ),"Filter by my role is not working");
+	usersPageObject.waitForElementAndClick(usersPageObject.resetSearchFilter);
+	}
 }

@@ -274,11 +274,8 @@ public class BaseTest {
 
 	public void returnToDashboard() {
 		try {
-			customeWaitTime(7);	
-			driver.findElement(By.xpath(".//*[@id='region-navigation']/ul/li[1]/a"))
-					.click();
-			
-			customeWaitTime(5);
+			driver.get(url);			
+			customeWaitTime(3);
 		} catch (Exception e) {
 			System.out.println("Error trying to return to the dashboard");
 			//driver.get(domain);
