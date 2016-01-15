@@ -278,7 +278,7 @@ public class BaseTest {
 			customeWaitTime(3);
 		} catch (Exception e) {
 			System.out.println("Error trying to return to the dashboard");
-			//driver.get(domain);
+			
 		}
 	}
 

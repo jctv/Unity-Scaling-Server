@@ -87,7 +87,6 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 		organizationPageObject.createNewOrganization("Automated School");
 		returnToDashboard();
-		returnToDashboard();
 		System.out.println("************************************************");
 
 		
