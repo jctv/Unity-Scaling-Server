@@ -28,7 +28,10 @@ public class Users extends BasePage {
 	}
 
 	// Tabs Ids
-
+	
+	@FindBy(id = "globalModalViewTitle")
+	public WebElement globalModalViewTitle;
+	
 	@FindBy(id = "searchAutoCompleteContainer")
 	public WebElement searchAutoCompleteContainer;
 
@@ -70,7 +73,7 @@ public class Users extends BasePage {
 
 	@FindBy(id = "userEditInputPW2")
 	public WebElement userEditInputPW2;
-
+	
 	@FindBy(id = "userCreateInputSubmit")
 	public WebElement submit;
 
@@ -264,9 +267,10 @@ public class Users extends BasePage {
 			waitForElementAndSendKeys(password, newPassword);
 			waitForElementAndSendKeys(retypePassword, confirmPassword);
 			waitForElementAndSendKeys(role, newRole);
-
+			role.click();
 			waitForElementAndClick(searchOrgButton);
 			waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
+			globalModalViewTitle.click();
 			waitTime();
 			waitForElementAndClick(submit);
 			try {

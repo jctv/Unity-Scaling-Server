@@ -1,14 +1,20 @@
 package tests;
 
+import generic.BasePage;
 import generic.BaseTest;
 
 import java.io.File;
 import java.util.Date;
 import java.util.Properties;
 
+import org.junit.BeforeClass;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -45,7 +51,7 @@ public class UsersTests extends BaseTest {
 		 
 	}
 
-	@BeforeTest
+	@BeforeMethod
 	public void loadUnityMessagesProperty() {
 		unitymessages = getUnityMessagesProperty(unityMessageFile);
 		unityUsersData = getUnityMessagesProperty(unityUsersDataFile);
@@ -58,15 +64,15 @@ public class UsersTests extends BaseTest {
 
 	}
 
-	@BeforeMethod
-	public void setUp() {
+	
+	public void setUp() {	
+		System.out.println("Before Method");
 		driver.get(url);
 		loginPageObject = new Login(driver);
 		dashBoardPageObject = loginPageObject.loginSuccess("admin", "@simple1");
 		waitTime();
-		// dashBoardPageObject.addTiles();
-		waitTime();
 	}
+
 
 	/**
 	 * Login into the unity go to the user tile Click on Create user navigation
@@ -77,7 +83,7 @@ public class UsersTests extends BaseTest {
 
 	@Test(priority = 1)
 	public void testUserCreationAlertMessages() {
-
+		this.setUp();
 		usersPageObject = dashBoardPageObject.goToUsers();
 		waitTime();
 		
@@ -126,7 +132,7 @@ public class UsersTests extends BaseTest {
 		usersPageObject.waitForElementAndClick(usersPageObject.saveButton);
 		waitTime();
 		Assert.assertTrue((usersPageObject.globalModalInfoBody.getText().trim())
-				.equalsIgnoreCase(unitymessages.getProperty("usernochange")));
+				.contains(unitymessages.getProperty("usernochange")));
 		usersPageObject
 				.waitForElementAndClick(usersPageObject.globalModalInfoOkButton);
 		waitTime();
@@ -134,7 +140,7 @@ public class UsersTests extends BaseTest {
 		usersPageObject.waitForElementAndClick(usersPageObject.saveButton);
 		customeWaitTime(2);
 		Assert.assertTrue(usersPageObject.globalModalInfoBody.getText().trim()
-				.equalsIgnoreCase(unitymessages.getProperty("userinvaliddata")));
+				.contains(unitymessages.getProperty("userinvaliddata")));
 		usersPageObject
 				.waitForElementAndClick(usersPageObject.globalModalInfoOkButton);
 		waitTime();
@@ -146,7 +152,7 @@ public class UsersTests extends BaseTest {
 		waitTime();
 		waitTime();
 		Assert.assertTrue(usersPageObject.globalModalInfoBody.getText().trim()
-				.equalsIgnoreCase(unitymessages.getProperty("usersaved")));
+				.contains(unitymessages.getProperty("usersaved")));
 
 	}
 
@@ -167,11 +173,8 @@ public class UsersTests extends BaseTest {
 		usersPageObject.waitForElementAndClick(usersPageObject.deleteIconList);
 		waitTime();
 		waitTime();
-		Assert.assertEquals(
-				usersPageObject.globalModalDeleteBody.getText().trim(),
-				unitymessages.getProperty("userDelete")
-						.replace("first_name", firstName)
-						.replace("last_name", lastName));
+		
+		softAssert.assertTrue(usersPageObject.globalModalDeleteBody.getText().contains(unitymessages.getProperty("userDelete").replace("first_name", firstName).replace("last_name", lastName)));
 		waitTime();
 
 		usersPageObject

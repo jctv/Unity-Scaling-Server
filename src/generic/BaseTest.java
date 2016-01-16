@@ -48,7 +48,6 @@ public class BaseTest {
 	protected String browser, filePath, executionType, url, platform,
 			hubAddress, userName, password, domain;
 	protected String waitingTime = "10";
-
 	
 	Properties prop = null;
 	InputStream input = null;
@@ -306,6 +305,6 @@ public class BaseTest {
 		
 		
 		}
-	
+
 	
 }
