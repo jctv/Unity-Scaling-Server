@@ -566,6 +566,7 @@ public class DashBoard extends BasePage {
 		try {
 			waitForElementAndDoubleClick(mediaTile);	
 			customeWaitTime(2);
+			waitForJsProcess();
 			if(globalModalInfoOkButton.isDisplayed()){
 				System.out.println("Device not supported");
 			}
