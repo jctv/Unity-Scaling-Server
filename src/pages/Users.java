@@ -15,6 +15,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.google.common.base.Converter;
+
 public class Users extends BasePage {
 
 	BasePage base;
@@ -26,7 +28,10 @@ public class Users extends BasePage {
 	}
 
 	// Tabs Ids
-
+	
+	@FindBy(id = "globalModalViewTitle")
+	public WebElement globalModalViewTitle;
+	
 	@FindBy(id = "searchAutoCompleteContainer")
 	public WebElement searchAutoCompleteContainer;
 
@@ -68,7 +73,7 @@ public class Users extends BasePage {
 
 	@FindBy(id = "userEditInputPW2")
 	public WebElement userEditInputPW2;
-
+	
 	@FindBy(id = "userCreateInputSubmit")
 	public WebElement submit;
 
@@ -262,9 +267,10 @@ public class Users extends BasePage {
 			waitForElementAndSendKeys(password, newPassword);
 			waitForElementAndSendKeys(retypePassword, confirmPassword);
 			waitForElementAndSendKeys(role, newRole);
-
+			role.click();
 			waitForElementAndClick(searchOrgButton);
 			waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
+			globalModalViewTitle.click();
 			waitTime();
 			waitForElementAndClick(submit);
 			try {
@@ -375,18 +381,24 @@ public class Users extends BasePage {
 
 	}
 
-	public String filterUserMyUsers() {
+	public String filterMyUsers() {
 		waitForElementAndClick(searchMine);
 		return waitAndGetElementText(encouteredRecords);
 	}
+	
+	public List<WebElement> listOfResults(){
+		customeWaitTime(2);
+		List<WebElement> recordsList = driver.findElements(By.xpath("//td[text()='teacher' and @class='watable-col-first_name']"));
+		
+		return recordsList;
+	} 
 
-	public String filterByArgunent(String arg, String value) {
+	public boolean filterByArgunent(String arg, String value) {
 
 		switch (arg) {
 		case "firstName":
 			waitForElementAndClick(firstNameBullet);
 			waitForElementPresenceAndSendKeys("(//input[@class='form-control input-sm'])[1]",value);
-
 			break;
 		case "middleName":
 			waitForElementAndClick(middleNameBullet);
@@ -403,20 +415,21 @@ public class Users extends BasePage {
 		default:
 			break;
 		}
-		waitForElementAndClick(searchMine);
-		return waitAndGetElementText(encouteredRecords);
+		
+		return waitAndGetElementText(encouteredRecords).contains(Integer.toString(this.listOfResults().size()));
 	}
 
 	
-	public String filterByCheck(String arg, String value) {
+	public boolean filterByCheck(String arg, String value) {
 
 		switch (arg) {
-		case "Role":
+		case "role":
 			waitForElementAndClick(roleBullet); 
 			waitForElementPresenceAndClick("//i[./following-sibling::span[text()='"+value+"']]");
+			
 
 			break;
-		case "Grade":
+		case "grade":
 			waitForElementAndClick(gradeBullet); 
 			waitForElementPresenceAndClick("//i[./following-sibling::span[text()='"+value+"']]");
 			break;
@@ -424,6 +437,6 @@ public class Users extends BasePage {
 			break;
 		}
 		waitForElementAndClick(searchMine);
-		return waitAndGetElementText(encouteredRecords);
+		return waitAndGetElementText(encouteredRecords).contains(Integer.toString(this.listOfResults().size()));
 	}
 }

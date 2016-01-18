@@ -321,11 +321,10 @@ public class BasePage {
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		try {
 			wait.until(ExpectedConditions.elementToBeClickable(element));
-			waitTime();
 			element.click();
-			System.out.println("Button  clicked " + element.getText());
+			System.out.println("Button  clicked ");
 
-		} catch (Exception e2) {
+		} catch (Exception e) {
 			System.out.println("Unable to perform the click on element ");
 
 		}
@@ -363,7 +362,7 @@ public class BasePage {
 			try {
 				element.clear();
 			} catch (Exception e) {
-				System.out.println("Unable to clear the element  ");
+				//System.out.println("Clear the element  ");
 			}
 			
 			element.click();

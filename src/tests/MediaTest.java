@@ -23,8 +23,16 @@ public class MediaTest extends BaseTest {
 	String defaultUser = "admin";
 	String defaultPassword = "@simple1";
 	
+	String itemBankName;
+	
+	long timeStamp;
+	
+	
 	String resourcesLocation = "src" + File.separator + "resources"
-			+ File.separator;
+			+ File.separator + "media" + File.separator ;
+	
+	String unityTestDataFile = "src" + File.separator + "resources"
+			+ File.separator + "unitytestdata.properties";
 	
 	String mediaFile = "media.jpg";
 
@@ -35,6 +43,9 @@ public class MediaTest extends BaseTest {
 			+ File.separator + "unitymessages.properties";
 	
 	Properties unitymessages;
+	Properties unitytestdata;
+	
+	
 	
 	public MediaTest() {
 		super();
@@ -44,34 +55,43 @@ public class MediaTest extends BaseTest {
 	@BeforeTest
 	public void loadUnityMessagesProperty(){
 		unitymessages = getUnityMessagesProperty(unityMessageFile);
+		unitytestdata = getUnityMessagesProperty(unityTestDataFile);;
 	}
 	
 	@BeforeMethod
 	public void setUp() {
 		driver.get(url);
 		loginPage = new Login(driver);
-		dashBoardPage = loginPage.loginSuccess(defaultUser,
-				defaultPassword);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("defaultAdmin"),
+				unitytestdata.getProperty("defaultPassword"));
 		waitTime();
-		//dashBoardPageObject.addTiles();
+		dashBoardPage.addTiles();
 		waitTime();
-	}
-
-    @Test
-    public void testMediaAlertMessages(){
-    	String itemBankName = "Media" + + System.currentTimeMillis();
+		timeStamp =  System.currentTimeMillis();
+		itemBankName = "Media" + timeStamp; 
     	itemsBankPage = dashBoardPage.goToItemsBank();
-    	waitTime();
     	waitTime();
     	itemsBankPage.createBank(itemBankName, "Desc");
     	waitTime();
     	returnToDashboard();
 		customeWaitTime(5);
     	mediaPage = dashBoardPage.goToMedia();
-    	waitTime();
-    	waitTime();
+	}
+	
+	
+	
+	@Test(priority = 1)
+	public void testuploadMedia(){
+		mediaPage.uploadMedia(mediaUploadFile, itemBankName);
+		mediaPage.searchMedia(mediaFile);
+		customeWaitTime(2);
+		
+		mediaPage.deleteMedia(mediaFile);
+	}
+	
+    @Test(enabled = false )
+    public void testMediaAlertMessages(){
     	mediaPage.waitForElementAndClick(mediaPage.uploadMediaLink);
-    	waitTime();
     	waitTime();
     	mediaPage.waitForElementAndClick(mediaPage.cancelUploadButton);
     	waitTime();

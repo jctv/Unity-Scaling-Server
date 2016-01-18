@@ -3,7 +3,7 @@
 <suite name="TestSuite" parallel="false">
 <parameter name="browser" value="chrome"/>
 <parameter name="filePath" value="/usr/bin/google-chrome"/>
-<parameter name="url" value="http://uat.8pnds.com/login.html"/>
+<parameter name="url" value="http://qa.8pnds.com"/>
 <parameter name="platform" value="Any"/>
 <parameter name="type" value="Remote"/>
 <parameter name="hubAddress" value="${hubAddress}"/>
