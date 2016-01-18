@@ -4,6 +4,7 @@ import java.io.File;
 
 import generic.BasePage;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -88,6 +89,14 @@ public class Media extends BasePage{
 	@FindBy(xpath = "//td[@class='watable-col-item_banks']")
 	public WebElement mediaItemBankNameInListing;
 	
+	@FindBy(xpath = "//div[@class='layoutHorizontalLeftPane col-md-4']//input[@id='searchAutoComplete']")
+	public WebElement searchItemBankFilterPopup;
+
+	@FindBy(xpath = "//div[@class='layoutHorizontalLeftPane col-md-4']//span[@id='searchButton']")
+	public WebElement searchButtonItemBankFilterPopup;
+
+	@FindBy(xpath = "//span[text()='Banks']/../../ul//div/div/div")
+	public WebElement filteredItemBank;
 	
 	
 	/**
@@ -152,15 +161,27 @@ public class Media extends BasePage{
 
 	
  public void filterMediaByItemBank(String media , String itemBank){	 
-	 try{
+		try {
 			waitForElementAndClick(banksFilterNav);
 			customeWaitTime(2);
-		 
-	 }catch(Exception e ){
-			System.out.println("Unable to filter the media " + media + "for item bank " + itemBank);
+			waitForElementAndClick(clickToSelectBank);
+			customeWaitTime(5);
+			searchItemBankFilterPopup.clear();
+			waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
+			waitForElementAndSendKeys(searchItemBankFilterPopup, itemBank);
+			waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
+			WebElement serachedItembank = driver.findElement(By
+					.xpath("//tr[@class='data-row']//td[text()='"
+							+ itemBank + "']"));
+			waitForElementAndDoubleClick(serachedItembank);
+			customeWaitTime(5);
+			waitForElementAndClick(globalModalOKCancelSaveButton);
 
-		 
-	 }
+		} catch (Exception e) {
+			System.out.println("Unable to filter the media " + media
+					+ "for item bank " + itemBank);
+
+		}
 	 
 	 
   }

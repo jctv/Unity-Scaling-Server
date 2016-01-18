@@ -83,9 +83,9 @@ public class MediaTest extends BaseTest {
 	@Test(priority = 1)
 	public void testuploadMedia(){
 		mediaPage.uploadMedia(mediaUploadFile, itemBankName);
-		mediaPage.searchMedia(mediaFile);
+		mediaPage.filterMediaByItemBank(mediaFile, itemBankName);
+		//mediaPage.searchMedia(mediaFile);
 		customeWaitTime(2);
-		
 		mediaPage.deleteMedia(mediaFile);
 	}
 	
