@@ -98,6 +98,14 @@ public class Media extends BasePage{
 	@FindBy(xpath = "//span[text()='Banks']/../../ul//div/div/div")
 	public WebElement filteredItemBank;
 	
+	@FindBy(xpath = ".//*[@id='viewMediaPreview']/video")
+	public WebElement previewVideoTumbnail;
+	
+	@FindBy(xpath = ".//*[@id='viewMediaPreview']/img")
+	public WebElement previewImageTumbnail;
+	
+	
+	
 	
 	/**
 	 * 
@@ -109,6 +117,7 @@ public class Media extends BasePage{
 		boolean isMediaUploadSuccessful = false ;
 		try{
 	    	waitForElementAndClick(uploadMediaLink);
+	    	customeWaitTime(5);
 			File f = new File(filepath);
 			String mediaUploadFilepath = f.getAbsolutePath();
 			waitTime();
@@ -120,7 +129,7 @@ public class Media extends BasePage{
 				isMediaUploadSuccessful = true;
 		    }
 	    	waitForElementAndClick(globalModalUploadOkButton);
-	    	waitTime();
+	    	customeWaitTime(5);
 		}catch(Exception e){
 			
 			System.out.println("Unable to upload the media  file  -->  "  + filepath);
@@ -147,12 +156,14 @@ public class Media extends BasePage{
 	
 	public void deleteMedia(String itemName) {
 		try {
-			searchAutoComplete.clear();
+			/*searchAutoComplete.clear();
 			searchMedia(itemName);
-			waitTime();
+			waitTime();*/
 			waitForElementAndClick(deleteIconList);
-			waitTime();
-			waitTime();
+			customeWaitTime(2);
+			waitForElementAndClick(globalModalDeleteButton);
+			customeWaitTime(2);
+			
 		} catch (Exception e) {
 			System.out.println("Unable to delete the Item   " + itemName);
 		}

@@ -178,7 +178,7 @@ public class Passage extends BasePage{
 	}
 
 	
-	public boolean filterByCheck(String arg, String value) {
+	/*public boolean filterByCheck(String arg, String value) {
 
 		switch (arg) {
 		case "role":
@@ -197,5 +197,5 @@ public class Passage extends BasePage{
 		waitForElementAndClick(searchMine);
 		return waitAndGetElementText(encouteredRecords).contains(Integer.toString(this.listOfResults().size()));
 	}
-
+*/
 }
