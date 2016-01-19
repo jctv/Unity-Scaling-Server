@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Properties;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
@@ -36,6 +37,8 @@ public class HelpTest extends BaseTest{
 	
 	String mediaFile = resourcesLocation + "tutorial-test.mp4";
 	String userGuideFile = resourcesLocation + "Import an SIS File.pdf";
+	
+	String helpName;
 
 	public HelpTest() {
 		super();
@@ -59,6 +62,7 @@ public class HelpTest extends BaseTest{
 		helpPage = dashBoardPage.goToHelp();
     	waitTime();
     	waitTime();
+    	helpName = "itemBank";
 	}
 	
     @Test(priority =1 )
@@ -77,5 +81,21 @@ public class HelpTest extends BaseTest{
     	helpPage.addHelp("Item Import", "test hint", mediaFile, userGuideFile);
     	
     }
+    
+    
+    @Test(priority = 2)
+	public void testSearchHelp(){
+		helpPage.waitForElementAndClick(helpPage.resetSearchFilter);
+		waitTime();
+		helpPage.searchHelp(helpName);
+		Assert.assertEquals(helpPage.waitAndGetElementText(helpPage.searchAutoComplete), helpName);
+	}
+    
+    
+    
+    @AfterClass
+	public void cleanupData(){
+    	helpPage.deleteHelp(helpName);
+	}
 	
 }
