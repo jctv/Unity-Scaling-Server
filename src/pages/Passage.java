@@ -19,7 +19,7 @@ public class Passage extends BasePage{
 		PageFactory.initElements(driver, this);
 	}
 	
-	@FindBy(xpath = "//span[text()='Create']")
+	@FindBy(xpath = "//a[text()='Create']")
 	public WebElement createPassageLink;
 
 	
@@ -29,13 +29,13 @@ public class Passage extends BasePage{
 	@FindBy(id = "contentCreateInputDescription")
 	public WebElement passageDescField;
 	
-	@FindBy(xpath = ".//*[@id='quickViewContentCreate']/div/form/button[1]")
+	@FindBy(xpath = ".//*[@id='globalModalViewBody']/div/form/div[5]/div/button[1]")
 	public WebElement passageCreateAndEditButton;
 	
 	@FindBy(xpath = ".//*[@id='quickViewContentCreate']/div/form/button[2]")
 	public WebElement passageCreateButton;
 	
-	@FindBy(xpath = ".//*[@id='quickViewContentCreate']/div/form/div[1]/div/button")
+	@FindBy(xpath = ".//*[@id='globalModalViewBody']/div/form/div[1]/div/div/button")
 	public WebElement itemBankDropdown;
 	
 	@FindBy(id = "global-object-name")
@@ -50,7 +50,7 @@ public class Passage extends BasePage{
 	@FindBy(xpath = "//tbody[@class='files']//td[1]/i")
 	public WebElement passageUploadIcon;
 	
-	@FindBy(xpath = "//div[@class='dropdown-menu open']//input")
+	@FindBy(xpath = ".//*[@id='globalModalViewBody']/div/form/div[1]/div/div/div/div/input")
 	public WebElement searchInputField;
 	
 	
@@ -71,7 +71,7 @@ public class Passage extends BasePage{
 		customeWaitTime(5);
 		waitForElementAndSendKeys(searchInputField, option);
 		customeWaitTime(5);
-		List<WebElement> itemBankoptions= driver.findElements(By.xpath("//div[@class='btn-group bootstrap-select content-bank select-search-by-name-item_bank open']//ul/li"));
+		List<WebElement> itemBankoptions= driver.findElements(By.xpath(".//*[@id='globalModalViewBody']/div/form/div[1]/div/div/div/ul/li[1]/a/span[1]"));
 		for (WebElement itemBank : itemBankoptions){
 			try{
 			if(itemBank.getText().equals(option)){
