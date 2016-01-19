@@ -54,6 +54,14 @@ public class Passage extends BasePage{
 	public WebElement searchInputField;
 	
 	
+	@FindBy(id = "lexileFilter")
+	public WebElement lexileFilter;
+	
+	@FindBy(id = "FleschKincaidFilter")
+	public WebElement FleschKincaidFilter;
+	
+	
+	
 	/**
 	 * Added this method as Item bank  drop  down is populating through plugin not a normal  select box 
 	 * @param option
@@ -143,6 +151,51 @@ public class Passage extends BasePage{
 			System.out.println("Unable to delete the passage   " + passage);
 		}
 
+	}
+	public List<WebElement> listOfResults(String value){
+		customeWaitTime(2);
+		List<WebElement> recordsList = driver.findElements(By.xpath("//td[text()='"+value+"']"));
+		
+		return recordsList;
+	} 
+	
+	public boolean filterByArgunent(String arg, String value) {
+
+		switch (arg) {
+		case "lexile":
+			waitForElementAndClick(lexileFilter);
+			waitForElementPresenceAndSendKeys("(//input[@class='form-control input-sm'])[1]",value);
+			break;
+		case "FleschKincaid":
+			waitForElementAndClick(FleschKincaidFilter);
+			waitForElementPresenceAndSendKeys("(//input[@class='form-control input-sm'])[2]",value);
+			break;
+		default:
+			break;
+		}
+		
+		return waitAndGetElementText(encouteredRecords).contains(Integer.toString(this.listOfResults(arg).size()));
+	}
+
+	
+	public boolean filterByCheck(String arg, String value) {
+
+		switch (arg) {
+		case "role":
+			waitForElementAndClick(roleBullet); 
+			waitForElementPresenceAndClick("//i[./following-sibling::span[text()='"+value+"']]");
+			
+
+			break;
+		case "grade":
+			waitForElementAndClick(gradeBullet); 
+			waitForElementPresenceAndClick("//i[./following-sibling::span[text()='"+value+"']]");
+			break;
+		default:
+			break;
+		}
+		waitForElementAndClick(searchMine);
+		return waitAndGetElementText(encouteredRecords).contains(Integer.toString(this.listOfResults().size()));
 	}
 
 }
