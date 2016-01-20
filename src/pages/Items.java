@@ -1,5 +1,6 @@
 package pages;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -285,6 +286,8 @@ public class Items extends BasePage {
 	@FindBy(xpath = "//div[@class='dropdown-menu open']//input")
 	public WebElement searchItemBankInputField;
 
+	@FindBy(xpath = "//button[@class='btn btn-primary fileinput-button']")
+	public WebElement mediaUploadFileButton;
 
 	public Items(WebDriver driver) {
 		super(driver);
@@ -811,5 +814,43 @@ public class Items extends BasePage {
 		customeWaitTime(2);
 		return itemReadabilityList.getText();
 	}
+	
+	
+	public void uploadMediaToItem(String item , String filepath){
+		try{
+			searchItem(item);
+			customeWaitTime(2);
+			waitForElementAndClick(editIconList);
+			customeWaitTime(5);
+			waitForElementAndClick(mediaUploadFileButton);
+			customeWaitTime(1);
+			boolean isMediaUploaded = false;
+		if (filepath.equals("")) {
+			System.out.println("No image available to be uploaded");
+		} else {
+			File f = new File(filepath);
+			String mediaUploadFilepath = f.getAbsolutePath();
+			// waitForElementAndSendKeys(fileupload, passageUploadFilepath);
+			fileupload.sendKeys(mediaUploadFilepath);
+			customeWaitTime(5);
+
+			if (mediaUploadFileButton.getAttribute("style").contains("green")) {
+				isMediaUploaded = true;
+			}
+			waitForElementAndClick(globalModalUploadOkButton);
+			customeWaitTime(2);
+			waitForElementAndClick(saveAndPublish);
+			customeWaitTime(5);
+			clickOnConfirmationMessage();
+			waitForElementAndClick(backToItems);
+		}
+		}catch(Exception e ){
+			System.out.println("unable to uplaod the media in item " + item);
+
+		}
+		
+		
+	}
+	
 
 }

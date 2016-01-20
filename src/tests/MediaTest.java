@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import pages.DashBoard;
+import pages.Items;
 import pages.ItemsBank;
 import pages.Login;
 import pages.Media;
@@ -21,6 +22,7 @@ public class MediaTest extends BaseTest {
 	Login loginPage;
 	DashBoard dashBoardPage;
 	ItemsBank itemsBankPage;
+	Items itemsPage;
 	Media mediaPage;
 	Passage passagePage;
 	
@@ -30,6 +32,8 @@ public class MediaTest extends BaseTest {
 	
 	String itemBankName;
 	String passageName;
+	String itemName ;
+	
 	long timeStamp;
 	
 	String resourcesLocation = "src" + File.separator + "resources"
@@ -51,6 +55,8 @@ public class MediaTest extends BaseTest {
 	String mediapassageFile;
 	String defaultRefObjcet;
 	String passageRefObject;
+	
+	String mediaItemFile;
 
 	String mediaJpgUploadFile;
 	
@@ -62,6 +68,12 @@ public class MediaTest extends BaseTest {
 
 	String mediaPassageUploadFile;
 	
+	String mediaImageUploadFile;
+	
+	String interactionChoice = "Choice";
+	String simpleMatchScoreProfile = "Simple Match";
+	String choiceCorrectAnswer = "set D correct Answer";
+
 	public MediaTest() {
 		super();
 		
@@ -78,7 +90,8 @@ public class MediaTest extends BaseTest {
 		mediaPngFile = unitymediadata.getProperty("mediaPngFile");
 		mediaVideoFile = unitymediadata.getProperty("mediaVideoFile");
 		mediapassageFile = unitymediadata.getProperty("mediapassageFile");
-
+		mediaItemFile =  unitymediadata.getProperty("imageMediaFile");
+		
 		
 		defaultRefObjcet = unitymediadata.getProperty("defaultRefObject");
 		
@@ -91,6 +104,7 @@ public class MediaTest extends BaseTest {
 		mediaVideoUploadFile = resourcesLocation + mediaVideoFile;
 		
 		mediaPassageUploadFile = resourcesLocation + mediapassageFile;
+		mediaImageUploadFile = resourcesLocation + mediaItemFile;
 		
 	}
 	
@@ -110,6 +124,25 @@ public class MediaTest extends BaseTest {
     	itemsBankPage.createBank(itemBankName, "Desc");
     	waitTime();
     	returnToDashboard();
+    	itemsPage =  dashBoardPage.goToItems();
+    	itemName = "I1_" + itemBankName;
+		itemsPage.createItem(itemName, itemBankName ,interactionChoice , simpleMatchScoreProfile , choiceCorrectAnswer);
+		customeWaitTime(2);
+		itemsPage.uploadMediaToItem(itemName, mediaImageUploadFile);
+    	customeWaitTime(2);
+    	returnToDashboard();
+    	customeWaitTime(2);
+		passagePage = dashBoardPage.goToPassage();
+		passagePage.refreshPage();
+		customeWaitTime(2);
+		passageName = "passage" + timeStamp;
+		passagePage.createPassage(itemBankName, passageName, "desc", mediaPassageUploadFile);
+		customeWaitTime(2);
+		passagePage.waitForElementAndClick(passagePage.passageSaveButton);
+		customeWaitTime(2);
+		passagePage.waitForElementAndClick(passagePage.globalModalInfoOkButton);
+		customeWaitTime(2);
+		returnToDashboard();
 		customeWaitTime(2);
     	mediaPage = dashBoardPage.goToMedia();
     	mediaPage.refreshPage();
@@ -210,8 +243,8 @@ public class MediaTest extends BaseTest {
 	 */
 	@Test(priority= 2)
 	public void testUploadPassageMedia(){
-		returnToDashboard();
-		customeWaitTime(2);
+		//returnToDashboard();
+		/*customeWaitTime(2);
 		passagePage = dashBoardPage.goToPassage();
 		customeWaitTime(2);
 		passageName = "passage" + timeStamp;
@@ -222,12 +255,14 @@ public class MediaTest extends BaseTest {
 		passagePage.waitForElementAndClick(passagePage.globalModalInfoOkButton);
 		customeWaitTime(2);
 		returnToDashboard();
-		customeWaitTime(2);
-    	mediaPage = dashBoardPage.goToMedia();
-    	mediaPage.refreshPage();
-    	customeWaitTime(10);
-		
+		customeWaitTime(2);*/
+    	//mediaPage = dashBoardPage.goToMedia();
+    	//mediaPage.refreshPage();
+    	//customeWaitTime(10);
 		//mediaPage.uploadMedia(mediaJpgUploadFile, itemBankName);
+		
+		mediaPage.waitForElementAndClick(mediaPage.resetSearchFilter);
+		customeWaitTime(2);
 		mediaPage.filterMediaByItemBank(mediapassageFile, itemBankName);
 		mediaPage.searchMedia(mediapassageFile);
 		customeWaitTime(2);
@@ -242,11 +277,41 @@ public class MediaTest extends BaseTest {
 		mediaPage.waitForElementAndClick(mediaPage.previewIconList);
 		customeWaitTime(2);
 		mediaPage.deleteMedia(mediapassageFile);
-		customeWaitTime(2);
-		mediaPage.waitForElementAndClick(mediaPage.resetSearchFilter);
-		customeWaitTime(2);
+		
 	}
 	
+	
+	   /**
+	    * Login into the unity as a teacher
+	    * Go to the item tile 
+	    * load the media to the item
+	    * go to the media tile 
+	    * Search  for media added to item
+	    * verify media content in listing and preview mode
+	    * Delete the the media
+	    * 
+	    */
+	
+	   @Test(priority= 3)
+	   public void testVerifyMediaContentUploadByItem(){
+		    customeWaitTime(2);
+			mediaPage.waitForElementAndClick(mediaPage.resetSearchFilter);
+			customeWaitTime(2);
+			mediaPage.filterMediaByItemBank(mediapassageFile, itemBankName);
+			mediaPage.searchMedia(mediaItemFile);
+			customeWaitTime(2);
+			Assert.assertEquals(mediaPage.waitAndGetElementText(mediaPage.mediaNameInListing), mediaItemFile);
+			Assert.assertEquals(mediaPage.waitAndGetElementText(mediaPage.mimeTypeInListing), "image/jpeg");
+			Assert.assertFalse(mediaPage.waitAndGetElementText(mediaPage.mediaLengthInListing).isEmpty());
+			Assert.assertEquals(mediaPage.waitAndGetElementText(mediaPage.mediaRefTypeInListing), defaultRefObjcet);  
+			Assert.assertEquals(mediaPage.waitAndGetElementText(mediaPage.mediaItemBankNameInListing), itemBankName); 
+			mediaPage.waitForElementAndClick(mediaPage.previewIconList);
+			customeWaitTime(2);
+			Assert.assertTrue(mediaPage.previewImageTumbnail.isDisplayed());
+			mediaPage.waitForElementAndClick(mediaPage.previewIconList);
+			customeWaitTime(2);
+			mediaPage.deleteMedia(mediapassageFile);
+	   }
 	    @Test(enabled = false)
 	    public void testMediaAlertMessages(){
 	    	mediaPage.waitForElementAndClick(mediaPage.uploadMediaLink);
