@@ -1,9 +1,11 @@
 package tests;
 
 import java.io.File;
+import java.util.Properties;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import pages.DashBoard;
@@ -25,27 +27,29 @@ public class ItemImportTest extends BaseTest {
 	Role rolePage;
 	Items itemsPage;
 	String itemBankName;
-	String importedFileName = "CDE_TextEntry.zip";
+	
+	
 	String resourcesLocation = "src" + File.separator + "resources"
-			+ File.separator;
-	String importFileLocation = resourcesLocation + importedFileName;
-	String noManifestFile = "No_manifest.zip";
-	String invalidNoManifestImportFileLocation = resourcesLocation
-			+ noManifestFile;
-	String importedItemName = "5th2015-DM_CS-0010.xml";
-	String invalidIdentifierFile = "Indentifier.zip";
-	String invalidIndentifierImportFileLocation = resourcesLocation
-			+ invalidIdentifierFile;
-	String invalidImportedFileName = "Invalid_SBAC-CDE_ItemPassageSet.zip";
-	String invalidImportFileLocation = resourcesLocation
-			+ invalidImportedFileName;
+			+ File.separator + "itemimport" + File.separator ;
+	
+	
+	String importedFileName;
+	String importFileLocation;
+	String noManifestFile;
+	String invalidNoManifestImportFileLocation;
+	String importedItemName;
+	String invalidIdentifierFile;
+	String invalidIndentifierImportFileLocation;
+	String invalidImportedFileName;
+	String invalidImportFileLocation;
+	
 
-	String textEntryFile1 = "textentry_single_correct.zip";
-	String textEntrySingleCorrectFileLocation = resourcesLocation
-			+ textEntryFile1;
-	String textEntryFile2 = "textentry_multiple_correct.zip";
-	String textEntryMultipleCorrectFileLocation = resourcesLocation
-			+ textEntryFile2;
+	String textEntryFile1;
+	String textEntrySingleCorrectFileLocation;
+	
+	String textEntryFile2;
+	
+	String textEntryMultipleCorrectFileLocation;
 
 	String textEntryItem1 = "text_entry_single_correct.xml";
 	String textEntryItem2 = "text_entry_multiple_correct.xml";
@@ -58,12 +62,77 @@ public class ItemImportTest extends BaseTest {
 	private static final String PUBLISH_LIFECYCLE = "PUBLISH";
 
 	private static final String QTI_PACKAGE = "QTI";
+	
+	
+	Properties unitymessages;
+	Properties unitytestdata;
+	Properties unityItemImportData;
+	
+	/*String resourcesLocation = "src" + File.separator + "resources"
+			+ File.separator + "media" + File.separator ;*/
+	
+	String unityTestDataFile = "src" + File.separator + "resources"
+			+ File.separator + "unitytestdata.properties";
+	
+	String unityItemImportDataFile = "src" + File.separator + "resources"
+			+ File.separator + "unityitemimportdata.properties";
+	
+	String unityMessageFile = "src" + File.separator + "resources"
+			+ File.separator + "unitymessages.properties";
+	
 
 	public ItemImportTest() {
 		super();
 
 	}
 
+	@BeforeTest
+	public void loadtestdata(){
+		unitymessages = getUnityMessagesProperty(unityMessageFile);
+		unitytestdata = getUnityMessagesProperty(unityTestDataFile);
+		unityItemImportData = getUnityMessagesProperty(unityItemImportDataFile);
+		
+		importedFileName =  unityItemImportData.getProperty("textEntryFile");
+		
+		importFileLocation = resourcesLocation + importedFileName;
+		
+		noManifestFile =  unityItemImportData.getProperty("textEntryWithoutManifest");
+		
+		invalidNoManifestImportFileLocation = resourcesLocation
+				+ noManifestFile;
+		
+		importedItemName =  unityItemImportData.getProperty("itemToBeImported");
+		
+		invalidIdentifierFile =  unityItemImportData.getProperty("textentryFileWithoutIdentifier");
+
+		 invalidIndentifierImportFileLocation = resourcesLocation
+				+ invalidIdentifierFile;
+		
+		 invalidImportedFileName =  unityItemImportData.getProperty("invalidImportFileName");
+
+		 invalidImportFileLocation = resourcesLocation
+				+ invalidImportedFileName;
+
+		 textEntryFile1 =  unityItemImportData.getProperty("textEntryWithSingleCorrectFile");
+
+		
+	     textEntrySingleCorrectFileLocation = resourcesLocation
+				
+				+ textEntryFile1;
+	     
+	     textEntryFile2 =  unityItemImportData.getProperty("textEntryWithMulplteCorrectFile");
+
+		
+		
+		textEntryMultipleCorrectFileLocation = resourcesLocation
+				+ textEntryFile2;
+
+		textEntryItem1 =  unityItemImportData.getProperty("textEntrySingleCorrectXml");
+		textEntryItem2 =  unityItemImportData.getProperty("textEntryMultiCorrectXml");
+
+		
+	}
+	
 	@BeforeMethod
 	public void setUp() {
 		System.out.println("Load Unity url - " + url);
