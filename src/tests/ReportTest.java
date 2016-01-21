@@ -35,12 +35,8 @@ import pages.Users;
 
 public class ReportTest extends BaseTest {
 
-	HappyPathTest Nav;
+	//HappyPathTest Nav;
 	
-
-
-
-
 	Login loginPage;
 	DashBoard dashBoardPage;
 	Items itemsPage;

@@ -7,7 +7,6 @@ import java.io.File;
 import java.util.Date;
 import java.util.Properties;
 
-import org.junit.BeforeClass;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
