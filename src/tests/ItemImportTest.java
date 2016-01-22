@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Properties;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -20,18 +22,17 @@ public class ItemImportTest extends BaseTest {
 
 	Login loginPage;
 	DashBoard dashBoardPage;
-	String loggedUser = "qa/admin";
-	String genericPassword = "password";
+	
 	ItemImport itemsImportPage;
 	ItemsBank itemsBankPage;
 	Role rolePage;
 	Items itemsPage;
 	String itemBankName;
 	
-	
 	String resourcesLocation = "src" + File.separator + "resources"
-			+ File.separator + "itemimport" + File.separator ;
+			+ File.separator;
 	
+	String itemImport = "itemimport" + File.separator;
 	
 	String importedFileName;
 	String importFileLocation;
@@ -50,101 +51,96 @@ public class ItemImportTest extends BaseTest {
 	String textEntryFile2;
 	
 	String textEntryMultipleCorrectFileLocation;
+	
+	String extendedTextEntryFileLocation;
 
+	String extendedTextEntryFile;
+	
 	String textEntryItem1 = "text_entry_single_correct.xml";
 	String textEntryItem2 = "text_entry_multiple_correct.xml";
-
-	private static final String DEFINED_LIFECYCLE = "DEFINED";
-	private static final String REVIEW_LIFECYCLE = "REVIEW";
-	private static final String ACCEPTED_LIFECYCLE = "ACCEPTED";
-	private static final String REJECTED_LIFECYCLE = "REJECTED";
-	private static final String HOLD_LIFECYCLE = "HOLD";
-	private static final String PUBLISH_LIFECYCLE = "PUBLISH";
-
-	private static final String QTI_PACKAGE = "QTI";
 	
+	String defineLifeCycle;
+	
+	String reviewLifeCycle;
+
+	String acceptedLifeCycle;
+
+	String rejectedLifeCycle;
+
+	String holdLifeCycle;
+
+	String publsihCycle;
+	
+	String pkgName;
+	
+	String importCompleted ;
+	String importInProgress;
+	String importFailed;
 	
 	Properties unitymessages;
 	Properties unitytestdata;
-	Properties unityItemImportData;
+	Properties unityitemimportdata;
 	
-	/*String resourcesLocation = "src" + File.separator + "resources"
-			+ File.separator + "media" + File.separator ;*/
+	long timestamp;
 	
-	String unityTestDataFile = "src" + File.separator + "resources"
-			+ File.separator + "unitytestdata.properties";
-	
-	String unityItemImportDataFile = "src" + File.separator + "resources"
-			+ File.separator + "unityitemimportdata.properties";
-	
-	String unityMessageFile = "src" + File.separator + "resources"
-			+ File.separator + "unitymessages.properties";
-	
+	String unityTestDataFile = resourcesLocation +  "unitytestdata.properties";
+	String unityItemImportDataFile = resourcesLocation + "unityitemimportdata.properties";
+	String unityMessageFile =  resourcesLocation + "unitymessages.properties";
 
 	public ItemImportTest() {
 		super();
 
 	}
-
+	
 	@BeforeTest
-	public void loadtestdata(){
+	public void setUpTestData(){
 		unitymessages = getUnityMessagesProperty(unityMessageFile);
 		unitytestdata = getUnityMessagesProperty(unityTestDataFile);
-		unityItemImportData = getUnityMessagesProperty(unityItemImportDataFile);
+		unityitemimportdata = getUnityMessagesProperty(unityItemImportDataFile);
 		
-		importedFileName =  unityItemImportData.getProperty("textEntryFile");
+		importedFileName =  unityitemimportdata.getProperty("textEntryFile");
+		noManifestFile =  unityitemimportdata.getProperty("textEntryWithoutManifest");
+		extendedTextEntryFile = unityitemimportdata.getProperty("extendedTextEntryFile");
+		extendedTextEntryFileLocation = resourcesLocation + extendedTextEntryFile;
+		defineLifeCycle = unityitemimportdata.getProperty("definedLifecycle");
+		pkgName =  unityitemimportdata.getProperty("qti_Pkg");
+		importedItemName =  unityitemimportdata.getProperty("itemToBeImported");
+		invalidIdentifierFile = unityitemimportdata.getProperty("textentryFileWithoutIdentifier");
+		invalidImportedFileName = unityitemimportdata.getProperty("invalidImportFileName");
+		textEntryFile1 =  unityitemimportdata.getProperty("textEntryWithSingleCorrectFile");
+	    textEntryFile2 =  unityitemimportdata.getProperty("textEntryWithMulplteCorrectFile");
+	    textEntryItem1 =  unityitemimportdata.getProperty("textEntrySingleCorrectXml");
+		textEntryItem2 =  unityitemimportdata.getProperty("textEntryMultiCorrectXml");
 		
-		importFileLocation = resourcesLocation + importedFileName;
-		
-		noManifestFile =  unityItemImportData.getProperty("textEntryWithoutManifest");
-		
-		invalidNoManifestImportFileLocation = resourcesLocation
-				+ noManifestFile;
-		
-		importedItemName =  unityItemImportData.getProperty("itemToBeImported");
-		
-		invalidIdentifierFile =  unityItemImportData.getProperty("textentryFileWithoutIdentifier");
+		importCompleted =  unityitemimportdata.getProperty("importCompleted");
 
-		 invalidIndentifierImportFileLocation = resourcesLocation
-				+ invalidIdentifierFile;
-		
-		 invalidImportedFileName =  unityItemImportData.getProperty("invalidImportFileName");
-
-		 invalidImportFileLocation = resourcesLocation
-				+ invalidImportedFileName;
-
-		 textEntryFile1 =  unityItemImportData.getProperty("textEntryWithSingleCorrectFile");
-
-		
-	     textEntrySingleCorrectFileLocation = resourcesLocation
-				
-				+ textEntryFile1;
-	     
-	     textEntryFile2 =  unityItemImportData.getProperty("textEntryWithMulplteCorrectFile");
-
-		
-		
-		textEntryMultipleCorrectFileLocation = resourcesLocation
-				+ textEntryFile2;
-
-		textEntryItem1 =  unityItemImportData.getProperty("textEntrySingleCorrectXml");
-		textEntryItem2 =  unityItemImportData.getProperty("textEntryMultiCorrectXml");
-
-		
+		importFileLocation = resourcesLocation + itemImport + importedFileName;
+		invalidNoManifestImportFileLocation = resourcesLocation + itemImport + noManifestFile; 
+		invalidIndentifierImportFileLocation = resourcesLocation + itemImport  + invalidIdentifierFile;
+		invalidImportFileLocation = resourcesLocation  + itemImport + invalidImportedFileName;
+        textEntrySingleCorrectFileLocation = resourcesLocation  + itemImport + textEntryFile1;
+		textEntryMultipleCorrectFileLocation = resourcesLocation  + itemImport + textEntryFile2;
 	}
 	
-	@BeforeMethod
+	@BeforeClass
 	public void setUp() {
+		
 		System.out.println("Load Unity url - " + url);
 		driver.get(url);
 		loginPage = new Login(driver);
-		System.out.println("******** logging as System Admin -- " + loggedUser
-				+ "******** ");
-		dashBoardPage = loginPage.loginSuccess(loggedUser, genericPassword);
+		System.out.println("******** logging as System Admin ******** ");
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("defaultAdmin"),
+				unitytestdata.getProperty("defaultPassword"));
 		waitTime();
 		dashBoardPage.addTiles();
 		waitTime();
-
+		timestamp = + System.currentTimeMillis();
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		waitTime();
+		itemBankName = "IMPORT_IB_" + timestamp;
+		itemsBankPage.createBank(itemBankName, "Desc");
+		waitTime();
+		returnToDashboard();
 	}
 
 	/**
@@ -154,7 +150,7 @@ public class ItemImportTest extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 1)
+	@Test(enabled = false)
 	public void testverifyItemImportTileAdded() {
 		rolePage = dashBoardPage.goToRole();
 		waitTime();
@@ -170,38 +166,38 @@ public class ItemImportTest extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 2)
+	@Test(priority = 1)
 	public void testItemImportSummary() {
-		itemsBankPage = dashBoardPage.goToItemsBank();
+		/*itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		itemBankName = "CDE_IB_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime();
 		returnToDashboard();
-		customeWaitTime(5);
+		customeWaitTime(5);*/
 		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
 		Assert.assertTrue(itemsImportPage.importItem(importFileLocation,
-				itemBankName, QTI_PACKAGE, DEFINED_LIFECYCLE));
+				itemBankName, pkgName, defineLifeCycle));
 		itemsImportPage.refreshPage();
 		waitTime();
-
 		Assert.assertEquals(itemsImportPage.itemImportPackageFileNameList
 				.getText().trim(), importedFileName);
-		Assert.assertEquals(itemsImportPage.itemImportFileNameList.getText()
-				.trim(), importedFileName.split(".zip")[0]);
+		//Assert.assertEquals(itemsImportPage.itemImportFileNameList.getText().trim(), importedFileName.split(".zip")[0]);
 		Assert.assertEquals(itemsImportPage.itemImportFileStatusList.getText()
-				.trim(), "Completed without error");
-		itemsImportPage.importItemPreviewButton.click();
+				.trim(), importCompleted);
+		
+		itemsImportPage.waitForElementAndClick(itemsImportPage.importItemPreviewButton);
+		
 		waitTime();
 		Assert.assertEquals(itemsImportPage.itemImportSummary.getText().trim(),
 				"Item Import Summary");
 		Assert.assertEquals(itemsImportPage.itemImportSummaryItem.getText()
-				.trim(), "1");
+				.trim(), "1 Successful Records");
 		Assert.assertEquals(itemsImportPage.itemImportSummaryMedia.getText()
-				.trim(), "1");
+				.trim(), "1 Successful Records");
 		Assert.assertEquals(itemsImportPage.itemImportSummaryCss.getText()
-				.trim(), "1");
+				.trim(), "1 Successful Records");
 		Assert.assertEquals(itemsImportPage.itemImportSummaryFileName.getText()
 				.trim(), "File: " + importedFileName);
 		itemsImportPage.backToDashboard();
@@ -211,10 +207,10 @@ public class ItemImportTest extends BaseTest {
 		itemsPage.filterItemBank(itemBankName);
 		itemsPage.deleteItem(importedItemName);
 		itemsBankPage.backToDashboard();
-		waitTime();
+		/*waitTime();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
-		itemsBankPage.deleteItemBank(itemBankName);
+		itemsBankPage.deleteItemBank(itemBankName);*/
 	}
 
 	/**
@@ -222,19 +218,19 @@ public class ItemImportTest extends BaseTest {
 	 * item list Edit the item content and verify its content Deleting the Item
 	 * bank and Items
 	 */
-	@Test(priority = 3)
+	@Test(priority = 2)
 	public void testItemImportCDEType() {
-		itemsBankPage = dashBoardPage.goToItemsBank();
+		/*itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		itemBankName = "CDE_IB_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime();
 		returnToDashboard();
-		customeWaitTime(5);
+		customeWaitTime(5);*/
 		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
 		Assert.assertTrue(itemsImportPage.importItem(importFileLocation,
-				itemBankName, QTI_PACKAGE, DEFINED_LIFECYCLE));
+				itemBankName, pkgName, defineLifeCycle));
 		waitTime();
 		Assert.assertEquals(itemsImportPage.importedFileEntry.getText().trim(),
 				importedFileName);
@@ -245,8 +241,8 @@ public class ItemImportTest extends BaseTest {
 		itemsPage.filterItemBank(itemBankName);
 		Assert.assertEquals(itemsPage.itemNameList.getText().trim(),
 				importedItemName);
-		Assert.assertEquals(itemsPage.itemTilteList.getText().trim(),
-				importedItemName.split(".xml")[0]);
+		/*Assert.assertEquals(itemsPage.itemTilteList.getText().trim(),
+				importedItemName.split(".xml")[0]);*/
 		Assert.assertEquals(itemsPage.itemContentAreaList.getText().trim(),
 				"N/A");
 		Assert.assertEquals(itemsPage.itemGradeList.getText().trim(), "N/A");
@@ -302,7 +298,7 @@ public class ItemImportTest extends BaseTest {
 	 * have manifest file validate error message in Item import summary page.
 	 * 
 	 */
-	@Test(priority = 4)
+	@Test(priority = 3)
 	public void testItemImportErrorMessageForNoManifestFile() {
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
@@ -314,16 +310,16 @@ public class ItemImportTest extends BaseTest {
 		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
 		Assert.assertTrue(itemsImportPage.importItem(
-				invalidNoManifestImportFileLocation, itemBankName, QTI_PACKAGE,
-				DEFINED_LIFECYCLE));
+				invalidNoManifestImportFileLocation, itemBankName, pkgName,
+				defineLifeCycle));
 		itemsImportPage.refreshPage();
 		waitTime();
 		Assert.assertEquals(itemsImportPage.itemImportPackageFileNameList
 				.getText().trim(), noManifestFile);
-		Assert.assertEquals(itemsImportPage.itemImportFileNameList.getText()
-				.trim(), noManifestFile.split(".zip")[0]);
+		/*Assert.assertEquals(itemsImportPage.itemImportFileNameList.getText()
+				.trim(), noManifestFile.split(".zip")[0]);*/
 		Assert.assertEquals(itemsImportPage.itemImportFileStatusList.getText()
-				.trim(), "Failed");
+				.trim(), importFailed);
 		itemsImportPage.importItemPreviewButton.click();
 		waitTime();
 		Assert.assertEquals(itemsImportPage.itemImportSummary.getText().trim(),
@@ -350,28 +346,28 @@ public class ItemImportTest extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 5)
+	@Test(priority = 4)
 	public void testItemImportErrorMessageForInvalidIndentifier() {
-		itemsBankPage = dashBoardPage.goToItemsBank();
+		/*itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		itemBankName = "Invalid_Idenfifier_IB_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime();
 		returnToDashboard();
-		customeWaitTime(5);
+		customeWaitTime(5);*/
 		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
 		Assert.assertTrue(itemsImportPage.importItem(
 				invalidIndentifierImportFileLocation, itemBankName,
-				QTI_PACKAGE, DEFINED_LIFECYCLE));
+				pkgName, defineLifeCycle));
 		itemsImportPage.refreshPage();
 		waitTime();
 		Assert.assertEquals(itemsImportPage.itemImportPackageFileNameList
 				.getText().trim(), invalidIdentifierFile);
-		Assert.assertEquals(itemsImportPage.itemImportFileNameList.getText()
-				.trim(), invalidIdentifierFile.split(".zip")[0]);
+		/*Assert.assertEquals(itemsImportPage.itemImportFileNameList.getText()
+				.trim(), invalidIdentifierFile.split(".zip")[0]);*/
 		Assert.assertEquals(itemsImportPage.itemImportFileStatusList.getText()
-				.trim(), "Failed");
+				.trim(), importFailed);
 		itemsImportPage.importItemPreviewButton.click();
 		waitTime();
 		Assert.assertEquals(itemsImportPage.itemImportSummary.getText().trim(),
@@ -385,10 +381,10 @@ public class ItemImportTest extends BaseTest {
 		Assert.assertTrue(itemsImportPage.itemImportErrorMessage.getText()
 				.trim().contains("No such file or directory"));
 		itemsImportPage.backToDashboard();
-		waitTime();
+		/*waitTime();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
-		itemsBankPage.deleteItemBank(itemBankName);
+		itemsBankPage.deleteItemBank(itemBankName);*/
 	}
 
 	/**
@@ -396,7 +392,7 @@ public class ItemImportTest extends BaseTest {
 	 * Validate the multiple error message in item import summary page
 	 * 
 	 */
-	@Test(priority = 6)
+	@Test(priority = 5)
 	public void testItemImportMultipleErrorMessage() {
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
@@ -408,7 +404,7 @@ public class ItemImportTest extends BaseTest {
 		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
 		Assert.assertTrue(itemsImportPage.importItem(invalidImportFileLocation,
-				itemBankName, QTI_PACKAGE, DEFINED_LIFECYCLE));
+				itemBankName, pkgName, defineLifeCycle));
 		itemsImportPage.refreshPage();
 		waitTime();
 		waitTime();
@@ -416,11 +412,11 @@ public class ItemImportTest extends BaseTest {
 		Assert.assertEquals(itemsImportPage.itemImportPackageFileNameList
 				.getText().trim(), invalidImportedFileName);
 		waitTime();
-		Assert.assertEquals(itemsImportPage.itemImportFileNameList.getText()
-				.trim(), invalidImportedFileName.split(".zip")[0]);
+		/*Assert.assertEquals(itemsImportPage.itemImportFileNameList.getText()
+				.trim(), invalidImportedFileName.split(".zip")[0]);*/
 		waitTime();
 		Assert.assertEquals(itemsImportPage.itemImportFileStatusList.getText()
-				.trim(), "Failed");
+				.trim(), importFailed);
 		waitTime();
 
 		itemsImportPage.importItemPreviewButton.click();
@@ -455,30 +451,30 @@ public class ItemImportTest extends BaseTest {
 	 * attributes while editing items
 	 * 
 	 */
-	@Test(priority = 7)
+	@Test(priority = 6)
 	public void testImportTextEntyItemWithSingleCorrect() {
-		itemsBankPage = dashBoardPage.goToItemsBank();
+		/*itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		waitTime();
 		itemBankName = "Text_single_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime();
 		returnToDashboard();
-		customeWaitTime(5);
+		customeWaitTime(5);*/
 		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
 		Assert.assertTrue(itemsImportPage.importItem(
-				textEntrySingleCorrectFileLocation, itemBankName, QTI_PACKAGE,
-				DEFINED_LIFECYCLE));
+				textEntrySingleCorrectFileLocation, itemBankName, pkgName,
+				defineLifeCycle));
 		itemsImportPage.refreshPage();
 		waitTime();
 		waitTime();
 		// Assert.assertEquals(itemsImportPage.itemImportPackageFileNameList.getText().trim(),
 		// textEntryFile1);
-		Assert.assertEquals(itemsImportPage.itemImportFileNameList.getText()
-				.trim(), textEntryFile1.split(".zip")[0]);
+		/*Assert.assertEquals(itemsImportPage.itemImportFileNameList.getText()
+				.trim(), textEntryFile1.split(".zip")[0]);*/
 		Assert.assertEquals(itemsImportPage.itemImportFileStatusList.getText()
-				.trim(), "Successful");
+				.trim(), importCompleted);
 		itemsImportPage.importItemPreviewButton.click();
 		waitTime();
 		Assert.assertEquals(itemsImportPage.itemImportSummary.getText().trim(),
@@ -525,39 +521,39 @@ public class ItemImportTest extends BaseTest {
 		waitTime();
 		itemsPage.deleteItem(importedItemName);
 		itemsBankPage.backToDashboard();
-		waitTime();
+		/*waitTime();
 		waitTime();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		waitTime();
-		itemsBankPage.deleteItemBank(itemBankName);
+		itemsBankPage.deleteItemBank(itemBankName);*/
 
 	}
 
-	@Test(priority = 8)
+	@Test(priority = 7)
 	public void testImportTextEntyItemWithMultipleCorrect() {
-		itemsBankPage = dashBoardPage.goToItemsBank();
+		/*itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		waitTime();
 		itemBankName = "Text_Multiple_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName, "Desc");
 		waitTime();
 		returnToDashboard();
-		customeWaitTime(5);
+		customeWaitTime(5);*/
 		itemsImportPage = dashBoardPage.goToItemImport();
 		waitTime();
 		Assert.assertTrue(itemsImportPage.importItem(
-				textEntryMultipleCorrectFileLocation, itemBankName, QTI_PACKAGE,
-				DEFINED_LIFECYCLE));
+				textEntryMultipleCorrectFileLocation, itemBankName, pkgName,
+				defineLifeCycle));
 		itemsImportPage.refreshPage();
 		waitTime();
 		waitTime();
 		 Assert.assertEquals(itemsImportPage.itemImportPackageFileNameList.getText().trim(),
 		 textEntryFile2);
-		Assert.assertEquals(itemsImportPage.itemImportFileNameList.getText()
-				.trim(), textEntryFile2.split(".zip")[0]);
+		/*Assert.assertEquals(itemsImportPage.itemImportFileNameList.getText()
+				.trim(), textEntryFile2.split(".zip")[0]);*/
 		Assert.assertEquals(itemsImportPage.itemImportFileStatusList.getText()
-				.trim(), "Successful");
+				.trim(), importCompleted);
 		itemsImportPage.importItemPreviewButton.click();
 		waitTime();
 		Assert.assertEquals(itemsImportPage.itemImportSummary.getText().trim(),
@@ -604,12 +600,93 @@ public class ItemImportTest extends BaseTest {
 		waitTime();
 		itemsPage.deleteItem(importedItemName);
 		itemsBankPage.backToDashboard();
-		waitTime();
+		/*waitTime();
 		waitTime();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		waitTime();
 		itemsBankPage.deleteItemBank(itemBankName);
-
+*/
 	}
+
+   /**
+    * Login into the unity as a admin 
+    * Go to the item bank tile
+    * Create item bank
+    * Go to item import tile
+    * Import extended text entry file
+    * Check item import summary  in listing
+    * Do the preview
+    * Verify item count
+    * GO to the item tile
+    * Look for imported item
+    * Verify item information
+    * Delete the item
+    */
+
+	
+     @Test(priority= 8)
+	public void testImportExtendedTextEntry(){
+    	itemsImportPage = dashBoardPage.goToItemImport();
+    	customeWaitTime(5);
+ 		Assert.assertTrue(itemsImportPage.importItem(
+ 				extendedTextEntryFileLocation, itemBankName, pkgName,
+				defineLifeCycle));
+		itemsImportPage.refreshPage();
+		customeWaitTime(5);
+		 Assert.assertEquals(itemsImportPage.itemImportPackageFileNameList.getText().trim(),
+				 extendedTextEntryFile);
+		 
+		/*Assert.assertEquals(itemsImportPage.itemImportFileNameList.getText()
+				.trim(), textEntryFile2.split(".zip")[0]);*/
+		
+		Assert.assertEquals(itemsImportPage.itemImportFileStatusList.getText()
+				.trim(), importCompleted);
+		
+		itemsImportPage.waitForElementAndClick(itemsImportPage.importItemPreviewButton);
+    	customeWaitTime(5);
+		Assert.assertEquals(itemsImportPage.itemImportSummary.getText().trim(),
+				"Item Import Summary");
+		Assert.assertEquals(itemsImportPage.itemImportSummaryItem.getText()
+				.trim(), "1 Successful Records");
+		Assert.assertEquals(itemsImportPage.itemImportSummaryFileName.getText()
+				.trim(), "File: " + extendedTextEntryFile);
+		itemsImportPage.backToDashboard();
+		itemsPage = dashBoardPage.goToItems();
+		itemsPage.filterItemBank(itemBankName);
+		itemsPage.waitForElementAndClick(itemsPage.editIconList);
+		customeWaitTime(5);
+		Assert.assertTrue(itemsPage.htmlTabButton.isEnabled());
+		Assert.assertTrue(itemsPage.scoreTabButton.isEnabled());
+		Assert.assertTrue(itemsPage.previewTabButton.isEnabled());
+		//Assert.assertTrue(itemsPage.ItemHtmlParagraph.getText().contains(
+				//"Identify the missing word"));
+		itemsPage.waitForElementAndClick(itemsPage.scoreTabButton);
+		customeWaitTime(5);
+		//Assert.assertTrue(itemsPage.ItemHtmlParagraph.getText().contains(
+				//"Identify the missing word"));
+		Assert.assertEquals(
+				itemsPage.getSelectedOption(itemsPage.selectScoreProfile),
+				"Hand Scoring");
+		itemsPage.waitForElementAndClick(itemsPage.previewTabButton);
+		customeWaitTime(2);
+		Assert.assertTrue(itemsPage.answerProfile.getText().contains("Hand Scoring"));
+		/*//Assert.assertTrue(itemsPage.correctAnswerProfile.getText().contains(
+				"York,york"));*/
+		
+		customeWaitTime(2);
+		itemsPage.deleteItem(importedItemName);
+		itemsBankPage.backToDashboard();
+		
+	}
+     
+   
+  @AfterClass
+  public void cleantestdata(){
+	   itemsBankPage = dashBoardPage.goToItemsBank();
+	   customeWaitTime(2);
+	   itemsBankPage.deleteItemBank(itemBankName);
+  }
+
+
 }

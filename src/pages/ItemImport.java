@@ -19,10 +19,10 @@ public class ItemImport extends BasePage {
 	}
 
 	
-	@FindBy(xpath = "//span[text()='Import']")
+	@FindBy(xpath = "//a[text()='Import']")
 	public WebElement importLink;
 	
-	@FindBy(xpath = "//span[text()='Help']")
+	@FindBy(xpath = "//a[text()='Help']")
 	public WebElement helpLink;
 	
 	@FindBy(xpath = "//td[@class='watable-col-package_file_name']")
@@ -67,7 +67,7 @@ public class ItemImport extends BasePage {
 	
 	
 	
-	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
 	public WebElement homeLink;
 	
 	@FindBy(xpath = "//table[@role='presentation']/tbody//td[2]")
@@ -76,13 +76,17 @@ public class ItemImport extends BasePage {
 	@FindBy(xpath = "//button[@data-id='item-bank']")
 	public WebElement itemBankDropdown;
 	
+	@FindBy(xpath = ".//*[@id='globalModalUploadBody']/div/div[1]/div/div/div/div[1]/div/div/div/div/input")
+	public WebElement itemBankInputField;
+	
+	
 	@FindBy(xpath = "//button[@data-id='item-bank']/../div/ul")
 	public WebElement  itemBankDropdownList;
 
 	@FindBy(xpath = "//span[text()='Item Files']")
 	public WebElement  filterItemFiles;
 	
-	@FindBy(xpath = "//tr[1]/td[@class='watable-col-package_file_name']")
+	@FindBy(xpath = "//tr[1]/td[@class='watable-col-name']")
 	public WebElement itemImportPackageFileNameList;
 	
 	@FindBy(xpath = "//tr[1]/td[@class='watable-col-item_file_names']")
@@ -210,7 +214,8 @@ public class ItemImport extends BasePage {
 			if(itemImportSuccessfulIcon.getAttribute("style").contains("green")){
 				isImportSuccessful = true;
 		    }
-			customeWaitTime(10);
+			waitForElementAndClick(globalModalUploadOkButton);
+			customeWaitTime(2);
 		}catch(Exception e){
 			
 			System.out.println("Unable to import the file  -->  "  + filepath);
@@ -223,13 +228,16 @@ public class ItemImport extends BasePage {
 	 * @param option
 	 */
 	public void selectItemBank(String option){
-		itemBankDropdown.click();
+		waitForElementAndClick(itemBankDropdown);
 		customeWaitTime(5);
-		List<WebElement> itemBankoptions= driver.findElements(By.xpath("//div[@class='btn-group bootstrap-select select-search-by-name-item_bank open']//ul//li"));
+		waitForElementAndSendKeys(itemBankInputField, option);
+		customeWaitTime(5);
+		List<WebElement> itemBankoptions= driver.findElements(By.xpath(".//*[@id='globalModalUploadBody']/div/div[1]/div/div/div/div[1]/div/div/div/ul/li[1]/a"));
 		for (WebElement itemBank : itemBankoptions){
 			try{
 			if(itemBank.getText().equals(option)){
-				itemBank.click();
+				waitForElementAndClick(itemBank);
+				//itemBank.click();
 			   break;
 			}
 			
