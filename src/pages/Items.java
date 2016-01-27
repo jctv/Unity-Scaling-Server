@@ -84,6 +84,7 @@ public class Items extends BasePage {
 	@FindBy(xpath = "/html/body/div[22]/div[3]/div/button[1]/span")
 	public WebElement confirmationMessageDefect;
 	
+	
 
 
 	@FindBy(id = "itemSaved")
@@ -288,7 +289,29 @@ public class Items extends BasePage {
 
 	@FindBy(xpath = "//button[@class='btn btn-primary fileinput-button']")
 	public WebElement mediaUploadFileButton;
-
+	
+	@FindBy(xpath = ".//*[@id='itemScoringRegion']/div/div[1]/div/div[1]/div/div/div[1]/div/div[1]/textarea")
+	public WebElement extendedTextArea;
+	
+	@FindBy(xpath = ".//*[@id='itemScoringRegion']/div/div[1]/div/div[1]/div/div/div[1]/div/div[1]/div/blockquote/p")
+	public WebElement importedExtendedTextContent;
+	
+	@FindBy(xpath = ".//*[@id='itemScoringRegion']/div/div[1]/div/div[1]/div/div/div[1]/div/div[1]/div/img")
+	public WebElement importedExtendedTextMedia;
+	
+	@FindBy(xpath = ".//*[@id='tinymce']/div[1]/div/img")
+	public WebElement importedExtendedTextMediaInHtmlTab;
+	
+	@FindBy(xpath = ".//*[@id='tinymce']/div[1]/div/blockquote/p")
+	public WebElement importedExtendedTextContentInHtmlTab;
+	
+	@FindBy(xpath = ".//*[@id='tinymce']/div[1]/textarea")
+	public WebElement importedExtendedTextAreaInHtmlTab;
+	
+	@FindBy(xpath = ".//*[@id='tinymce']")
+	public WebElement htmlTabBodyArea;
+	
+	
 	public Items(WebDriver driver) {
 		super(driver);
 		PageFactory.initElements(driver, this);

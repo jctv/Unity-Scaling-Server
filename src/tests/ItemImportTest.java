@@ -86,6 +86,8 @@ public class ItemImportTest extends BaseTest {
 	String unityTestDataFile = resourcesLocation +  "unitytestdata.properties";
 	String unityItemImportDataFile = resourcesLocation + "unityitemimportdata.properties";
 	String unityMessageFile =  resourcesLocation + "unitymessages.properties";
+	
+	String extendedTextEntryItem;
 
 	public ItemImportTest() {
 		super();
@@ -101,7 +103,6 @@ public class ItemImportTest extends BaseTest {
 		importedFileName =  unityitemimportdata.getProperty("textEntryFile");
 		noManifestFile =  unityitemimportdata.getProperty("textEntryWithoutManifest");
 		extendedTextEntryFile = unityitemimportdata.getProperty("extendedTextEntryFile");
-		extendedTextEntryFileLocation = resourcesLocation + extendedTextEntryFile;
 		defineLifeCycle = unityitemimportdata.getProperty("definedLifecycle");
 		pkgName =  unityitemimportdata.getProperty("qti_Pkg");
 		importedItemName =  unityitemimportdata.getProperty("itemToBeImported");
@@ -111,8 +112,9 @@ public class ItemImportTest extends BaseTest {
 	    textEntryFile2 =  unityitemimportdata.getProperty("textEntryWithMulplteCorrectFile");
 	    textEntryItem1 =  unityitemimportdata.getProperty("textEntrySingleCorrectXml");
 		textEntryItem2 =  unityitemimportdata.getProperty("textEntryMultiCorrectXml");
-		
 		importCompleted =  unityitemimportdata.getProperty("importCompleted");
+		
+		extendedTextEntryItem = unityitemimportdata.getProperty("extendedTextEntryItemXml"); 
 
 		importFileLocation = resourcesLocation + itemImport + importedFileName;
 		invalidNoManifestImportFileLocation = resourcesLocation + itemImport + noManifestFile; 
@@ -120,6 +122,8 @@ public class ItemImportTest extends BaseTest {
 		invalidImportFileLocation = resourcesLocation  + itemImport + invalidImportedFileName;
         textEntrySingleCorrectFileLocation = resourcesLocation  + itemImport + textEntryFile1;
 		textEntryMultipleCorrectFileLocation = resourcesLocation  + itemImport + textEntryFile2;
+		extendedTextEntryFileLocation = resourcesLocation + itemImport  +extendedTextEntryFile;
+
 	}
 	
 	@BeforeClass
@@ -637,9 +641,6 @@ public class ItemImportTest extends BaseTest {
 		 Assert.assertEquals(itemsImportPage.itemImportPackageFileNameList.getText().trim(),
 				 extendedTextEntryFile);
 		 
-		/*Assert.assertEquals(itemsImportPage.itemImportFileNameList.getText()
-				.trim(), textEntryFile2.split(".zip")[0]);*/
-		
 		Assert.assertEquals(itemsImportPage.itemImportFileStatusList.getText()
 				.trim(), importCompleted);
 		
@@ -654,28 +655,39 @@ public class ItemImportTest extends BaseTest {
 		itemsImportPage.backToDashboard();
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.filterItemBank(itemBankName);
+		itemsPage.searchItem(extendedTextEntryItem);
 		itemsPage.waitForElementAndClick(itemsPage.editIconList);
 		customeWaitTime(5);
 		Assert.assertTrue(itemsPage.htmlTabButton.isEnabled());
 		Assert.assertTrue(itemsPage.scoreTabButton.isEnabled());
 		Assert.assertTrue(itemsPage.previewTabButton.isEnabled());
-		//Assert.assertTrue(itemsPage.ItemHtmlParagraph.getText().contains(
-				//"Identify the missing word"));
+		customeWaitTime(10);
+		/*itemsPage.waitAndFocus(itemsPage.htmlTabBodyArea);
+		Assert.assertTrue(itemsPage.importedExtendedTextMediaInHtmlTab.isDisplayed());
+		Assert.assertTrue(itemsPage.importedExtendedTextAreaInHtmlTab.isDisplayed());
+		Assert.assertTrue(itemsPage.waitAndGetElementText(itemsPage.importedExtendedTextContentInHtmlTab).contains("postcard"));
+		*/
 		itemsPage.waitForElementAndClick(itemsPage.scoreTabButton);
 		customeWaitTime(5);
-		//Assert.assertTrue(itemsPage.ItemHtmlParagraph.getText().contains(
-				//"Identify the missing word"));
+		Assert.assertTrue(itemsPage.extendedTextArea.isDisplayed());
+		Assert.assertTrue(itemsPage.importedExtendedTextMedia.isDisplayed());
+		Assert.assertTrue(itemsPage.waitAndGetElementText(itemsPage.importedExtendedTextContent).contains("postcard"));
 		Assert.assertEquals(
-				itemsPage.getSelectedOption(itemsPage.selectScoreProfile),
-				"Hand Scoring");
+				itemsPage.getSelectedOption(itemsPage.selectScoreProfile).getText(),
+				unityitemimportdata.getProperty("handScoring"));
 		itemsPage.waitForElementAndClick(itemsPage.previewTabButton);
-		customeWaitTime(2);
-		Assert.assertTrue(itemsPage.answerProfile.getText().contains("Hand Scoring"));
-		/*//Assert.assertTrue(itemsPage.correctAnswerProfile.getText().contains(
-				"York,york"));*/
 		
+		/*Assert.assertTrue(itemsPage.extendedTextArea.isDisplayed());
+		Assert.assertTrue(itemsPage.importedExtendedTextMedia.isDisplayed());
+		Assert.assertTrue(itemsPage.waitAndGetElementText(itemsPage.importedExtendedTextContent).contains("postcard"));
+		customeWaitTime(2);*/
+		Assert.assertTrue(itemsPage.answerProfile.getText().contains(unityitemimportdata.getProperty("handScoring")));
 		customeWaitTime(2);
-		itemsPage.deleteItem(importedItemName);
+		itemsPage.waitForElementAndClick(itemsPage.saveAndPublish);
+		itemsPage.waitForElementAndClick(itemsPage.confirmationMessage);
+		itemsPage.waitForElementAndClick(itemsPage.backToItems);
+		customeWaitTime(2);
+		itemsPage.deleteItem(extendedTextEntryItem);
 		itemsBankPage.backToDashboard();
 		
 	}
