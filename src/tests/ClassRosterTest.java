@@ -82,7 +82,8 @@ public class ClassRosterTest extends BaseTest{
 		createdUsersA.add(createdStudent);
 		classRosterPage.createRoster(createdUsersA, schoolName, rosterName);
 		//classRosterPage.backToDashboard();
-		
+		classRosterPage.waitForElementAndClick(classRosterPage.backToRoster);
+
 	}
 	
 	
@@ -120,10 +121,19 @@ public class ClassRosterTest extends BaseTest{
 	
 	@Test(priority = 3)
 	public void testRosterAlertMessages(){
-		classRosterPage.waitForElementAndClick(classRosterPage.previewIconList);
-		waitTime();
-		classRosterPage.searchRoster(rosterName);
-		waitTime();
+		//classRosterPage.waitForElementAndClick(classRosterPage.previewIconList);
+		//waitTime();
+		//classRosterPage.searchRoster(rosterName);
+		//waitTime();
+		
+		classRosterPage.waitForElementAndClick(classRosterPage.createClassRosterLink);
+		customeWaitTime(2);
+		classRosterPage.waitForElementAndSendKeys(classRosterPage.descriptionField, desciption);
+		classRosterPage.waitForElementAndClick(classRosterPage.backToRoster);
+		Assert.assertEquals(classRosterPage.globalModalOKCancelBody.getText().trim(), unitymessages.getProperty("unSavedData").trim());
+		classRosterPage.waitForElementAndClick(classRosterPage.globalModalOKCancelSaveButton);
+		customeWaitTime(2);
+		
 		classRosterPage.waitForElementAndClick(classRosterPage.createClassRosterLink);
 		waitTime();
 		waitTime();

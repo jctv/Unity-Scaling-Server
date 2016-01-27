@@ -59,7 +59,7 @@ public class PassageTest extends BaseTest {
 		passagePage = dashBoardPage.goToPassage();
 	}
 
-	@Test(enabled = false)
+	@Test(priority = 1)
 	public void testPassageAlertsMessages() {
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(20);
@@ -81,6 +81,16 @@ public class PassageTest extends BaseTest {
 		passagePage.waitForElementAndClick(passagePage.globalModalInfoOkButton);
 		customeWaitTime(5);
 		passagePage.searchPassage(passageName);
+		
+		passagePage.waitForElementAndClick(passagePage.editIconList);
+
+		passagePage.waitForElementAndClick(passagePage.firstImage);
+		
+		passagePage.waitForElementAndClick(passagePage.backToPassage);
+		
+		Assert.assertEquals(passagePage.globalModalOKCancelBody.getText().trim(), unitymessages.getProperty("unSavedData").trim());
+		passagePage.waitForElementAndClick(passagePage.globalModalOKCancelSaveButton);
+    	customeWaitTime(2);
 		passagePage.waitForElementAndClick(passagePage.deleteIconList);
 		customeWaitTime(5);
 		Assert.assertEquals(passagePage.globalModalDeleteBody.getText().trim(),

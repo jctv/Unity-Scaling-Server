@@ -137,8 +137,9 @@ public class ClassRoster extends BasePage {
 	
 	@FindBy(xpath = "//div[@class='col-md-10']")
 	public WebElement filteredSchool;
-
 	
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
+	public WebElement backToRoster;
 	
 	public void createRoster(ArrayList<String> students, String school, String name) {
 		try {

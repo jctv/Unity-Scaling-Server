@@ -23,11 +23,11 @@ public class Help extends BasePage {
 	@FindBy(xpath = "//a[text()='Import Help ']")
 	public WebElement importHelpLink;
 	
-	@FindBy(xpath = "//span[text()='Export Help']")
+	@FindBy(xpath = "//a[text()='Export Help']")
 	public WebElement exportHelpLink;
 	
 	
-	@FindBy(xpath = "//span[text()='View Help']")
+	@FindBy(xpath = "//a[text()='View Help']")
 	public WebElement viewHelpLink;
 	
 	@FindBy(id = "tileName")
@@ -68,6 +68,11 @@ public class Help extends BasePage {
 	
 	@FindBy(id = "globalModalDeleteButton")
 	public WebElement deletebuttonHelpPopUp;
+	
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
+	public WebElement backToHelp;
+	
+	
 	
 	public void addHelp(String tile , String helpHint , String mediafilePath, String userguideFilePath ){
 		try{

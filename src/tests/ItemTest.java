@@ -276,7 +276,7 @@ public class ItemTest extends BaseTest{
 	    itemsPage.waitForElementAndClick(itemsPage.itemCreateEditInputSubmit);
 	    waitTime();
 	    waitTime();
-	    itemsPage.waitForElementAndClick(itemsPage.itemSaved);
+	    itemsPage.waitForElementAndClick(itemsPage.textEditorSaveButton);
 	    waitTime();
 	    waitTime();
 		Assert.assertEquals(itemsPage.itemconfirmationMessageTitle.getText().trim(), unitymessages.getProperty("itemSave").trim());
@@ -290,7 +290,22 @@ public class ItemTest extends BaseTest{
 	    waitTime();
 	    waitTime();
 	    itemsPage.searchItem(itemName);
-	    waitTime();
+	    itemsPage.waitForElementAndClick(itemsPage.editIconList);
+	    customeWaitTime(3);
+	    itemsPage.waitForElementAndClick(itemsPage.scoreTabButton);
+	    
+	    itemsPage.waitForElementAndClick(itemsPage.answerOne);
+		customeWaitTime(3);
+		itemsPage.waitForElementAndClick(itemsPage.saveAnswer);
+		customeWaitTime(2);
+		
+	    itemsPage.waitForElementAndClick(itemsPage.backToItems);
+
+		Assert.assertEquals(itemsPage.globalModalOKCancelBody.getText().trim(), unitymessages.getProperty("unSavedData").trim());
+		itemsPage.waitForElementAndClick(itemsPage.globalModalOKCancelSaveButton);
+    	customeWaitTime(2);
+    	itemsPage.searchItem(itemName);
+    	
 	    itemsPage.waitForElementAndClick(itemsPage.copyIconList);
 	    waitTime();
 	    itemsPage.copyItem(copyItemBankName ,copiedItemName,1);

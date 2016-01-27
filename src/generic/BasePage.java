@@ -95,6 +95,9 @@ public class BasePage {
 
 	@FindBy(id = "globalModalOKCancelSaveButton")
 	public WebElement globalModalOKCancelSaveButton;
+	
+	@FindBy(id = "globalModalOKCancelCancelButton")
+	public WebElement globalModalOKCancelCancelButton;
 
 
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link editRow']")
@@ -102,7 +105,10 @@ public class BasePage {
 
 	@FindBy(xpath = "//button[@class='btn btn-primary pull-right user-save']")
 	public WebElement saveButton;
-
+	
+	@FindBy(xpath = ".//*[@id='globalModalOKCancel']/div/div/div[1]/button")
+	public WebElement confirmationRequiredCloseButton;
+	
 	@FindBy(id = "globalModalDeleteButton")
 	public WebElement globalModalDeleteButton;
 

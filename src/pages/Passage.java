@@ -66,6 +66,13 @@ public class Passage extends BasePage {
 	@FindBy(xpath = "(//a[@class='jqtree_common jqtree-toggler'])[3]")
 	public WebElement lifecycle;
 
+	@FindBy(xpath = "(//ul[@class='list-group asset-list']//img")
+	public WebElement firstImage;
+	
+	@FindBy(xpath = "(.//*[@id='region-navigation']/ul/li[1]/a")
+	public WebElement backToPassage;
+	
+	
 	/**
 	 * Added this method as Item bank drop down is populating through plugin not
 	 * a normal select box

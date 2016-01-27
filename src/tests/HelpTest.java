@@ -20,8 +20,8 @@ public class HelpTest extends BaseTest{
 	DashBoard dashBoardPage;
 	Help helpPage;
 	
-	String defaultQaUser = "qa/admin";
-	String defaultQaPassword = "password";
+	//String defaultQaUser = "qa/admin";
+	//String defaultQaPassword = "password";
 	
 	String unityMessageFile = "src" + File.separator + "resources"
 			+ File.separator + "unitymessages.properties";
@@ -67,23 +67,27 @@ public class HelpTest extends BaseTest{
 	
     @Test(priority =1 )
 	public void testHelpAlertMessage(){
-    	
+    	helpPage.waitForElementAndClick(helpPage.addHelpLink);
+    	helpPage.selectOption(helpPage.selectTile , 1);
+    	helpPage.waitForElementAndClick(helpPage.backToHelp);
+		Assert.assertEquals(helpPage.globalModalOKCancelBody.getText().trim(), unitymessages.getProperty("unSavedData").trim());
+    	helpPage.waitForElementAndClick(helpPage.globalModalOKCancelSaveButton);
+    	customeWaitTime(2);
     	helpPage.waitForElementAndClick(helpPage.exportHelpLink);
-    	waitTime();
-    	waitTime();
+    	customeWaitTime(2);
 		Assert.assertEquals(helpPage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("helpNoContent").trim());
     	helpPage.waitForElementAndClick(helpPage.globalModalInfoOkButton);
 
 	}
     
-    @Test(priority = 0)
+    @Test(priority = 2)
     public void testAddHelp(){
     	helpPage.addHelp("Item Import", "test hint", mediaFile, userGuideFile);
     	
     }
     
     
-    @Test(priority = 2)
+    @Test(priority = 3)
 	public void testSearchHelp(){
 		helpPage.waitForElementAndClick(helpPage.resetSearchFilter);
 		waitTime();

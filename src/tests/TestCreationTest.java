@@ -136,7 +136,19 @@ public class TestCreationTest extends BaseTest {
 		testCreationPage.waitForElementAndClick(testCreationPage.homeLink);
 	    customeWaitTime(5);
 	    testCreationPage.searchTest(testName);
+	    
 	    customeWaitTime(2);
+	    
+		testCreationPage.waitForElementAndClick(testCreationPage.editIconList);
+		testCreationPage.selectOption(testCreationPage.testContentField, "N/A");
+		testCreationPage.waitForElementAndClick(testCreationPage.homeLink);
+
+		Assert.assertEquals(testCreationPage.globalModalOKCancelBody.getText().trim(), unitymessages.getProperty("unSavedData").trim());
+		itemsPage.waitForElementAndClick(testCreationPage.globalModalOKCancelSaveButton);
+    	customeWaitTime(2);
+    	
+	    testCreationPage.searchTest(testName);
+	    
 	    testCreationPage.waitForElementAndClick(testCreationPage.copyIconList);
 	    customeWaitTime(2);
 	    testCreationPage.copyTest(copyTestBankName ,copiedTestName);
