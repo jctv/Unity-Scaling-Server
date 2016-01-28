@@ -281,6 +281,7 @@ public class Items extends BasePage {
 	@FindBy(xpath = "//input[@data-interaction='textEntry']")
 	public WebElement inputTextEntry;
 
+	
 	@FindBy(xpath = "//div[@data-body='body']/p")
 	public WebElement ItemHtmlParagraph;
 
@@ -290,7 +291,7 @@ public class Items extends BasePage {
 	@FindBy(xpath = "//button[@class='btn btn-primary fileinput-button']")
 	public WebElement mediaUploadFileButton;
 	
-	@FindBy(xpath = ".//*[@id='itemScoringRegion']/div/div[1]/div/div[1]/div/div/div[1]/div/div[1]/textarea")
+	@FindBy(xpath = ".//*[@id='itemScoringRegion']//textarea")
 	public WebElement extendedTextArea;
 	
 	@FindBy(xpath = ".//*[@id='itemScoringRegion']/div/div[1]/div/div[1]/div/div/div[1]/div/div[1]/div/blockquote/p")
@@ -412,10 +413,12 @@ public class Items extends BasePage {
     		waitForElementAndClick(saveAnswer);
     		customeWaitTime(5);
             break;
-        case "Extended Text Entry ":
-        	//TODO
+        case "Extended Text":
+        	waitForElementAndSendKeys(extendedTextArea, setAnswer);
+    		customeWaitTime(5);
+    		waitForElementAndClick(saveAnswer);
+    		customeWaitTime(5);
             break;
-
         }
 		selectOption(scoreProfile, scoringType);
 		customeWaitTime(5);
