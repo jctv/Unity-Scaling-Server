@@ -48,6 +48,58 @@ public class HandScoring extends BasePage {
 	@FindBy(id = "hsItem0")
 	public WebElement hsItem0;
 	
+	@FindBy(xpath = "//td[@class='watable-col-roster']")
+	public WebElement rosterInListing;
+	
+	@FindBy(xpath = "//td[@class='watable-col-test']")
+	public WebElement testInListing;
+	
+	@FindBy(xpath = "//td[@class='watable-col-content_area']")
+	public WebElement contentAreaInListing;
+	
+	@FindBy(xpath = "//td[@class='watable-col-calendar_event.start']")
+	public WebElement startEventInListing;
+	
+	@FindBy(xpath = "//td[@class='watable-col-calendar_event.end']")
+	public WebElement endEventInListing;
+	
+	@FindBy(xpath = "//span[text()='Class']")
+	public WebElement classFilter;
+	
+	@FindBy(xpath = "//span[text()='Class']/../..//div[text()='Click to Select']")
+	public WebElement classClickToSelectFilter;
+	
+	@FindBy(xpath = "//span[text()='fields.test']")
+	public WebElement testFilter;
+	
+	@FindBy(xpath = "//span[text()='Class']/../..//div[text()='Click to Select']")
+	public WebElement testClickToSelectFilter;
+	
+	@FindBy(xpath = "//span[text()='Content Area']")
+	public WebElement contentAreaFilter;
+	
+	@FindBy(xpath = "//span[text()='Math']/../i")
+	public WebElement matchFilterCheckBox;
+	
+	@FindBy(xpath = "//span[text()='Language Arts']/../i")
+	public WebElement languageFilterCheckBox;
+	
+	@FindBy(xpath = "//span[text()='Science']/../i")
+	public WebElement scienceFilterCheckBox;
+	
+	@FindBy(xpath = "//span[text()='Social Studies']/../i")
+	public WebElement socialStudiesFilterCheckBox;
+	
+	
+	@FindBy(xpath = "//span[text()='N/A']/../i")
+	public WebElement nAFilterCheckBox;
+	
+	@FindBy(xpath = "//span[text()='Multiple']/../i")
+	public WebElement multipleFilterCheckBox;
+	
+	@FindBy(xpath = "//span[text()='Any']/../i")
+	public WebElement anyFilterCheckBox;
+	
 	
 	public String scoreTest() {
 		waitForElementAndClick(scoreTestIcon);
