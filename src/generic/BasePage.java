@@ -178,8 +178,19 @@ public class BasePage {
 	@FindBy(xpath = "//p[contains(text(),'Rows')]")
 	public WebElement encouteredRecords;
 	
+	@FindBy(xpath = "//a[text()='Help']")
+	public WebElement helpNav;
 	
-
+	@FindBy(xpath = ".//*[@id='tutorialContentTemplate']/video")
+	public WebElement helpVideo;
+	
+	@FindBy(xpath = ".//*[@id='guideContentTemplate']/a/button/../../a")
+	public WebElement helpUserGuide;
+	
+	@FindBy(xpath = ".//*[@id='contentListTemplate']/div/ol/li/a/b")
+	public WebElement helpHintText;
+	
+	
 	/** Constructor */
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
@@ -512,6 +523,19 @@ public void selectOption(WebElement dropDownListBox, String option) {
 
 			}
 		return element.getText();
+		
+	}
+	
+	public String waitAndGetElementAttribute(WebElement element , String attribute){
+		try{
+			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+			wait.until(ExpectedConditions.visibilityOf(element));
+			
+			}catch(Exception e){
+				System.out.println("Unable to find the element" + element);
+
+			}
+		return element.getAttribute(attribute);
 		
 	}
 	

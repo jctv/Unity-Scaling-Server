@@ -72,7 +72,17 @@ public class Help extends BasePage {
 	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
 	public WebElement backToHelp;
 	
+	@FindBy(xpath = "//tbody[@class='files']//td[1]/i")
+	public WebElement helpImportSuccessfulIcon;
 	
+	@FindBy(xpath = "//td[@class='watable-col-package_file_name']")
+	public WebElement helpFileNameInListings;
+	
+	@FindBy(xpath = "//td[@class='watable-col-status']")
+	public WebElement helpStatusInListings;
+	
+	@FindBy(xpath = "//td[@class='watable-col-status_detail']")
+	public WebElement helpDetailInListings;
 	
 	public void addHelp(String tile , String helpHint , String mediafilePath, String userguideFilePath ){
 		try{
@@ -82,14 +92,23 @@ public class Help extends BasePage {
         File f = new File(mediafilePath);
 		String mediafile = f.getAbsolutePath();
 		fileupload.sendKeys(mediafile);
+    	customeWaitTime(2);
         waitForElementAndClick(globalModalUploadOkButton);
+    	customeWaitTime(2);
         waitForElementAndClick(addUserGuideButton);
+    	customeWaitTime(2);
         File f1 = new File(userguideFilePath);
 		String userGuidefile = f1.getAbsolutePath();
 		fileupload.sendKeys(userGuidefile);
+    	customeWaitTime(2);
         waitForElementAndClick(globalModalUploadOkButton);
+    	customeWaitTime(2);
         waitForElementAndSendKeys(firstHintInputField ,helpHint);
         waitForElementAndClick(helpSaveButton);
+    	customeWaitTime(2);
+        waitForElementAndClick(globalModalInfoOkButton);
+    	customeWaitTime(2);
+
 		}catch(Exception e){
 			System.out.println("Unable to add help for tile " + tile);
 			
@@ -127,6 +146,25 @@ public class Help extends BasePage {
 		
 	}
 	
+	public boolean importHelp(String tileName, String filepath ){
+		boolean isHelpImportSuccessful = false ;
+		try{
+			File f = new File(filepath);
+			String helpImportFilepath = f.getAbsolutePath();
+			waitForElementAndClick(importHelpLink);
+			customeWaitTime(5);
+			fileupload.sendKeys(helpImportFilepath);
+			if(helpImportSuccessfulIcon.getAttribute("style").contains("green")){
+				isHelpImportSuccessful = true;
+		    }
+			waitForElementAndClick(globalModalUploadOkButton);
+			customeWaitTime(2);
+		}catch(Exception e){
+			 System.out.println("Unable to import  the Help for tile  " + tileName);
+		}
+		return isHelpImportSuccessful;
+
+	}
 	
 	
 
