@@ -39,8 +39,8 @@ public class Organization extends BasePage {
 	@FindBy(id = "globalModalOKCancelSaveButton")
 	public WebElement globalModalOKCancelSaveButton;
 
-	@FindBy(xpath = "//li[.//span[text()='Automated School' and @class = 'jqtree_common jqtree-title']][last()]")
-	public WebElement schoolCreated;
+	/*@FindBy(xpath = "//li[.//span[text()='Automated School' and @class = 'jqtree_common jqtree-title']][last()]")
+	public WebElement schoolCreated;*/
 
 	@FindBy(xpath = "//li[.//span[text()='Automated School']]//button[@title='Remove']")
 	public WebElement deleteSchoolIcon;
@@ -67,7 +67,6 @@ public class Organization extends BasePage {
 	public void createNewOrganization(String name) {
 		try {
 			waitForElementAndClick(createNewOrganization);
-
 			waitForElementAndSendKeys(tName, name);
 			selectOption(tType, "school");
 			waitForElementAndClick(createHerarchy);
@@ -81,10 +80,16 @@ public class Organization extends BasePage {
 
 	}
 
-	public void deleteCreatedOrganization() {
+	public void deleteCreatedOrganization(String org) {
 		try {
+			WebElement schoolCreated = driver
+					.findElement(By
+							.xpath("//span[text()='" + org + "']"));
 			waitAndFocus(schoolCreated);
-			waitForElementAndClick(deleteSchoolIcon);
+			WebElement schoolDeleteIcon = driver
+					.findElement(By
+							.xpath("//span[text()='" + org + "']//button[@title='Remove']"));
+			waitForElementAndClick(schoolDeleteIcon);
 			waitForElementAndClick(globalModalOKCancelSaveButton);
 			System.out.println("School deleted");
 		} catch (Exception e) {

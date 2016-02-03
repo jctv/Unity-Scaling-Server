@@ -186,10 +186,7 @@ public class Users extends BasePage {
 	}
 
 
-
-
-
-	public String createUser() {
+	public String createUser(String school) {
 		for (int x = 0; x <= usersToCreate; x++) {
 			waitTime();
 			waitForElementAndClick(createUserLink);
@@ -206,7 +203,8 @@ public class Users extends BasePage {
 				selectOption(role, "Teacher");
 				try {
 					waitForElementAndClick(searchOrgButton);
-					waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
+					waitForElementAndSendKeys(searchOrgFieldInput, school);
+					selectOrganization(school);
 				} catch (Exception e) {
 					System.out.println("Error selecting the School");
 				}
@@ -225,7 +223,8 @@ public class Users extends BasePage {
 
 				try {
 					waitForElementAndClick(searchOrgButton);
-					waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
+					waitForElementAndSendKeys(searchOrgFieldInput, school);
+					selectOrganization(school);
 				} catch (Exception e) {
 					System.out.println("Error selecting the School");
 				}
@@ -291,13 +290,19 @@ public class Users extends BasePage {
 		return statusMessage;
 	}
 
-	public String DeleteCreatedUsers(String[] createdUsers) {
+	public String deleteCreatedUsers(String[] createdUsers , String org) {
 
 		try {
 			waitForElementAndClick(organizationFilter);
+			customeWaitTime(2);
 			waitForElementAndClick(SelectOrglink);
-			waitForElementAndClick(AutomatedSchoolLink);
+			customeWaitTime(2);
+			WebElement orgLink = driver.findElement(By
+					.xpath("//span[text()='" + org + "' and @class = 'jqtree-title jqtree_common']"));
+			waitForElementAndClick(orgLink);
+			customeWaitTime(2);
 			waitForElementAndClick(globalModalOKCancelSaveButton);
+			customeWaitTime(2);
 			for (String user : createdUsers) {
 				waitTime();
 				waitForElementAndClick(deleteIcon);
@@ -362,11 +367,12 @@ public class Users extends BasePage {
 	 * @param option
 	 */
 	public void selectOrganization(String option) {
-		selectOrgDropDown.click();
-		waitTime();
+		/*selectOrgDropDown.click();
+		waitTime();*/
+		customeWaitTime(5);
 		List<WebElement> organizations = driver
 				.findElements(By
-						.xpath("//div[@class='btn-group bootstrap-select user-metadata-required select-search-by-name-organization open']//ul[@class='dropdown-menu inner']/li"));
+						.xpath(".//*[@id='globalModalViewBody']/div/form/div[6]/div/div/div/ul/li/a/span[1]"));
 		for (WebElement org : organizations) {
 			try {
 				if (org.getText().equals(option)) {

@@ -27,6 +27,33 @@ import pages.TestCreation;
 import pages.TestsBank;
 import pages.Users;
 
+/**
+ * Happy path test steps
+ * 
+ * Login into the unity as default admin
+ * Create organization 
+ * Create one teacher and two student
+ * Login as created user 
+ * Create class roster
+ * Add created student student to class roster
+ * Create Item bank 
+ * Create multiple items =10 in the item bank
+ * Create test bank 
+ * Create test with above created items 
+ * Schedule test for created roster
+ * Login as created student #1
+ * Start and complete test with all correct answer
+ * Verify  test result in history 
+ * Login as created student #2 
+ * Start and complete test with 50 % correct answer
+ * Verify  test result in history 
+ * Login as teacher
+ * verify test report
+ * Login as admin
+ * delete organization and Users
+ */
+
+
 public class HappyPathTest extends BaseTest {
 
 	HappyPathTest Nav;
@@ -50,7 +77,19 @@ public class HappyPathTest extends BaseTest {
 	Domain domainPageObject;
 	Role rolePageObject;
 	Standards standardPageObject;
+	
+	long timestmap = System.currentTimeMillis();
 
+	String school = "Automated School" + timestmap;
+	String roster  = "Automated Roster" + timestmap;
+	String testName= "Automation test";
+	
+	//String itemName;
+	
+	String itemBank = "My item bank";
+	
+	String testBank = "My test bank";
+	
 	public HappyPathTest() {
 		super();
 
@@ -60,7 +99,6 @@ public class HappyPathTest extends BaseTest {
 	public void setUp() {
 		System.out.println("+++hub++++ "+hubAddress);
 		driver.get(url);
-
 		loginPageObject = new Login(driver);
 		
 
@@ -84,18 +122,16 @@ public class HappyPathTest extends BaseTest {
 
 		System.out.println("******** Creating a new organization ********");
 		organizationPageObject = dashBoardPageObject.goToOrganization();
-		waitTime();
-		organizationPageObject.createNewOrganization("Automated School");
+		customeWaitTime(5);
+		organizationPageObject.createNewOrganization(school);
 		returnToDashboard();
 		System.out.println("************************************************");
-
 		
-
 		System.out.println("***** Student and teacher creation started *****");
 		usersPageObject = dashBoardPageObject.goToUsers();
 		waitTime();
 		getPageLoadStatus();
-		String[] createdUsers = usersPageObject.createUser().split(",");
+		String[] createdUsers = usersPageObject.createUser(school).split(",");
 
 		ArrayList<String> createdUsersA = new ArrayList<String>();
 		createdUsersA.add(createdUsers[0]);
@@ -115,33 +151,31 @@ public class HappyPathTest extends BaseTest {
 		classRosterPageObject = dashBoardPageObject.goToClassRoster();
 		waitTime();
 		System.out.println("******** Class Roster creation ********");
-		classRosterPageObject.createRoster(createdUsersA, "Automated School",
-				"Automated Roster");
+		classRosterPageObject.createRoster(createdUsersA, school,
+				roster);
 		waitTime();
 		returnToDashboard();
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();
 		System.out.println("******** Item bank creation ********");
-		itemsBankPageObject.createBank("My item bank", "QA");
+		itemsBankPageObject.createBank(itemBank, "QA");
 		waitTime();
 		returnToDashboard();
 		customeWaitTime(5);
 		itemsPageObject = dashBoardPageObject.goToItems();
 		waitTime();
 		System.out.println("******** Items creation ********");
-		itemsPageObject.createItem("item 1", "My item bank");
+		itemsPageObject.createItem("item 1", itemBank);
 		for (int x = 2; x < 11; x++) {
 			Assert.assertTrue(
-					itemsPageObject.copyItem("My item bank", "item " + x, 1),
+					itemsPageObject.copyItem(itemBank, "item " + x, 1),
 					"Item Copied Successfully");
 		}
 		returnToDashboard();
-	
-
 		testBankPageObject = dashBoardPageObject.goToTestsBank();
 		waitTime();
 		System.out.println("******** test bank creation ********");
-		testBankPageObject.createBank("My test bank", "QA");
+		testBankPageObject.createBank(testBank, "QA");
 		returnToDashboard();
 		customeWaitTime(5);
 		waitTime();
@@ -149,16 +183,16 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 		System.out.println("******** Test creation ********");
 
-		testCreationPageObject.createTestWithMultipleItems("Automation test",
-				"My test bank", "My item bank", 10);
+		testCreationPageObject.createTestWithMultipleItems(testName,
+				testBank, itemBank, 10);
 		customeWaitTime(5);
 		returnToDashboard();
 		customeWaitTime(5);
 		sechedulePageObject = dashBoardPageObject.goToSchedule();
 		waitTime();
 		System.out.println("******** Event creation ********");
-		sechedulePageObject.scheduleTest("Automated Schoool",
-				"Auto test Roster #1", "N/A", "Automation test", "Red", "120",
+		sechedulePageObject.scheduleTest(school,
+				roster, "N/A", testName, "Red", "120",
 				"100%", "Yes");
 		waitTime();
 		returnToDashboard();
@@ -242,13 +276,12 @@ public class HappyPathTest extends BaseTest {
 		customeWaitTime(8);
 		usersPageObject = dashBoardPageObject.goToUsers();
 		waitTime();
-
 		System.out.println("******** Deleting the created users ********");
-		usersPageObject.DeleteCreatedUsers(createdUsers);
+		usersPageObject.deleteCreatedUsers(createdUsers , school);
 		waitTime();
 		System.out.println("******** Deleting the created School ********");
 		organizationPageObject = dashBoardPageObject.goToOrganization();
-		organizationPageObject.deleteCreatedOrganization();
+		organizationPageObject.deleteCreatedOrganization(school);
 
 		dashBoardPageObject.logOut();
 		System.out.println("************************************************");

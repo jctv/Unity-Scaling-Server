@@ -319,6 +319,7 @@ public class Items extends BasePage {
 	}
 
 	public void createItem(String name, String itemBankName) {
+		try{
 		customeWaitTime(5);
 		waitForElementAndClick(createItemButton);
 		customeWaitTime(5);
@@ -335,7 +336,7 @@ public class Items extends BasePage {
 		waitForElementAndSendKeys(itemCreateInputName, name);
 		waitForElementAndSendKeys(itemCreateInputDescription, "Description");
 		waitForElementAndClick(itemCreateEditInputSubmit);
-		customeWaitTime(2);
+		customeWaitTime(5);
 		// waitForElementAndSendKeys(templates, "Choice");
 		selectOption(templates, "Choice");
 		waitForElementAndClick(textEditorSaveButton);
@@ -353,6 +354,10 @@ public class Items extends BasePage {
 		customeWaitTime(2);
 		searchItem(name);
 		this.addStandards();
+		
+		}catch(Exception e){
+			System.out.println("Unable to create item  >>  "+ name);
+		}
 
 	}
 
