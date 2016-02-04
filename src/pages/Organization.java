@@ -48,6 +48,42 @@ public class Organization extends BasePage {
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
 	public WebElement backToDashboard;
 
+	@FindBy(xpath = "//a[text()='Create User']")
+	public WebElement createUserLink;
+
+	@FindBy(id = "userCreateInputFName")
+	public WebElement firstNameField;
+
+	@FindBy(id = "userCreateInputLName")
+	public WebElement lastNameField;
+	
+	@FindBy(id = "userCreateInputPW1")
+	public WebElement password;
+
+	@FindBy(id = "userCreateInputPW2")
+	public WebElement retypePassword;
+
+	@FindBy(id = "userCreateInputRoles")
+	public WebElement role;
+	
+	@FindBy(xpath = "//button[@data-id = 'userCreateOrg']")
+	public WebElement searchOrgButton;
+
+	@FindBy(xpath = "//*[@id='globalModalViewBody']/div/form/div[6]/div/div/div/div/input")
+	public WebElement searchOrgFieldInput;
+	
+	@FindBy(id = "globalModalViewTitle")
+	public WebElement globalModalViewTitle;
+	
+	@FindBy(id = "userCreateInputSubmit")
+	public WebElement submit;
+	
+	@FindBy(id = "globalModalInfoOkButton")
+	public WebElement modalOk;
+	
+	String statusMessage;
+
+	
 	public void createOrganizationNode(String name, String type) {
 		try {
 			waitForElementAndClick(createNewOrganization);
@@ -130,7 +166,6 @@ public class Organization extends BasePage {
 					selectOption(tType, orgType);
 					waitTime();
 					waitForElementAndClick(createHerarchy);
-					waitTime();
 					waitTime();
 				} catch (Exception e) {
 
@@ -222,7 +257,7 @@ public class Organization extends BasePage {
 
 				break;
 			}
-
+			waitForElementAndClick(globalModalInfoOkButton);
 		} catch (Exception e) {
 
 			// TODO
@@ -365,6 +400,7 @@ public class Organization extends BasePage {
 				break;
 
 			}
+			waitForElementAndClick(globalModalOKCancelSaveButton);
 
 		} catch (Exception e) {
 			// TODO
@@ -372,4 +408,138 @@ public class Organization extends BasePage {
 		}
 
 	}
+	
+	public String createSpecificUser(String firstName, String lastName,
+			String newPassword, String confirmPassword, String newRole,
+			String organization) {
+		try {
+			// statusMessage ="";
+			waitTime();
+			waitForElementAndClick(createUserLink);
+			waitTime();
+			waitForElementAndSendKeys(firstNameField, firstName);
+			waitForElementAndSendKeys(lastNameField, lastName);
+			waitForElementAndSendKeys(password, newPassword);
+			waitForElementAndSendKeys(retypePassword, confirmPassword);
+			waitForElementAndSendKeys(role, newRole);
+			role.click();
+			waitForElementAndClick(searchOrgButton);
+			waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
+			globalModalViewTitle.click();
+			waitTime();
+			waitForElementAndClick(submit);
+			try {
+				statusMessage = waitAndGetElementText(globalModalInfoBody);
+				System.out.println(statusMessage);
+
+				waitForElementAndClick(modalOk);
+			} catch (Exception e) {
+				System.out.println("Modal not found");
+			}
+
+		} catch (Exception e) {
+			System.out.println("User creation Failed");
+		}
+		if (statusMessage.contains("Passwords Don't Match!")) {
+			waitForElementAndClick(createUserLink);
+		}
+		return statusMessage;
+	}
+
+	
+	
+	public String getStateFromOrgTree(String state){
+		String stateName = null;
+		try{
+			WebElement stateOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']"));
+			stateName= waitAndGetElementText(stateOrgTree);
+		}catch(Exception e){
+			
+		}
+		 
+		return stateName;
+	}
+	
+	public String getDistFromOrgTree(String state , String dist ){
+		String distName = null;
+		try{
+			WebElement stateOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']"));
+			waitForElementAndClick(stateOrgTree);
+			customeWaitTime(2);
+			WebElement distOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']/../..//ul/li/div/span[text()='"+ dist +"']"));
+			distName= waitAndGetElementText(distOrgTree);
+		}catch(Exception e){
+			
+		}
+		 
+		return distName;
+	}
+	
+	
+	
+	public String getOrgNameInTree(String state ,String dist, String school , String orgType){
+		String orgName = null;
+		try{
+			if(orgType.equalsIgnoreCase("state")){
+				WebElement stateOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']"));
+				orgName= waitAndGetElementText(stateOrgTree);
+				refreshPage();
+
+			}else if(orgType.equalsIgnoreCase("district")){
+				WebElement stateOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']"));
+				waitForElementAndClick(stateOrgTree);
+				customeWaitTime(2);
+				WebElement distOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']/../..//ul/li/div/span[text()='"+ dist +"']"));
+				orgName= waitAndGetElementText(distOrgTree);
+				refreshPage();
+				
+			}else if(orgType.equalsIgnoreCase("school")){
+				WebElement stateOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']"));
+				waitAndGetElementText(stateOrgTree);
+				customeWaitTime(2);
+				WebElement distOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']/../..//ul/li/div/span[text()='"+ dist +"']"));
+				waitForElementAndClick(distOrgTree);
+				customeWaitTime(2);
+				WebElement schoolOrgTree= driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']/../..//ul/li/div/span[text()='"+ dist +"']/../../ul/li/div/span[text()='"+ school +"']"));
+				orgName= waitAndGetElementText(schoolOrgTree);
+				refreshPage();
+			}
+			
+		}catch(Exception e){
+			System.out.println("Unable to get the org name ");
+		}
+		 
+		return orgName;
+	}
+	
+	
+	/*public boolean isOrganizationHierarachyCreated(String state , String dist , String school){
+		boolean validator = false;
+		try{
+		WebElement stateOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']"));
+		waitForElementAndClick(stateOrgTree);
+		customeWaitTime(2);
+		WebElement distOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']/../..//ul/li/div/span[text()='"+ dist +"']"));
+		waitForElementAndClick(distOrgTree);
+		customeWaitTime(2);
+		WebElement schoolOrgTree= driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']/../..//ul/li/div/span[text()='"+ dist +"']/../../ul/li/div/span[text()='"+ school +"']"));
+		customeWaitTime(5);
+		waitForElementAndClick(schoolOrgTree);
+		if(stateOrgTree.isDisplayed() &&  distOrgTree.isDisplayed() && schoolOrgTree.isDisplayed()){
+			validator = true;
+		}else{
+			
+			validator = false;
+		}
+		}catch(Exception e){
+			System.out.println("Organization Structure is not created ");
+
+		}
+		return validator;
+	}
+	*/
+	
+	
+	
+	
 }

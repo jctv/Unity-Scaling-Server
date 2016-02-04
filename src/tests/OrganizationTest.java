@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Properties;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -19,19 +20,27 @@ public class OrganizationTest extends BaseTest{
 	DashBoard dashBoardPage;
 	Organization orgPage;
 	
-	String defaultUser = "qa/admin";
-	String defaultPassword = "password";
+	String resourcesLocation = "src" + File.separator + "resources"
+			+ File.separator;
 	
-	String unityMessageFile = "src" + File.separator + "resources"
-			+ File.separator + "unitymessages.properties";
-	
-    private  static final String  TYPE_STATE   = "state";
-    private  static final String  TYPE_DISTRICT   = "district";
-    private  static final String  TYPE_SCHOOL   = "school";
+	String unityMessageFile = resourcesLocation + "unitymessages.properties";
+	String unityTestDataFile = resourcesLocation  + "unitytestdata.properties";
+	String unityOrgDataFile = resourcesLocation  + "unityorganizationdata.properties";
 
+    String  stateType;
+    String distType;
+    String schoolType;
 	
-	Properties unitymessages;
+	Properties unitymessagesdata;
+	Properties unitytestdata;
+	Properties unityorgdata;
 	
+	long timestamp;
+	
+	String orgStateName;
+	String orgDistName;
+	String orgSchoolName;
+
 	public OrganizationTest() {
 		super();
 		
@@ -39,21 +48,73 @@ public class OrganizationTest extends BaseTest{
 
 	@BeforeTest
 	public void loadUnityMessagesProperty(){
-		unitymessages = getUnityMessagesProperty(unityMessageFile);
+		unitymessagesdata = getUnityMessagesProperty(unityMessageFile);
+		unitytestdata = getUnityMessagesProperty(unityTestDataFile);
+		unityorgdata = getUnityMessagesProperty(unityOrgDataFile);
+		stateType = unityorgdata.getProperty("stateType");
+		distType = unityorgdata.getProperty("distType");
+		schoolType = unityorgdata.getProperty("schoolType");
+		
+		timestamp = System.currentTimeMillis();
+		
+		orgStateName = unityorgdata.getProperty("orgState") + timestamp;
+		orgDistName = unityorgdata.getProperty("orgDist") + timestamp;
+		orgSchoolName = unityorgdata.getProperty("orgSchool") + timestamp;
+
 		
 	}
 	
-	@BeforeMethod
+	@BeforeClass
 	public void setUp() {
 		driver.get(url);
 		loginPage = new Login(driver);
-		dashBoardPage = loginPage.loginSuccess(defaultUser,
-				defaultPassword);
-		waitTime();
-		//dashBoardPageObject.addTiles();
-		waitTime();
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("defaultAdmin"),
+				unitytestdata.getProperty("defaultPassword"));
+		customeWaitTime(2);
+		dashBoardPage.addTiles();
+		customeWaitTime(2);
+		orgPage = dashBoardPage.goToOrganization();
+		customeWaitTime(10);
+
 	}
 	
+	
+	/**
+	 * Login into the unity as admin
+	 * Go the org tile
+	 * Click on Create Hierarchy 
+	 * Create org structure state > Dist > School
+	 * 
+	 */
+	
+	@Test(priority = 1)
+	public void testCreateAndDeleteOrgHierarchy(){
+		orgPage.addOrganization(orgStateName, "", "", stateType);
+		customeWaitTime(2);
+		orgPage.refreshPage();
+		customeWaitTime(5);
+		orgPage.addOrganization(orgStateName, orgDistName, "", distType);
+		customeWaitTime(2);
+		orgPage.refreshPage();
+		customeWaitTime(5);
+		orgPage.addOrganization(orgStateName, orgDistName, orgSchoolName, schoolType);
+		customeWaitTime(2);
+		orgPage.refreshPage();
+		customeWaitTime(5);
+		Assert.assertEquals(orgStateName, orgPage.getOrgNameInTree(orgStateName ,"", "" , stateType));
+		customeWaitTime(5);
+		Assert.assertEquals(orgStateName, orgPage.getOrgNameInTree(orgStateName ,orgDistName, "" , distType));
+		customeWaitTime(5);
+		Assert.assertEquals(orgStateName, orgPage.getOrgNameInTree(orgStateName ,orgDistName, orgSchoolName, schoolType));
+		customeWaitTime(5);
+		orgPage.deleteOrganization(orgStateName, orgDistName, orgSchoolName, schoolType);
+		customeWaitTime(5);
+		orgPage.deleteOrganization(orgStateName, orgDistName, "", distType);
+		customeWaitTime(5);
+		orgPage.deleteOrganization(orgStateName, "", "", stateType);
+	}
+	
+
 	/**
 	 * Login into the Unity
 	 * Click on Organization tile
@@ -62,7 +123,7 @@ public class OrganizationTest extends BaseTest{
 	 * 
 	 */
 	
-	@Test
+	@Test(enabled = false)
 	public void testOrganizationAlertMessages(){
 		orgPage = dashBoardPage.goToOrganization();
 		waitTime();
@@ -70,34 +131,34 @@ public class OrganizationTest extends BaseTest{
 		String orgStateName = "Auto_State" + System.currentTimeMillis();
 		String orgDistName = "Dist" + orgStateName;
 		String orgSchoolName = "School" + orgStateName;
-		orgPage.addOrganization(orgStateName, "", "", TYPE_STATE);
+		orgPage.addOrganization(orgStateName, "", "", stateType);
 		waitTime();
-		Assert.assertEquals(orgPage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("orgCreated").replace("org_name", orgStateName).trim());
-		waitTime();
-		orgPage.waitForElementAndClick(orgPage.globalModalInfoOkButton);
-		waitTime();
-		orgPage.refreshPage();
-		waitTime();
-		waitTime();
-		orgPage.addOrganization(orgStateName, orgDistName, "", TYPE_DISTRICT);
-		Assert.assertEquals(orgPage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("orgCreated").replace("org_name", orgDistName).trim());
+		Assert.assertEquals(orgPage.globalModalInfoBody.getText().trim(), unitymessagesdata.getProperty("orgCreated").replace("org_name", orgStateName).trim());
 		waitTime();
 		orgPage.waitForElementAndClick(orgPage.globalModalInfoOkButton);
 		waitTime();
 		orgPage.refreshPage();
 		waitTime();
 		waitTime();
-		orgPage.addOrganization(orgStateName, orgDistName, orgSchoolName, TYPE_SCHOOL);
-		Assert.assertEquals(orgPage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("orgCreated").replace("org_name", orgSchoolName).trim());
+		orgPage.addOrganization(orgStateName, orgDistName, "", distType);
+		Assert.assertEquals(orgPage.globalModalInfoBody.getText().trim(), unitymessagesdata.getProperty("orgCreated").replace("org_name", orgDistName).trim());
 		waitTime();
 		orgPage.waitForElementAndClick(orgPage.globalModalInfoOkButton);
 		waitTime();
 		orgPage.refreshPage();
 		waitTime();
 		waitTime();
-		orgPage.deleteOrganization(orgStateName, orgDistName, orgSchoolName, TYPE_SCHOOL);
+		orgPage.addOrganization(orgStateName, orgDistName, orgSchoolName, schoolType);
+		Assert.assertEquals(orgPage.globalModalInfoBody.getText().trim(), unitymessagesdata.getProperty("orgCreated").replace("org_name", orgSchoolName).trim());
 		waitTime();
-		Assert.assertEquals(orgPage.globalModalOKCancelBody.getText().trim(), unitymessages.getProperty("emptyOrgDelete").trim());
+		orgPage.waitForElementAndClick(orgPage.globalModalInfoOkButton);
+		waitTime();
+		orgPage.refreshPage();
+		waitTime();
+		waitTime();
+		orgPage.deleteOrganization(orgStateName, orgDistName, orgSchoolName, schoolType);
+		waitTime();
+		Assert.assertEquals(orgPage.globalModalOKCancelBody.getText().trim(), unitymessagesdata.getProperty("emptyOrgDelete").trim());
 		waitTime();
 		orgPage.waitForElementAndClick(orgPage.globalModalOKCancelSaveButton);
 		waitTime();
@@ -105,18 +166,18 @@ public class OrganizationTest extends BaseTest{
 		waitTime();
 		waitTime();
 		
-		orgPage.deleteOrganization(orgStateName, orgDistName, "", TYPE_DISTRICT);
+		orgPage.deleteOrganization(orgStateName, orgDistName, "", distType);
 		waitTime();
-		Assert.assertEquals(orgPage.globalModalOKCancelBody.getText().trim(), unitymessages.getProperty("emptyOrgDelete").trim());
+		Assert.assertEquals(orgPage.globalModalOKCancelBody.getText().trim(), unitymessagesdata.getProperty("emptyOrgDelete").trim());
 		waitTime();
 		orgPage.waitForElementAndClick(orgPage.globalModalOKCancelSaveButton);
 		waitTime();
 		orgPage.refreshPage();
 		waitTime();
 		waitTime();
-		orgPage.deleteOrganization(orgStateName, "", "", TYPE_STATE);
+		orgPage.deleteOrganization(orgStateName, "", "", stateType);
 		waitTime();
-		Assert.assertEquals(orgPage.globalModalOKCancelBody.getText().trim(), unitymessages.getProperty("emptyOrgDelete").trim());
+		Assert.assertEquals(orgPage.globalModalOKCancelBody.getText().trim(), unitymessagesdata.getProperty("emptyOrgDelete").trim());
 		waitTime();
 		orgPage.waitForElementAndClick(orgPage.globalModalOKCancelSaveButton);
 		waitTime();
