@@ -1,5 +1,7 @@
 package pages;
 
+import java.util.List;
+
 import generic.BasePage;
 import generic.BaseTest;
 
@@ -9,7 +11,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import sun.net.www.content.audio.wav;
 
 public class Organization extends BasePage {
 
@@ -81,8 +82,39 @@ public class Organization extends BasePage {
 	@FindBy(id = "globalModalInfoOkButton")
 	public WebElement modalOk;
 	
+	@FindBy(xpath = "//tbody[@class='body']/tr[1]")
+	public WebElement firstRowUser;
+	
+	@FindBy(xpath = "//tbody[@class='body']/tr[1]/td[1]")
+	public WebElement firstRowLastNameUser;
+	
+	@FindBy(xpath = "//tbody[@class='body']/tr[1]/td[2]")
+	public WebElement firstRowFirstNameUser;
+	
+	@FindBy(xpath = "//tbody[@class='body']/tr[1]//button[@class='btn btn-primary btn-xs add-member']")
+	public WebElement firstUserAddButton;
+	
+	@FindBy(xpath = ".//*[@id='members_sortable']/li/div/span")
+	public WebElement firstAddedUserRow;
+	
+	@FindBy(xpath = ".//*[@id='members_sortable']/li/div/span[2]/button")
+	public WebElement firstAddedUserDeleteButton;
+	
 	String statusMessage;
-
+	
+	@FindBy(id = "userLastName")
+	public WebElement userLastNameSerachField;
+	
+	@FindBy(id = "userFirstName")
+	public WebElement userFirstNameSerachField;
+	
+	
+	@FindBy(xpath = ".//*[@id='searchPanel']/div/form/div[1]/label")
+	public WebElement groupLabel;
+	
+	@FindBy(xpath = ".//*[@id='treeNavigation']/ul//span")
+	public WebElement orgInTree;
+	
 	
 	public void createOrganizationNode(String name, String type) {
 		try {
@@ -153,6 +185,25 @@ public class Organization extends BasePage {
 
 	}
 
+	
+	public void selectParentOrgInTree(String orgName){
+		try{
+			WebElement organization = driver
+					.findElement(By
+							.xpath("//li[.//span[text()='"
+									+ orgName
+									+ "' and @class = 'jqtree_common jqtree-title']][last()]"));
+			waitForElementAndClick(organization);
+			
+		}catch(Exception ef){
+			
+			System.out.println("Not able to click / select   " + orgName);
+
+		}
+		
+		
+		
+	}
 	public void addOrganization(String stateOrgName, String distOrgName,
 			String schoolOrgName, String orgType) {
 		try {
@@ -180,9 +231,8 @@ public class Organization extends BasePage {
 				try {
 					WebElement stateOrg = driver
 							.findElement(By
-									.xpath("//li[.//span[text()='"
-											+ stateOrgName
-											+ "' and @class = 'jqtree_common jqtree-title']][last()]"));
+									.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ stateOrgName +"']"));
+					
 					waitTime();
 					waitAndFocus(stateOrg);
 					waitTime();
@@ -275,9 +325,7 @@ public class Organization extends BasePage {
 				try {
 					WebElement stateOrg = driver
 							.findElement(By
-									.xpath("//li[.//span[text()='"
-											+ stateOrgName
-											+ "' and @class = 'jqtree_common jqtree-title']][last()]"));
+									.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ stateOrgName +"']"));
 					waitTime();
 					waitAndFocus(stateOrg);
 					WebElement stateOrgDeleteIcon = driver
@@ -288,7 +336,6 @@ public class Organization extends BasePage {
 					waitTime();
 					waitForElementAndClick(stateOrgDeleteIcon);
 					waitTime();
-
 				} catch (Exception e) {
 
 					System.out.println("Unable to delete  organization  "
@@ -424,7 +471,8 @@ public class Organization extends BasePage {
 			waitForElementAndSendKeys(role, newRole);
 			role.click();
 			waitForElementAndClick(searchOrgButton);
-			waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
+			waitForElementAndSendKeys(searchOrgFieldInput, organization);
+			selectOrganization(organization);
 			globalModalViewTitle.click();
 			waitTime();
 			waitForElementAndClick(submit);
@@ -483,26 +531,27 @@ public class Organization extends BasePage {
 			if(orgType.equalsIgnoreCase("state")){
 				WebElement stateOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']"));
 				orgName= waitAndGetElementText(stateOrgTree);
-				refreshPage();
+				//refreshPage();
 
 			}else if(orgType.equalsIgnoreCase("district")){
-				WebElement stateOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']"));
-				waitForElementAndClick(stateOrgTree);
 				customeWaitTime(2);
+				WebElement stateOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']/../a/span"));
+				waitForElementAndClick(stateOrgTree);
+				customeWaitTime(5);
 				WebElement distOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']/../..//ul/li/div/span[text()='"+ dist +"']"));
 				orgName= waitAndGetElementText(distOrgTree);
 				refreshPage();
 				
 			}else if(orgType.equalsIgnoreCase("school")){
-				WebElement stateOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']"));
-				waitAndGetElementText(stateOrgTree);
+				WebElement stateOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']/../a/span"));
+				waitForElementAndClick(stateOrgTree);
 				customeWaitTime(2);
-				WebElement distOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']/../..//ul/li/div/span[text()='"+ dist +"']"));
+				WebElement distOrgTree = driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']/../..//ul/li/div/span[text()='"+ dist +"']/../a/span"));
 				waitForElementAndClick(distOrgTree);
 				customeWaitTime(2);
 				WebElement schoolOrgTree= driver.findElement(By.xpath(".//*[@id='treeNavigation']/ul/li/div/span[text()='"+ state +"']/../..//ul/li/div/span[text()='"+ dist +"']/../../ul/li/div/span[text()='"+ school +"']"));
 				orgName= waitAndGetElementText(schoolOrgTree);
-				refreshPage();
+				//refreshPage();
 			}
 			
 		}catch(Exception e){
@@ -512,6 +561,32 @@ public class Organization extends BasePage {
 		return orgName;
 	}
 	
+	/**
+	 * Added this method as organization drop down is populating through plugin
+	 * not a normal select box
+	 * 
+	 * @param option
+	 */
+	public void selectOrganization(String option) {
+		/*selectOrgDropDown.click();
+		waitTime();*/
+		customeWaitTime(5);
+		List<WebElement> organizations = driver
+				.findElements(By
+						.xpath(".//*[@id='globalModalViewBody']/div/form/div[6]/div/div/div/ul/li/a/span[1]"));
+		for (WebElement org : organizations) {
+			try {
+				if (org.getText().equals(option)) {
+					org.click();
+					break;
+				}
+
+			} catch (Exception e) {
+				System.out.println(option + " is not available");
+			}
+		}
+
+	}
 	
 	/*public boolean isOrganizationHierarachyCreated(String state , String dist , String school){
 		boolean validator = false;
