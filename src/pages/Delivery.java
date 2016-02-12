@@ -222,7 +222,7 @@ public class Delivery extends BasePage {
 	}
 	customeWaitTime(3);
 		for (String answer : answersList) {
-			customeWaitTime(2);
+			customeWaitTime(5);
 			if(NumberUtils.isNumber(answer)){
 				waitForElementAndClick(driver.findElement(By.xpath("(//input[@type='radio' and @name = 'sprite_1'])["+answer+"]")));		
 			}else{
