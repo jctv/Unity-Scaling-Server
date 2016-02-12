@@ -38,7 +38,7 @@ public class Delivery extends BasePage {
 	@FindBy(xpath = "//button[contains(@class,'resume')]")
 	public WebElement resumeTestButton;
 	
-	@FindBy(xpath = "//span[@class='btn btn-primary doSave']")
+	@FindBy(xpath = "//span[text()='Save']")
 	public WebElement btn;
 
 	@FindBy(id = "HSAlgebra1")
