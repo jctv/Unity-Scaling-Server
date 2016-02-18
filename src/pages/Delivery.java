@@ -230,6 +230,11 @@ public class Delivery extends BasePage {
 			}
 			waitForElementAndClick(btn);
 		}
+		customeWaitTime(3);
+		if(btn.isEnabled()){
+			waitForElementAndClick(btn);
+		}
+		
 		waitForElementAndClick(exitButton);
 		waitForElementAndClick(finishTestButton);
 		waitForElementVisible(lastSocredTest);
