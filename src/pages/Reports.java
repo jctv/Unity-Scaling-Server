@@ -376,22 +376,23 @@ public class Reports extends BasePage {
  }	
  
 public void verifyStudentHandScore(String studentLName , int itemCount , String score){
-	try{
 		for(int item = 1 ; item <= itemCount ; item ++ ){
-			WebElement itemScoreElement = driver.findElement(By.xpath("//td[text()='"+ studentLName +"']/../td[@class='item-score item-score-CR'][" + item + "]"));
-			if(waitAndGetElementText(itemScoreElement).equals(score)){
+			try{
+			WebElement itemScoreElement = driver.findElement(By.xpath("//td[text()='"+ studentLName +"']/../td[@class='item-score item-score-CR']["+ item +"]/a"));
+			
+			if(itemScoreElement.getText().equals(score)){
 				System.out.println("Score ---> " + score + " is updated succesfully");
 				
 			}else{
 				System.out.println("Score is not updated properly");
 
 			}
+		}catch(Exception e){
+			System.out.println("Error while getting the Score");
+
 		}
 		
-	}catch(Exception e){
-		
-	}
-	
+ }
+ }
 }
-	
-}
+

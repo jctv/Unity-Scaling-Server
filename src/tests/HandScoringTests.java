@@ -104,8 +104,8 @@ public class HandScoringTests extends BaseTest {
 		itemsPage.createItem(itemName, itemBankName, extendedTextEntry, handScoreProfile, "Not required");
 		itemsPage.searchItem(itemName);
 		itemsPage.addStandards();
-        copiedItemName = "copy" + itemName;
-		itemsPage.copyMultipleItems(itemBankName, itemName, copiedItemName, 1, itemCount);
+        copiedItemName = "copy_" + itemName;
+		itemsPage.copyMultipleItems(itemBankName, itemName, copiedItemName, 1, itemCount -1);
 		returnToDashboard();
 		testBankPage = dashBoardPage.goToTestsBank();
 		testBankName = "TB_" + timestamp;

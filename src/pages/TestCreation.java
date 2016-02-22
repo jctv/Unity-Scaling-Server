@@ -127,7 +127,7 @@ public class TestCreation extends BasePage {
 	public WebElement  createAndEditButton;
 	
 	
-	@FindBy(xpath = "//*[@id='quickViewContentCreate']/div/form/div[1]/select")
+	@FindBy(xpath = ".//*[@id='globalModalViewBody']/div/form/div[1]/div/select")
 	public WebElement bankDropDown;
 	
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link editRow']")

@@ -329,20 +329,20 @@ public class Delivery extends BasePage {
 				.xpath("//td[@class='test-name' and @data-test='" + testId
 						+ "']/following-sibling::td[4]//i[@class='fa fa-check-circle']"));
 		
-		WebElement testNotcompleted = driver.findElement(By
+		/*WebElement testNotcompleted = driver.findElement(By
 				.xpath("//td[@class='test-name' and @data-test='" + testId
 						+ "']/following-sibling::td[4]//i[@class='fa fa-circle-o']"));
-		
+		*/
 		
 		if(testcompleted.isDisplayed()){
 			istestCompleted = true;
 			System.out.println("Test completed");
 
-		}else if(testNotcompleted.isDisplayed()){
+		}else {
 			istestCompleted = false;
 			System.out.println("Test not completed");
 			
-		}
+		 }
 		} catch (Exception e) {
 			System.out.println("Unable to get the test complete status");
 		}

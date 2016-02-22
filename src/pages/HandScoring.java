@@ -111,6 +111,10 @@ public class HandScoring extends BasePage {
 	@FindBy(xpath = "//div[@id='numElement']//button")
 	public List <WebElement> noOfItems;
 	
+	@FindBy(xpath = "//input[@class='response-scores ui-spinner-input']")
+	public WebElement setScoreInputField;
+	
+	
 	
 	public void filterClass(String className ){
 	try{
@@ -206,15 +210,14 @@ public class HandScoring extends BasePage {
 						.xpath("//div[@id='numElement']//button[" + y + "]"));
 				waitForElementAndClick(itemToBeScored);
 				// Need to change this as drop down  will change to text input box
-				selectOption(score, scorePoint);
+				//selectOption(score, scorePoint);
+				waitForElementAndSendKeys(setScoreInputField, scorePoint);
 				waitForElementAndDoubleClick(saveScoreButton);
 			}
 			
 				waitForElementAndClick(okButton);
+				waitTime();
 				waitForElementAndClick(backLink);
-			
-			waitTime();
-			waitForElementAndClick(backLink);
 		}
 		
 		} catch (Exception e) {
