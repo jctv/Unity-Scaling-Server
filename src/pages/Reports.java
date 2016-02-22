@@ -122,6 +122,10 @@ public class Reports extends BasePage {
 	
 	@FindBy(xpath = "//tr[@class=‘even’ or @class=‘odd’]")
 	private List< WebElement > rows;
+	
+	@FindBy(xpath = "//h2[text()='Handscore This Test']")
+	public WebElement HandscoreThisTestButton;
+	
 
 	public String viewReport() {
 		try {
@@ -278,11 +282,17 @@ public class Reports extends BasePage {
 	}
 
 	public void openTestEventDetail(String testEvent) {
+		try{
 		WebElement testEventName = driver.findElement(By.xpath("//div[text()='"
 				+ testEvent + "']"));
 		customeWaitTime(5);
 		waitForElementAndClick(testEventName);
 		customeWaitTime(5);
+		
+		}catch(Exception e){
+			
+			System.out.println("Unable to open the test detail page for test --- > " + testEvent);
+		}
 	}
 
 	public String getTestEventTitle() {
@@ -340,4 +350,48 @@ public class Reports extends BasePage {
 		}
 	}
 
+	public HandScoring navigateToHandScore() {
+		try{
+		waitForElementAndClick(HandscoreThisTestButton);
+		customeWaitTime(5);
+		}catch(Exception e){
+			//TODO
+		}
+		return new HandScoring(driver);
+	}
+	
+	
+
+ public String getScoreStatusinTestDetail(String studentLName){
+	 String status = "";
+	 try{
+		 WebElement statusElement = driver.findElement(By.xpath("//td[text()='"+ studentLName +"']/following-sibling::td[3]"));
+		 
+		 status = statusElement.getText();
+		 
+	 }catch(Exception e ){
+		 
+	 }
+	 return status;
+ }	
+ 
+public void verifyStudentHandScore(String studentLName , int itemCount , String score){
+	try{
+		for(int item = 1 ; item <= itemCount ; item ++ ){
+			WebElement itemScoreElement = driver.findElement(By.xpath("//td[text()='"+ studentLName +"']/../td[@class='item-score item-score-CR'][" + item + "]"));
+			if(waitAndGetElementText(itemScoreElement).equals(score)){
+				System.out.println("Score ---> " + score + " is updated succesfully");
+				
+			}else{
+				System.out.println("Score is not updated properly");
+
+			}
+		}
+		
+	}catch(Exception e){
+		
+	}
+	
+}
+	
 }

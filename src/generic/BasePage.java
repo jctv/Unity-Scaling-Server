@@ -190,6 +190,12 @@ public class BasePage {
 	@FindBy(xpath = ".//*[@id='contentListTemplate']/div/ol/li/a/b")
 	public WebElement helpHintText;
 	
+	@FindBy(xpath = "//div[@class='layoutHorizontalLeftPane col-md-4']//input[@id='searchAutoComplete']")
+	public WebElement filterSearchInputField;
+
+	@FindBy(xpath = "//div[@class='layoutHorizontalLeftPane col-md-4']//span[@id='searchButton']")
+	public WebElement filersearchButton;
+	
 	
 	/** Constructor */
 	public BasePage(WebDriver driver) {
@@ -589,5 +595,10 @@ public void selectOption(WebElement dropDownListBox, String option) {
 
 		return new Login(driver);
 	}
-
+	
+public String executeScript(String script){
+	JavascriptExecutor js = (JavascriptExecutor) driver;
+	return  js.executeScript(script).toString();
+	
+  }
 }

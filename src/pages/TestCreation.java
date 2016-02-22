@@ -289,14 +289,14 @@ public class TestCreation extends BasePage {
 		try {
 			waitForElementAndClick(createTestLink);
 			customeWaitTime(2);
-			//selectOption(bankDropDown, testBankName);
+			selectOption(bankDropDown, testBankName);
 			//selectTestBank(testBankName);
 			waitForElementAndSendKeys(contentCreateInputName, testName);
 			waitForElementAndSendKeys(contentCreateInputDescription, testName);
 			waitForElementAndClick(createAndEditButton);
-			//filterItemBank(itemBank);
-			customeWaitTime(2);
-			waitForElementAndClick(resetSearchFilter);
+			filterItemBank(itemBank);
+			/*customeWaitTime(2);
+			waitForElementAndClick(resetSearchFilter);*/
 			customeWaitTime(2);
 			List <WebElement>  totalItems = driver.findElements(By.xpath("//ul[@id='sortable1']//li"));
 			for (int i=totalItems.size(); i >= 1; i--){
@@ -385,8 +385,14 @@ public class TestCreation extends BasePage {
 	
 	public String getTestId(){
 		String testId = null;
-		return testId =testViewIcon.getAttribute("data-id");
+		try{
+		testId =  waitAndGetElementAttribute(testViewIcon,"data-id" );
+		 System.out.println("Created  Test  id is >>  " + testId);
 		
+		}catch(Exception e){
+			 System.out.println("Unable to get  the Test  id >>  " + testId);
+		}
+		return testId;
 	}
 	
 	public Schedule navigateToScheduleFromListings() {

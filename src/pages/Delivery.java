@@ -68,6 +68,12 @@ public class Delivery extends BasePage {
 	@FindBy(xpath = "//div[@class='ui-dialog-buttonset']/button[1]")
 	public WebElement testExitConfirmationButton;
 	
+	@FindBy(xpath = ".//*[@id='playground']/div/div[2]/div[2]/div/textarea")
+	public WebElement extendedTextAreaField;
+	
+	@FindBy(xpath = ".//*[@id='slideshowStatus']")
+	public WebElement slideshowStatus;
+	
 
 	public void takeTest() {
 
@@ -195,10 +201,21 @@ public class Delivery extends BasePage {
 
 			break;
 
-		case "Extended Text Entry ":
-			// TODO
+		case "Extended Text":
+			try{
+			String getItemsDisplay= waitAndGetElementText(slideshowStatus);
+			String getMaxItemCount = getItemsDisplay.split("  ")[2];
+			int totalItems = Integer.parseInt(getMaxItemCount);
+			for (int item = 1; item <= totalItems ; item++) {
+				waitForElementAndSendKeys(extendedTextAreaField, answer);
+				customeWaitTime(1);
+				waitForElementAndClick(btn);
+				customeWaitTime(1);
+			}
+			 }catch(Exception e ){
+				
+			}
 			break;
-
 		}
 
 		waitForElementAndClick(exitButton);
@@ -230,11 +247,11 @@ public class Delivery extends BasePage {
 			}
 			waitForElementAndClick(btn);
 		}
-		customeWaitTime(3);
+
+        customeWaitTime(3);
 		if(btn.isEnabled()){
 			waitForElementAndClick(btn);
 		}
-		
 		waitForElementAndClick(exitButton);
 		waitForElementAndClick(finishTestButton);
 		waitForElementVisible(lastSocredTest);
@@ -252,10 +269,14 @@ public class Delivery extends BasePage {
 	}
 
 	public void startScheduledTest(String testId) {
+		try{
 		WebElement scheduleTest = driver.findElement(By
 				.xpath("//button[@data-id='" + testId + "']"));
-		scheduleTest.click();
+		waitForElementAndClick(scheduleTest);
+		}catch(Exception e){
+			System.out.println("Unable to stard the test ");
 
+		}
 	}
 
 	public String getTestinHistoryTable(String testId) {
@@ -276,8 +297,8 @@ public class Delivery extends BasePage {
 		String testCorrectPercent = "";
 		try {
 			WebElement testpercent = driver.findElement(By
-					.xpath("//td[@class='test-score' and @data-test='" + testId
-							+ "']"));
+					.xpath("//td[@class='test-name' and @data-test='" + testId
+							+ "']/following-sibling::td[2]"));
 			testCorrectPercent = testpercent.getText();
 		} catch (Exception e) {
 			System.out.println("error trying to get the test percent");
@@ -291,8 +312,8 @@ public class Delivery extends BasePage {
 		String testNoOfItems = "";
 		try {
 		WebElement testItems = driver.findElement(By
-				.xpath("//td[@class='test-score' and @data-test='" + testId
-						+ "']/following-sibling::td[1]"));
+				.xpath("//td[@class='test-name' and @data-test='" + testId
+						+ "']/following-sibling::td[3]"));
 		testNoOfItems = testItems.getText();
 		} catch (Exception e) {
 			System.out.println("error trying to get the test NoOfItems");
@@ -300,5 +321,36 @@ public class Delivery extends BasePage {
 
 		return testNoOfItems;
 	}
+	
+	public boolean  getTestCompletedStatus(String testId) {
+		boolean istestCompleted = false;
+		try {
+		WebElement testcompleted = driver.findElement(By
+				.xpath("//td[@class='test-name' and @data-test='" + testId
+						+ "']/following-sibling::td[4]//i[@class='fa fa-check-circle']"));
+		
+		WebElement testNotcompleted = driver.findElement(By
+				.xpath("//td[@class='test-name' and @data-test='" + testId
+						+ "']/following-sibling::td[4]//i[@class='fa fa-circle-o']"));
+		
+		
+		if(testcompleted.isDisplayed()){
+			istestCompleted = true;
+			System.out.println("Test completed");
+
+		}else if(testNotcompleted.isDisplayed()){
+			istestCompleted = false;
+			System.out.println("Test not completed");
+			
+		}
+		} catch (Exception e) {
+			System.out.println("Unable to get the test complete status");
+		}
+
+		return istestCompleted;
+	}
+	
+	
+	
 
 }

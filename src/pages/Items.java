@@ -419,10 +419,14 @@ public class Items extends BasePage {
     		customeWaitTime(5);
             break;
         case "Extended Text":
-        	waitForElementAndSendKeys(extendedTextArea, setAnswer);
+        	
+        	 //Currentlry Not require to set the answer for extended text entry
+        	
+        	/*waitForElementAndSendKeys(extendedTextArea, setAnswer);
+        	 *
     		customeWaitTime(5);
     		waitForElementAndClick(saveAnswer);
-    		customeWaitTime(5);
+    		customeWaitTime(5);*/
             break;
         }
 		selectOption(scoreProfile, scoringType);
