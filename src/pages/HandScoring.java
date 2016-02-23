@@ -41,7 +41,7 @@ public class HandScoring extends BasePage {
 	@FindBy(xpath = "//*[@id='itemNav']/div/div[3]/button")
 	public WebElement nextAnswer;
 	
-	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
 	public WebElement backLink;
 	
 	@FindBy(id = "show-all-items")
@@ -206,16 +206,18 @@ public class HandScoring extends BasePage {
 			waitForElementAndClick(studentTobeScored);
 
 			for (int y = 1; y <= itemCount; y++) {
+				customeWaitTime(2);
 				WebElement itemToBeScored = driver.findElement(By
 						.xpath("//div[@id='numElement']//button[" + y + "]"));
 				waitForElementAndClick(itemToBeScored);
 				// Need to change this as drop down  will change to text input box
 				//selectOption(score, scorePoint);
 				waitForElementAndSendKeys(setScoreInputField, scorePoint);
+				customeWaitTime(5);
 				waitForElementAndDoubleClick(saveScoreButton);
 			}
 			
-				waitForElementAndClick(okButton);
+				//waitForElementAndClick(okButton);
 				waitTime();
 				waitForElementAndClick(backLink);
 		}

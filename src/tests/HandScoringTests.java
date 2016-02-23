@@ -144,9 +144,6 @@ public class HandScoringTests extends BaseTest {
 		waitTime();
 		deliveryPage.startScheduledTest(createdTestId);
 		deliveryPage.takeTest(true , 1 ,extendedTextEntry , extendedTextAnswer);
-		
-		
-	
  }
 	
 	/**
@@ -182,7 +179,7 @@ public class HandScoringTests extends BaseTest {
 		waitTime();
 		reportPage = dashBoardPage.goToReports();
 		waitTime();
-		reportPage.viewReport();
+		//reportPage.viewReport();
 		waitTime();
 		reportPage.filterReportByClassRoster(testrosterName);
 		waitTime();
