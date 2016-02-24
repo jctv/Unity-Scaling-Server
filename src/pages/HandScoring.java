@@ -114,6 +114,23 @@ public class HandScoring extends BasePage {
 	@FindBy(xpath = "//input[@class='response-scores ui-spinner-input']")
 	public WebElement setScoreInputField;
 	
+	@FindBy(xpath = "//a[text()='View Detail Report for this test']")
+	public WebElement ViewDetailReportForThisTestLink;
+	
+	@FindBy(xpath = "//button[@class='btn btn-xs btn-primary finish-handscoring']")
+	public WebElement finishHandScoreButton;
+	
+	@FindBy(xpath = "//li[text()='Ready for Scoring']")
+	public WebElement ReadyToScoringTab;
+	
+	@FindBy(xpath = "//li[text()='In Progress']")
+	public WebElement InProgressScoringTab;
+	
+	@FindBy(xpath = "//li[text()='Scoring Complete']")
+	public WebElement ScoringCompletedTab;
+	
+	@FindBy(xpath = "//button[text()='Finish All']")
+	public WebElement FinishAllButton;
 	
 	
 	public void filterClass(String className ){
@@ -240,5 +257,16 @@ public class HandScoring extends BasePage {
 			}catch(Exception e){
 				System.out.println("Unable to start  the hand score for test   -->  "  + testName);
 			}
+	}
+	
+	
+	public Reports navigateToTestReportDetail() {
+		try{
+		waitForElementAndClick(ViewDetailReportForThisTestLink);
+		customeWaitTime(5);
+		}catch(Exception e){
+			//TODO
+		}
+		return new Reports(driver);
 	}
 }

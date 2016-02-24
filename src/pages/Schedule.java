@@ -126,6 +126,10 @@ public class Schedule extends BasePage {
 		try {
 			waitTime();
 			waitForElementAndClick(dayButton);
+			
+			while(waitForElementVisible(scheduledTestEvent)){
+				waitForElementAndClick(nextButton);
+			}
 			waitForElementAndClick(nextButton);
 			customeWaitTime(1);
 			(new Actions(driver)).doubleClick(calendarArea).build().perform();
