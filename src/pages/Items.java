@@ -392,18 +392,6 @@ public class Items extends BasePage {
 		customeWaitTime(5);
 		clickOnConfirmationMessage();
 		customeWaitTime(2);
-		//selectItemBank(itemBankName);
-		/*selectOption(selectItemBank, itemBankName);
-		customeWaitTime(2);
-		waitForElementAndSendKeys(itemCreateInputName, name);
-		waitForElementAndSendKeys(itemCreateInputDescription, "Description");
-		waitForElementAndClick(itemCreateEditInputSubmit);
-		customeWaitTime(3);
-		selectOption(templates, interactionType);
-		customeWaitTime(2);
-		waitForElementAndClick(textEditorSaveButton);
-		customeWaitTime(2);
-		clickOnConfirmationMessage();*/
 		waitForElementAndClick(scoreTabButton);
 		switch (interactionType) {
         case "Choice":

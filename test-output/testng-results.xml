@@ -2,49 +2,49 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="TestSuite" duration-ms="1077226" started-at="2015-08-13T16:06:41Z" finished-at="2015-08-13T16:24:38Z">
+  <suite name="TestSuite" duration-ms="1098700" started-at="2016-02-29T20:32:57Z" finished-at="2016-02-29T20:51:16Z">
     <groups>
     </groups>
-    <test name="Unity" duration-ms="1077226" started-at="2015-08-13T16:06:41Z" finished-at="2015-08-13T16:24:38Z">
+    <test name="Unity" duration-ms="1098700" started-at="2016-02-29T20:32:57Z" finished-at="2016-02-29T20:51:16Z">
       <class name="tests.HappyPathTest">
-        <test-method status="PASS" signature="suiteSetUp(org.testng.ITestContext)[pri:0, instance:tests.HappyPathTest@53011788]" name="suiteSetUp" is-config="true" duration-ms="6" started-at="2015-08-13T10:06:41Z" finished-at="2015-08-13T10:06:41Z">
+        <test-method status="PASS" signature="suiteSetUp(org.testng.ITestContext)[pri:0, instance:tests.HappyPathTest@5298db1f]" name="suiteSetUp" is-config="true" duration-ms="9" started-at="2016-02-29T15:32:57Z" finished-at="2016-02-29T15:32:57Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@14aad613]]>
+                <![CDATA[org.testng.TestRunner@269c0c8b]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- suiteSetUp -->
-        <test-method status="PASS" signature="classSetUp(org.testng.ITestContext)[pri:0, instance:tests.HappyPathTest@53011788]" name="classSetUp" is-config="true" duration-ms="5870" started-at="2015-08-13T10:06:41Z" finished-at="2015-08-13T10:06:47Z">
+        <test-method status="PASS" signature="classSetUp(org.testng.ITestContext)[pri:0, instance:tests.HappyPathTest@5298db1f]" name="classSetUp" is-config="true" duration-ms="4190" started-at="2016-02-29T15:32:57Z" finished-at="2016-02-29T15:33:01Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@14aad613]]>
+                <![CDATA[org.testng.TestRunner@269c0c8b]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- classSetUp -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:tests.HappyPathTest@53011788]" name="setUp" is-config="true" duration-ms="18977" started-at="2015-08-13T10:06:47Z" finished-at="2015-08-13T10:07:06Z">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:tests.HappyPathTest@5298db1f]" name="setUp" is-config="true" duration-ms="4846" started-at="2016-02-29T15:33:01Z" finished-at="2016-02-29T15:33:06Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="runPath()[pri:0, instance:tests.HappyPathTest@53011788]" name="runPath" duration-ms="1052370" started-at="2015-08-13T10:07:06Z" finished-at="2015-08-13T10:24:38Z">
+        <test-method status="PASS" signature="runPath()[pri:0, instance:tests.HappyPathTest@5298db1f]" name="runPath" duration-ms="1088515" started-at="2016-02-29T15:33:06Z" finished-at="2016-02-29T15:51:15Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runPath -->
-        <test-method status="PASS" signature="classTearDown()[pri:0, instance:tests.HappyPathTest@53011788]" name="classTearDown" is-config="true" duration-ms="0" started-at="2015-08-13T10:24:38Z" finished-at="2015-08-13T10:24:38Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- classTearDown -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:tests.HappyPathTest@53011788]" name="tearDown" is-config="true" duration-ms="0" started-at="2015-08-13T10:24:38Z" finished-at="2015-08-13T10:24:38Z">
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:tests.HappyPathTest@5298db1f]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-02-29T15:51:15Z" finished-at="2016-02-29T15:51:15Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
+        <test-method status="PASS" signature="classTearDown()[pri:0, instance:tests.HappyPathTest@5298db1f]" name="classTearDown" is-config="true" duration-ms="1133" started-at="2016-02-29T15:51:15Z" finished-at="2016-02-29T15:51:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- classTearDown -->
       </class> <!-- tests.HappyPathTest -->
     </test> <!-- Unity -->
   </suite> <!-- TestSuite -->

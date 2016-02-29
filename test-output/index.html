@@ -48,7 +48,7 @@
               <ul>
                 <li>
                   <a href="#" class="navigator-link " panel-name="test-xml-TestSuite">
-                    <span>C:\Workspaceluna\Local Unity Scaling Server\Config.xml</span>
+                    <span>C:\Mis Proyectos\Unity-Scaling-Server\Config.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -134,22 +134,22 @@
         </div> <!-- panel TestSuite -->
         <div panel-name="test-xml-TestSuite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Workspaceluna\Local Unity Scaling Server\Config.xml</span>
+            <span class="header-content">C:\Mis Proyectos\Unity-Scaling-Server\Config.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE suite SYSTEM &quot;http://testng.org/testng-1.0.dtd&quot;&gt;
 &lt;suite name=&quot;TestSuite&quot;&gt;
-  &lt;parameter name=&quot;hubAddress&quot; value=&quot;localhost&quot;/&gt;
+  &lt;parameter name=&quot;hubAddress&quot; value=&quot;${hubAddress}&quot;/&gt;
   &lt;parameter name=&quot;platform&quot; value=&quot;Any&quot;/&gt;
   &lt;parameter name=&quot;waitingTime&quot; value=&quot;30&quot;/&gt;
-  &lt;parameter name=&quot;filePath&quot; value=&quot;C:\SeleniumDrivers\chromedriver.exe&quot;/&gt;
-  &lt;parameter name=&quot;browser&quot; value=&quot;Chrome&quot;/&gt;
+  &lt;parameter name=&quot;filePath&quot; value=&quot;C:\Mis Drivers\chromedriver_win32\chromedriver.exe&quot;/&gt;
+  &lt;parameter name=&quot;browser&quot; value=&quot;chrome&quot;/&gt;
   &lt;parameter name=&quot;userName&quot; value=&quot;bil/ctribin&quot;/&gt;
   &lt;parameter name=&quot;type&quot; value=&quot;Local&quot;/&gt;
   &lt;parameter name=&quot;password&quot; value=&quot;ctribin1&quot;/&gt;
-  &lt;parameter name=&quot;url&quot; value=&quot;http://54.67.49.151:8080/&quot;/&gt;
+  &lt;parameter name=&quot;url&quot; value=&quot;http://uat.8pnds.com&quot;/&gt;
   &lt;test name=&quot;Unity&quot;&gt;
     &lt;classes&gt;
       &lt;class name=&quot;tests.HappyPathTest&quot;/&gt;
@@ -196,12 +196,12 @@ data.addRows(1);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'runPath')
 data.setCell(0, 2, 'tests.HappyPathTest')
-data.setCell(0, 3, 1052370);
+data.setCell(0, 3, 1088515);
 window.suiteTableData['TestSuite']= { tableData: data, tableDiv: 'times-div-TestSuite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 17 minutes</span>
+              <span class="suite-total-time">Total running time: 18 minutes</span>
               <div id="times-div-TestSuite">
               </div> <!-- times-div-TestSuite -->
             </div> <!-- times-div -->
@@ -229,28 +229,28 @@ return data;
             <div class="chronological-class">
               <div class="chronological-class-name">tests.HappyPathTest</div> <!-- chronological-class-name -->
               <div class="configuration-suite before">
-                <span class="method-name">suiteSetUp(org.testng.TestRunner@14aad613)</span>
+                <span class="method-name">suiteSetUp(org.testng.TestRunner@269c0c8b)</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-suite before -->
               <div class="configuration-class before">
-                <span class="method-name">classSetUp(org.testng.TestRunner@14aad613)</span>
-                <span class="method-start">11 ms</span>
+                <span class="method-name">classSetUp(org.testng.TestRunner@269c0c8b)</span>
+                <span class="method-start">15 ms</span>
               </div> <!-- configuration-class before -->
               <div class="configuration-method before">
                 <span class="method-name">setUp</span>
-                <span class="method-start">5883 ms</span>
+                <span class="method-start">4212 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">runPath</span>
-                <span class="method-start">24860 ms</span>
+                <span class="method-start">9058 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">1077231 ms</span>
+                <span class="method-start">1097574 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-class after">
                 <span class="method-name">classTearDown</span>
-                <span class="method-start">1077231 ms</span>
+                <span class="method-start">1097575 ms</span>
               </div> <!-- configuration-class after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

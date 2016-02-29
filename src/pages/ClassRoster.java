@@ -217,6 +217,11 @@ public class ClassRoster extends BasePage {
 	public String  getRosterStundentRole(){
 		return waitAndGetElementText(rosterStudentRole).trim();
 	}
+
+	public void returnClassRosterHome() {
+		classRosterHomeLink.click();
+		
+	}
 	
 	
 }

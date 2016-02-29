@@ -154,6 +154,7 @@ public class HappyPathTest extends BaseTest {
 		classRosterPageObject.createRoster(createdUsersA, school,
 				roster);
 		waitTime();
+		classRosterPageObject.returnClassRosterHome();
 		returnToDashboard();
 		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
 		waitTime();

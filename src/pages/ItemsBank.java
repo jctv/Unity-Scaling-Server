@@ -114,7 +114,7 @@ public class ItemsBank extends BasePage {
 	
 	public void createBank(String bank, String description) {
 		try {
-			customeWaitTime(5);
+			customeWaitTime(6);
 			waitForElementAndClick(createItemBank);
 			waitForElementAndSendKeys(bankCreateInputName, bank);
 			waitForElementAndSendKeys(bankCreateInputDescription, description);
