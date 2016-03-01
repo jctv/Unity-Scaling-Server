@@ -353,12 +353,11 @@ public class Delivery extends BasePage {
 	
 	public void exitAndFinishTest(){
 		try{
-			
 			waitForElementAndClick(exitButton);
 			waitForElementAndClick(finishTestButton);
 		}catch(Exception e){
 			
 			
 		}
-
+	}
 }
