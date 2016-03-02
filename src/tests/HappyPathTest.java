@@ -200,14 +200,14 @@ public class HappyPathTest extends BaseTest {
 	loginPageObject = dashBoardPageObject.logOut();
 	System.out.println("************************************************");
 		/*	 * driver.quit();
- * System.out.println("********** Starting  mobile emulation **********"
-* ); WebDriver driver = emulateDevice("Apple iPad 3 / 4");
-* driver.get(url);
+		 * System.out.println("********** Starting  mobile emulation **********"
+		 * ); WebDriver driver = emulateDevice("Apple iPad 3 / 4");
+		 	* driver.get(url);
 		 * 
 		 *  waitTime(); loginPageObject = new Login(driver);
 	 */
 
-		waitTime();
+	customeWaitTime(5);
 	System.out
 			.println("******** logging as the first created student ********");
 	dashBoardPageObject = loginPageObject.loginSuccess(domain
@@ -223,9 +223,8 @@ public class HappyPathTest extends BaseTest {
     waitTime();
     dashBoardPageObject.logOut();
     System.out.println("************************************************");
-    waitTime();
+	customeWaitTime(5);
     
-    /*
    System.out
 		.println("******** logging as the second created student ********");
 	dashBoardPageObject = loginPageObject.loginSuccess(domain
@@ -241,12 +240,12 @@ public class HappyPathTest extends BaseTest {
      returnToDashboard();
      waitTime();
      loginPageObject = dashBoardPageObject.logOut();
+ 	customeWaitTime(5);
+
      System.out.println("************************************************");
        
-	 * driver.quit();
-		 * 
+	     /* driver.quit();
  		 * waitTime();
-	 * 
 		 * driver = chromeDriver(); driver.get(url); loginPageObject = new
 		 * Login(driver);
 		 */
