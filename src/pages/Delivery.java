@@ -38,7 +38,7 @@ public class Delivery extends BasePage {
 	@FindBy(xpath = "//button[contains(@class,'resume')]")
 	public WebElement resumeTestButton;
 	
-	@FindBy(xpath = "//span[text()='Save']")
+	@FindBy(xpath = ".//*[@id='itemDisplay']/div/div/div/div/div[2]/span[2]")
 	public WebElement btn;
 
 	@FindBy(id = "HSAlgebra1")
@@ -234,18 +234,21 @@ public class Delivery extends BasePage {
 	List<String> answersList = Arrays.asList(answers.split(","));
 	try {
 		waitForElementAndClick(startTestButton);
+		customeWaitTime(5);
 	} catch (Exception e) {
 		waitForElementAndClick(resumeTestButton);
 	}
 	customeWaitTime(3);
 		for (String answer : answersList) {
-			customeWaitTime(5);
 			if(NumberUtils.isNumber(answer)){
-				waitForElementAndClick(driver.findElement(By.xpath("(//input[@type='radio' and @name = 'sprite_1'])["+answer+"]")));		
+				waitForElementAndClick(driver.findElement(By.xpath("(//input[@type='radio' and @name = 'sprite_1'])["+answer+"]")));
+				customeWaitTime(2);
 			}else{
 				waitForElementAndSendKeys(driver.findElement(By.xpath("//input[@data-interaction='textEntry']")), answer);
+				customeWaitTime(2);
 			}
 			waitForElementAndClick(btn);
+			customeWaitTime(5);
 		}
 
         customeWaitTime(3);

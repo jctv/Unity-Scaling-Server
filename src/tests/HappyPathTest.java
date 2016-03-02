@@ -191,100 +191,98 @@ public class HappyPathTest extends BaseTest {
 		customeWaitTime(5);
 		sechedulePageObject = dashBoardPageObject.goToSchedule();
 		waitTime();
-//		System.out.println("******** Event creation ********");
-//		sechedulePageObject.scheduleTest(school,
-//				roster, "N/A", testName, "Red", "120",
-//				"100%", "Yes");
-//		waitTime();
-//		returnToDashboard();
-//		loginPageObject = dashBoardPageObject.logOut();
-//		System.out.println("************************************************");
-//		/*
-//		 * driver.quit();
-//		 * System.out.println("********** Starting  mobile emulation **********"
-//		 * ); WebDriver driver = emulateDevice("Apple iPad 3 / 4");
-//		 * driver.get(url);
-//		 * 
-//		 * waitTime(); loginPageObject = new Login(driver);
-//		 */
-//
-//		waitTime();
-//		System.out
-//				.println("******** logging as the first created student ********");
-//		dashBoardPageObject = loginPageObject.loginSuccess(domain
-//				+ createdUsers[1], genericPassword);
-//		System.out.println(dashBoardPageObject.addTiles());
-//		waitTime();
-//		deliveryPageObject = dashBoardPageObject.goToDelivery();
-//		waitTime();
-//		System.out.println("******** Taking the scheduled test ********");
-//		deliveryPageObject.takeAndVefiryTestResults("100%",
-//				"4,4,4,4,4,4,4,4,4,4");
-//		returnToDashboard();
-//		waitTime();
-//		dashBoardPageObject.logOut();
-//		System.out.println("************************************************");
-//
-//		waitTime();
-//		System.out
-//				.println("******** logging as the second created student ********");
-//		dashBoardPageObject = loginPageObject.loginSuccess(domain
-//				+ createdUsers[2], genericPassword);
-//		System.out.println(dashBoardPageObject.addTiles());
-//		waitTime();
-//		deliveryPageObject = dashBoardPageObject.goToDelivery();
-//		waitTime();
-//		System.out.println("******** Taking the scheduled test ********");
-//
-//		deliveryPageObject.takeAndVefiryTestResults("50%",
-//				"4,4,4,4,4,2,1,1,2,1");
-//		returnToDashboard();
-//		waitTime();
-//		loginPageObject = dashBoardPageObject.logOut();
-//		System.out.println("************************************************");
-//		/*
-//		 * driver.quit();
-//		 * 
-//		 * waitTime();
-//		 * 
-//		 * driver = chromeDriver(); driver.get(url); loginPageObject = new
-//		 * Login(driver);
-//		 */
-//		System.out.println("******** logging as the created teacher ********");
-//		dashBoardPageObject = loginPageObject.loginSuccess(domain
-//				+ createdUsers[0], genericPassword);
-//
-//		waitTime();
-//		waitTime();
-//		/*
-//		 * handScoringPageObject = dashBoardPageObject.goToHandScoring();
-//		 * waitTime(); handScoringPageObject.scoreTest(); waitTime();
-//		 */
-//
-//		reportsPageObject = dashBoardPageObject.goToReports();
-//		waitTime();
-//		reportsPageObject.viewReport();
-//		waitTime();
-//		loginPageObject = dashBoardPageObject.logOut();
-//
-//		System.out.println("************************************************");
-//		waitTime();
-//
-//		System.out.println("******** logging as super administrator ********");
-//
-//		loginPageObject.loginSuccess(domain + user, adminPassword);
-//
-//		customeWaitTime(8);
-//		usersPageObject = dashBoardPageObject.goToUsers();
-//		waitTime();
-//		System.out.println("******** Deleting the created users ********");
-//		usersPageObject.deleteCreatedUsers(createdUsers , school);
-//		waitTime();
-//		System.out.println("******** Deleting the created School ********");
-//		organizationPageObject = dashBoardPageObject.goToOrganization();
-//		organizationPageObject.deleteCreatedOrganization(school);
-//
-//		dashBoardPageObject.logOut();
-//		System.out.println("************************************************");
+	    System.out.println("******** Event creation ********");
+	   sechedulePageObject.scheduleTest(school,
+				roster, "N/A", testName, "Red", "120",
+		"100%", "Yes");
+		waitTime();
+	returnToDashboard();
+	loginPageObject = dashBoardPageObject.logOut();
+	System.out.println("************************************************");
+		/*	 * driver.quit();
+ * System.out.println("********** Starting  mobile emulation **********"
+* ); WebDriver driver = emulateDevice("Apple iPad 3 / 4");
+* driver.get(url);
+		 * 
+		 *  waitTime(); loginPageObject = new Login(driver);
+	 */
+
+		waitTime();
+	System.out
+			.println("******** logging as the first created student ********");
+	dashBoardPageObject = loginPageObject.loginSuccess(domain
+			+ createdUsers[1], genericPassword);
+	System.out.println(dashBoardPageObject.addTiles());
+	waitTime();
+    deliveryPageObject = dashBoardPageObject.goToDelivery();
+    waitTime();
+    System.out.println("******** Taking the scheduled test ********");
+    deliveryPageObject.takeAndVefiryTestResults("100%",
+    "4,4,4,4,4,4,4,4,4,4");
+    returnToDashboard();
+    waitTime();
+    dashBoardPageObject.logOut();
+    System.out.println("************************************************");
+    waitTime();
+   System.out
+		.println("******** logging as the second created student ********");
+	dashBoardPageObject = loginPageObject.loginSuccess(domain
+			+ createdUsers[2], genericPassword);
+     System.out.println(dashBoardPageObject.addTiles());
+     waitTime();
+     deliveryPageObject = dashBoardPageObject.goToDelivery();
+     waitTime();
+     System.out.println("******** Taking the scheduled test ********");
+
+	deliveryPageObject.takeAndVefiryTestResults("50%",
+				"4,4,4,4,4,2,1,1,2,1");
+     returnToDashboard();
+     waitTime();
+     loginPageObject = dashBoardPageObject.logOut();
+     System.out.println("************************************************");
+       /*
+	 * driver.quit();
+		 * 
+ 		 * waitTime();
+	 * 
+		 * driver = chromeDriver(); driver.get(url); loginPageObject = new
+		 * Login(driver);
+		 */
+		System.out.println("******** logging as the created teacher ********");
+		dashBoardPageObject = loginPageObject.loginSuccess(domain
+				+ createdUsers[0], genericPassword);
+
+		waitTime();
+		waitTime();
+		/*
+		 * handScoringPageObject = dashBoardPageObject.goToHandScoring();
+		 * waitTime(); handScoringPageObject.scoreTest(); waitTime();
+		 */
+
+		reportsPageObject = dashBoardPageObject.goToReports();
+		waitTime();
+		reportsPageObject.viewReport();
+		waitTime();
+	   loginPageObject = dashBoardPageObject.logOut();
+
+		System.out.println("************************************************");
+		waitTime();
+
+		System.out.println("******** logging as super administrator ********");
+
+	   loginPageObject.loginSuccess(domain + user, adminPassword);
+
+		customeWaitTime(8);
+		usersPageObject = dashBoardPageObject.goToUsers();
+		waitTime();
+		System.out.println("******** Deleting the created users ********");
+		usersPageObject.deleteCreatedUsers(createdUsers , school);
+		waitTime();
+		System.out.println("******** Deleting the created School ********");
+	  organizationPageObject = dashBoardPageObject.goToOrganization();
+	  organizationPageObject.deleteCreatedOrganization(school);
+
+				dashBoardPageObject.logOut();
+		System.out.println("************************************************");
 	}
 }
