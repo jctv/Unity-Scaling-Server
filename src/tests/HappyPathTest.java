@@ -263,7 +263,7 @@ public class HappyPathTest extends BaseTest {
 
 		reportsPageObject = dashBoardPageObject.goToReports();
 		waitTime();
-		reportsPageObject.viewReport();
+		//reportsPageObject.viewReport();
 		waitTime();
 	   loginPageObject = dashBoardPageObject.logOut();
 
