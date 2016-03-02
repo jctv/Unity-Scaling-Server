@@ -154,9 +154,9 @@ public class HandScoringTests extends BaseTest {
 		sechedulePage.scheduleTest(testSchool,
 				testrosterName, "N/A", testName3, "Red", "120",
 				"100%", "Yes");
-		sechedulePage.scheduleTest(testSchool,
+		/*sechedulePage.scheduleTest(testSchool,
 				testrosterName, "N/A", testName4, "Red", "120",
-				"100%", "Yes");
+				"100%", "Yes");*/
 		waitTime();
 		returnToDashboard();
 		loginPage = dashBoardPage.logOut();
@@ -176,6 +176,9 @@ public class HandScoringTests extends BaseTest {
 		deliveryPage.takeTest(true , 1 ,extendedTextEntry , extendedTextAnswer);
 		deliveryPage.startScheduledTest(createdTestId2);
 		deliveryPage.takeTest(true , 1 ,extendedTextEntry , extendedTextAnswer);
+		deliveryPage.startScheduledTest(createdTestId3);
+		deliveryPage.exitAndFinishTest();
+
 		
  }
 	
@@ -329,7 +332,5 @@ public class HandScoringTests extends BaseTest {
 		customeWaitTime(5);
 		softAssert.assertEquals("scored", reportPage.getScoreStatusinTestDetail("student11"));
 		reportPage.verifyStudentHandScore("student11", 10, "1");
-		
-		
 	}
 }
