@@ -224,6 +224,8 @@ public class HappyPathTest extends BaseTest {
     dashBoardPageObject.logOut();
     System.out.println("************************************************");
     waitTime();
+    
+    /*
    System.out
 		.println("******** logging as the second created student ********");
 	dashBoardPageObject = loginPageObject.loginSuccess(domain
@@ -240,7 +242,7 @@ public class HappyPathTest extends BaseTest {
      waitTime();
      loginPageObject = dashBoardPageObject.logOut();
      System.out.println("************************************************");
-       /*
+       
 	 * driver.quit();
 		 * 
  		 * waitTime();
