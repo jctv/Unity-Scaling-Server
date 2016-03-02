@@ -241,14 +241,15 @@ public class Delivery extends BasePage {
 	customeWaitTime(3);
 		for (String answer : answersList) {
 			if(NumberUtils.isNumber(answer)){
-				waitForElementAndClick(driver.findElement(By.xpath("(//input[@type='radio' and @name = 'sprite_1'])["+answer+"]")));
 				customeWaitTime(2);
+				waitForElementAndClick(driver.findElement(By.xpath("(//input[@type='radio' and @name = 'sprite_1'])["+answer+"]")));
+				customeWaitTime(5);
 			}else{
 				waitForElementAndSendKeys(driver.findElement(By.xpath("//input[@data-interaction='textEntry']")), answer);
 				customeWaitTime(2);
 			}
 			waitForElementAndClick(btn);
-			customeWaitTime(5);
+			customeWaitTime(8);
 		}
 
         customeWaitTime(3);
