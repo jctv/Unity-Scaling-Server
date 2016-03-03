@@ -430,6 +430,34 @@ public class TestCreation extends BasePage {
 		}
 
 	}
+	
+	public void copyMultipleTest(String testBank , String testName , String copyTestName , int itemIndex , int copiedTestCount){
+    	int testCount = 0;
+    	try{
+    		
+    		for(testCount = 1 ; testCount <= copiedTestCount ; testCount ++){
+    			WebElement elementToCopy = driver.findElement(By.xpath("//td[text()='"+ testName +"']/../td[@class='watable-col-preview']//button[@class='btn btn-xs btn-link copyRow']"));
+    			waitForElementAndClick(elementToCopy);
+    			customeWaitTime(3);
+    			selectOption(selectCopyTestBank, testBank);
+    			customeWaitTime(2);
+    			waitAndClearField(copyTestField);
+    			waitForElementAndSendKeys(copyTestField, String.valueOf(testCount) +"_" + copyTestName);
+    			customeWaitTime(2);
+    			waitForElementAndClick(copyTestButton);
+    			customeWaitTime(2);
+    			waitForElementAndClick(globalModalInfoOkButton);
+    			customeWaitTime(3);
+    		}
+    		
+    	}catch(Exception e){
+    		
+			System.out.println("Unable to Copy  the Item -->  " + copyTestName + String.valueOf(testCount));
+
+    	}
+    	
+    	
+    }
 
 	
 	/**
@@ -493,6 +521,39 @@ public class TestCreation extends BasePage {
 		} catch (Exception e) {
 			System.out.println("Unable to Filter the Item Bank  "
 					+ itemBankName);
+		}
+
+		return filteredItemBank.getText();
+
+	}
+
+	
+	public String filterTestByTestBank(String testBank) {
+		try {
+			customeWaitTime(5);
+			waitForElementAndClick(resetSearchFilter);
+			customeWaitTime(5);
+			waitForElementAndClick(bankFilter);
+			customeWaitTime(5);
+			waitForElementAndClick(selectBankFilter);
+			customeWaitTime(10);
+			waitForElementAndDoubleClick(searchButtonItemBankFilterPopup);
+			customeWaitTime(5);
+			waitAndClearField(searchItemBankFilterPopup);
+			customeWaitTime(5);
+			waitForElementAndSendKeys(searchItemBankFilterPopup, testBank);
+			customeWaitTime(5);
+			WebElement serachedItembank = driver.findElement(By
+					.xpath("//tr[@class='data-row']//td[text()='"
+							+ testBank + "']"));
+			waitForElementAndDoubleClick(serachedItembank);
+			customeWaitTime(5);
+			waitForElementAndClick(globalModalOKCancelSaveButton);
+			customeWaitTime(5);
+
+		} catch (Exception e) {
+			System.out.println("Unable to Filter the Test Bank  "
+					+ testBank);
 		}
 
 		return filteredItemBank.getText();

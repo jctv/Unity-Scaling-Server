@@ -277,6 +277,7 @@ public class Delivery extends BasePage {
 		WebElement scheduleTest = driver.findElement(By
 				.xpath("//button[@data-id='" + testId + "']"));
 		waitForElementAndClick(scheduleTest);
+		
 		}catch(Exception e){
 			System.out.println("Unable to stard the test ");
 
@@ -358,6 +359,7 @@ public class Delivery extends BasePage {
 	public void exitAndFinishTest(){
 		try{
 			waitForElementAndClick(exitButton);
+			waitForElementAndClick(globalModalOKCancelSaveButton);
 			waitForElementAndClick(finishTestButton);
 		}catch(Exception e){
 			

@@ -71,10 +71,10 @@ public class HandScoring extends BasePage {
 	@FindBy(xpath = "//span[text()='Class']/../..//div[text()='Click to Select']")
 	public WebElement classClickToSelectFilter;
 	
-	@FindBy(xpath = "//span[text()='fields.test']")
+	@FindBy(xpath = "//span[text()='Test']")
 	public WebElement testFilter;
 	
-	@FindBy(xpath = "//span[text()='fields.test']/../..//div[text()='Click to Select']")
+	@FindBy(xpath = "//span[text()='Test']/../..//div[text()='Click to Select']")
 	public WebElement testClickToSelectFilter;
 	
 	@FindBy(xpath = "//span[text()='Content Area']")
@@ -118,7 +118,7 @@ public class HandScoring extends BasePage {
 	public WebElement ViewDetailReportForThisTestLink;
 	
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-primary finish-handscoring']")
-	public WebElement finishHandScoreButton;
+	public WebElement releaseScoreButton;
 	
 	@FindBy(xpath = "//li[text()='Ready for Scoring']")
 	public WebElement ReadyToScoringTab;
@@ -129,8 +129,12 @@ public class HandScoring extends BasePage {
 	@FindBy(xpath = "//li[text()='Scoring Complete']")
 	public WebElement ScoringCompletedTab;
 	
-	@FindBy(xpath = "//button[text()='Finish All']")
+	@FindBy(xpath = "//button[text()='Release All']")
 	public WebElement FinishAllButton;
+	
+	@FindBy(xpath = "//tbody[@class='table-data']/tr")
+	public WebElement nostudentForHandScoreRow;
+	
 	
 	
 	public void filterClass(String className ){

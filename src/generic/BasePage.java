@@ -247,7 +247,23 @@ public class BasePage {
 			return false;
 		}
 	}
+	
+	
+	public boolean waitForElementInVisible(String path) {
 
+		try {
+			this.waitForJsProcess();
+			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(path)));
+			return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("[ERROR] - element was not invisile " + e.getMessage());
+			return false;
+		}
+	}
+	
+	
 	public void dragAndDrop(WebElement item, WebElement target) {
 		customeWaitTime(5);
 		try {

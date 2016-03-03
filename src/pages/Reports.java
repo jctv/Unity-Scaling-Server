@@ -123,7 +123,7 @@ public class Reports extends BasePage {
 	@FindBy(xpath = "//tr[@class=‘even’ or @class=‘odd’]")
 	private List< WebElement > rows;
 	
-	@FindBy(xpath = "//h2[text()='Handscore This Test']")
+	@FindBy(xpath = "//button[text()='Handscore This Test']")
 	public WebElement HandscoreThisTestButton;
 	
 
