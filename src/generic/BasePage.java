@@ -617,4 +617,17 @@ public String executeScript(String script){
 	return  js.executeScript(script).toString();
 	
   }
+
+
+public void deleteCoookie(){
+	try{
+		driver.manage().deleteAllCookies();
+		customeWaitTime(5);
+	}catch(Exception e){
+		
+	}
+	
+	
+	
+}
 }

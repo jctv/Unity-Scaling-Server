@@ -230,7 +230,8 @@ public class HappyPathTest extends BaseTest {
     returnToDashboard();
     waitTime();
 	driver.get(url);
-
+	//driver.manage().deleteAllCookies();
+	
     //dashBoardPageObject.logOut();
     customeWaitTime(5);
     
@@ -262,11 +263,11 @@ public class HappyPathTest extends BaseTest {
 		 * Login(driver);
 		 */
 		System.out.println("******** logging as the created teacher ********");
+		
 		dashBoardPageObject = loginPageObject.loginSuccess(domain
 				+ createdUsers[0], genericPassword);
 
-		waitTime();
-		waitTime();
+		customeWaitTime(30);
 		/*
 		 * handScoringPageObject = dashBoardPageObject.goToHandScoring();
 		 * waitTime(); handScoringPageObject.scoreTest(); waitTime();
@@ -285,9 +286,7 @@ public class HappyPathTest extends BaseTest {
 		customeWaitTime(5);
 
 		System.out.println("******** logging as super administrator ********");
-
-	   loginPageObject.loginSuccess(domain + user, adminPassword);
-
+		dashBoardPageObject = loginPageObject.loginSuccess(domain + user, adminPassword);
 		customeWaitTime(8);
 		usersPageObject = dashBoardPageObject.goToUsers();
 		waitTime();
