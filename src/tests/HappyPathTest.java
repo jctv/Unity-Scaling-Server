@@ -138,7 +138,11 @@ public class HappyPathTest extends BaseTest {
 		createdUsersA.add(createdUsers[1]);
 		createdUsersA.add(createdUsers[2]);
 
-		dashBoardPageObject.logOut();
+		//dashBoardPageObject.logOut();
+		
+		driver.get(url);
+
+		
 		System.out.println("************************************************");
 		waitTime();
 		System.out.println("******** logging as the created teacher ********");
@@ -197,7 +201,10 @@ public class HappyPathTest extends BaseTest {
 		"100%", "Yes");
 		waitTime();
 	returnToDashboard();
-	loginPageObject = dashBoardPageObject.logOut();
+	//loginPageObject = dashBoardPageObject.logOut();
+	
+	driver.get(url);
+
 	
 	System.out.println("************************************************");
 		/*	 * driver.quit();
@@ -222,7 +229,9 @@ public class HappyPathTest extends BaseTest {
     "4,4,4,4,4,4,4,4,4,4");
     returnToDashboard();
     waitTime();
-    dashBoardPageObject.logOut();
+	driver.get(url);
+
+    //dashBoardPageObject.logOut();
     customeWaitTime(5);
     
    /* System.out.println("************************************************");
@@ -267,7 +276,10 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 		//reportsPageObject.viewReport();
 		waitTime();
-	   loginPageObject = dashBoardPageObject.logOut();
+	   //loginPageObject = dashBoardPageObject.logOut();
+		
+		driver.get(url);
+
 
 		System.out.println("************************************************");
 		customeWaitTime(5);
