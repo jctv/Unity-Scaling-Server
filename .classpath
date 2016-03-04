@@ -14,6 +14,10 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/jdk1.7.0_09"/>
 	<classpathentry kind="lib" path="lib/org.testng.eclipse_6.9.0.201505070412"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

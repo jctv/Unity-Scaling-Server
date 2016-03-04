@@ -14,7 +14,9 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -98,7 +100,6 @@ public class BasePage {
 	
 	@FindBy(id = "globalModalOKCancelCancelButton")
 	public WebElement globalModalOKCancelCancelButton;
-
 
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link editRow']")
 	public WebElement editIconList;
@@ -195,6 +196,7 @@ public class BasePage {
 
 	@FindBy(xpath = "//div[@class='layoutHorizontalLeftPane col-md-4']//span[@id='searchButton']")
 	public WebElement filersearchButton;
+	
 	
 	
 	/** Constructor */
@@ -420,19 +422,20 @@ public class BasePage {
 
 		searchAutoComplete.sendKeys(Keys.DELETE);
 	}
-public void selectOption(WebElement dropDownListBox, String option) {
-		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
-		try {
-			
-			wait.until(ExpectedConditions.visibilityOf(dropDownListBox));
-			Select droplist = new Select(dropDownListBox);
-			droplist.selectByVisibleText(option);
-		} catch (Exception e) {
-
-			System.out.println("Unable to find select option element");
+	
+	public void selectOption(WebElement dropDownListBox, String option) {
+			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+			try {
+				
+				wait.until(ExpectedConditions.visibilityOf(dropDownListBox));
+				Select droplist = new Select(dropDownListBox);
+				droplist.selectByVisibleText(option);
+			} catch (Exception e) {
+	
+				System.out.println("Unable to find select option element");
+			}
+	
 		}
-
-	}
 
 
 	public void takeScreenShot() {
@@ -605,16 +608,17 @@ public void selectOption(WebElement dropDownListBox, String option) {
 			waitForElementAndClick(userDrop);
 			waitForElementAndClick(logOut);
 			waitForJsProcess();
-		} catch (Exception e) {
+		}catch (Exception e) {
 			System.out.println("Unable to logout");
 		}
 
 		return new Login(driver);
 	}
 	
-public String executeScript(String script){
-	JavascriptExecutor js = (JavascriptExecutor) driver;
-	return  js.executeScript(script).toString();
+	public String executeScript(String script){
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		return  js.executeScript(script).toString();
+		
+	}
 	
-  }
 }

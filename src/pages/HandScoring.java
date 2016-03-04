@@ -11,6 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 
 public class HandScoring extends BasePage {
@@ -80,6 +81,15 @@ public class HandScoring extends BasePage {
 	@FindBy(xpath = "//span[text()='Content Area']")
 	public WebElement contentAreaFilter;
 	
+	@FindBy(xpath = ".//span[contains(text(),'Handscoring')]")
+	public WebElement handScoringFilter;
+	
+	@FindBy(xpath = ".//span[text()='yes']")
+	public WebElement yesFilterCheckBox;
+	
+	@FindBy(xpath = ".//span[text()='no']")
+	public WebElement noFilterCheckBox;
+	
 	@FindBy(xpath = "//span[text()='Math']/../i")
 	public WebElement mathFilterCheckBox;
 	
@@ -91,7 +101,6 @@ public class HandScoring extends BasePage {
 	
 	@FindBy(xpath = "//span[text()='Social Studies']/../i")
 	public WebElement socialStudiesFilterCheckBox;
-	
 	
 	@FindBy(xpath = "//span[text()='N/A']/../i")
 	public WebElement nAFilterCheckBox;	
@@ -135,7 +144,17 @@ public class HandScoring extends BasePage {
 	@FindBy(xpath = "//tbody[@class='table-data']/tr")
 	public WebElement nostudentForHandScoreRow;
 	
+	@FindBy(css = ".watable-col-test")
+	private List<WebElement> testsFoundList;
 	
+	@FindBy(css = ".fa-edit")
+	private List<WebElement> editIconsList;
+	
+	@FindBy(css = ".hs-hand-scored-item")
+	private List<WebElement> handScoredItemsList;
+	
+	@FindBy(xpath = ".//div[label[text()='Type']]/div/p")
+	private WebElement itemType; 
 	
 	public void filterClass(String className ){
 	try{
@@ -176,8 +195,8 @@ public class HandScoring extends BasePage {
 		}catch(Exception e ){
 			
 		}
-
-  }
+	}
+	
 	
 	public void filterContentArea(String contentAreas){
 		try{
@@ -210,12 +229,25 @@ public class HandScoring extends BasePage {
 	            }
 			
 		}catch(Exception e){
-			
+					
+		}
+	}
+	
+	public void filterHandScoringItems(String isHandScoring){
+		try{
+			switch (isHandScoring){
+			case "yes":
+				waitForElementAndClick(yesFilterCheckBox);
+				break;
+			case "no":
+				waitForElementAndClick(noFilterCheckBox);
+				break;
+			}
+		}catch(Exception e){
 			
 		}
-
-		
 	}
+	
 	
 	public String scoreTest(String testName , int studentCount , int itemCount , String scorePoint) {
 		try {
@@ -273,4 +305,29 @@ public class HandScoring extends BasePage {
 		}
 		return new Reports(driver);
 	}
+	
+	public void goToNextAnswer(){
+		waitForElementAndClick(nextAnswer);
+	}
+	
+	public int getCountOfTestsFound(){
+		return testsFoundList.size();
+	}
+	
+	public void clickOnEditTest(int index){
+		editIconsList.get(index).click();
+	}
+	
+	public int getCountOfHandScoringItems(){
+		return handScoredItemsList.size();
+	}
+	
+	public String getAnswerItemType(){
+		return itemType.getText();
+	}
+	
+	public void clickOnNextStudentAnswer(int index){
+		handScoredItemsList.get(index).click();
+	}
+	
 }

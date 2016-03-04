@@ -378,4 +378,20 @@ public class HandScoringTests extends BaseTest {
 		softAssert.assertTrue(handScoringPage.waitForElementInVisible("//tbody[@class='table-data']/tr"));
 		reportPage.logOut();
 	}
+	
+	@Test(priority = 5)
+	public void testFilterHandScoringTests(){
+		System.out.println("************************************************");
+		System.out.println("******** logging as the created teacher ********");
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testDomainTeacher"),
+				unitytestdata.getProperty("genericPassword"));
+		waitTime();
+		handScoringPage = dashBoardPage.goToHandScoring();
+		waitTime();
+		
+		for(int i=0; i<handScoringPage.getCountOfTestsFound(); i++){
+			handScoringPage.clickOnEditTest(i);
+			
+		}
+	}
 }

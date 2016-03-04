@@ -2,10 +2,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TestSuite" parallel="false">
 <parameter name="browser" value="chrome"/>
-<parameter name="filePath" value="/usr/bin/google-chrome"/>
+<parameter name="filePath" value="D:\SeleniumDrivers\chromedriver.exe"/>
 <parameter name="url" value="http://qa.8pnds.com"/>
 <parameter name="platform" value="Any"/>
-<parameter name="type" value="Remote"/>
+<parameter name="type" value="Local"/>
 <parameter name="hubAddress" value="${hubAddress}"/>
 <parameter name="userName" value="bil/ctribin"/>
 <parameter name="password" value="ctribin1"/>
