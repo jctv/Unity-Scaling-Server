@@ -198,6 +198,7 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 	returnToDashboard();
 	loginPageObject = dashBoardPageObject.logOut();
+	
 	System.out.println("************************************************");
 		/*	 * driver.quit();
 		 * System.out.println("********** Starting  mobile emulation **********"
@@ -222,6 +223,7 @@ public class HappyPathTest extends BaseTest {
     returnToDashboard();
     waitTime();
     dashBoardPageObject.logOut();
+    customeWaitTime(5);
     
    /* System.out.println("************************************************");
 	customeWaitTime(5);
@@ -268,7 +270,7 @@ public class HappyPathTest extends BaseTest {
 	   loginPageObject = dashBoardPageObject.logOut();
 
 		System.out.println("************************************************");
-		waitTime();
+		customeWaitTime(5);
 
 		System.out.println("******** logging as super administrator ********");
 
@@ -284,7 +286,7 @@ public class HappyPathTest extends BaseTest {
 	  organizationPageObject = dashBoardPageObject.goToOrganization();
 	  organizationPageObject.deleteCreatedOrganization(school);
 
-				dashBoardPageObject.logOut();
+	  dashBoardPageObject.logOut();
 		System.out.println("************************************************");
 	}
 }
