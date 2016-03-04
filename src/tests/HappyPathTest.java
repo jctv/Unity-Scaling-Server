@@ -230,10 +230,10 @@ public class HappyPathTest extends BaseTest {
     returnToDashboard();
     waitTime();
 	driver.get(url);
-	//driver.manage().deleteAllCookies();
-	
+	driver.manage().deleteAllCookies();
+	driver.navigate().refresh();
     //dashBoardPageObject.logOut();
-    customeWaitTime(5);
+    customeWaitTime(20);
     
    /* System.out.println("************************************************");
 	customeWaitTime(5);
@@ -266,8 +266,11 @@ public class HappyPathTest extends BaseTest {
 		
 		dashBoardPageObject = loginPageObject.loginSuccess(domain
 				+ createdUsers[0], genericPassword);
+        
+		customeWaitTime(10);
+		driver.navigate().refresh();
+		customeWaitTime(20);
 
-		customeWaitTime(30);
 		/*
 		 * handScoringPageObject = dashBoardPageObject.goToHandScoring();
 		 * waitTime(); handScoringPageObject.scoreTest(); waitTime();
@@ -288,6 +291,8 @@ public class HappyPathTest extends BaseTest {
 		System.out.println("******** logging as super administrator ********");
 		dashBoardPageObject = loginPageObject.loginSuccess(domain + user, adminPassword);
 		customeWaitTime(8);
+		driver.navigate().refresh();
+		customeWaitTime(20);
 		usersPageObject = dashBoardPageObject.goToUsers();
 		waitTime();
 		System.out.println("******** Deleting the created users ********");
