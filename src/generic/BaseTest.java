@@ -208,7 +208,7 @@ public class BaseTest {
 				else
 					driver = new RemoteWebDriver(new URL("http://"+ hubAddress +":4444/wd/hub"
 							), capability);
-				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 				driver.manage().window().maximize();
 			} catch (MalformedURLException e) {

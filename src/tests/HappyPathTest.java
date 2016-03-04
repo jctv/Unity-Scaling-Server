@@ -222,7 +222,8 @@ public class HappyPathTest extends BaseTest {
     returnToDashboard();
     waitTime();
     dashBoardPageObject.logOut();
-    System.out.println("************************************************");
+    
+   /* System.out.println("************************************************");
 	customeWaitTime(5);
     
    System.out
@@ -244,7 +245,7 @@ public class HappyPathTest extends BaseTest {
 
      System.out.println("************************************************");
        
-	     /* driver.quit();
+	      driver.quit();
  		 * waitTime();
 		 * driver = chromeDriver(); driver.get(url); loginPageObject = new
 		 * Login(driver);
