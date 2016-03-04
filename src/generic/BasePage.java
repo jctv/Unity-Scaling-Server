@@ -621,4 +621,21 @@ public class BasePage {
 		
 	}
 	
+<<<<<<< HEAD
+=======
+  }
+
+
+public void deleteCoookie(){
+	try{
+		driver.manage().deleteAllCookies();
+		customeWaitTime(5);
+	}catch(Exception e){
+		
+	}
+	
+	
+	
+}
+>>>>>>> f0e5760c20202d863e6aa3d948319d65a5fec538
 }

@@ -138,7 +138,11 @@ public class HappyPathTest extends BaseTest {
 		createdUsersA.add(createdUsers[1]);
 		createdUsersA.add(createdUsers[2]);
 
-		dashBoardPageObject.logOut();
+		//dashBoardPageObject.logOut();
+		
+		driver.get(url);
+
+		
 		System.out.println("************************************************");
 		waitTime();
 		System.out.println("******** logging as the created teacher ********");
@@ -197,7 +201,11 @@ public class HappyPathTest extends BaseTest {
 		"100%", "Yes");
 		waitTime();
 	returnToDashboard();
-	loginPageObject = dashBoardPageObject.logOut();
+	//loginPageObject = dashBoardPageObject.logOut();
+	
+	driver.get(url);
+
+	
 	System.out.println("************************************************");
 		/*	 * driver.quit();
 		 * System.out.println("********** Starting  mobile emulation **********"
@@ -221,8 +229,13 @@ public class HappyPathTest extends BaseTest {
     "4,4,4,4,4,4,4,4,4,4");
     returnToDashboard();
     waitTime();
-    dashBoardPageObject.logOut();
-    System.out.println("************************************************");
+	driver.get(url);
+	driver.manage().deleteAllCookies();
+	driver.navigate().refresh();
+    //dashBoardPageObject.logOut();
+    customeWaitTime(20);
+    
+   /* System.out.println("************************************************");
 	customeWaitTime(5);
     
    System.out
@@ -244,17 +257,20 @@ public class HappyPathTest extends BaseTest {
 
      System.out.println("************************************************");
        
-	     /* driver.quit();
+	      driver.quit();
  		 * waitTime();
 		 * driver = chromeDriver(); driver.get(url); loginPageObject = new
 		 * Login(driver);
 		 */
 		System.out.println("******** logging as the created teacher ********");
+		
 		dashBoardPageObject = loginPageObject.loginSuccess(domain
 				+ createdUsers[0], genericPassword);
+        
+		customeWaitTime(10);
+		driver.navigate().refresh();
+		customeWaitTime(20);
 
-		waitTime();
-		waitTime();
 		/*
 		 * handScoringPageObject = dashBoardPageObject.goToHandScoring();
 		 * waitTime(); handScoringPageObject.scoreTest(); waitTime();
@@ -264,16 +280,19 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 		//reportsPageObject.viewReport();
 		waitTime();
-	   loginPageObject = dashBoardPageObject.logOut();
+	   //loginPageObject = dashBoardPageObject.logOut();
+		
+		driver.get(url);
+
 
 		System.out.println("************************************************");
-		waitTime();
+		customeWaitTime(5);
 
 		System.out.println("******** logging as super administrator ********");
-
-	   loginPageObject.loginSuccess(domain + user, adminPassword);
-
+		dashBoardPageObject = loginPageObject.loginSuccess(domain + user, adminPassword);
 		customeWaitTime(8);
+		driver.navigate().refresh();
+		customeWaitTime(20);
 		usersPageObject = dashBoardPageObject.goToUsers();
 		waitTime();
 		System.out.println("******** Deleting the created users ********");
@@ -283,7 +302,7 @@ public class HappyPathTest extends BaseTest {
 	  organizationPageObject = dashBoardPageObject.goToOrganization();
 	  organizationPageObject.deleteCreatedOrganization(school);
 
-				dashBoardPageObject.logOut();
+	  dashBoardPageObject.logOut();
 		System.out.println("************************************************");
 	}
 }
