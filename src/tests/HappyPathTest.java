@@ -100,8 +100,6 @@ public class HappyPathTest extends BaseTest {
 		System.out.println("+++hub++++ "+hubAddress);
 		driver.get(url);
 		loginPageObject = new Login(driver);
-		
-
 	}
 
 	@Test
@@ -282,7 +280,7 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 	   //loginPageObject = dashBoardPageObject.logOut();
 		
-		driver.get(url);
+		/*driver.get(url);
 
 
 		System.out.println("************************************************");
@@ -303,6 +301,6 @@ public class HappyPathTest extends BaseTest {
 	  organizationPageObject.deleteCreatedOrganization(school);
 
 	  dashBoardPageObject.logOut();
-		System.out.println("************************************************");
+		System.out.println("************************************************");*/
 	}
 }
