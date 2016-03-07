@@ -280,15 +280,14 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 	   //loginPageObject = dashBoardPageObject.logOut();
 		
-		/*driver.get(url);
-
-
+		driver.get(url);
+		driver.manage().deleteAllCookies();
+		driver.navigate().refresh();
 		System.out.println("************************************************");
-		customeWaitTime(5);
-
+		customeWaitTime(20);
 		System.out.println("******** logging as super administrator ********");
 		dashBoardPageObject = loginPageObject.loginSuccess(domain + user, adminPassword);
-		customeWaitTime(30);
+		customeWaitTime(10);
 		driver.navigate().refresh();
 		customeWaitTime(20);
 		usersPageObject = dashBoardPageObject.goToUsers();
@@ -301,6 +300,6 @@ public class HappyPathTest extends BaseTest {
 	  organizationPageObject.deleteCreatedOrganization(school);
 
 	  dashBoardPageObject.logOut();
-		System.out.println("************************************************");*/
+		System.out.println("************************************************");
 	}
 }
