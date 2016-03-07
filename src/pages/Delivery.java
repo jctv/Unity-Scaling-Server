@@ -173,9 +173,9 @@ public class Delivery extends BasePage {
 
 					} else {
 						waitForElementAndClick(itemToBeAnswered);
-						customeWaitTime(2);
+						customeWaitTime(5);
 						waitForElementAndClick(btn);
-						customeWaitTime(1);
+						customeWaitTime(5);
 					}
 				}
 			} catch (Exception e) {
