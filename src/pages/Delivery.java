@@ -157,15 +157,19 @@ public class Delivery extends BasePage {
 		switch (itemType) {
 		case "Choice":
 			try {
-				for (int item = 1; item <= itemsInTest.size(); item++) {
+				String getItemsDisplay= waitAndGetElementText(slideshowStatus);
+				String getMaxItemCount = getItemsDisplay.split("  ")[2];
+				int totalItems = Integer.parseInt(getMaxItemCount);
+				
+				for (int item = 1; item <= totalItems ; item++) {
 					WebElement itemToBeAnswered = driver.findElement(By
 							.xpath("//div[@class='i-choice']//div[" + itemIndex
 									+ "]//input"));
 					if (isCorrectAnswer) {
 						waitForElementAndClick(itemToBeAnswered);
-						customeWaitTime(2);
+						customeWaitTime(5);
 						waitForElementAndClick(btn);
-						customeWaitTime(1);
+						customeWaitTime(5);
 
 					} else {
 						waitForElementAndClick(itemToBeAnswered);
@@ -224,9 +228,9 @@ public class Delivery extends BasePage {
 		}
 
 		waitForElementAndClick(exitButton);
-		customeWaitTime(2);
+		customeWaitTime(5);
 		waitForElementAndClick(finishTestButton);
-		customeWaitTime(2);
+		customeWaitTime(5);
 
 		System.out.println("Test done as student");
 

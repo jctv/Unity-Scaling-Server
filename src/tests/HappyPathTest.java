@@ -77,6 +77,7 @@ public class HappyPathTest extends BaseTest {
 	Domain domainPage;
 	Role rolePage;
 	Standards standardPage;
+	String choiceCorrectAnswer = "set D correct Answer";
 	
 	long timestmap = System.currentTimeMillis();
 
@@ -217,8 +218,11 @@ public class HappyPathTest extends BaseTest {
     deliveryPage = dashBoardPage.goToDelivery();
     waitTime();
     System.out.println("******** Taking the scheduled test ********");
-    deliveryPage.takeAndVefiryTestResults("100%",
-    "4,4,4,4,4,4,4,4,4,4");
+    
+	deliveryPage.takeTest(true , 4 ,"Choice" , choiceCorrectAnswer);
+
+   /* deliveryPage.takeAndVefiryTestResults("100%",
+    "4,4,4,4,4,4,4,4,4,4");*/
     returnToDashboard();
     waitTime();
 	driver.get(url);
@@ -238,12 +242,13 @@ public class HappyPathTest extends BaseTest {
 			+ createdUsers[2], genericPassword);
       System.out.println(dashBoardPage.addTiles());
       waitTime();
-     deliveryPage = dashBoardPage.goToDelivery();
-     waitTime();
+      deliveryPage = dashBoardPage.goToDelivery();
+      waitTime();
       System.out.println("******** Taking the scheduled test ********");
+  	  deliveryPage.takeTest(false , 1 ,"Choice" , choiceCorrectAnswer);
 
-	  deliveryPage.takeAndVefiryTestResults("50%",
-				"4,4,4,4,4,2,1,1,2,1");
+	 /* deliveryPage.takeAndVefiryTestResults("50%",
+				"4,4,4,4,4,2,1,1,2,1");*/
      //returnToDashboard();
     // waitTime();
     // loginPage = dashBoardPage.logOut();
