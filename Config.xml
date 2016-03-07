@@ -2,13 +2,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TestSuite" parallel="false">
 <parameter name="browser" value="chrome"/>
-<<<<<<< HEAD
-<parameter name="filePath" value="D:\SeleniumDrivers\chromedriver.exe"/>
-<parameter name="url" value="http://qa.8pnds.com"/>
-=======
 <parameter name="filePath" value="/usr/bin/google-chrome"/>
 <parameter name="url" value="http://qa.8pnds.com/login.html"/>
->>>>>>> f0e5760c20202d863e6aa3d948319d65a5fec538
 <parameter name="platform" value="Any"/>
 <parameter name="type" value="Local"/>
 <parameter name="hubAddress" value="${hubAddress}"/>

@@ -621,9 +621,6 @@ public class BasePage {
 		
 	}
 	
-<<<<<<< HEAD
-=======
-  }
 
 
 public void deleteCoookie(){
@@ -637,5 +634,4 @@ public void deleteCoookie(){
 	
 	
 }
->>>>>>> f0e5760c20202d863e6aa3d948319d65a5fec538
 }
