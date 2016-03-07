@@ -40,14 +40,14 @@ public class Login extends BasePage {
 			waitForElementAndSendKeys(passwordField, password);
 			customeWaitTime(5);
 			waitForElementAndClick(signIn);
-			customeWaitTime(5);
+			customeWaitTime(10);
 			waitForJsProcess();
-			
 			if(pageName.isDisplayed()){
 			System.out.println(user + "  login successfully");
 			}
 
 		} catch (Exception e) {
+			takeScreenShot();
 			System.out.println("Unable to login");
 		}
 

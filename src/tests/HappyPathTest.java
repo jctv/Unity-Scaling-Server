@@ -61,22 +61,22 @@ public class HappyPathTest extends BaseTest {
 	public String adminPassword = "@simple1";
 	public String domain = "";
 	public String genericPassword = "12345";
-	Login loginPageObject;
-	DashBoard dashBoardPageObject;
-	Items itemsPageObject;
-	Users usersPageObject;
-	ClassRoster classRosterPageObject;
-	TestCreation testCreationPageObject;
-	Schedule sechedulePageObject;
-	Delivery deliveryPageObject;
-	HandScoring handScoringPageObject;
-	Reports reportsPageObject;
-	Organization organizationPageObject;
-	ItemsBank itemsBankPageObject;
-	TestsBank testBankPageObject;
-	Domain domainPageObject;
-	Role rolePageObject;
-	Standards standardPageObject;
+	Login loginPage;
+	DashBoard dashBoardPage;
+	Items itemsPage;
+	Users usersPage;
+	ClassRoster classRosterPage;
+	TestCreation testCreationPage;
+	Schedule sechedulePage;
+	Delivery deliveryPage;
+	HandScoring handScoringPage;
+	Reports reportsPage;
+	Organization organizationPage;
+	ItemsBank itemsBankPage;
+	TestsBank testBankPage;
+	Domain domainPage;
+	Role rolePage;
+	Standards standardPage;
 	
 	long timestmap = System.currentTimeMillis();
 
@@ -95,174 +95,169 @@ public class HappyPathTest extends BaseTest {
 
 	}
 
-	@BeforeMethod
+	/*@BeforeMethod
 	public void setUp() {
 		System.out.println("+++hub++++ "+hubAddress);
 		driver.get(url);
-		loginPageObject = new Login(driver);
-	}
+		loginPage = new Login(driver);
+	}*/
 
 	@Test
 	public void runPath() {
-
-		/*
-		 * File file = new File("log.txt"); FileOutputStream fos; try { fos =
-		 * new FileOutputStream(file); PrintStream ps = new PrintStream(fos);
-		 * System.setOut(ps); } catch (FileNotFoundException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); }
-		 */
-
+		
+		System.out.println("+++hub++++ "+hubAddress);
+		driver.get(url);
+		loginPage = new Login(driver);
 		System.out.println("******** logging as super administrator ********");
 
-		dashBoardPageObject = loginPageObject.loginSuccess(domain + user,
+		dashBoardPage = loginPage.loginSuccess(domain + user,
 				adminPassword);
 		customeWaitTime(3);
 
 		System.out.println("******** Creating a new organization ********");
-		organizationPageObject = dashBoardPageObject.goToOrganization();
+		organizationPage = dashBoardPage.goToOrganization();
 		customeWaitTime(5);
-		organizationPageObject.createNewOrganization(school);
+		organizationPage.createNewOrganization(school);
 		returnToDashboard();
 		System.out.println("************************************************");
 		
 		System.out.println("***** Student and teacher creation started *****");
-		usersPageObject = dashBoardPageObject.goToUsers();
+		usersPage = dashBoardPage.goToUsers();
 		waitTime();
 		getPageLoadStatus();
-		String[] createdUsers = usersPageObject.createUser(school).split(",");
+		String[] createdUsers = usersPage.createUser(school).split(",");
 
 		ArrayList<String> createdUsersA = new ArrayList<String>();
 		createdUsersA.add(createdUsers[0]);
 		createdUsersA.add(createdUsers[1]);
 		createdUsersA.add(createdUsers[2]);
 
-		//dashBoardPageObject.logOut();
 		
 		driver.get(url);
+		loginPage = new Login(driver);
 
-		
 		System.out.println("************************************************");
 		waitTime();
 		System.out.println("******** logging as the created teacher ********");
-		dashBoardPageObject = loginPageObject.loginSuccess(domain
+		dashBoardPage = loginPage.loginSuccess(domain
 				+ createdUsers[0], genericPassword);
 		waitTime();
-		dashBoardPageObject.addTiles();
+		dashBoardPage.addTiles();
 		waitTime();
 
-		classRosterPageObject = dashBoardPageObject.goToClassRoster();
+		classRosterPage = dashBoardPage.goToClassRoster();
 		waitTime();
 		System.out.println("******** Class Roster creation ********");
-		classRosterPageObject.createRoster(createdUsersA, school,
+		classRosterPage.createRoster(createdUsersA, school,
 				roster);
 		waitTime();
-		classRosterPageObject.returnClassRosterHome();
+		classRosterPage.returnClassRosterHome();
 		returnToDashboard();
-		itemsBankPageObject = dashBoardPageObject.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		System.out.println("******** Item bank creation ********");
-		itemsBankPageObject.createBank(itemBank, "QA");
+		itemsBankPage.createBank(itemBank, "QA");
 		waitTime();
 		returnToDashboard();
 		customeWaitTime(5);
-		itemsPageObject = dashBoardPageObject.goToItems();
+		itemsPage = dashBoardPage.goToItems();
 		waitTime();
 		System.out.println("******** Items creation ********");
-		itemsPageObject.createItem("item 1", itemBank);
+		itemsPage.createItem("item 1", itemBank);
 		for (int x = 2; x < 11; x++) {
 			Assert.assertTrue(
-					itemsPageObject.copyItem(itemBank, "item " + x, 1),
+					itemsPage.copyItem(itemBank, "item " + x, 1),
 					"Item Copied Successfully");
 		}
 		returnToDashboard();
-		testBankPageObject = dashBoardPageObject.goToTestsBank();
+		testBankPage = dashBoardPage.goToTestsBank();
 		waitTime();
 		System.out.println("******** test bank creation ********");
-		testBankPageObject.createBank(testBank, "QA");
+		testBankPage.createBank(testBank, "QA");
 		returnToDashboard();
 		customeWaitTime(5);
 		waitTime();
-		testCreationPageObject = dashBoardPageObject.goToTestCreation();
+		testCreationPage = dashBoardPage.goToTestCreation();
 		waitTime();
 		System.out.println("******** Test creation ********");
 
-		testCreationPageObject.createTestWithMultipleItems(testName,
+		testCreationPage.createTestWithMultipleItems(testName,
 				testBank, itemBank, 10);
 		customeWaitTime(5);
 		returnToDashboard();
 		customeWaitTime(5);
-		sechedulePageObject = dashBoardPageObject.goToSchedule();
+		sechedulePage = dashBoardPage.goToSchedule();
 		waitTime();
 	    System.out.println("******** Event creation ********");
-	   sechedulePageObject.scheduleTest(school,
+	   sechedulePage.scheduleTest(school,
 				roster, "N/A", testName, "Red", "120",
 		"100%", "Yes");
 		waitTime();
 	returnToDashboard();
-	//loginPageObject = dashBoardPageObject.logOut();
+	//loginPage = dashBoardPage.logOut();
 	
 	driver.get(url);
-
-	
+	loginPage = new Login(driver);
 	System.out.println("************************************************");
 		/*	 * driver.quit();
 		 * System.out.println("********** Starting  mobile emulation **********"
 		 * ); WebDriver driver = emulateDevice("Apple iPad 3 / 4");
 		 	* driver.get(url);
 		 * 
-		 *  waitTime(); loginPageObject = new Login(driver);
+		 *  waitTime(); loginPage = new Login(driver);
 	 */
 
 	customeWaitTime(5);
 	System.out
 			.println("******** logging as the first created student ********");
-	dashBoardPageObject = loginPageObject.loginSuccess(domain
+	dashBoardPage = loginPage.loginSuccess(domain
 			+ createdUsers[1], genericPassword);
-	System.out.println(dashBoardPageObject.addTiles());
+	System.out.println(dashBoardPage.addTiles());
 	waitTime();
-    deliveryPageObject = dashBoardPageObject.goToDelivery();
+    deliveryPage = dashBoardPage.goToDelivery();
     waitTime();
     System.out.println("******** Taking the scheduled test ********");
-    deliveryPageObject.takeAndVefiryTestResults("100%",
+    deliveryPage.takeAndVefiryTestResults("100%",
     "4,4,4,4,4,4,4,4,4,4");
     returnToDashboard();
     waitTime();
 	driver.get(url);
 	driver.manage().deleteAllCookies();
 	driver.navigate().refresh();
-    //dashBoardPageObject.logOut();
+    //dashBoardPage.logOut();
+	loginPage = new Login(driver);
+
     customeWaitTime(20);
     
-   /* System.out.println("************************************************");
+    System.out.println("************************************************");
 	customeWaitTime(5);
     
-   System.out
+     System.out
 		.println("******** logging as the second created student ********");
-	dashBoardPageObject = loginPageObject.loginSuccess(domain
+	 dashBoardPage = loginPage.loginSuccess(domain
 			+ createdUsers[2], genericPassword);
-     System.out.println(dashBoardPageObject.addTiles());
+      System.out.println(dashBoardPage.addTiles());
+      waitTime();
+     deliveryPage = dashBoardPage.goToDelivery();
      waitTime();
-     deliveryPageObject = dashBoardPageObject.goToDelivery();
-     waitTime();
-     System.out.println("******** Taking the scheduled test ********");
+      System.out.println("******** Taking the scheduled test ********");
 
-	deliveryPageObject.takeAndVefiryTestResults("50%",
+	  deliveryPage.takeAndVefiryTestResults("50%",
 				"4,4,4,4,4,2,1,1,2,1");
-     returnToDashboard();
-     waitTime();
-     loginPageObject = dashBoardPageObject.logOut();
- 	customeWaitTime(5);
+     //returnToDashboard();
+    // waitTime();
+    // loginPage = dashBoardPage.logOut();
+	  
+	  driver.get(url);
+	  loginPage = new Login(driver);
+
+ 	 customeWaitTime(5);
 
      System.out.println("************************************************");
        
-	      driver.quit();
- 		 * waitTime();
-		 * driver = chromeDriver(); driver.get(url); loginPageObject = new
-		 * Login(driver);
-		 */
 		System.out.println("******** logging as the created teacher ********");
 		
-		dashBoardPageObject = loginPageObject.loginSuccess(domain
+		dashBoardPage = loginPage.loginSuccess(domain
 				+ createdUsers[0], genericPassword);
         
 		customeWaitTime(10);
@@ -270,36 +265,39 @@ public class HappyPathTest extends BaseTest {
 		customeWaitTime(20);
 
 		/*
-		 * handScoringPageObject = dashBoardPageObject.goToHandScoring();
-		 * waitTime(); handScoringPageObject.scoreTest(); waitTime();
+		 * handScoringPage = dashBoardPage.goToHandScoring();
+		 * waitTime(); handScoringPage.scoreTest(); waitTime();
 		 */
 
-		reportsPageObject = dashBoardPageObject.goToReports();
+		reportsPage = dashBoardPage.goToReports();
 		waitTime();
-		//reportsPageObject.viewReport();
+		//reportsPage.viewReport();
 		waitTime();
-	   //loginPageObject = dashBoardPageObject.logOut();
+	   //loginPage = dashBoardPage.logOut();
 		
 		driver.get(url);
 		driver.manage().deleteAllCookies();
+		driver.manage().logs().getAvailableLogTypes();
 		driver.navigate().refresh();
 		System.out.println("************************************************");
 		customeWaitTime(20);
+		loginPage = new Login(driver);
 		System.out.println("******** logging as super administrator ********");
-		dashBoardPageObject = loginPageObject.loginSuccess(domain + user, adminPassword);
+		dashBoardPage = loginPage.loginSuccess(domain + user, adminPassword);
 		customeWaitTime(10);
+		dashBoardPage.takeScreenShot();
 		driver.navigate().refresh();
 		customeWaitTime(20);
-		usersPageObject = dashBoardPageObject.goToUsers();
+		usersPage = dashBoardPage.goToUsers();
 		waitTime();
 		System.out.println("******** Deleting the created users ********");
-		usersPageObject.deleteCreatedUsers(createdUsers , school);
+		usersPage.deleteCreatedUsers(createdUsers , school);
 		waitTime();
 		System.out.println("******** Deleting the created School ********");
-	  organizationPageObject = dashBoardPageObject.goToOrganization();
-	  organizationPageObject.deleteCreatedOrganization(school);
+	   organizationPage = dashBoardPage.goToOrganization();
+	   organizationPage.deleteCreatedOrganization(school);
 
-	  dashBoardPageObject.logOut();
+	   dashBoardPage.logOut();
 		System.out.println("************************************************");
 	}
 }
