@@ -40,6 +40,11 @@ public class Delivery extends BasePage {
 	
 	@FindBy(xpath = ".//*[@id='itemDisplay']/div/div/div/div/div[2]/span[2]")
 	public WebElement btn;
+	
+	@FindBy(xpath = "//span[@class='btn-next']/i")
+	public WebElement nextbtn;
+	
+	
 
 	@FindBy(id = "HSAlgebra1")
 	public WebElement hsAlgebra1Link;
@@ -231,6 +236,7 @@ public class Delivery extends BasePage {
 	 * method to take a tests(multiple Choice and TextEntry) and verify the score on the History section
 	 */
 	public boolean takeAndVefiryTestResults(String expectedScore, String answers){
+	try{	
 	List<String> answersList = Arrays.asList(answers.split(","));
 	try {
 		waitForElementAndClick(startTestButton);
@@ -248,7 +254,10 @@ public class Delivery extends BasePage {
 				waitForElementAndSendKeys(driver.findElement(By.xpath("//input[@data-interaction='textEntry']")), answer);
 				customeWaitTime(2);
 			}
-			waitForElementAndClick(btn);
+			waitForElementAndClick(nextbtn);
+			if(!nextbtn.isEnabled()){
+				waitForElementAndClick(btn);
+			}
 			customeWaitTime(8);
 		}
 
@@ -257,11 +266,22 @@ public class Delivery extends BasePage {
 			waitForElementAndClick(btn);
 		}
 		waitForElementAndClick(exitButton);
+		customeWaitTime(5);
 		waitForElementAndClick(finishTestButton);
+		customeWaitTime(5);
 		waitForElementVisible(lastSocredTest);
 		System.out.println("/////********///// "+lastSocredTest.getText().equals(expectedScore));
-		return lastSocredTest.getText().equals(expectedScore);
+		
+     }catch(Exception e){
+    	 takeScreenShot();
+  		System.out.println("Error while taking test");
+
+	  }
+	 return lastSocredTest.getText().equals(expectedScore);
+
 	}
+		
+	
 
 	public String getScheduledTest(String testId) {
 		String scheduledTestName = "";
