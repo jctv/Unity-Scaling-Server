@@ -249,16 +249,13 @@ public class Delivery extends BasePage {
 			if(NumberUtils.isNumber(answer)){
 				customeWaitTime(2);
 				waitForElementAndClick(driver.findElement(By.xpath("(//input[@type='radio' and @name = 'sprite_1'])["+answer+"]")));
-				customeWaitTime(5);
+				customeWaitTime(10);
 			}else{
 				waitForElementAndSendKeys(driver.findElement(By.xpath("//input[@data-interaction='textEntry']")), answer);
 				customeWaitTime(2);
 			}
-			waitForElementAndClick(nextbtn);
-			if(!nextbtn.isEnabled()){
-				waitForElementAndClick(btn);
-			}
-			customeWaitTime(8);
+			waitForElementAndClick(btn);
+			customeWaitTime(10);
 		}
 
         customeWaitTime(3);
