@@ -290,7 +290,7 @@ public class HappyPathTest extends BaseTest {
 
 		System.out.println("******** logging as super administrator ********");
 		dashBoardPageObject = loginPageObject.loginSuccess(domain + user, adminPassword);
-		customeWaitTime(8);
+		customeWaitTime(30);
 		driver.navigate().refresh();
 		customeWaitTime(20);
 		usersPageObject = dashBoardPageObject.goToUsers();
