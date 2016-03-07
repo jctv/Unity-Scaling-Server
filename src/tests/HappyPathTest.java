@@ -185,8 +185,8 @@ public class HappyPathTest extends BaseTest {
 		testCreationPage.createTestWithMultipleItems(testName,
 				testBank, itemBank, 10);
 		customeWaitTime(5);
-		testCreationPage.searchTest(testName);
-		String createdTestId = testCreationPage.getTestId();
+		/*testCreationPage.searchTest(testName);
+		String createdTestId = testCreationPage.getTestId();*/
 		
 		returnToDashboard();
 		customeWaitTime(5);
@@ -222,15 +222,17 @@ public class HappyPathTest extends BaseTest {
     waitTime();
     System.out.println("******** Taking the scheduled test ********");
     
-    Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
+   /* Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
 	deliveryPage.startScheduledTest(createdTestId);
 	customeWaitTime(5);
     
 	deliveryPage.takeTest(true , 4 ,"Choice" , choiceCorrectAnswer);
+	
+	*/
 
-   /* deliveryPage.takeAndVefiryTestResults("100%",
-    "4,4,4,4,4,4,4,4,4,4");*/
-    returnToDashboard();
+    deliveryPage.takeAndVefiryTestResults("100%",
+    "4,4,4,4,4,4,4,4,4,4");
+    /*returnToDashboard();
     waitTime();
 	driver.get(url);
 	driver.manage().deleteAllCookies();
@@ -257,12 +259,12 @@ public class HappyPathTest extends BaseTest {
 		customeWaitTime(5);
   	  deliveryPage.takeTest(false , 1 ,"Choice" , choiceCorrectAnswer);
 
-	 /* deliveryPage.takeAndVefiryTestResults("50%",
-				"4,4,4,4,4,2,1,1,2,1");*/
+	  deliveryPage.takeAndVefiryTestResults("50%",
+				"4,4,4,4,4,2,1,1,2,1");
      //returnToDashboard();
     // waitTime();
     // loginPage = dashBoardPage.logOut();
-	  
+*/	  
 	  driver.get(url);
 	  loginPage = new Login(driver);
 
@@ -274,7 +276,6 @@ public class HappyPathTest extends BaseTest {
 		
 		dashBoardPage = loginPage.loginSuccess(domain
 				+ createdUsers[0], genericPassword);
-        
 		customeWaitTime(10);
 		driver.navigate().refresh();
 		customeWaitTime(20);
@@ -290,7 +291,7 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 	   //loginPage = dashBoardPage.logOut();
 		
-		driver.get(url);
+		/*driver.get(url);
 		driver.manage().deleteAllCookies();
 		driver.manage().logs().getAvailableLogTypes();
 		driver.navigate().refresh();
@@ -313,6 +314,7 @@ public class HappyPathTest extends BaseTest {
 	   organizationPage.deleteCreatedOrganization(school);
 
 	   dashBoardPage.logOut();
-		System.out.println("************************************************");
+		System.out.println("************************************************");*/
+		
 	}
 }
