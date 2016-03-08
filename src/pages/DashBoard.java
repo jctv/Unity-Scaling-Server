@@ -166,6 +166,11 @@ public class DashBoard extends BasePage {
 	@FindBy(id = "tile_view_help") 
 	public WebElement helpTile;
 	
+	@FindBy(id = "tile_view_standard") 
+	public WebElement standardTile;
+	
+	
+	
 	
 	
 	public boolean goToTile(String tileName){
@@ -636,6 +641,22 @@ public class DashBoard extends BasePage {
 		}
 		return new SisImport(driver);
 	}
+	
+	public Standards goToStandards() {
+		customeWaitTime(2);		
+		try {
+			waitForElementAndDoubleClick(standardTile);	
+			customeWaitTime(2);
+			waitForJsProcess();
+			if(globalModalInfoOkButton.isDisplayed()){
+				System.out.println("Device not supported");
+			}
+		} catch (Exception e) {
+			System.out.println("Unable to go to the standard Tile page");
+		}
+		return new Standards(driver);
+	}
+	
 	
 
 }
