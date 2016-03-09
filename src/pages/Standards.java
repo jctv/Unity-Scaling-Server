@@ -68,14 +68,23 @@ public class Standards extends BasePage {
 	@FindBy(xpath = "//span[text()='Common Core Language Arts']/../../ul/li[1]/ul/li/ul/li[1]")
 	public WebElement firstArtStrandNav;
 	
-	@FindBy(xpath = "//div[contains(@id,'ember')]/div/div[3]/div/a")
+	@FindBy(xpath = "//div[contains(@id,'ember')]/div/div[3]/div/a/div[1]/img")
 	public WebElement resourcePic;
 	
-	@FindBy(xpath = "//img[@class='resource-pic__img']")
+	@FindBy(xpath = "//div[contains(@id,'ember')]/div/div[3]/div/a/div[1]/img")
 	public WebElement resourceImage;
 	
-	@FindBy(xpath = "//a[@title='Open Resource']")
+	@FindBy(xpath = "//a[contains(@class,'resource__display')]")
 	public WebElement openResourceLink;
+	
+	@FindBy(xpath = "//div[contains(@id,'ember')]/div/div[3]/div/h1")
+	public WebElement resourceTitle;
+	
+	@FindBy(xpath = ".//*[@id='ir-result-container']/div/ul/li")
+	public WebElement resourceList;
+	
+	
+	
 	
 	public void installStandards() {
 		try {
@@ -117,7 +126,6 @@ public class Standards extends BasePage {
 	}
 	
 	
-	
   public void verifyAllResources(){
 	  try{
 		  WebElement resourceGroup = driver
@@ -132,14 +140,22 @@ public class Standards extends BasePage {
           	String resourceName = resource.getText();
              waitForElementAndClick(resource);
            	 customeWaitTime(10);
-            waitAndFocus(resourcePic);
-            customeWaitTime(2);
-            if (resourceName.equals(waitAndGetElementAttribute(resourceImage, "alt"))) {
-            	 String resoureHref = (waitAndGetElementAttribute(openResourceLink, "href"));
+           // waitAndFocus(resourcePic);
+           customeWaitTime(2);
+           waitForElementAndClick(openResourceLink);
+           String resourceMediaTitle =  waitAndGetElementText(resourceTitle);
+		   System.out.println("Resoreces Title - - --> " + resourceTitle );
+
+		   
+            
+            //executeScript("arguments[0].click();",resourceImage);
+            /*JavascriptExecutor js = (JavascriptExecutor)driver;
+            js.executeScript("arguments[0].click();", element);*/
+           // if (resourceName.equals(waitAndGetElementAttribute(resourceImage, "alt"))) {
+            	 String resoureHref = waitAndGetElementAttribute(openResourceLink, "href");
             	 if(!resoureHref.isEmpty()){
      			 System.out.println("Resoreces link - - --> " + resoureHref );
 
-            	 }
               }
           }
 		  

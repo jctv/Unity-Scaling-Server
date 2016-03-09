@@ -126,6 +126,11 @@ public class Reports extends BasePage {
 	@FindBy(xpath = "//button[text()='Handscore This Test']")
 	public WebElement HandscoreThisTestButton;
 	
+	@FindBy(xpath = "//button[text()='Close']")
+	public WebElement resourceCloseButton;
+	
+	
+	
 
 	public String viewReport() {
 		try {
@@ -396,5 +401,58 @@ public void verifyStudentHandScore(String studentLName , int itemCount , String 
 
 		}
  }
+
+
+  public void openStudentTestReport(String testName){
+	  try{
+		  WebElement studentTestRow = driver.findElement(By
+					.xpath("//h4[@class='panel-title']//a[contains(text(), '"+ testName +"')]"));
+			waitForElementAndClick(studentTestRow);
+			customeWaitTime(5);
+			
+	  }catch(Exception e){
+		  
+	  }
+	
+   }
+  
+  public void openExploreStrand(String testName){
+	  try{
+		  WebElement strandExplorebutton = driver.findElement(By
+					.xpath("//h4/a[contains(text(),'"+ testName +"')]/../../..//div[2]//tr[1]//button[@class='btn btn-primary ir-open-resource' and @data-type='Game']"));
+			waitForElementAndClick(strandExplorebutton);
+			customeWaitTime(5);
+			
+	  }catch(Exception e){
+		  
+	  }
+	
+   }
+  
+  public void openLearnStrand(String testName){
+	  try{
+		  WebElement strandLearnbutton = driver.findElement(By
+					.xpath("//h4/a[contains(text(),'"+ testName +"')]/../../..//div[2]//tr[1]//button[@class='btn btn-primary ir-open-resource' and @data-type='Video']"));
+		  
+			waitForElementAndClick(strandLearnbutton);
+			customeWaitTime(5);
+			
+	  }catch(Exception e){
+		  
+	  }
+	
+   }
+  
+  public void closeResourcePopUP(){
+	  try{
+		waitForElementAndClick(resourceCloseButton);
+	  }catch(Exception e){
+		  
+	  }
+	  
+	  
+	  
+	  
+  }
 }
 
