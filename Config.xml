@@ -13,7 +13,7 @@
 
  <test name="Unity">
     <classes>
-     <class name="tests.HappyPathTest">
+     <class name="tests.StandardsTest">
      </class>
  </classes>
 

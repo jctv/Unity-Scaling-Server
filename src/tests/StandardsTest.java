@@ -110,7 +110,7 @@ public class StandardsTest extends BaseTest{
 		customeWaitTime(5);
 		standardsPage = dashBoardPage.goToStandards();
 	}
-	
+
 	@Test(priority=1)
 	public void testViewInstructionalResources(){
 		standardsPage.openViewInstructionalResources();
@@ -177,6 +177,7 @@ public class StandardsTest extends BaseTest{
 		
 		System.out.println(dashBoardPage.addTiles());
 		waitTime();
+		deliveryPage = dashBoardPage.goToDelivery();
 		deliveryPage.startScheduledTest(createdTestId);
 		deliveryPage.takeTest(true , 4 , interactionChoice,"a");
 		deliveryPage.backToDashboard();
@@ -200,5 +201,24 @@ public class StandardsTest extends BaseTest{
 		standardsPage.selectOption(standardsPage.selectResource, optionVideo);
 		customeWaitTime(5);
 		reportPage.closeResourcePopUP();
+	}
+	
+	@Test(priority=2)
+	public void testVerifyStudentNavigatesFromHistoryInDeliveryTailtoReports(){
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("stduent1"),
+				unitytestdata.getProperty("genericPassword"));
+		deliveryPage = dashBoardPage.goToDelivery();
+		
+		for(int i=0; i<deliveryPage.getScoredTestsCount(); i++){
+			String scoredTestinHistoryReport = deliveryPage.getTestNameFromHistory(i);
+			System.out.println("Scored Test In History Report: " + scoredTestinHistoryReport);
+			reportPage = deliveryPage.goToTestDetailReport(i);
+			customeWaitTime(8);
+			System.out.println("Student Test Expanded: " + reportPage.getStudentTestDetailName());
+			softAssert.assertEquals(reportPage.getStudentTestDetailName(), scoredTestinHistoryReport);
+			returnToDashboard();
+			deliveryPage = dashBoardPage.goToDelivery();
+		}
+		
 	}
 }

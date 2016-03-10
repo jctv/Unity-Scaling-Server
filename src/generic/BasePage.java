@@ -1,9 +1,12 @@
 package generic;
 
+import java.awt.RenderingHints.Key;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.swing.Action;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
@@ -14,6 +17,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.KeyDownAction;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
@@ -371,6 +375,21 @@ public class BasePage {
 		}
 
 	}
+	
+	public boolean waitForAnElementAndClick(final WebElement element) {
+		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(element));
+			element.click();
+			System.out.println("Button  clicked ");
+			return true;
+
+		} catch (Exception e) {
+			System.out.println("Unable to perform the click on element ");
+			return false;
+		}
+
+	}
 
 	public void waitForElementAndDoubleClick(WebElement element) {
 
@@ -623,15 +642,23 @@ public class BasePage {
 	
 
 
-public void deleteCoookie(){
-	try{
-		driver.manage().deleteAllCookies();
-		customeWaitTime(5);
-	}catch(Exception e){
-		
+	public void deleteCoookie(){
+		try{
+			driver.manage().deleteAllCookies();
+			customeWaitTime(5);
+		}catch(Exception e){
+			
+		}	
 	}
 	
-	
-	
-}
+	public boolean keyDownOnElement(WebElement element){
+		try{
+			waitForElementAndClick(element);
+			element.sendKeys(Keys.ARROW_DOWN);
+			return true;
+		}
+		catch(Exception e){
+			return false;
+		}
+	}
 }

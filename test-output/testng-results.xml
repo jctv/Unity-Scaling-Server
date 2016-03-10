@@ -1,51 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="TestSuite" duration-ms="1098700" started-at="2016-02-29T20:32:57Z" finished-at="2016-02-29T20:51:16Z">
+  <suite name="TestSuite" duration-ms="181860" started-at="2016-03-10T01:38:28Z" finished-at="2016-03-10T01:41:29Z">
     <groups>
     </groups>
-    <test name="Unity" duration-ms="1098700" started-at="2016-02-29T20:32:57Z" finished-at="2016-02-29T20:51:16Z">
-      <class name="tests.HappyPathTest">
-        <test-method status="PASS" signature="suiteSetUp(org.testng.ITestContext)[pri:0, instance:tests.HappyPathTest@5298db1f]" name="suiteSetUp" is-config="true" duration-ms="9" started-at="2016-02-29T15:32:57Z" finished-at="2016-02-29T15:32:57Z">
+    <test name="Unity" duration-ms="181860" started-at="2016-03-10T01:38:28Z" finished-at="2016-03-10T01:41:29Z">
+      <class name="tests.StandardsTest">
+        <test-method status="PASS" signature="suiteSetUp(org.testng.ITestContext)[pri:0, instance:tests.StandardsTest@5b980c78]" name="suiteSetUp" is-config="true" duration-ms="9" started-at="2016-03-09T19:38:28Z" finished-at="2016-03-09T19:38:28Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@269c0c8b]]>
+                <![CDATA[org.testng.TestRunner@38942215]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- suiteSetUp -->
-        <test-method status="PASS" signature="classSetUp(org.testng.ITestContext)[pri:0, instance:tests.HappyPathTest@5298db1f]" name="classSetUp" is-config="true" duration-ms="4190" started-at="2016-02-29T15:32:57Z" finished-at="2016-02-29T15:33:01Z">
+        <test-method status="PASS" signature="loadUnityMessagesProperty()[pri:0, instance:tests.StandardsTest@5b980c78]" name="loadUnityMessagesProperty" is-config="true" duration-ms="0" started-at="2016-03-09T19:38:28Z" finished-at="2016-03-09T19:38:28Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- loadUnityMessagesProperty -->
+        <test-method status="PASS" signature="classSetUp(org.testng.ITestContext)[pri:0, instance:tests.StandardsTest@5b980c78]" name="classSetUp" is-config="true" duration-ms="5757" started-at="2016-03-09T19:38:28Z" finished-at="2016-03-09T19:38:33Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@269c0c8b]]>
+                <![CDATA[org.testng.TestRunner@38942215]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- classSetUp -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:tests.HappyPathTest@5298db1f]" name="setUp" is-config="true" duration-ms="4846" started-at="2016-02-29T15:33:01Z" finished-at="2016-02-29T15:33:06Z">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:tests.StandardsTest@5b980c78]" name="setUp" is-config="true" duration-ms="39306" started-at="2016-03-09T19:38:33Z" finished-at="2016-03-09T19:39:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="runPath()[pri:0, instance:tests.HappyPathTest@5298db1f]" name="runPath" duration-ms="1088515" started-at="2016-02-29T15:33:06Z" finished-at="2016-02-29T15:51:15Z">
+        <test-method status="PASS" signature="testViewInstructionalResources()[pri:0, instance:tests.StandardsTest@5b980c78]" name="testViewInstructionalResources" duration-ms="33195" started-at="2016-03-09T19:39:13Z" finished-at="2016-03-09T19:39:46Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- runPath -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:tests.HappyPathTest@5298db1f]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-02-29T15:51:15Z" finished-at="2016-02-29T15:51:15Z">
+        </test-method> <!-- testViewInstructionalResources -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:tests.StandardsTest@5b980c78]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-03-09T19:39:46Z" finished-at="2016-03-09T19:39:46Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="classTearDown()[pri:0, instance:tests.HappyPathTest@5298db1f]" name="classTearDown" is-config="true" duration-ms="1133" started-at="2016-02-29T15:51:15Z" finished-at="2016-02-29T15:51:16Z">
+        <test-method status="PASS" signature="testVerifyStudentNavigatesFromHistoryInDeliveryTailtoReports()[pri:0, instance:tests.StandardsTest@5b980c78]" name="testVerifyStudentNavigatesFromHistoryInDeliveryTailtoReports" duration-ms="102366" started-at="2016-03-09T19:39:46Z" finished-at="2016-03-09T19:41:28Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testVerifyStudentNavigatesFromHistoryInDeliveryTailtoReports -->
+        <test-method status="PASS" signature="classTearDown()[pri:0, instance:tests.StandardsTest@5b980c78]" name="classTearDown" is-config="true" duration-ms="1225" started-at="2016-03-09T19:41:28Z" finished-at="2016-03-09T19:41:29Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- classTearDown -->
-      </class> <!-- tests.HappyPathTest -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:tests.StandardsTest@5b980c78]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-03-09T19:41:28Z" finished-at="2016-03-09T19:41:28Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- tests.StandardsTest -->
     </test> <!-- Unity -->
   </suite> <!-- TestSuite -->
 </testng-results>

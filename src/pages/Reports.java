@@ -129,6 +129,8 @@ public class Reports extends BasePage {
 	@FindBy(xpath = "//button[text()='Close']")
 	public WebElement resourceCloseButton;
 	
+	@FindBy(css =".panel-group a:not(.collapsed)")
+	public WebElement expandedStudentTestDetail;
 	
 	
 
@@ -449,10 +451,10 @@ public void verifyStudentHandScore(String studentLName , int itemCount , String 
 	  }catch(Exception e){
 		  
 	  }
-	  
-	  
-	  
-	  
+  }
+  
+  public String getStudentTestDetailName(){
+	  return expandedStudentTestDetail.getText().split(" ")[0];
   }
 }
 

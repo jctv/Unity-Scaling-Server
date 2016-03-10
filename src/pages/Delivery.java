@@ -44,8 +44,6 @@ public class Delivery extends BasePage {
 	@FindBy(xpath = "//span[@class='btn-next']/i")
 	public WebElement nextbtn;
 	
-	
-
 	@FindBy(id = "HSAlgebra1")
 	public WebElement hsAlgebra1Link;
 
@@ -78,6 +76,15 @@ public class Delivery extends BasePage {
 	
 	@FindBy(xpath = ".//*[@id='slideshowStatus']")
 	public WebElement slideshowStatus;
+	
+	@FindBy(css = "#history button")
+	public List<WebElement> viewScoredTestReport;
+	
+	@FindBy(className ="test-name")
+	public List<WebElement> testName;
+	
+	@FindBy(id = "testHistory")
+	public WebElement testHistoryPanel;
 	
 
 	public void takeTest() {
@@ -387,4 +394,26 @@ public class Delivery extends BasePage {
 			
 		}
 	}
+	
+	
+	public Reports goToTestDetailReport(int index){
+
+		if(index>0){
+			keyDownOnElement(testHistoryPanel);
+			waitForElementAndClick(viewScoredTestReport.get(index));
+			customeWaitTime(2);
+			waitForJsProcess();
+		}
+		
+		return new Reports(driver);
+	}
+	
+	public int getScoredTestsCount(){
+		return viewScoredTestReport.size();
+	}
+	
+	public String getTestNameFromHistory(int index){
+		return testName.get(index).getText();
+	}
+	
 }
