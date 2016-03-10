@@ -21,10 +21,10 @@ public class TestCreation extends BasePage {
 		PageFactory.initElements(driver, this);
 	}
 	
-	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/span")
 	public WebElement homeLink;
 	
-	@FindBy(xpath = "//a[text()='Create']")
+	@FindBy(xpath = ".//*[text()='Create']")
 	public WebElement createTestLink;
 
 	@FindBy(id = "test-option-0")

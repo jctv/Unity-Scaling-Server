@@ -15,7 +15,7 @@ import generic.BasePage;
 
 public class Items extends BasePage {
 
-	@FindBy(xpath = "//a[text()='Create']")
+	@FindBy(xpath = ".//*[text()='Create']")
 	public WebElement createItemButton;
 
 	@FindBy(id = "contentCreateInputName")
@@ -106,10 +106,10 @@ public class Items extends BasePage {
 	@FindBy(id = "previewTabButton")
 	public WebElement previewTabButton;
 
-	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/span")
 	public WebElement backToItems;
 
-	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/span")
 	public WebElement backToDashboard;
 
 	@FindBy(xpath = "//*[@id='tinymce']/div[1]/div[1]/span")
