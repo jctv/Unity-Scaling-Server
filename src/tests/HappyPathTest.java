@@ -185,9 +185,7 @@ public class HappyPathTest extends BaseTest {
 		testCreationPage.createTestWithMultipleItems(testName,
 				testBank, itemBank, 10);
 		customeWaitTime(5);
-		/*testCreationPage.searchTest(testName);
-		String createdTestId = testCreationPage.getTestId();*/
-		
+		testCreationPage.goToTestDashBoard();
 		returnToDashboard();
 		customeWaitTime(5);
 		sechedulePage = dashBoardPage.goToSchedule();
@@ -220,17 +218,9 @@ public class HappyPathTest extends BaseTest {
 	waitTime();
     deliveryPage = dashBoardPage.goToDelivery();
     waitTime();
+    
     System.out.println("******** Taking the scheduled test ********");
-    
-   /* Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
-	deliveryPage.startScheduledTest(createdTestId);
-	customeWaitTime(5);
-    
-	deliveryPage.takeTest(true , 4 ,"Choice" , choiceCorrectAnswer);
-	
-	*/
-
-    deliveryPage.takeAndVefiryTestResults("100%",
+       deliveryPage.takeAndVefiryTestResults("100%",
     "4,4,4,4,4,4,4,4,4,4");
     /*returnToDashboard();
     waitTime();

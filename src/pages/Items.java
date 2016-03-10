@@ -15,7 +15,7 @@ import generic.BasePage;
 
 public class Items extends BasePage {
 
-	@FindBy(xpath = ".//*[text()='Create']")
+	@FindBy(xpath = "//span[text()='Create']")
 	public WebElement createItemButton;
 
 	@FindBy(id = "contentCreateInputName")

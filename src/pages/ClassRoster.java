@@ -21,10 +21,10 @@ public class ClassRoster extends BasePage {
 	@FindBy(id = "loginButton")
 	public WebElement signIn;
 				
-	@FindBy(xpath = "//*[@id='region-navigation']/ul/li[2]/a")
+	@FindBy(xpath = "//span[text()='Create Class Roster']")
 	public WebElement createClassRosterLink;
 	
-	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
+	@FindBy(css = ".link i")
 	public WebElement classRosterHomeLink;
 	
 	@FindBy(id = "rosterSchool")
@@ -219,7 +219,7 @@ public class ClassRoster extends BasePage {
 	}
 
 	public void returnClassRosterHome() {
-		classRosterHomeLink.click();
+		waitForElementAndClick(classRosterHomeLink);
 		
 	}
 	

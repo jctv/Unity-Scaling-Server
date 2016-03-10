@@ -24,7 +24,7 @@ public class TestCreation extends BasePage {
 	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/span")
 	public WebElement homeLink;
 	
-	@FindBy(xpath = ".//*[text()='Create']")
+	@FindBy(xpath = "//span[text()='Create']")
 	public WebElement createTestLink;
 
 	@FindBy(id = "test-option-0")
@@ -32,14 +32,13 @@ public class TestCreation extends BasePage {
 	
 	@FindBy(id = "printTest")
 	public WebElement testPrintButton;
-	
 
 	@FindBy(id = "tName")
 	public WebElement testNameField;
 
 	@FindBy(id = "tContent")
 	public WebElement testContentField;
-	// *[@id="tContent"]/option[6]
+	
 	@FindBy(xpath = "//*[@id='tContent']/option[6]")
 	public WebElement testContentOption;
 
@@ -120,12 +119,9 @@ public class TestCreation extends BasePage {
 	
 	@FindBy(id = "contentCreateInputDescription")
 	public WebElement contentCreateInputDescription;
-	
-	
 
 	@FindBy(xpath = "//button[text() = 'Create & Edit']")
 	public WebElement  createAndEditButton;
-	
 	
 	@FindBy(xpath = ".//*[@id='globalModalViewBody']/div/form/div[1]/div/select")
 	public WebElement bankDropDown;
@@ -135,7 +131,6 @@ public class TestCreation extends BasePage {
 	
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link deleteRow']")
 	public WebElement testDeleteIcon;
-	
 	
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link copyRow']")
 	public WebElement testCopyIcon;
@@ -199,6 +194,9 @@ public class TestCreation extends BasePage {
 	
 	@FindBy(xpath = "/html/body/div[22]/div[3]/div/button[1]/span")
 	public WebElement confirmationMessage;
+	
+	@FindBy(css =".link i")
+	public WebElement backToTestDashboardLink;
 	
 	
 	public void createTest(String testName , String testBankName ,  String itemName) {
@@ -558,6 +556,10 @@ public class TestCreation extends BasePage {
 
 		return filteredItemBank.getText();
 
+	}
+	
+	public void goToTestDashBoard(){
+		waitForElementAndClick(backToTestDashboardLink); 
 	}
 
 		
