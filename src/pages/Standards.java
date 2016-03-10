@@ -50,9 +50,6 @@ public class Standards extends BasePage {
 	@FindBy(xpath = "//div[@id='globalModalInstructionalResourceBody']")
 	public WebElement globalModalInstructionalResourceBody;
 	
-	@FindBy(id = "irResourceType")
-	public WebElement selectResource;
-	
 	@FindBy(id = "irStandard")
 	public WebElement irStandard;
 	
@@ -70,21 +67,6 @@ public class Standards extends BasePage {
 	
 	@FindBy(xpath = "//div[contains(@id,'ember')]/div/div[3]/div/a/div[1]/img")
 	public WebElement resourcePic;
-	
-	@FindBy(xpath = "//div[contains(@id,'ember')]/div/div[3]/div/a/div[1]/img")
-	public WebElement resourceImage;
-	
-	@FindBy(xpath = "//a[contains(@class,'resource__display')]")
-	public WebElement openResourceLink;
-	
-	@FindBy(xpath = "//div[contains(@id,'ember')]/div/div[3]/div/h1")
-	public WebElement resourceTitle;
-	
-	@FindBy(xpath = ".//*[@id='ir-result-container']/div/ul/li")
-	public WebElement resourceList;
-	
-	
-	
 	
 	public void installStandards() {
 		try {
@@ -126,44 +108,41 @@ public class Standards extends BasePage {
 	}
 	
 	
-  public void verifyAllResources(){
-	  try{
-		  WebElement resourceGroup = driver
-                  .findElement(By
-                          .xpath(".//*[@id='ir-result-container']/div/ul"));
-          waitForElementVisible(resourceGroup);
-          customeWaitTime(5);
-          List<WebElement> resoureList = resourceGroup.findElements(By
-                  .tagName("li"));
-          for (WebElement resource : resoureList) {
-          	customeWaitTime(2);
-          	String resourceName = resource.getText();
-             waitForElementAndClick(resource);
-           	 customeWaitTime(10);
-           // waitAndFocus(resourcePic);
-           customeWaitTime(2);
-           waitForElementAndClick(openResourceLink);
-           String resourceMediaTitle =  waitAndGetElementText(resourceTitle);
-		   System.out.println("Resoreces Title - - --> " + resourceTitle );
+	public void verifyAllResources() {
+		try {
+			WebElement resourceGroup = driver.findElement(By
+					.xpath(".//*[@id='ir-result-container']/div/ul"));
+			waitForElementVisible(resourceGroup);
+			customeWaitTime(5);
+			List<WebElement> resoureList = resourceGroup.findElements(By
+					.tagName("li"));
+			for (WebElement resource : resoureList) {
+				customeWaitTime(2);
+				String resourceName = resource.getText();
+				waitForElementAndClick(resource);
+				customeWaitTime(10);
+				waitAndSwitchTOFrame("ir-resource-view");
+				//driver.switchTo().frame("ir-resource-view");
+				customeWaitTime(2);
+				if (resourceName.equals(waitAndGetElementAttribute(
+						resourceImage, "alt"))) {
+					String resoureHref = waitAndGetElementAttribute(
+							openResourceLink, "href");
+					if (!resoureHref.isEmpty()) {
+						System.out.println("Resoreces link - - --> "
+								+ resoureHref);
+					}
+				}
+				
+				//driver.switchTo().defaultContent();
+				waitAndSwitchToDefaultContent();
+			}
+		} catch (Exception e) {
+			System.out
+					.println("Error ### while getting the reosource inforamtion");
 
-		   
-            
-            //executeScript("arguments[0].click();",resourceImage);
-            /*JavascriptExecutor js = (JavascriptExecutor)driver;
-            js.executeScript("arguments[0].click();", element);*/
-           // if (resourceName.equals(waitAndGetElementAttribute(resourceImage, "alt"))) {
-            	 String resoureHref = waitAndGetElementAttribute(openResourceLink, "href");
-            	 if(!resoureHref.isEmpty()){
-     			 System.out.println("Resoreces link - - --> " + resoureHref );
+		}
 
-              }
-          }
-		  
-	  }catch(Exception e){
-        System.out.println("Error ### while getting the reosource inforamtion");
-
-	  }
-	  
-  }
+	}
 
 }

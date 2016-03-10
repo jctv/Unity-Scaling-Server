@@ -26,10 +26,10 @@ public class ItemsBank extends BasePage {
 	}
 	
 	// Tabs Ids      
-	@FindBy(xpath = "//a[text()='Create Item Bank']")
+	@FindBy(xpath = ".//*[text()='Create Item Bank']")
 	public WebElement createItemBank;
 	
-	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/span")
 	public WebElement backLink;
 
 

@@ -25,7 +25,7 @@ public class TestsBank extends BasePage {
 	}
 
 	// Tabs Ids
-	@FindBy(xpath = "//a[text()='Create Test Bank']")
+	@FindBy(xpath = ".//*[text()='Create Test Bank']")
 	public WebElement createBankLink;
 	
 	@FindBy(id = "bankCreateInputName")

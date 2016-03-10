@@ -133,7 +133,6 @@ public class Reports extends BasePage {
 	public WebElement expandedStudentTestDetail;
 	
 	
-
 	public String viewReport() {
 		try {
 
@@ -456,5 +455,42 @@ public void verifyStudentHandScore(String studentLName , int itemCount , String 
   public String getStudentTestDetailName(){
 	  return expandedStudentTestDetail.getText().split(" ")[0];
   }
+  
+  public void verifyAllResources() {
+		try {
+			WebElement resourceGroup = driver.findElement(By
+					.xpath(".//*[@id='ir-result-container']/div/ul"));
+			waitForElementVisible(resourceGroup);
+			customeWaitTime(5);
+			List<WebElement> resoureList = resourceGroup.findElements(By
+					.tagName("li"));
+			for (WebElement resource : resoureList) {
+				customeWaitTime(2);
+				String resourceName = resource.getText();
+				waitForElementAndClick(resource);
+				customeWaitTime(10);
+				waitAndSwitchTOFrame("ir-resource-view");
+				//driver.switchTo().frame("ir-resource-view");
+				customeWaitTime(2);
+				if (resourceName.equals(waitAndGetElementAttribute(
+						resourceImage, "alt"))) {
+					String resoureHref = waitAndGetElementAttribute(
+							openResourceLink, "href");
+					if (!resoureHref.isEmpty()) {
+						System.out.println("Resoreces link - - --> "
+								+ resoureHref);
+					}
+				}
+				
+				//driver.switchTo().defaultContent();
+				waitAndSwitchToDefaultContent();
+			}
+		} catch (Exception e) {
+			System.out
+					.println("Error ### while getting the reosource inforamtion");
+
+		}
+
+	}
 }
 
