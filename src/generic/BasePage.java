@@ -598,6 +598,7 @@ public class BasePage {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath))).click();
 		 
 	}
+	
 	public String  waitForElementPresenceAndGetText(String xpath){
 		String text = "";
 		try {
