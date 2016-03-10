@@ -104,32 +104,6 @@ public class StandardsTest extends BaseTest{
 	public void setUp() {
 		driver.get(url);
 		loginPage = new Login(driver);
-		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("defaultAdmin"),
-				unitytestdata.getProperty("defaultPassword"));
-		dashBoardPage.addTiles();
-		customeWaitTime(5);
-		standardsPage = dashBoardPage.goToStandards();
-	}
-
-	@Test(priority=1)
-	public void testViewInstructionalResources(){
-		standardsPage.openViewInstructionalResources();
-		customeWaitTime(2);
-		softAssert.assertTrue(standardsPage.getDropDownOptions(standardsPage.selectResource).get(0).getText().contains(optionVideo));
-		softAssert.assertTrue(standardsPage.getDropDownOptions(standardsPage.selectResource).get(1).getText().contains(optionGames));
-		softAssert.assertTrue(standardsPage.resourceList.isDisplayed());
-		standardsPage.selectOption(standardsPage.selectResource, "Game");
-		customeWaitTime(5);
-		softAssert.assertTrue(standardsPage.resourceList.isDisplayed());
-		//standardsPage.verifyAllResources();
-		standardsPage.waitForElementAndClick(standardsPage.closeButton);
-		standardsPage.backToDashboard();
-		dashBoardPage.logOut();
-		customeWaitTime(5);
-        }
-	
-	@Test(priority = 2)
-	public void testVerifyStandardResourcesForStudent(){
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("teacher1"),
 				unitytestdata.getProperty("genericPassword"));
 		itemsBankPage = dashBoardPage.goToItemsBank();
@@ -167,14 +141,34 @@ public class StandardsTest extends BaseTest{
 		waitTime();
 		returnToDashboard();
 		loginPage = dashBoardPage.logOut();
-		System.out.println("************************************************");
-		waitTime();
-		System.out
-				.println("******** logging as the first  student ********");
-		
+	}
+
+	@Test(priority = 1)
+	public void testViewInstructionalResourcesInStandardTile(){
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("defaultAdmin"),
+				unitytestdata.getProperty("defaultPassword"));
+		dashBoardPage.addTiles();
+		customeWaitTime(5);
+		standardsPage = dashBoardPage.goToStandards();
+		standardsPage.openViewInstructionalResources();
+		customeWaitTime(2);
+		softAssert.assertTrue(standardsPage.getDropDownOptions(standardsPage.selectResource).get(0).getText().contains(optionVideo));
+		softAssert.assertTrue(standardsPage.getDropDownOptions(standardsPage.selectResource).get(1).getText().contains(optionGames));
+		softAssert.assertTrue(standardsPage.resourceList.isDisplayed());
+		standardsPage.selectOption(standardsPage.selectResource, "Game");
+		customeWaitTime(5);
+		softAssert.assertTrue(standardsPage.resourceList.isDisplayed());
+		standardsPage.verifyAllResources();
+		standardsPage.waitForElementAndClick(standardsPage.closeButton);
+		standardsPage.backToDashboard();
+		loginPage = dashBoardPage.logOut();
+		customeWaitTime(5);
+        }
+	
+	@Test(priority = 2)
+	public void testVerifyStandardResourcesForStudent(){
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("stduent1"),
 				unitytestdata.getProperty("genericPassword"));
-		
 		System.out.println(dashBoardPage.addTiles());
 		waitTime();
 		deliveryPage = dashBoardPage.goToDelivery();
@@ -186,29 +180,30 @@ public class StandardsTest extends BaseTest{
 		reportPage.openStudentTestReport(testName);
 		customeWaitTime(2);
 		reportPage.openLearnStrand(testName);
-		softAssert.assertTrue(standardsPage.getDropDownOptions(standardsPage.selectResource).get(0).getText().contains(optionVideo));
-		softAssert.assertTrue(standardsPage.getDropDownOptions(standardsPage.selectResource).get(1).getText().contains(optionGames));
-		softAssert.assertTrue(standardsPage.resourceList.isDisplayed());
-		standardsPage.selectOption(standardsPage.selectResource, optionGames);
+		softAssert.assertTrue(reportPage.getDropDownOptions(standardsPage.selectResource).get(0).getText().contains(optionVideo));
+		softAssert.assertTrue(reportPage.getDropDownOptions(standardsPage.selectResource).get(1).getText().contains(optionGames));
+		softAssert.assertTrue(reportPage.resourceList.isDisplayed());
+		standardsPage.selectOption(reportPage.selectResource, optionGames);
 		customeWaitTime(5);
-		softAssert.assertTrue(standardsPage.resourceList.isDisplayed());
+		softAssert.assertTrue(reportPage.resourceList.isDisplayed());
 		reportPage.closeResourcePopUP();
 		customeWaitTime(5);
 		reportPage.openExploreStrand(testName);
-		softAssert.assertTrue(standardsPage.getDropDownOptions(standardsPage.selectResource).get(0).getText().contains(optionGames));
-		softAssert.assertTrue(standardsPage.getDropDownOptions(standardsPage.selectResource).get(1).getText().contains(optionVideo));
-		softAssert.assertTrue(standardsPage.resourceList.isDisplayed());
-		standardsPage.selectOption(standardsPage.selectResource, optionVideo);
+		softAssert.assertTrue(reportPage.getDropDownOptions(standardsPage.selectResource).get(0).getText().contains(optionGames));
+		softAssert.assertTrue(reportPage.getDropDownOptions(standardsPage.selectResource).get(1).getText().contains(optionVideo));
+		softAssert.assertTrue(reportPage.resourceList.isDisplayed());
+		reportPage.verifyAllResources();
+		reportPage.selectOption(reportPage.selectResource, optionVideo);
 		customeWaitTime(5);
 		reportPage.closeResourcePopUP();
+		loginPage = reportPage.logOut();
 	}
 	
-	@Test(priority=2)
+	@Test(priority=3)
 	public void testVerifyStudentNavigatesFromHistoryInDeliveryTailtoReports(){
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("stduent1"),
 				unitytestdata.getProperty("genericPassword"));
 		deliveryPage = dashBoardPage.goToDelivery();
-		
 		for(int i=0; i<deliveryPage.getScoredTestsCount(); i++){
 			String scoredTestinHistoryReport = deliveryPage.getTestNameFromHistory(i);
 			System.out.println("Scored Test In History Report: " + scoredTestinHistoryReport);
@@ -218,7 +213,9 @@ public class StandardsTest extends BaseTest{
 			softAssert.assertEquals(reportPage.getStudentTestDetailName(), scoredTestinHistoryReport);
 			returnToDashboard();
 			deliveryPage = dashBoardPage.goToDelivery();
+			deliveryPage.logOut();
 		}
 		
 	}
+	
 }

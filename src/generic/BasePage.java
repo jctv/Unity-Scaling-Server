@@ -83,7 +83,7 @@ public class BasePage {
 	@FindBy(xpath = "//*[@id='region-workspace']/div/div/div[2]/div/div/div[3]/table/tfoot/tr/td/div/div[1]/ul/li[1]/a")
 	public WebElement backPageButton;
 
-	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/span")
 	public WebElement dashBoardPage;
 	
 
@@ -201,6 +201,18 @@ public class BasePage {
 	@FindBy(xpath = "//div[@class='layoutHorizontalLeftPane col-md-4']//span[@id='searchButton']")
 	public WebElement filersearchButton;
 	
+	@FindBy(id = "irResourceType")
+	public WebElement selectResource;
+	
+	@FindBy(xpath = ".//*[@id='ir-result-container']/div/ul/li")
+	public WebElement resourceList;
+
+	
+	@FindBy(xpath = "//div[contains(@id,'ember')]/div/div[3]/div/a/div[1]/img")
+	public WebElement resourceImage;
+	
+	@FindBy(xpath = "//a[contains(@class,'resource__display')]")
+	public WebElement openResourceLink;
 	
 	
 	/** Constructor */
@@ -660,5 +672,31 @@ public class BasePage {
 		catch(Exception e){
 			return false;
 		}
+	}
+	
+	
+	public void waitAndSwitchTOFrame(String frameId){
+		try{
+			driver.switchTo().frame(frameId);
+			customeWaitTime(5);
+			
+			}catch(Exception e){
+				System.out.println("Unable to Switch to  the frame id " + frameId);
+			}
+	}
+	
+	
+	public void waitAndSwitchToDefaultContent(){
+		try{
+			driver.switchTo().defaultContent();
+			customeWaitTime(5);
+		}catch(Exception e ){
+			
+			
+		}
+		
+		
+		
+		
 	}
 }
