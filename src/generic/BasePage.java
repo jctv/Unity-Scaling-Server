@@ -214,6 +214,9 @@ public class BasePage {
 	@FindBy(xpath = "//a[contains(@class,'resource__display')]")
 	public WebElement openResourceLink;
 	
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[2]/span")
+	public WebElement backbutton;
+	
 	
 	/** Constructor */
 	public BasePage(WebDriver driver) {
@@ -486,6 +489,19 @@ public class BasePage {
 		waitForElementAndClick(dashBoardPage);
 		waitTime();
 		return new DashBoard(driver);
+	}
+
+	public DashBoard navigateToHomePageByBackButton() {
+		this.waitForJsProcess();
+		waitForElementAndClick(backbutton);
+		waitTime();
+		return new DashBoard(driver);
+	}
+	
+	
+	public void backToListng(){
+		waitForElementAndClick(backbutton);
+		waitTime();
 	}
 
 	public void waitAndFocus(WebElement element) {

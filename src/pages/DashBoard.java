@@ -657,6 +657,80 @@ public class DashBoard extends BasePage {
 		return new Standards(driver);
 	}
 	
+	public void navigateToTileAndBackToHome() {
+		try{
+		 WebElement tiles = driver
+                 .findElement(By
+                         .xpath(".//*[@id='dashboardGrid']/ul"));
+         waitForElementVisible(tiles);
+         customeWaitTime(5);
+         List<WebElement> tileList = tiles.findElements(By
+                 .tagName("li"));
+
+		customeWaitTime(5);
+		for (int x = 1; x <= tileList.size(); x++) {
+				WebElement tile = driver.findElement(By.xpath(".//*[@id='dashboardGrid']/ul/li[" + x + "]"));
+				String tileName = waitAndGetElementAttribute(tile ,"data-key");
+				waitForElementAndClick(tile);
+				customeWaitTime(5);
+				String currrentPage = driver.getCurrentUrl();
+				if(currrentPage.contains(tileName)){
+					System.out.println(tileName + "  ----> page loaded successfully");
+					waitForElementAndClick(backbutton);
+					if(driver.getCurrentUrl().contains("dashboard")){
+						System.out.println("Back to home page successfully");
+						customeWaitTime(5);
+				    }else{
+						System.out.println("Unable to back to dashboard page ");
+
+				    }
+				}else{
+					System.out.println("Unable to load page ------> "+ tileName);
+
+				}
+				
+			} 
+		}catch (Exception e) {
+
+			//TOOD
+			}
+
+	}
 	
+	public void navigateToHomeFromTile() {
+		try{
+		 WebElement tiles = driver
+                 .findElement(By
+                         .xpath(".//*[@id='dashboardGrid']/ul"));
+         waitForElementVisible(tiles);
+         customeWaitTime(5);
+         List<WebElement> tileList = tiles.findElements(By
+                 .tagName("li"));
+		customeWaitTime(5);
+		for (int x = 1; x <= tileList.size(); x++) {
+				WebElement tile = driver.findElement(By.xpath(".//*[@id='dashboardGrid']/ul/li[" + x + "]"));
+				String tileName = waitAndGetElementAttribute(tile ,"data-key");
+				waitForElementAndClick(tile);
+				customeWaitTime(5);
+				String currrentPage = driver.getCurrentUrl();
+				if(currrentPage.contains(tileName)){
+					System.out.println(tileName + "  ----> page loaded successfully");
+					waitForElementAndClick(dashBoardPage);
+					if(driver.getCurrentUrl().contains("dashboard")){
+						System.out.println("Navigate to home page successfully");
+						customeWaitTime(5);
+				    }else{
+						System.out.println("Unable to back to dashboard page ");
+				    }
+				}else{
+					System.out.println("Unable to load page ------> "+ tileName);
+				}
+			} 
+		}catch (Exception e) {
+
+			//TOOD
+			}
+
+	}
 
 }
