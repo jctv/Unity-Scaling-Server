@@ -69,7 +69,7 @@ public class Passage extends BasePage {
 	@FindBy(xpath = "(//ul[@class='list-group asset-list']//img")
 	public WebElement firstImage;
 	
-	@FindBy(xpath = "(.//*[@id='region-navigation']/ul/li[1]/a")
+	@FindBy(xpath = "(.//*[@id='region-navigation']/ul/li[2]/span")
 	public WebElement backToPassage;
 	
 	

@@ -350,7 +350,8 @@ public class Items extends BasePage {
 		clickOnConfirmationMessage();
 		System.out.println("The Item " + name + " has been created");
 		customeWaitTime(2);
-		waitForElementAndClick(backToItems);
+		//backToListing();;
+		backToListing();
 		customeWaitTime(2);
 		searchItem(name);
 		this.addStandards();
@@ -424,7 +425,7 @@ public class Items extends BasePage {
 		clickOnConfirmationMessage();
 		System.out.println("The Item type >  " + interactionType  +"  name -> " + name +  " score profile >  " + scoringType + " has been created successfully");
 		customeWaitTime(5);
-		waitForElementAndClick(backToItems);
+		backToListing();;
 		if(confirmationAlertButton.isDisplayed()){
 			waitForElementAndClick(confirmationAlertButton);
 		}
@@ -465,7 +466,7 @@ public class Items extends BasePage {
 
 		System.out.println("The Item has been created");
 		customeWaitTime(5);
-		waitForElementAndClick(backToItems);
+		backToListing();;
 		customeWaitTime(5);
 		this.addStandards();
 		waitForElementAndClick(backToDashboard);
@@ -865,7 +866,7 @@ public class Items extends BasePage {
 			waitForElementAndClick(saveAndPublish);
 			customeWaitTime(5);
 			clickOnConfirmationMessage();
-			waitForElementAndClick(backToItems);
+			backToListing();;
 		}
 		}catch(Exception e ){
 			System.out.println("unable to uplaod the media in item " + item);

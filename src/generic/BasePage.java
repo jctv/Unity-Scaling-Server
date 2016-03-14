@@ -499,7 +499,7 @@ public class BasePage {
 	}
 	
 	
-	public void backToListng(){
+	public void backToListing(){
 		waitForElementAndClick(backbutton);
 		waitTime();
 	}

@@ -69,7 +69,7 @@ public class Help extends BasePage {
 	@FindBy(id = "globalModalDeleteButton")
 	public WebElement deletebuttonHelpPopUp;
 	
-	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[1]/a")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[2]/span")
 	public WebElement backToHelp;
 	
 	@FindBy(xpath = "//tbody[@class='files']//td[1]/i")

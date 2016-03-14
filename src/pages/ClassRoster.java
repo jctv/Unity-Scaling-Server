@@ -71,10 +71,10 @@ public class ClassRoster extends BasePage {
 	@FindBy(id = "globalModalInfoOkButton")
 	public WebElement confirmOkButton;
 	
-	@FindBy(xpath = "//*[@id='region-navigation']/ul/li[1]/a")
+	@FindBy(xpath = "//*[@id='region-navigation']/ul/li[2]/span")
 	public WebElement homeLink;
 
-	@FindBy(xpath = "//*[@id='region-navigation']/div/a[1]")
+	@FindBy(xpath = "//*[@id='region-navigation']/ul/li[1]/span")
 	public WebElement dashBoardLink;
 
 	@FindBy(xpath = "//*[@id='rGrade']/option[4]")

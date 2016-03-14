@@ -261,7 +261,7 @@ public class TestCreation extends BasePage {
 			waitForElementAndClick(okButton);*/
 			customeWaitTime(5);
 			System.out.println("Test "+ testName +" created successfully ");
-			waitForElementAndClick(testsLink);
+			backToListing();
 			customeWaitTime(5);
 			/*waitForElementAndClick(homeLink);
 			try {
@@ -319,7 +319,7 @@ public class TestCreation extends BasePage {
 			}
 			customeWaitTime(2);
 			System.out.println("Test "+ testName +" created successfully ");
-			waitForElementAndClick(testsLink);
+			backToListing();
 			customeWaitTime(2);
 		} catch (Exception e) {
 			System.out.println("Test "+ testName +" Creation Failed ");

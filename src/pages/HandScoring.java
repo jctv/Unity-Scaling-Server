@@ -272,7 +272,7 @@ public class HandScoring extends BasePage {
 			
 				//waitForElementAndClick(okButton);
 				waitTime();
-				waitForElementAndClick(backLink);
+				backToListing();
 		}
 		
 		} catch (Exception e) {
