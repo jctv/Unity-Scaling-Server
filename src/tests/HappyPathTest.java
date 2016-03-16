@@ -2,13 +2,18 @@ package tests;
 
 import generic.BaseTest;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
-import com.thoughtworks.selenium.webdriven.commands.WaitForPageToLoad;
 
 import pages.ClassRoster;
 import pages.DashBoard;
@@ -55,12 +60,6 @@ import pages.Users;
 
 
 public class HappyPathTest extends BaseTest {
-
-	HappyPathTest Nav;
-	public String user = "admin";
-	public String adminPassword = "@simple1";
-	public String domain = "";
-	public String genericPassword = "12345";
 	Login loginPage;
 	DashBoard dashBoardPage;
 	Items itemsPage;
@@ -77,51 +76,64 @@ public class HappyPathTest extends BaseTest {
 	Domain domainPage;
 	Role rolePage;
 	Standards standardPage;
-	String choiceCorrectAnswer = "set D correct Answer";
 	
 	long timestmap = System.currentTimeMillis();
 
-	String school = "Automated School" + timestmap;
-	String roster  = "Automated Roster" + timestmap;
-	String testName= "Automation test";
+	String resourcesLocation = "src" + File.separator + "resources"
+			+ File.separator;
+	String unityTestDataFile = resourcesLocation  + "unitytestdata.properties";
 	
-	//String itemName;
+	Properties unitytestdata;
 	
-	String itemBank = "My item bank";
+	String domain = "";
+	String genericPassword;
+
+	String school;
+	String roster;
+	String testName;
+	String itemBank;
+	String testBank;
+	String itemName ;
 	
-	String testBank = "My test bank";
-	
+  	Map<Integer , List<String>> studentReport = new HashMap<Integer, List<String>>();    
+
 	public HappyPathTest() {
 		super();
 
 	}
 
-	/*@BeforeMethod
+	@BeforeTest
+	public void loadUnityMessagesProperty(){
+		unitytestdata = getUnityMessagesProperty(unityTestDataFile);
+		genericPassword = unitytestdata.getProperty("genericPassword");
+		roster = unitytestdata.getProperty("happyPathRoster") + timestmap ;
+		school = unitytestdata.getProperty("happyPathSchool") + timestmap;
+		testName = unitytestdata.getProperty("happypathTestName");
+		itemBank = unitytestdata.getProperty("happypathItemBankName");
+		testBank = unitytestdata.getProperty("happypathTestBankName");
+		itemName = unitytestdata.getProperty("happyPathItemName");
+
+		
+	}
+	@BeforeClass
 	public void setUp() {
 		System.out.println("+++hub++++ "+hubAddress);
+		System.out.println("Unity login url -- >  "+url);
 		driver.get(url);
 		loginPage = new Login(driver);
-	}*/
+		dashBoardPage = loginPage.loginSuccess(domain + unitytestdata.getProperty("defaultAdmin"),
+				unitytestdata.getProperty("defaultPassword"));
+		customeWaitTime(3);
+	}
 
 	@Test
-	public void runPath() {
-		
-		System.out.println("+++hub++++ "+hubAddress);
-		driver.get(url);
-		loginPage = new Login(driver);
-		System.out.println("******** logging as super administrator ********");
-
-		dashBoardPage = loginPage.loginSuccess(domain + user,
-				adminPassword);
-		customeWaitTime(3);
-
+	public void testHappyPath() {
 		System.out.println("******** Creating a new organization ********");
 		organizationPage = dashBoardPage.goToOrganization();
 		customeWaitTime(5);
 		organizationPage.createNewOrganization(school);
 		returnToDashboard();
 		System.out.println("************************************************");
-		
 		System.out.println("***** Student and teacher creation started *****");
 		usersPage = dashBoardPage.goToUsers();
 		waitTime();
@@ -132,11 +144,9 @@ public class HappyPathTest extends BaseTest {
 		createdUsersA.add(createdUsers[0]);
 		createdUsersA.add(createdUsers[1]);
 		createdUsersA.add(createdUsers[2]);
-
-		
-		driver.get(url);
-		loginPage = new Login(driver);
-
+ 
+		//driver.get(url);
+		loginPage = usersPage.logOut();
 		System.out.println("************************************************");
 		waitTime();
 		System.out.println("******** logging as the created teacher ********");
@@ -164,10 +174,10 @@ public class HappyPathTest extends BaseTest {
 		itemsPage = dashBoardPage.goToItems();
 		waitTime();
 		System.out.println("******** Items creation ********");
-		itemsPage.createItem("item 1", itemBank);
+		itemsPage.createItem(itemName, itemBank);
 		for (int x = 2; x < 11; x++) {
 			Assert.assertTrue(
-					itemsPage.copyItem(itemBank, "item " + x, 1),
+					itemsPage.copyItem(itemBank, itemName + x, 1),
 					"Item Copied Successfully");
 		}
 		returnToDashboard();
@@ -185,7 +195,7 @@ public class HappyPathTest extends BaseTest {
 		testCreationPage.createTestWithMultipleItems(testName,
 				testBank, itemBank, 10);
 		customeWaitTime(5);
-		testCreationPage.goToTestDashBoard();
+		//testCreationPage.goToTestDashBoard();
 		returnToDashboard();
 		customeWaitTime(5);
 		sechedulePage = dashBoardPage.goToSchedule();
@@ -195,20 +205,8 @@ public class HappyPathTest extends BaseTest {
 				roster, "N/A", testName, "Red", "120",
 		"100%", "Yes");
 		waitTime();
-	returnToDashboard();
-	//loginPage = dashBoardPage.logOut();
-	
-	driver.get(url);
-	loginPage = new Login(driver);
-	System.out.println("************************************************");
-		/*	 * driver.quit();
-		 * System.out.println("********** Starting  mobile emulation **********"
-		 * ); WebDriver driver = emulateDevice("Apple iPad 3 / 4");
-		 	* driver.get(url);
-		 * 
-		 *  waitTime(); loginPage = new Login(driver);
-	 */
-
+	//returnToDashboard();
+	loginPage = sechedulePage.logOut();
 	customeWaitTime(5);
 	System.out
 			.println("******** logging as the first created student ********");
@@ -218,10 +216,24 @@ public class HappyPathTest extends BaseTest {
 	waitTime();
     deliveryPage = dashBoardPage.goToDelivery();
     waitTime();
-    
     System.out.println("******** Taking the scheduled test ********");
        deliveryPage.takeAndVefiryTestResults("100%",
     "4,4,4,4,4,4,4,4,4,4");
+   reportsPage = deliveryPage.goToTestDetailReport(testName);
+   customeWaitTime(5);
+   studentReport =  reportsPage.getStudentReport();
+   waitTime();
+   for(int i= 1; i<= 10; i++){
+   	softAssert.assertEquals(studentReport.get(i).get(2), unitytestdata.getProperty("strandType"));
+   	softAssert.assertEquals(studentReport.get(i).get(3), unitytestdata.getProperty("pointRecieved"));
+   	softAssert.assertEquals(studentReport.get(i).get(4), unitytestdata.getProperty("pointPossible"));
+   	softAssert.assertEquals(studentReport.get(i).get(5), unitytestdata.getProperty("strandard"));
+   	softAssert.assertEquals(studentReport.get(i).get(6), unitytestdata.getProperty("learnMore"));
+   	softAssert.assertEquals(studentReport.get(i).get(7), unitytestdata.getProperty("exploreMore"));
+   }
+   
+   loginPage = reportsPage.logOut();
+   waitTime();
     /*returnToDashboard();
     waitTime();
 	driver.get(url);
@@ -253,14 +265,11 @@ public class HappyPathTest extends BaseTest {
 				"4,4,4,4,4,2,1,1,2,1");
      //returnToDashboard();
     // waitTime();
-    // loginPage = dashBoardPage.logOut();
+    // 
 */	  
-	  driver.get(url);
-	  loginPage = new Login(driver);
-
- 	 customeWaitTime(5);
-
-     System.out.println("************************************************");
+      //loginPage = dashBoardPage.logOut();
+ 	  customeWaitTime(5);
+       System.out.println("************************************************");
        
 		System.out.println("******** logging as the created teacher ********");
 		
@@ -269,12 +278,6 @@ public class HappyPathTest extends BaseTest {
 		customeWaitTime(10);
 		driver.navigate().refresh();
 		customeWaitTime(20);
-
-		/*
-		 * handScoringPage = dashBoardPage.goToHandScoring();
-		 * waitTime(); handScoringPage.scoreTest(); waitTime();
-		 */
-
 		reportsPage = dashBoardPage.goToReports();
 		waitTime();
 		//reportsPage.viewReport();

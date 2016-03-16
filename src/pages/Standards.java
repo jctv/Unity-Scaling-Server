@@ -144,5 +144,16 @@ public class Standards extends BasePage {
 		}
 
 	}
+	
+	 public Reports closeResourcePopUP(){
+		  try{
+			waitForElementAndClick(closeButton);
+			customeWaitTime(10);
+		  }catch(Exception e){
+			  
+		  }
+	     return new Reports(driver);
+
+	  }
 
 }

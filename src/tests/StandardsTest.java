@@ -179,23 +179,23 @@ public class StandardsTest extends BaseTest{
 		reportPage = dashBoardPage.goToReports();
 		reportPage.openStudentTestReport(testName);
 		customeWaitTime(2);
-		reportPage.openLearnStrand(testName);
-		softAssert.assertTrue(reportPage.getDropDownOptions(standardsPage.selectResource).get(0).getText().contains(optionVideo));
-		softAssert.assertTrue(reportPage.getDropDownOptions(standardsPage.selectResource).get(1).getText().contains(optionGames));
-		softAssert.assertTrue(reportPage.resourceList.isDisplayed());
-		standardsPage.selectOption(reportPage.selectResource, optionGames);
+		standardsPage = reportPage.openLearnStrand(testName);
+		softAssert.assertTrue(standardsPage.getDropDownOptions(standardsPage.selectResource).get(0).getText().contains(optionVideo));
+		softAssert.assertTrue(standardsPage.getDropDownOptions(standardsPage.selectResource).get(1).getText().contains(optionGames));
+		softAssert.assertTrue(standardsPage.resourceList.isDisplayed());
+		standardsPage.selectOption(standardsPage.selectResource, optionGames);
 		customeWaitTime(5);
-		softAssert.assertTrue(reportPage.resourceList.isDisplayed());
-		reportPage.closeResourcePopUP();
+		softAssert.assertTrue(standardsPage.resourceList.isDisplayed());
+		reportPage = standardsPage.closeResourcePopUP();
 		customeWaitTime(5);
-		reportPage.openExploreStrand(testName);
-		softAssert.assertTrue(reportPage.getDropDownOptions(standardsPage.selectResource).get(0).getText().contains(optionGames));
-		softAssert.assertTrue(reportPage.getDropDownOptions(standardsPage.selectResource).get(1).getText().contains(optionVideo));
-		softAssert.assertTrue(reportPage.resourceList.isDisplayed());
-		reportPage.verifyAllResources();
-		reportPage.selectOption(reportPage.selectResource, optionVideo);
+		standardsPage =reportPage.openExploreStrand(testName);
+		softAssert.assertTrue(standardsPage.getDropDownOptions(standardsPage.selectResource).get(0).getText().contains(optionGames));
+		softAssert.assertTrue(standardsPage.getDropDownOptions(standardsPage.selectResource).get(1).getText().contains(optionVideo));
+		softAssert.assertTrue(standardsPage.resourceList.isDisplayed());
+		standardsPage.verifyAllResources();
+		standardsPage.selectOption(standardsPage.selectResource, optionVideo);
 		customeWaitTime(5);
-		reportPage.closeResourcePopUP();
+		reportPage = standardsPage.closeResourcePopUP();
 		loginPage = reportPage.logOut();
 	}
 	

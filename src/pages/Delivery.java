@@ -408,6 +408,23 @@ public class Delivery extends BasePage {
 		return new Reports(driver);
 	}
 	
+	//Overloaded method for go to student detail repot
+	
+	public Reports goToTestDetailReport(String testName){
+		   try{
+			   WebElement viewReport = driver.findElement(By
+						.xpath("//td[text()= '" + testName + "']/..//button[text()='View Report']"));
+			waitForElementAndClick(viewReport);
+			waitForJsProcess();
+		   }catch(Exception e ){
+			   
+		   }
+		return new Reports(driver);
+	}
+	
+	
+	
+	
 	public int getScoredTestsCount(){
 		return viewScoredTestReport.size();
 	}
@@ -415,5 +432,8 @@ public class Delivery extends BasePage {
 	public String getTestNameFromHistory(int index){
 		return testName.get(index).getText();
 	}
+	
+	
+	
 	
 }

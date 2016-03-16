@@ -1,6 +1,9 @@
 package pages;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -131,6 +134,12 @@ public class Reports extends BasePage {
 	
 	@FindBy(css =".panel-group a:not(.collapsed)")
 	public WebElement expandedStudentTestDetail;
+	
+	
+	//span[@class='student-result-percent']
+	Map<Integer , List<String>> itemDetail = new HashMap<Integer, List<String>>();    
+
+	List <String> itemInfo = new ArrayList <String> ();
 	
 	
 	public String viewReport() {
@@ -417,7 +426,7 @@ public void verifyStudentHandScore(String studentLName , int itemCount , String 
 	
    }
   
-  public void openExploreStrand(String testName){
+  public Standards openExploreStrand(String testName){
 	  try{
 		  WebElement strandExplorebutton = driver.findElement(By
 					.xpath("//h4/a[contains(text(),'"+ testName +"')]/../../..//div[2]//tr[1]//button[@class='btn btn-primary ir-open-resource' and @data-type='Game']"));
@@ -427,10 +436,10 @@ public void verifyStudentHandScore(String studentLName , int itemCount , String 
 	  }catch(Exception e){
 		  
 	  }
-	
+	  return new Standards(driver);
    }
   
-  public void openLearnStrand(String testName){
+  public Standards openLearnStrand(String testName){
 	  try{
 		  WebElement strandLearnbutton = driver.findElement(By
 					.xpath("//h4/a[contains(text(),'"+ testName +"')]/../../..//div[2]//tr[1]//button[@class='btn btn-primary ir-open-resource' and @data-type='Video']"));
@@ -441,16 +450,10 @@ public void verifyStudentHandScore(String studentLName , int itemCount , String 
 	  }catch(Exception e){
 		  
 	  }
+	 return new Standards(driver);
 	
    }
   
-  public void closeResourcePopUP(){
-	  try{
-		waitForElementAndClick(resourceCloseButton);
-	  }catch(Exception e){
-		  
-	  }
-  }
   
   public String getStudentTestDetailName(){
 	  return expandedStudentTestDetail.getText().split(" ")[0];
@@ -492,5 +495,32 @@ public void verifyStudentHandScore(String studentLName , int itemCount , String 
 		}
 
 	}
+  
+	public Map <Integer , List<String>> getStudentReport() {
+		WebElement Webtable = driver.findElement(By.xpath("DataTables_Table_0"));
+		List<WebElement> TotalRowCount = Webtable.findElements(By
+				.xpath("//*[@id='DataTables_Table_0']/tbody/tr"));
+
+		System.out.println("No. of Rows in the WebTable: "
+				+ TotalRowCount.size());
+		// Now we will Iterate the Table and print the Values
+		int rowIndex = 1;
+		for (WebElement rowElement : TotalRowCount) {
+			List<WebElement> TotalColumnCount = rowElement.findElements(By
+					.xpath("td"));
+			int ColumnIndex = 1;
+			for (WebElement colElement : TotalColumnCount) {
+				System.out.println("Row " + rowIndex + " Column " + ColumnIndex
+						+ " Data " + colElement.getText());
+				itemInfo.add(colElement.getText());
+				ColumnIndex = ColumnIndex + 1;
+			}
+			itemDetail.put(rowIndex,itemInfo);
+			rowIndex = rowIndex + 1;
+
+		}
+		return itemDetail;
+	}
+  
 }
 
