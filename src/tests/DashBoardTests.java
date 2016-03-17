@@ -74,12 +74,20 @@ public class DashBoardTests extends BaseTest {
 		dashBoardPage.addQuickLinkToTiles();
 	}
 	
-	@Test(priority = 0)
+	@Test(priority = 5)
 	public void testHomeAndBackButtonNavigation(){
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("defaultAdmin"),
 				unitytestdata.getProperty("defaultPassword"));
 		dashBoardPage.addTiles();
 		dashBoardPage.navigateToTileAndBackToHome();
 		dashBoardPage.navigateToHomeFromTile();
+	}
+	
+	@Test(priority = 6)
+	public void testVerifyEyeIconOnListings(){
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("defaultAdmin"),
+				unitytestdata.getProperty("defaultPassword"));
+		dashBoardPage.addTiles();
+		dashBoardPage.navigateToTileListingsAndVerifyEyeIcon();
 	}
 }

@@ -732,5 +732,51 @@ public class DashBoard extends BasePage {
 			}
 
 	}
+	
+	public void navigateToTileListingsAndVerifyEyeIcon() {
+		try{
+		 WebElement tiles = driver
+                 .findElement(By
+                         .xpath(".//*[@id='dashboardGrid']/ul"));
+         waitForElementVisible(tiles);
+         customeWaitTime(5);
+         List<WebElement> tileList = tiles.findElements(By
+                 .tagName("li"));
+		customeWaitTime(5);
+		for (int x = 1; x <= tileList.size(); x++) {
+				WebElement tile = driver.findElement(By.xpath(".//*[@id='dashboardGrid']/ul/li[" + x + "]"));
+				String tileName = waitAndGetElementAttribute(tile ,"data-key");
+				waitForElementAndClick(tile);
+				customeWaitTime(5);
+				String currrentPage = driver.getCurrentUrl();
+				if(currrentPage.contains(tileName)){
+					customeWaitTime(5);
+					if(waitForElementVisible(eyeIconLising)){
+						System.out.println("Eye icon is visible for tile  " + tileName + "  listings");
+					}else{
+						
+						System.out.println("Eye icon is not visible for tile  " + tileName);
+
+					}
+					waitForElementAndClick(dashBoardPage);
+					if(driver.getCurrentUrl().contains("dashboard")){
+						customeWaitTime(5);
+				    }else{
+						System.out.println("Unable to back to dashboard page ");
+
+				    }
+				}else{
+					System.out.println("Unable to load page ------> "+ tileName);
+
+				}
+				
+			} 
+		}catch (Exception e) {
+
+			//TOOD
+			}
+
+	}
+	
 
 }

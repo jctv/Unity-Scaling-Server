@@ -217,6 +217,9 @@ public class BasePage {
 	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[2]/span")
 	public WebElement backbutton;
 	
+	@FindBy(css = "i.fa-eye")
+	public WebElement eyeIconLising;
+	
 	
 	/** Constructor */
 	public BasePage(WebDriver driver) {
