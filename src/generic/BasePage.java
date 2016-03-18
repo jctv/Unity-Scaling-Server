@@ -183,7 +183,7 @@ public class BasePage {
 	@FindBy(xpath = "//p[contains(text(),'Rows')]")
 	public WebElement encouteredRecords;
 	
-	@FindBy(xpath = "//a[text()='Help']")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[3]/span")
 	public WebElement helpNav;
 	
 	@FindBy(xpath = ".//*[@id='tutorialContentTemplate']/video")

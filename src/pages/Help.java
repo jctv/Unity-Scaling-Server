@@ -20,7 +20,7 @@ public class Help extends BasePage {
 	@FindBy(xpath = "//a[text()='Add Help']")
 	public WebElement addHelpLink;
 	
-	@FindBy(xpath = "//a[text()='Import Help ']")
+	@FindBy(xpath = ".//*[@id='region-navigation']/ul/li[4]/span")
 	public WebElement importHelpLink;
 	
 	@FindBy(xpath = "//a[text()='Export Help']")
@@ -42,7 +42,7 @@ public class Help extends BasePage {
 	@FindBy(xpath = ".//*[@id='addNewGuide']/button")
 	public WebElement addUserGuideButton;
 	
-	@FindBy(xpath = ".//*[@id='contentForm']/div[1]/div/input")
+	@FindBy(xpath = ".//*[@id='contentForm']/div[1]/div[1]/input")
 	public WebElement firstHintInputField;
 	
 	@FindBy(xpath = "//button[@class='btn btn-success btn-add']")
@@ -84,6 +84,11 @@ public class Help extends BasePage {
 	@FindBy(xpath = "//td[@class='watable-col-status_detail']")
 	public WebElement helpDetailInListings;
 	
+	@FindBy(xpath = ".//*[@id='contentListTemplate']/div/ol/li[1]/a/b")
+	public WebElement helpHint1Content;
+	
+	
+	
 	public void addHelp(String tile , String helpHint , String mediafilePath, String userguideFilePath ){
 		try{
         waitForElementAndClick(addHelpLink);
@@ -117,8 +122,6 @@ public class Help extends BasePage {
 	
 	public void searchHelp(String help){
 		try{
-		  customeWaitTime(5);
-		  searchAutoCompleteField.clear();
 		  customeWaitTime(5);
 		  waitForElementAndSendKeys(searchAutoCompleteField, help);
 		  waitForElementAndClick(searchButton);
@@ -166,6 +169,22 @@ public class Help extends BasePage {
 
 	}
 	
+	
+	public void updateHelpHint(String tileName , String updateHint){
+		try{
+			waitForElementAndClick(editIconList);
+			customeWaitTime(2);
+	        waitForElementAndSendKeys(firstHintInputField ,updateHint);
+	        waitForElementAndClick(helpSaveButton);
+	        customeWaitTime(2);
+	        waitForElementAndClick(globalModalInfoOkButton);
+	    	customeWaitTime(2);
+		}catch(Exception e){
+			
+		}
+		
+		
+	}
 	
 
 }

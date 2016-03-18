@@ -52,8 +52,17 @@ public class HelpTest extends BaseTest{
 	
 	String importHelpFile;
 	
+	String importDashbardHelp;
+	
 	String importHelpFileLocation;
+	
+	String importDashboardHelpFile;
 
+	String updateHelpHint;
+	
+	String importDashboardHelpHint;
+	long timestamp = System.currentTimeMillis();
+	
 	public HelpTest() {
 		super();
 		
@@ -74,11 +83,20 @@ public class HelpTest extends BaseTest{
 		helpName  =  unityhelpdata.getProperty("helpName");
 		helpHint = unityhelpdata.getProperty("helpHint");
 		
+		importDashboardHelpHint = unityhelpdata.getProperty("importDashboardHelphint");
+		
+		updateHelpHint = timestamp + "_"+unityhelpdata.getProperty("updatedhelphint");
+		
 		importHelpFile = unityhelpdata.getProperty("importHelpFile");
+		
+		importDashbardHelp = unityhelpdata.getProperty("importDashboardHelpFile");
+		
 		
 		uploadMedia = resourcesLocation + help + mediaFile;
 		uploadUserGuide = resourcesLocation + help + userGuideFile;
 		importHelpFileLocation =  resourcesLocation + help + importHelpFile;
+		
+		importDashboardHelpFile = resourcesLocation + help + importDashbardHelp;
 
 	}
 	
@@ -93,7 +111,7 @@ public class HelpTest extends BaseTest{
 		helpPage = dashBoardPage.goToHelp();
 		
 	    /*helpPage.importHelp(helpImport, importHelpFileLocation);
-    	helpPage.waitForElementAndClick(helpPage.backToHelp);
+    	helpPage.waitForElementAndClick(helpPage.backbutton);
     	helpPage.backToDashboard();*/
 	}
 	
@@ -102,7 +120,7 @@ public class HelpTest extends BaseTest{
 	    public void testVerifyHelpAddedForTile(){
 		    waitTime();
 	    	helpPage.addHelp(helpName, helpHint, uploadMedia, uploadUserGuide);
-	    	helpPage.waitForElementAndClick(helpPage.backToHelp);
+	    	helpPage.waitForElementAndClick(helpPage.backbutton);
 	    	customeWaitTime(2);
 	    	helpPage.backToDashboard();
 		    itemsImportPage = dashBoardPage.goToItemImport();
@@ -121,7 +139,7 @@ public class HelpTest extends BaseTest{
 		    waitTime();
 			helpPage = dashBoardPage.goToHelp();
 		    helpPage.importHelp(helpImport, importHelpFileLocation);
-	    	helpPage.waitForElementAndClick(helpPage.backToHelp);
+	    	helpPage.waitForElementAndClick(helpPage.backbutton);
 	    	helpPage.backToDashboard();
 		    sisImportPage = dashBoardPage.goToSisImport(); 
 		    sisImportPage.waitForElementAndClick(sisImportPage.helpNav);
@@ -133,7 +151,7 @@ public class HelpTest extends BaseTest{
 	    	itemsImportPage.backToDashboard();
 	    	
 		   /* helpPage.importHelp(helpImport, importHelpFileLocation);
-	    	helpPage.waitForElementAndClick(helpPage.backToHelp);
+	    	helpPage.waitForElementAndClick(helpPage.backbutton);
 	    	helpPage.addHelp(helpName, helpHint, uploadMedia, uploadUserGuide);*/
 	    }
 	 
@@ -152,7 +170,7 @@ public class HelpTest extends BaseTest{
 	public void testHelpAlertMessage(){
     	helpPage.waitForElementAndClick(helpPage.addHelpLink);
     	helpPage.selectOption(helpPage.selectTile , 1);
-    	helpPage.waitForElementAndClick(helpPage.backToHelp);
+    	helpPage.waitForElementAndClick(helpPage.backbutton);
     	customeWaitTime(2);
     	softAssert.assertEquals(helpPage.globalModalOKCancelBody.getText().trim(), unitymessages.getProperty("unSavedData").trim());
     	helpPage.waitForElementAndClick(helpPage.globalModalOKCancelSaveButton);
@@ -165,6 +183,36 @@ public class HelpTest extends BaseTest{
         */
 	}
     
+    @Test(priority = 5)
+    public void testUpdateHelpContentFromUI(){
+    	helpPage.searchHelp("dashboard");
+    	//helpPage.waitForElementAndClick(helpPage.backbutton);
+    	helpPage.updateHelpHint("dashboard", updateHelpHint);
+    	dashBoardPage = helpPage.backToDashboard();
+    	customeWaitTime(5);
+    	dashBoardPage.waitForElementAndClick(helpPage.helpNav);
+    	softAssert.assertEquals(dashBoardPage.waitAndGetElementText(helpPage.helpHint1Content), updateHelpHint);
+    	helpPage.waitForElementAndClick(dashBoardPage.globalModalInfoOkButton);
+    }
+    
+    
+    @Test(priority = 6)
+    public void testUpdateHelpContentThroughImport(){
+    	    waitTime();
+			helpPage = dashBoardPage.goToHelp();
+			customeWaitTime(5);
+			helpPage.updateHelpHint("dashboard", updateHelpHint);
+			customeWaitTime(2);
+			helpPage.waitForElementAndClick(helpPage.backbutton);
+			customeWaitTime(2);
+		    helpPage.importHelp("dashboard", importDashboardHelpFile);
+		    customeWaitTime(5);
+		    helpPage.backToDashboard();
+		    dashBoardPage.waitForElementAndClick(helpPage.helpNav);
+	    	softAssert.assertEquals(dashBoardPage.waitAndGetElementText(helpPage.helpHint1Content), importDashboardHelpHint);
+	    	helpPage.waitForElementAndClick(dashBoardPage.globalModalInfoOkButton);
+    	
+    }
     @AfterClass
 	public void cleanupData(){
     	helpPage.deleteHelp(helpName);
