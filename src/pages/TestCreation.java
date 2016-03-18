@@ -65,6 +65,9 @@ public class TestCreation extends BasePage {
 
 	@FindBy(id = "book")
 	public WebElement bookField;
+	
+	@FindBy(id = "answer_masking-check")
+	public WebElement answerMaskingToolCheckBox;
 
 	@FindBy(xpath = "//*[@id='book']/option[7]")
 	public WebElement bookOption;

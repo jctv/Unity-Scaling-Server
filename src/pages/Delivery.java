@@ -86,6 +86,20 @@ public class Delivery extends BasePage {
 	@FindBy(id = "testHistory")
 	public WebElement testHistoryPanel;
 	
+	@FindBy(xpath = "//i[@class='button_opt fa fa-list-ul fa-2x answerMask']")
+	public WebElement answerMaskingIcon;
+	
+	@FindBy(xpath = "//i[@class='fa fa-chevron-right']")
+	public WebElement rightArrow;
+	
+	@FindBy(xpath = "//div[@class='access-answer-mask']")
+	public WebElement accessAnswerMask;
+	
+	@FindBy(xpath = "//div[@class='i-choice']/div")
+	public List<WebElement> itemsAnswerChoiceCount;
+	
+	
+	
 
 	public void takeTest() {
 
@@ -434,6 +448,134 @@ public class Delivery extends BasePage {
 	}
 	
 	
+	public boolean verifyByDefaultAnswerUnMasked() {
+		validator = false;
+		try {
+			for (int item = 1; item <= itemsInTest.size(); item++) {
+				waitForElementAndClick(itemsInTest.get(item - 1));
+				customeWaitTime(2);
+				if (!waitForElementVisible(accessAnswerMask)) {
+					validator = true;
+				} else {
+					validator = false;
+
+				}
+			}
+
+		} catch (Exception e) {
+
+		}
+		return validator;
+
+	}
 	
 	
+	public boolean verifyAnswerMasking() {
+		validator = false;
+		try {
+			for (int item = 1; item <= itemsInTest.size(); item++) {
+				waitForElementAndClick(itemsInTest.get(item - 1));
+				customeWaitTime(2);
+				waitForElementAndClick(answerMaskingIcon);
+				customeWaitTime(2);
+				if (waitForElementVisible(accessAnswerMask)) {
+					validator = true;
+				} else {
+					validator = false;
+
+				}
+			}
+
+		} catch (Exception e) {
+
+		}
+		return validator;
+
+	}
+	
+	
+	public boolean verifyAnswerUnMasking(){
+		validator = false;
+		try {
+			for (int item = 1; item <= itemsInTest.size(); item++) {
+				waitForElementAndClick(itemsInTest.get(item - 1));
+				customeWaitTime(2);
+				waitForElementAndClick(answerMaskingIcon);
+				customeWaitTime(2);
+				waitForElementVisible(accessAnswerMask);
+				customeWaitTime(2);
+				waitForElementAndClick(answerMaskingIcon);
+				customeWaitTime(2);
+				if (!waitForElementVisible(accessAnswerMask)) {
+					validator = true;
+				} else {
+					validator = false;
+				}
+			}
+
+		} catch (Exception e) {
+
+		}
+		return validator;
+	}
+	
+	
+	public void verifyAnswerMaskToggling() {
+		try {
+			for (int item = 1; item <= itemsInTest.size(); item++) {
+				waitForElementAndClick(itemsInTest.get(item - 1));
+				customeWaitTime(2);
+				waitForElementAndClick(answerMaskingIcon);
+				customeWaitTime(2);
+				if (waitForElementVisible(accessAnswerMask)) {
+					for (int answer = 1; answer <= itemsAnswerChoiceCount
+							.size(); answer++) {
+						WebElement maskEyeButton = driver
+								.findElement(By
+										.xpath("//div[@class='i-choice']/div["
+												+ answer
+												+ "]//span[@class='btn btn-default mask-button']"));
+						waitForElementAndClick(maskEyeButton);
+						customeWaitTime(1);
+						WebElement maskBlind = driver.findElement(By
+								.xpath("//div[@class='i-choice']/div[" + answer
+										+ "]//span[@class='mask-blind']"));
+						if (waitAndGetElementAttribute(maskBlind, "style")
+								.contains("hidden")) {
+							System.out.println(answer
+									+ "  unmasked successfully");
+
+						} else {
+							System.out
+									.println("ERROR - while unmasking the answer  >> "
+											+ answer);
+						}
+
+						waitForElementAndClick(maskEyeButton);
+						customeWaitTime(1);
+						if (waitAndGetElementAttribute(maskBlind, "style")
+								.contains("visible")) {
+							System.out.println(answer
+									+ "  masked again successfully");
+
+						} else {
+							System.out
+									.println("ERROR - while masking the answer  >> "
+											+ answer);
+						}
+
+					}
+
+				} else {
+					System.out.println("ERROR - while Masking all the answers");
+
+				}
+
+			}
+
+		} catch (Exception e) {
+
+		}
+	}
+
 }
