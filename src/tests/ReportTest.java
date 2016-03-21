@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import generic.BaseTest;
 
@@ -16,6 +17,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -50,47 +52,82 @@ public class ReportTest extends BaseTest {
 	Organization organizationPage;
 	ItemsBank itemsBankPage;
 	TestsBank testBankPage;
-	ClassRoster classRosterPageObject;
+	
+	Properties unitytestdata;
+
 	
 	String itemBankName ;
 	String itemName ;
 	String testBankName ;
 	String testName = "";
 	
+	String resources = "src" + File.separator + "resources"
+			+ File.separator;
+	String unitytestDataFile = resources + "unitytestdata.properties";
+	
 	String schoolName = "Auto School";
 	String rosterName = "autoroster";
+	
 	String copyItemName;
-	String interactionChoice = "Choice";
-	String interactionTextEntry = "Text Entry";
-	String simpleMatchScoreProfile = "Match";
-	String mapScoreProfile = "Map";
-	String handScoreProfile  = "Hand Scoring";
-	String choiceCorrectAnswer = "set D correct Answer";
+	String interactionChoice;
+	String interactionTextEntry;
+	String simpleMatchScoreProfile;
+	String mapScoreProfile;
+	String handScoreProfile;
+	String choiceCorrectAnswer;
+	
+	String testroster;
+	String testschool;
+
+	String testid;
+	int itemCount =5;
 	String  textEntryCorrcetAnswer = "Auto Text Entry";
+	
 	protected String teacherUserName = "";
 	protected String genericPassword = "12345";
 	protected String autoStudent1 = "S17_16_311";
 	protected String autoStudent2 = "S17_16_322";
 	protected String autoStudentPassword = "12345";
+	
+	long timestamp;
 
 
 	public ReportTest() {
 		super();
 
 	}
+	
+	@BeforeTest
+	public void loadUnityMessagesProperty(){
+		unitytestdata = getUnityMessagesProperty(unitytestDataFile);
+		interactionChoice = unitytestdata.getProperty("interactionChoice");
+		simpleMatchScoreProfile = unitytestdata
+				.getProperty("simpleMatchScoreProfile");
+		choiceCorrectAnswer = unitytestdata.getProperty("choiceCorrectAnswer");
+		
+		interactionTextEntry = unitytestdata.getProperty("interactionTextEntry");
+		mapScoreProfile = unitytestdata.getProperty("mapScoreProfile");
+		handScoreProfile = unitytestdata.getProperty("handScoreProfile");
+
+		testroster = unitytestdata.getProperty("testRoster");
+		testschool =  unitytestdata.getProperty("testSchool");	
+	}
+
+	
 
 	@BeforeClass
 	public void setUp() {
 		driver.get(url);
 		loginPage = new Login(driver);
-		/*System.out.println("******** logging as super administrator ********");
+		System.out.println("******** logging as super administrator ********");
 		dashBoardPage = loginPage.loginSuccess(userName, password);
 		customeWaitTime(2);
 
 		System.out.println("***** Student and teacher creation started *****");
 		usersPage = dashBoardPage.goToUsers();
 		waitTime();
-		String[] createdUsers = usersPage.createUser().split(",");
+		String[] createdUsers = usersPage.createUser(testschool).split(",");
+		
 		teacherUserName = createdUsers[0];
 		autoStudent1 = createdUsers[1];
 		autoStudent2 = createdUsers[2];
@@ -106,15 +143,15 @@ public class ReportTest extends BaseTest {
 				genericPassword);
 		waitTime();
 		
-		classRosterPageObject = dashBoardPage.goToClassRoster();
+		classRosterPage = dashBoardPage.goToClassRoster();
 		waitTime();
 		System.out.println("******** Class Roster creation ********");
-		classRosterPageObject.createRoster(createdUsersA, "Automated School",
+		classRosterPage.createRoster(createdUsersA, "Automated School",
 				"Automated Roster");
 		waitTime();
 		returnToDashboard();
 		
-		System.out.println("***** Before Class method completed *****");*/
+		System.out.println("***** Before Class method completed *****");
 		
 	}
 
@@ -247,7 +284,7 @@ public class ReportTest extends BaseTest {
 	
 	@Test(priority = 1)
 	public void testVerifyReportWithAllCorrectAnswerForChoiceTypeItems(){
-	/*	itemsBankPage = dashBoardPage.goToItemsBank();
+		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(2);
 		itemBankName = "Auto_IB_" + System.currentTimeMillis();
 		System.out.println("******** " + itemBankName + "  Item bank creation ********");
@@ -296,8 +333,8 @@ public class ReportTest extends BaseTest {
 		sechedulePage.scheduleTest(schoolName, rosterName, "N/A", testName, "Green", "110", "20%", "No");
 		returnToDashboard();
 		dashBoardPage.logOut();
-		customeWaitTime(2);		*/
-		String createdTestId = "e54fb18e-7c9a-4160-857d-5eb41a7872c6";
+		customeWaitTime(2);		
+		//String createdTestId = "e54fb18e-7c9a-4160-857d-5eb41a7872c6";
 		dashBoardPage = loginPage.loginSuccess(domain + autoStudent1,
 				autoStudentPassword);
 		customeWaitTime(2);
@@ -305,11 +342,11 @@ public class ReportTest extends BaseTest {
 		customeWaitTime(2);
 		deliveryPage = dashBoardPage.goToDelivery();
 		waitTime();
-	/*	System.out.println("******** Taking the scheduled test ********");
+		System.out.println("******** Taking the scheduled test ********");
 		Assert.assertEquals(testName, deliveryPage.getScheduledTest(createdTestId));
 		deliveryPage.startScheduledTest(createdTestId);
 		deliveryPage.takeTest(true , 4 ,"Choice" , choiceCorrectAnswer);
-		dashBoardPage.goToDelivery();*/
+		dashBoardPage.goToDelivery();
 		System.out.println(testName.equalsIgnoreCase(deliveryPage.getTestinHistoryTable(createdTestId)));
 		Assert.assertTrue(testName.equalsIgnoreCase(deliveryPage.getTestinHistoryTable(createdTestId)));
 		Assert.assertEquals("100%", deliveryPage.getTestPercentCorrect(createdTestId));
@@ -1111,6 +1148,65 @@ public class ReportTest extends BaseTest {
 	    		
 	    		
 	    	}
+	
+	@Test(priority = 10)
+	public void testVerifySchoolAdminViewReportDetail(){
+		driver.get(url);
+		loginPage = new Login(driver);
+		System.out.println("******** logging as super administrator ********");
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testTeacher1"), unitytestdata.getProperty("genericPassword"));
+		customeWaitTime(2);
+		waitTime();
+		dashBoardPage.addTiles();
+		waitTime();
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		timestamp = System.currentTimeMillis();
+		itemBankName = "AMT_" + timestamp;
+		itemsBankPage.createBank(itemBankName, "desc");
+		returnToDashboard();
+		itemsPage = dashBoardPage.goToItems();
+		itemName = "I_" + timestamp;
+		itemsPage.createItem(itemName, itemBankName, interactionChoice , simpleMatchScoreProfile , choiceCorrectAnswer);		
+		itemsPage.searchItem(itemName);
+		itemsPage.addStandards();
+		copyItemName = "copy_" + itemName;
+		itemsPage.copyMultipleItems(itemBankName, itemName, copyItemName, 1, itemCount -1);
+		returnToDashboard();
+		testBankPage = dashBoardPage.goToTestsBank();
+		testBankName = "AMT_" + timestamp;
+		testBankPage.createBank(testBankName, "desc");
+		returnToDashboard();
+		customeWaitTime(5);
+		waitTime();
+		testCreationPage = dashBoardPage.goToTestCreation();
+		waitTime();
+		testName = "T_" + timestamp;
+		System.out.println("******** Test creation ********");
+		testCreationPage.createTestWithMultipleItems(testName,
+				testBankName, itemBankName, itemCount);
+		testid = testCreationPage.getTestId();
+		returnToDashboard();
+		customeWaitTime(5);
+		sechedulePage = dashBoardPage.goToSchedule();
+		waitTime();
+	    System.out.println("******** Event creation ********");
+	   sechedulePage.scheduleTest(testschool,
+			   testroster, "N/A", testName, "Red", "120",
+		"100%", "Yes");
+		waitTime();
+	   loginPage = sechedulePage.logOut();
+	   waitTime();
+	   dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testSchooladmin"), unitytestdata.getProperty("genericPassword"));
+	   customeWaitTime(2);
+	   reportsPage = dashBoardPage.goToReports();
+	   reportsPage.filterReportByContentArea("N/A");
+	    reportsPage.filterReportByClassRoster("autoroster");
+		customeWaitTime(2);
+		//String testName = "T_Auto_TB_1448424027107";
+		Assert.assertEquals(testName, reportsPage.getTestName(testName));
+		reportsPage.openTestEventDetail(testName);
+	   
+	}
 	    
 	@AfterMethod
 	public void cleanUp(){
