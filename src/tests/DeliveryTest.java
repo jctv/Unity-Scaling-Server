@@ -53,12 +53,14 @@ public class DeliveryTest extends BaseTest {
 	String school;
 	String itemName ;
 	String testName;
+	String testName1;
 	String testBank;
 	String itemBank;
 	String copiedItemName;
 	
 	String testid;
-	
+	String testid1;
+
 	String testroster;
 	String testschool;
 	
@@ -129,12 +131,23 @@ public class DeliveryTest extends BaseTest {
 		System.out.println("******** Test creation ********");
 		testCreationPage.createTestWithMultipleItems(testName,
 				testBank, itemBank, itemCount);
+		
+		testName1 =  "T_Line_" + timestamp;
+		testCreationPage.createTestWithMultipleItems(testName1,
+				testBank, itemBank, itemCount);
 		customeWaitTime(5);
+		
 		testCreationPage.searchTest(testName);
 		testCreationPage.waitForElementAndClick(testCreationPage.editIconList); 
 		customeWaitTime(5);
 		testid = testCreationPage.getTestId();
 		testCreationPage.enableTestTools("Answer Masking");
+		
+		testCreationPage.searchTest(testName1);
+		testCreationPage.waitForElementAndClick(testCreationPage.editIconList); 
+		testid1 = testCreationPage.getTestId();
+		testCreationPage.enableTestTools("Line Reader");
+
 		returnToDashboard();
 		customeWaitTime(5);
 		sechedulePage = dashBoardPage.goToSchedule();
@@ -179,6 +192,32 @@ public class DeliveryTest extends BaseTest {
 
 			
 	}
+	
+	
+	@Test(priority = 1)
+	public void testLineReaderTool(){
+		    customeWaitTime(5);
+		    System.out.println("******** logging as the student ********");
+		    dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testStudent1"),unitytestdata.getProperty("genericPassword"));
+			waitTime();
+			dashBoardPage.addTiles();
+			waitTime();
+			deliveryPage = dashBoardPage.goToDelivery();
+			deliveryPage.startScheduledTest(testid1);
+			softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.lineReaderIcon));
+			/*softAssert.assertTrue(deliveryPage.verifyByDefaultAnswerUnMasked());
+			deliveryPage.waitForAnElementAndClick(deliveryPage.firstItem);
+			waitTime();
+			softAssert.assertTrue(deliveryPage.verifyAnswerMasking());
+			deliveryPage.waitForAnElementAndClick(deliveryPage.firstItem);
+			waitTime();
+			deliveryPage.verifyAnswerMaskToggling();*/
+
+	}
+	
+	
+	
+	
 	
 	/**
 	 * Login as teacher 

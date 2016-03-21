@@ -70,6 +70,10 @@ public class TestCreation extends BasePage {
 	
 	@FindBy(id = "answer_masking-check")
 	public WebElement answerMaskingToolCheckBox;
+	
+	@FindBy(id = "line_reader-check")
+	public WebElement lineReaderToolCheckBox;
+	
 
 	@FindBy(xpath = "//*[@id='book']/option[7]")
 	public WebElement bookOption;
@@ -594,6 +598,10 @@ public class TestCreation extends BasePage {
 				case "Protractor":
 					waitForElementAndClick(aclTrusteeAdmin);
 					break;
+				case "Line Reader":
+					waitForElementAndClick(lineReaderToolCheckBox);
+					break;	
+					
 				case "Additional Tools":
 					// TODO
 					break;
