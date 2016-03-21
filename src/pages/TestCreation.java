@@ -1,5 +1,7 @@
 package pages;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import generic.BasePage;
@@ -200,6 +202,11 @@ public class TestCreation extends BasePage {
 	
 	@FindBy(css =".link i")
 	public WebElement backToTestDashboardLink;
+	
+	@FindBy(xpath = "//button[@class='btn btn-primary pull-right btn-sm tools-save']")
+	public WebElement toolSaveButton;
+	
+	
 	
 	
 	public void createTest(String testName , String testBankName ,  String itemName) {
@@ -564,6 +571,43 @@ public class TestCreation extends BasePage {
 	public void goToTestDashBoard(){
 		waitForElementAndClick(backToTestDashboardLink); 
 	}
+	
+	
+	public void enableTestTools(String tools) {
+		try {
+			waitForElementAndClick(toolsButton); 
+			customeWaitTime(2);
+			List<String> toolToAdd = new ArrayList<String>(Arrays.asList(tools
+					.split(",")));
+			for (String tool : toolToAdd) {
 
-		
+				switch (tool) {
+				case "Answer Masking":
+					waitForElementAndClick(answerMaskingToolCheckBox);
+					break;
+				case "Calculator":
+					waitForElementAndClick(calculator_check);
+					break;
+				case "Ruler":
+					waitForElementAndClick(ruler_check);
+					break;
+				case "Protractor":
+					waitForElementAndClick(aclTrusteeAdmin);
+					break;
+				case "Additional Tools":
+					// TODO
+					break;
+				}
+			}
+			customeWaitTime(5);
+			waitForElementAndClick(toolSaveButton);
+			customeWaitTime(5);
+			waitForElementAndClick(globalModalInfoOkButton);
+
+		} catch (Exception e) {
+
+		}
+
+	}
+
 }

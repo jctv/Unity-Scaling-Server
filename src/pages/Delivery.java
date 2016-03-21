@@ -98,6 +98,10 @@ public class Delivery extends BasePage {
 	@FindBy(xpath = "//div[@class='i-choice']/div")
 	public List<WebElement> itemsAnswerChoiceCount;
 	
+	@FindBy(xpath = "//i[@class='fa fa-step-backward fa-2x pm-arrows firstItem']")
+	public WebElement firstItem;
+	
+	
 	
 	
 
