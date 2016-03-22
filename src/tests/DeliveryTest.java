@@ -194,7 +194,7 @@ public class DeliveryTest extends BaseTest {
 	}
 	
 	
-	@Test(priority = 1)
+	@Test(priority = 2)
 	public void testLineReaderTool(){
 		    customeWaitTime(5);
 		    System.out.println("******** logging as the student ********");
@@ -205,13 +205,9 @@ public class DeliveryTest extends BaseTest {
 			deliveryPage = dashBoardPage.goToDelivery();
 			deliveryPage.startScheduledTest(testid1);
 			softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.lineReaderIcon));
-			/*softAssert.assertTrue(deliveryPage.verifyByDefaultAnswerUnMasked());
+			deliveryPage.verifyLineReaderPopUpToggling();
 			deliveryPage.waitForAnElementAndClick(deliveryPage.firstItem);
-			waitTime();
-			softAssert.assertTrue(deliveryPage.verifyAnswerMasking());
-			deliveryPage.waitForAnElementAndClick(deliveryPage.firstItem);
-			waitTime();
-			deliveryPage.verifyAnswerMaskToggling();*/
+			deliveryPage.waitForAnElementAndClick(deliveryPage.lineReaderIcon);
 
 	}
 	
@@ -229,7 +225,7 @@ public class DeliveryTest extends BaseTest {
 	 * Verify the confirmation message
 	 */
 	
-	@Test(priority = 3)
+	@Test(priority = 4)
 	public void testVerifyExitMessgage(){
 		driver.get(url);
 		loginPage = new Login(driver);

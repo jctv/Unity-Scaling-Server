@@ -104,7 +104,8 @@ public class Delivery extends BasePage {
 	@FindBy(xpath = "//i[@class='fa fa-step-backward fa-2x pm-arrows firstItem']")
 	public WebElement firstItem;
 	
-	
+	@FindBy(xpath = "//div[@class='access-line-reader-container']")
+	public WebElement lineReaderBlock;
 	
 	
 
@@ -583,6 +584,40 @@ public class Delivery extends BasePage {
 		} catch (Exception e) {
 
 		}
+	}
+	
+	
+	public void  verifyLineReaderPopUpToggling() {
+		try {
+			for (int item = 1; item <= itemsInTest.size(); item++) {
+				waitForElementAndClick(itemsInTest.get(item - 1));
+				customeWaitTime(2);
+				waitForElementAndClick(lineReaderIcon);
+				customeWaitTime(2);
+				if (waitForElementVisible(lineReaderBlock)) {
+					System.out.println("Line Reader tool appear ");
+
+				} else {
+					System.out.println("Error - Line Reader tool not pop ups");
+
+				}
+				
+				waitForElementAndClick(lineReaderIcon);
+				customeWaitTime(2);
+				if (!waitForElementVisible(lineReaderBlock)) {
+					System.out.println("Line Reader tool - hide");
+
+				} else {
+					System.out.println("Error - while hiding line reader tool");
+
+				}
+				
+			}
+
+		} catch (Exception e) {
+
+		}
+
 	}
 
 }
