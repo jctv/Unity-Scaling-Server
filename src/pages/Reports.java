@@ -135,6 +135,13 @@ public class Reports extends BasePage {
 	@FindBy(css =".panel-group a:not(.collapsed)")
 	public WebElement expandedStudentTestDetail;
 	
+	@FindBy(xpath = ".//*[@id='region-workspace']//div[2]/div[3]/div[2]/div/table/tbody/tr[1]/td[1]")
+	public WebElement testReportTableOneEntry;
+	
+	@FindBy(xpath = "//h2[@class='page-title pull-left']")
+	public WebElement testTitle;
+	
+	
 	
 	//span[@class='student-result-percent']
 	Map<Integer , List<String>> itemDetail = new HashMap<Integer, List<String>>();    

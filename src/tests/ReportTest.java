@@ -1150,7 +1150,7 @@ public class ReportTest extends BaseTest {
 	    	}
 	
 	@Test(priority = 10)
-	public void testVerifySchoolAdminViewReportDetail(){
+	public void testVerifyAllSchoolUserViewReportDetail(){
 		driver.get(url);
 		loginPage = new Login(driver);
 		System.out.println("******** logging as super administrator ********");
@@ -1205,6 +1205,8 @@ public class ReportTest extends BaseTest {
 		//String testName = "T_Auto_TB_1448424027107";
 		Assert.assertEquals(testName, reportsPage.getTestName(testName));
 		reportsPage.openTestEventDetail(testName);
+		Assert.assertEquals(testName, reportsPage.waitAndGetElementText(reportsPage.testTitle));
+
 	   
 	}
 	    
