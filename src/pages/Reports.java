@@ -141,9 +141,6 @@ public class Reports extends BasePage {
 	@FindBy(xpath = "//h2[@class='page-title pull-left']")
 	public WebElement testTitle;
 	
-	
-	
-	//span[@class='student-result-percent']
 	Map<Integer , List<String>> itemDetail = new HashMap<Integer, List<String>>();    
 
 	List <String> itemInfo = new ArrayList <String> ();
