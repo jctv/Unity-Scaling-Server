@@ -92,6 +92,10 @@ public class Delivery extends BasePage {
 	@FindBy(xpath = "//i[@class='button_opt fa fa-minus-square-o fa-2x lineReader']")
 	public WebElement lineReaderIcon;
 	
+	@FindBy(xpath = "//i[@class='button_opt fa fa-search fa-2x magnifier']")
+	public WebElement magifierIcon;
+	
+	
 	@FindBy(xpath = "//i[@class='fa fa-chevron-right']")
 	public WebElement rightArrow;
 	
@@ -106,6 +110,12 @@ public class Delivery extends BasePage {
 	
 	@FindBy(xpath = "//div[@class='access-line-reader-container']")
 	public WebElement lineReaderBlock;
+	
+	@FindBy(xpath = "//div[@class='access-magnifier-widget ui-resizable ui-draggable']")
+	public WebElement magnifierPopup;
+	
+	@FindBy(xpath = "//div[@class='access-magnifier-view-content']")
+	public WebElement magnifierViewContentScal;
 	
 	
 
@@ -614,6 +624,49 @@ public class Delivery extends BasePage {
 				
 			}
 
+		} catch (Exception e) {
+
+		}
+
+	}
+
+	
+	public void  verifyMagnifierPopUpToggling(String scale) {
+		try {
+			for (int item = 1; item <= itemsInTest.size(); item++) {
+				waitForElementAndClick(itemsInTest.get(item - 1));
+				customeWaitTime(2);
+				waitForElementAndClick(magifierIcon);
+				customeWaitTime(2);
+				if (waitForElementVisible(magnifierPopup)) {
+					System.out.println("Magnifier tool appear ");
+					 if(waitAndGetElementAttribute(magnifierViewContentScal ,"style").contains(scale)){
+							System.out.println("Magnifier tool has scale  " + scale );
+
+					 }else{
+							System.out.println("Magnifier Scale is not proper ");
+						 
+					 }
+
+				} else {
+					System.out.println("Error - Magnifier tool not pop ups");
+
+				}
+				
+				waitForElementAndClick(magifierIcon);
+				customeWaitTime(2);
+				if (!waitForElementVisible(magnifierPopup)) {
+					System.out.println("Magnifier tool - hide");
+
+				} else {
+					System.out.println("Error - while hiding Magnifier tool");
+				}
+			}
+			
+			waitForElementAndClick(exitButton);
+			customeWaitTime(2);
+			waitForElementAndClick(globalModalOKCancelSaveButton);
+			customeWaitTime(2);
 		} catch (Exception e) {
 
 		}

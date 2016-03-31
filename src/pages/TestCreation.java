@@ -74,7 +74,10 @@ public class TestCreation extends BasePage {
 	@FindBy(id = "line_reader-check")
 	public WebElement lineReaderToolCheckBox;
 	
-
+	@FindBy(id = "magnification-check")
+	public WebElement magnificationCheckBox;
+	
+	
 	@FindBy(xpath = "//*[@id='book']/option[7]")
 	public WebElement bookOption;
 
@@ -602,6 +605,10 @@ public class TestCreation extends BasePage {
 					waitForElementAndClick(lineReaderToolCheckBox);
 					break;	
 					
+				case "Magnification":
+					waitForElementAndClick(magnificationCheckBox);
+					break;	
+					
 				case "Additional Tools":
 					// TODO
 					break;
@@ -616,6 +623,25 @@ public class TestCreation extends BasePage {
 
 		}
 
+	}
+	
+	public void setMagnificationScale(String scale){
+		try{
+		  waitForElementAndClick(toolsButton); 
+
+		  WebElement magnifierScale = driver.findElement(By
+					.xpath("//input[@value='"+scale+"']"));
+		  waitForElementAndClick(magnifierScale);
+		  customeWaitTime(5);
+		  waitForElementAndClick(toolSaveButton);
+		 customeWaitTime(5);
+		 waitForElementAndClick(globalModalInfoOkButton);
+		  
+		}catch(Exception e){
+			
+			
+		}
+		
 	}
 
 }

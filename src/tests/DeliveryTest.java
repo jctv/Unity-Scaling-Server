@@ -54,12 +54,20 @@ public class DeliveryTest extends BaseTest {
 	String itemName ;
 	String testName;
 	String testName1;
+	
+	String testName2;
+	String testName3;
+	String testName4;
+
 	String testBank;
 	String itemBank;
 	String copiedItemName;
 	
 	String testid;
 	String testid1;
+	String testid2;
+	String testid3;
+	String testid4;
 
 	String testroster;
 	String testschool;
@@ -69,6 +77,11 @@ public class DeliveryTest extends BaseTest {
 	String choiceCorrectAnswer;
 	
 	Schedule sechedulePage;
+	
+	String scale_1_5x = "1.5";
+	String scale_2_5x = "2.5";
+	String scale_2_0x = "2.0";
+
 	
 	int itemCount = 5;
 	long timestamp;
@@ -133,30 +146,88 @@ public class DeliveryTest extends BaseTest {
 				testBank, itemBank, itemCount);
 		
 		testName1 =  "T_Line_" + timestamp;
+		
 		testCreationPage.createTestWithMultipleItems(testName1,
 				testBank, itemBank, itemCount);
 		customeWaitTime(5);
 		
+        testName2 =  "T_Magnifier1_5x_" + timestamp;
+		
+		testCreationPage.createTestWithMultipleItems(testName2,
+				testBank, itemBank, itemCount);
+		customeWaitTime(5);
+		
+		testName3 =  "T_Magnifier2_0x_" + timestamp;
+		testCreationPage.createTestWithMultipleItems(testName3,
+					testBank, itemBank, itemCount);
+		customeWaitTime(5);
+			
+		testName4 =  "T_Magnifier2_5x_" + timestamp;
+		testCreationPage.createTestWithMultipleItems(testName4,
+					testBank, itemBank, itemCount);
+		customeWaitTime(5);
+		
+		
 		testCreationPage.searchTest(testName);
+		testid = testCreationPage.getTestId();
 		testCreationPage.waitForElementAndClick(testCreationPage.editIconList); 
 		customeWaitTime(5);
-		testid = testCreationPage.getTestId();
 		testCreationPage.enableTestTools("Answer Masking");
 		
 		testCreationPage.searchTest(testName1);
-		testCreationPage.waitForElementAndClick(testCreationPage.editIconList); 
 		testid1 = testCreationPage.getTestId();
+		testCreationPage.waitForElementAndClick(testCreationPage.editIconList); 
 		testCreationPage.enableTestTools("Line Reader");
-
+		
+		testCreationPage.searchTest(testName2);
+		testid2 = testCreationPage.getTestId();
+		testCreationPage.waitForElementAndClick(testCreationPage.editIconList); 
+		testCreationPage.enableTestTools("Magnification");
+		testCreationPage.setMagnificationScale(scale_1_5x);
+		
+		testCreationPage.searchTest(testName3);
+		testid3 = testCreationPage.getTestId();
+		testCreationPage.waitForElementAndClick(testCreationPage.editIconList); 
+		testCreationPage.enableTestTools("Magnification");
+		testCreationPage.setMagnificationScale(scale_2_0x);
+		
+		testCreationPage.searchTest(testName4);
+		testid4 = testCreationPage.getTestId();
+		testCreationPage.waitForElementAndClick(testCreationPage.editIconList); 
+		testCreationPage.enableTestTools("Magnification");
+		testCreationPage.setMagnificationScale(scale_2_5x);
+		
+		
 		returnToDashboard();
 		customeWaitTime(5);
 		sechedulePage = dashBoardPage.goToSchedule();
 		waitTime();
 	    System.out.println("******** Event creation ********");
-	   sechedulePage.scheduleTest(testschool,
+	     sechedulePage.scheduleTest(testschool,
 			   testroster, "N/A", testName, "Red", "120",
 		"100%", "Yes");
 		waitTime();
+		
+		 sechedulePage.scheduleTest(testschool,
+				   testroster, "N/A", testName1, "Red", "120",
+			"100%", "Yes");
+			waitTime();
+			
+			 sechedulePage.scheduleTest(testschool,
+					   testroster, "N/A", testName2, "Red", "120",
+				"100%", "Yes");
+				waitTime();
+				
+				
+				 sechedulePage.scheduleTest(testschool,
+						   testroster, "N/A", testName3, "Red", "120",
+					"100%", "Yes");
+					waitTime();
+					 sechedulePage.scheduleTest(testschool,
+							   testroster, "N/A", testName4, "Red", "120",
+						"100%", "Yes");
+						waitTime();		
+					
 	   loginPage = sechedulePage.logOut();
 	
 	}
@@ -171,7 +242,7 @@ public class DeliveryTest extends BaseTest {
 		
 	}
 	
-	@Test(priority = 0)
+	@Test(priority = 2)
 	public void testAnswerMaskingTool(){
 		    customeWaitTime(5);
 		    System.out.println("******** logging as the student ********");
@@ -194,7 +265,7 @@ public class DeliveryTest extends BaseTest {
 	}
 	
 	
-	@Test(priority = 2)
+	@Test(priority = 3)
 	public void testLineReaderTool(){
 		    customeWaitTime(5);
 		    System.out.println("******** logging as the student ********");
@@ -211,7 +282,25 @@ public class DeliveryTest extends BaseTest {
 
 	}
 	
-	
+	@Test(priority = 4)
+	public void testMagnifierTool(){
+		    customeWaitTime(5);
+		    System.out.println("******** logging as the student ********");
+		    dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testStudent1"),unitytestdata.getProperty("genericPassword"));
+			waitTime();
+			dashBoardPage.addTiles();
+			waitTime();
+			deliveryPage = dashBoardPage.goToDelivery();
+			deliveryPage.startScheduledTest(testid2);
+			softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.magifierIcon));
+			deliveryPage.verifyMagnifierPopUpToggling(scale_1_5x);
+			deliveryPage.startScheduledTest(testid3);
+			softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.magifierIcon));
+			deliveryPage.verifyMagnifierPopUpToggling(scale_2_0x);
+			deliveryPage.startScheduledTest(testid4);
+			softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.magifierIcon));
+			deliveryPage.verifyMagnifierPopUpToggling(scale_2_5x);
+	}
 	
 	
 	
@@ -225,7 +314,7 @@ public class DeliveryTest extends BaseTest {
 	 * Verify the confirmation message
 	 */
 	
-	@Test(priority = 4)
+	@Test(priority = 5)
 	public void testVerifyExitMessgage(){
 		driver.get(url);
 		loginPage = new Login(driver);
