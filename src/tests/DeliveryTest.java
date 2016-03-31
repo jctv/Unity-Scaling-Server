@@ -234,6 +234,8 @@ public class DeliveryTest extends BaseTest {
 	
 	@Test(priority = 1)
 	public void  takeTest(){
+		driver.get(url);
+	    loginPage = new Login(driver);
 		customeWaitTime(5);
 		deliveryPage = dashBoardPage.goToDelivery();
 		customeWaitTime(5);
@@ -244,6 +246,8 @@ public class DeliveryTest extends BaseTest {
 	
 	@Test(priority = 2)
 	public void testAnswerMaskingTool(){
+			driver.get(url);
+			loginPage = new Login(driver);
 		    customeWaitTime(5);
 		    System.out.println("******** logging as the student ********");
 		    dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testStudent1"),unitytestdata.getProperty("genericPassword"));
@@ -267,6 +271,8 @@ public class DeliveryTest extends BaseTest {
 	
 	@Test(priority = 3)
 	public void testLineReaderTool(){
+		driver.get(url);
+	    loginPage = new Login(driver);
 		    customeWaitTime(5);
 		    System.out.println("******** logging as the student ********");
 		    dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testStudent1"),unitytestdata.getProperty("genericPassword"));
@@ -284,6 +290,8 @@ public class DeliveryTest extends BaseTest {
 	
 	@Test(priority = 4)
 	public void testMagnifierTool(){
+		    driver.get(url);
+		    loginPage = new Login(driver);
 		    customeWaitTime(5);
 		    System.out.println("******** logging as the student ********");
 		    dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testStudent1"),unitytestdata.getProperty("genericPassword"));
@@ -296,7 +304,7 @@ public class DeliveryTest extends BaseTest {
 			deliveryPage.verifyMagnifierPopUpToggling(scale_1_5x);
 			deliveryPage.startScheduledTest(testid3);
 			softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.magifierIcon));
-			deliveryPage.verifyMagnifierPopUpToggling(scale_2_0x);
+			deliveryPage.verifyMagnifierPopUpToggling(scale_2_0x.split(".")[0]);
 			deliveryPage.startScheduledTest(testid4);
 			softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.magifierIcon));
 			deliveryPage.verifyMagnifierPopUpToggling(scale_2_5x);
