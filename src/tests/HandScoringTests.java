@@ -22,6 +22,7 @@ import pages.Items;
 import pages.ItemsBank;
 import pages.Login;
 import pages.Reports;
+import pages.Role;
 import pages.Schedule;
 import pages.TestCreation;
 import pages.TestsBank;	
@@ -38,6 +39,8 @@ public class HandScoringTests extends BaseTest {
 	ItemImport itemsImportPage;
 	HandScoring handScoringPage;
 	Delivery deliveryPage;
+	Role rolePage;
+
 
 	String itemBankName ;
 	String itemName ;
@@ -47,6 +50,7 @@ public class HandScoringTests extends BaseTest {
 	String testName2;
 	String testName3;
 	String testName4;
+	String testName5;
 
 	String extendedTextEntry;
 	String testSchool;
@@ -54,6 +58,7 @@ public class HandScoringTests extends BaseTest {
 	String createdTestId2;
 	String createdTestId3;
 	String createdTestId4;
+	String createdTestId5;
 	String notStartedTest;
 	
 	String extendedTextAnswer;
@@ -96,6 +101,19 @@ public class HandScoringTests extends BaseTest {
 	public void setUp() {
 		driver.get(url);
 		loginPage = new Login(driver);
+		
+		System.out.println("******** logging as the  admin  ********");
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testDomainAdmin"),
+				unitytestdata.getProperty("defaultAutoPassword"));
+		dashBoardPage.addTiles();
+		waitTime();
+		rolePage = dashBoardPage.goToRole();
+		rolePage.enableTile("Teacher", "handscoring", true);
+		
+		rolePage.navigateToHomePageByBackButton();
+		
+		loginPage = rolePage.logOut();
+		
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testDomainTeacher"),
 				unitytestdata.getProperty("genericPassword"));
 		
@@ -124,6 +142,9 @@ public class HandScoringTests extends BaseTest {
 		testName2 = "T_2_" + timestamp;
 		testName3 = "T_3_" + timestamp;
 		testName4 = "Dont start_4_" + timestamp;
+		
+		testName5 = "HandScore" + timestamp;
+
 
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.createTestWithMultipleItems(testName1,
@@ -134,7 +155,11 @@ public class HandScoringTests extends BaseTest {
 				testBankName, itemBankName, itemCount);
 		testCreationPage.createTestWithMultipleItems(testName4,
 				testBankName, itemBankName, itemCount);
+		
+		testCreationPage.createTestWithMultipleItems(testName5,
+				testBankName, itemBankName, itemCount);
 		customeWaitTime(5);
+		
 		testCreationPage.searchTest(testName1);
 		createdTestId1 = testCreationPage.getTestId();
 		testCreationPage.searchTest(testName2);
@@ -143,6 +168,10 @@ public class HandScoringTests extends BaseTest {
 		createdTestId3 = testCreationPage.getTestId();
 		testCreationPage.searchTest(testName4);
 		createdTestId4 = testCreationPage.getTestId();
+		
+		testCreationPage.searchTest(testName5);
+		createdTestId5 = testCreationPage.getTestId();
+		
 		returnToDashboard();
 		customeWaitTime(5);
 		sechedulePage = dashBoardPage.goToSchedule();
@@ -159,6 +188,9 @@ public class HandScoringTests extends BaseTest {
 				"100%", "Yes");
 		sechedulePage.scheduleTest(testSchool,
 				testrosterName, "N/A", testName4, "Red", "120",
+				"100%", "Yes");
+		sechedulePage.scheduleTest(testSchool,
+				testrosterName, "N/A", testName5, "Red", "120",
 				"100%", "Yes");
 		waitTime();
 		returnToDashboard();
@@ -183,6 +215,9 @@ public class HandScoringTests extends BaseTest {
 		deliveryPage.takeTest(true , 1 ,extendedTextEntry , extendedTextAnswer);
 		deliveryPage.startScheduledTest(createdTestId3);
 		deliveryPage.exitAndFinishTest();
+		
+		deliveryPage.startScheduledTest(createdTestId4);
+		deliveryPage.takeTest(true , 1 ,extendedTextEntry , extendedTextAnswer);
 		//
 		
 		softAssert.assertEquals(testName1, deliveryPage.getTestinHistoryTable(createdTestId1));
@@ -239,8 +274,8 @@ public class HandScoringTests extends BaseTest {
 		reportPage.filterReportByContentArea("N/A");
 		waitTime();
 		reportPage.openTestEventDetail(testName1);
-		softAssert.assertEquals("completed", reportPage.getScoreStatusinTestDetail("student11"));
-		reportPage.verifyStudentHandScore("student11", 10, "P");
+		softAssert.assertEquals("completed", reportPage.getScoreStatusinTestDetail("urostudent1"));
+		reportPage.verifyStudentHandScore("urostudent1", 10, "P");
 		handScoringPage = reportPage.navigateToHandScore();
 		handScoringPage.scoreTest(testName1, 1, 10, "1");
 		handScoringPage.backToDashboard();
@@ -253,8 +288,8 @@ public class HandScoringTests extends BaseTest {
 		waitTime();
 		reportPage.openTestEventDetail(testName1);
 		customeWaitTime(5);
-		softAssert.assertEquals("scored", reportPage.getScoreStatusinTestDetail("student11"));
-		reportPage.verifyStudentHandScore("student11", 10, "1");
+		softAssert.assertEquals("scored", reportPage.getScoreStatusinTestDetail("urostudent1"));
+		reportPage.verifyStudentHandScore("urostudent1", 10, "1");
 		reportPage.logOut();
 		
 		
@@ -299,8 +334,8 @@ public class HandScoringTests extends BaseTest {
 		waitTime();
 		reportPage.openTestEventDetail(testName2);
 		customeWaitTime(5);
-		softAssert.assertEquals("scored", reportPage.getScoreStatusinTestDetail("student11"));
-		reportPage.verifyStudentHandScore("student11", 10, "1");
+		softAssert.assertEquals("scored", reportPage.getScoreStatusinTestDetail("urostudent1"));
+		reportPage.verifyStudentHandScore("urostudent1", 10, "1");
 		reportPage.logOut();
 
 	}
@@ -340,8 +375,8 @@ public class HandScoringTests extends BaseTest {
 		waitTime();
 		reportPage.openTestEventDetail(testName3);
 		customeWaitTime(5);
-		softAssert.assertEquals("scored", reportPage.getScoreStatusinTestDetail("student11"));
-		reportPage.verifyStudentHandScore("student11", 10, "1");
+		softAssert.assertEquals("scored", reportPage.getScoreStatusinTestDetail("urostudent1"));
+		reportPage.verifyStudentHandScore("urostudent1", 10, "1");
 		reportPage.logOut();
 
 	}
@@ -393,5 +428,61 @@ public class HandScoringTests extends BaseTest {
 			handScoringPage.clickOnEditTest(i);
 			
 		}
+	}
+	
+	@Test(priority = 5)
+	public void testHandScoreLinkEnabled(){
+		/*System.out.println("******** logging as the  admin  ********");
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testDomainAdmin"),
+				unitytestdata.getProperty("defaultAutoPassword"));
+		dashBoardPage.addTiles();
+		waitTime();
+		rolePage = dashBoardPage.goToRole();
+		rolePage.enableTile("Teacher", "handscoring", true);
+		
+		rolePage.navigateToHomePageByBackButton();
+		
+		loginPage = rolePage.logOut();*/
+		
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testDomainTeacher"),
+				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage.addTiles();
+		reportPage = dashBoardPage.goToReports();
+		waitTime();
+		reportPage.filterReportByClassRoster(testrosterName);
+		waitTime();
+		reportPage.filterReportByContentArea("N/A");
+		waitTime();
+		reportPage.openTestEventDetail(testName4);
+		customeWaitTime(5);
+		softAssert.assertTrue(reportPage.waitForElementVisible(reportPage.HandscoreThisTestButton));
+
+		
+	}
+	
+	@Test(priority = 6)
+	public void testHandScoreLinkDisbled(){
+		System.out.println("******** logging as the  admin  ********");
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testDomainAdmin"),
+				unitytestdata.getProperty("defaultAutoPassword"));
+		dashBoardPage.addTiles();
+		waitTime();
+		rolePage = dashBoardPage.goToRole();
+		rolePage.enableTile("Teacher", "handscoring", false);
+		rolePage.navigateToHomePageByBackButton();
+		loginPage = rolePage.logOut();
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testDomainTeacher"),
+				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage.addTiles();
+		reportPage = dashBoardPage.goToReports();
+		waitTime();
+		reportPage.filterReportByClassRoster(testrosterName);
+		waitTime();
+		reportPage.filterReportByContentArea("N/A");
+		waitTime();
+		reportPage.openTestEventDetail(testName4);
+		customeWaitTime(5);
+		softAssert.assertFalse(reportPage.waitForElementVisible(reportPage.HandscoreThisTestButton));
+		
 	}
 }

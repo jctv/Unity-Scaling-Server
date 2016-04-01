@@ -158,7 +158,7 @@ public class ItemImportTest extends BaseTest {
 	public void testverifyItemImportTileAdded() {
 		rolePage = dashBoardPage.goToRole();
 		waitTime();
-		rolePage.enableTile("item_import");
+		rolePage.enableTile("System Administrator", "item_import" , true);
 		rolePage.enableCreatePermissionItemImportTile();
 		dashBoardPage = rolePage.backToDashboard();
 		String itemImport = dashBoardPage.getAvailableTile("Item Import");

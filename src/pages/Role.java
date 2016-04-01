@@ -46,20 +46,29 @@ public class Role extends BasePage {
 	@FindBy(id = "roleCreateCancel")
 	public WebElement roleCreateCancelButton;
 
-	public void enableTile(String id) {
+	public void enableTile(String user , String id , boolean isEnabled) {
 		try {
-			waitForElementAndClick(systemAdminAddTileButton);
+			
+			WebElement userRoleAddButton = driver.findElement(By
+					.xpath("//td[text()='"+ user +"']/..//td[@class='watable-col-add_tile']/button"));
+			waitTime();
+			waitForElementAndClick(userRoleAddButton);
 			waitTime();
 			WebElement tileId = driver.findElement(By
 					.xpath("//input[@data-id='" + id + "']"));
-			if (!tileId.isSelected()) {
-				tileId.click();
+			if(isEnabled){
+				if (!tileId.isSelected()) {
+					tileId.click();
+				}
+			}else{
+				if (tileId.isSelected()) {
+					tileId.click();
+			 }
 			}
 			waitForElementAndClick(globalModalOKCancelSaveButton);
 
 		} catch (Exception e) {
 			System.out.println("Unable to select  the Tile ");
-
 		}
 
 	}
