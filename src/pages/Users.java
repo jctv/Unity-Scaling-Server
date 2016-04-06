@@ -445,4 +445,25 @@ public class Users extends BasePage {
 		waitForElementAndClick(searchMine);
 		return waitAndGetElementText(encouteredRecords).contains(Integer.toString(this.listOfResults().size()));
 	}
+	
+    /**
+     * 
+     * 
+     * @param user
+     */
+	public void deleteUser(String user){
+		try{
+			searchUser(user);
+			waitTime();
+			waitForElementAndClick(deleteIcon);
+			statusMessage = globalModalInfoBody.getText();
+			waitForElementAndClick(globalModalDeleteButton);
+
+		}catch(Exception e){
+			
+			
+		}
+		
+		
+	}
 }
