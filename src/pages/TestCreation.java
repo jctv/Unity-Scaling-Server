@@ -213,6 +213,8 @@ public class TestCreation extends BasePage {
 	@FindBy(xpath = "//button[@class='btn btn-primary pull-right btn-sm tools-save']")
 	public WebElement toolSaveButton;
 	
+	@FindBy(id = "magnification-time")
+	public WebElement selectMagnificationTime;
 	
 	
 	
@@ -631,7 +633,8 @@ public class TestCreation extends BasePage {
 
 		  WebElement magnifierScale = driver.findElement(By
 					.xpath("//input[@value='"+scale+"']"));
-		  waitForElementAndClick(magnifierScale);
+		  //waitForElementAndClick(magnifierScale);
+		  selectOption(selectMagnificationTime , scale);
 		  customeWaitTime(5);
 		  waitForElementAndClick(toolSaveButton);
 		 customeWaitTime(5);
