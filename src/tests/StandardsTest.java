@@ -93,11 +93,7 @@ public class StandardsTest extends BaseTest{
 		
 		interactionChoice = unitytestdata.getProperty("interactionChoice");
 		simpleMatchScoreProfile = unitytestdata.getProperty("simpleMatchScoreProfile");
-		choiceCorrectAnswer = unitytestdata.getProperty("choiceCorrectAnswer");
-
-		
-		
-		
+		choiceCorrectAnswer = unitytestdata.getProperty("choiceCorrectAnswer");		
 	}
 	
 	@BeforeClass

@@ -23,7 +23,7 @@
     <div class="top-banner-root">
       <span class="top-banner-title-font">Test results</span>
       <br/>
-      <span class="top-banner-font-1">1 suite</span>
+      <span class="top-banner-font-1">1 suite, 2 failed tests</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -37,7 +37,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" class="navigator-link" panel-name="suite-TestSuite">
-              <span class="suite-name border-passed">TestSuite</span>
+              <span class="suite-name border-failed">TestSuite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -48,7 +48,7 @@
               <ul>
                 <li>
                   <a href="#" class="navigator-link " panel-name="test-xml-TestSuite">
-                    <span>D:\Projects\Unity-Scaling-Server\Config.xml</span>
+                    <span>D:\Andrea\Proyectos\Unity-Scaling-Server\Config.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -90,7 +90,26 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method,   1 passed</span>
+                    <span class="method-stats">3 methods, 2 failed,   1 passed</span>
+                  </li>
+                  <li>
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-TestSuite" class="hide-methods failed suite-TestSuite"> (hide)</a> <!-- hide-methods failed suite-TestSuite -->
+                      <a href="#" panel-name="suite-TestSuite" class="show-methods failed suite-TestSuite"> (show)</a> <!-- show-methods failed suite-TestSuite -->
+                    </span>
+                    <div class="method-list-content failed suite-TestSuite">
+                      <span>
+                        <img width="3%" src="failed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-TestSuite" title="tests.TestCreationTest" hash-for-method="testAddtest">testAddtest</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="failed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-TestSuite" title="tests.TestCreationTest" hash-for-method="testItemAlertMessage">testItemAlertMessage</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content failed suite-TestSuite -->
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -101,7 +120,7 @@
                     <div class="method-list-content passed suite-TestSuite">
                       <span>
                         <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-TestSuite" title="tests.HappyPathTest" hash-for-method="runPath">runPath</a> <!-- method navigator-link -->
+                        <a href="#" class="method navigator-link" panel-name="suite-TestSuite" title="tests.TestCreationTest" hash-for-method="testCreatTestWithAnswerEliminatorTool">testCreatTestWithAnswerEliminatorTool</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-TestSuite -->
@@ -116,17 +135,68 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-TestSuite" class="panel TestSuite">
-          <div class="suite-TestSuite-class-passed">
+          <div class="suite-TestSuite-class-failed">
             <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
-              <span class="class-name">tests.HappyPathTest</span>
+              <img src="failed.png"/>
+              <span class="class-name">tests.TestCreationTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="runPath">
-                  </a> <!-- runPath -->
-                  <span class="method-name">runPath</span>
+                  <a name="testAddtest">
+                  </a> <!-- testAddtest -->
+                  <span class="method-name">testAddtest</span>
+                  <div class="stack-trace">java.lang.AssertionError: expected [auto_test1459866546099] but found [Happy Path test]
+	at tests.TestCreationTest.testAddtest(TestCreationTest.java:199)
+... Removed 29 stack frames
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testItemAlertMessage">
+                  </a> <!-- testItemAlertMessage -->
+                  <span class="method-name">testItemAlertMessage</span>
+                  <div class="stack-trace">org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;.//*[@id=&apos;quickViewContentCreate&apos;]/div/form/div[1]/div/button&quot;}
+  (Session info: chrome=49.0.2623.87)
+  (Driver info: chromedriver=2.21.371459 (36d3d07f660ff2bc1bf28a75d1cdabed0983e7c4),platform=Windows NT 10.0 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 21 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: &apos;2.45.0&apos;, revision: &apos;5017cb8&apos;, time: &apos;2015-02-26 23:59:50&apos;
+System info: host: &apos;Andres-PC&apos;, ip: &apos;192.168.56.1&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_73&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, chrome={chromedriverVersion=2.21.371459 (36d3d07f660ff2bc1bf28a75d1cdabed0983e7c4), userDataDir=C:\Users\Andrea\AppData\Local\Temp\scoped_dir9368_23450}, takesHeapSnapshot=true, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=49.0.2623.87, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 95438bd8839eb194e7c742f40db92833
+*** Element info: {Using=xpath, value=.//*[@id=&apos;quickViewContentCreate&apos;]/div/form/div[1]/div/button}
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:352)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:449)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:357)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:59)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:37)
+	at com.sun.proxy.$Proxy10.click(Unknown Source)
+	at pages.TestCreation.selectTestBank(TestCreation.java:478)
+	at tests.TestCreationTest.testItemAlertMessage(TestCreationTest.java:116)
+... Removed 27 stack frames
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-TestSuite-class-failed -->
+          <div class="suite-TestSuite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">tests.TestCreationTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="testCreatTestWithAnswerEliminatorTool">
+                  </a> <!-- testCreatTestWithAnswerEliminatorTool -->
+                  <span class="method-name">testCreatTestWithAnswerEliminatorTool</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -134,25 +204,25 @@
         </div> <!-- panel TestSuite -->
         <div panel-name="test-xml-TestSuite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">D:\Projects\Unity-Scaling-Server\Config.xml</span>
+            <span class="header-content">D:\Andrea\Proyectos\Unity-Scaling-Server\Config.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE suite SYSTEM &quot;http://testng.org/testng-1.0.dtd&quot;&gt;
 &lt;suite name=&quot;TestSuite&quot;&gt;
-  &lt;parameter name=&quot;hubAddress&quot; value=&quot;${hubAddress}&quot;/&gt;
-  &lt;parameter name=&quot;platform&quot; value=&quot;Any&quot;/&gt;
-  &lt;parameter name=&quot;waitingTime&quot; value=&quot;30&quot;/&gt;
-  &lt;parameter name=&quot;filePath&quot; value=&quot;D:\Selenium\chromedriver.exe&quot;/&gt;
-  &lt;parameter name=&quot;browser&quot; value=&quot;chrome&quot;/&gt;
-  &lt;parameter name=&quot;userName&quot; value=&quot;bil/ctribin&quot;/&gt;
-  &lt;parameter name=&quot;type&quot; value=&quot;Local&quot;/&gt;
   &lt;parameter name=&quot;password&quot; value=&quot;ctribin1&quot;/&gt;
+  &lt;parameter name=&quot;browser&quot; value=&quot;chrome&quot;/&gt;
+  &lt;parameter name=&quot;filePath&quot; value=&quot;D:\Drivers\chromedriver.exe&quot;/&gt;
+  &lt;parameter name=&quot;waitingTime&quot; value=&quot;30&quot;/&gt;
+  &lt;parameter name=&quot;type&quot; value=&quot;Local&quot;/&gt;
+  &lt;parameter name=&quot;userName&quot; value=&quot;bil/ctribin&quot;/&gt;
   &lt;parameter name=&quot;url&quot; value=&quot;http://uat.8pnds.com/login.html&quot;/&gt;
+  &lt;parameter name=&quot;platform&quot; value=&quot;Any&quot;/&gt;
+  &lt;parameter name=&quot;hubAddress&quot; value=&quot;${hubAddress}&quot;/&gt;
   &lt;test name=&quot;Unity&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;tests.HappyPathTest&quot;/&gt;
+      &lt;class name=&quot;tests.TestCreationTest&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Unity --&gt;
 &lt;/suite&gt; &lt;!-- TestSuite --&gt;
@@ -192,16 +262,24 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(1);
+data.addRows(3);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'runPath')
-data.setCell(0, 2, 'tests.HappyPathTest')
-data.setCell(0, 3, 1162199);
+data.setCell(0, 1, 'testAddtest')
+data.setCell(0, 2, 'tests.TestCreationTest')
+data.setCell(0, 3, 236631);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'testItemAlertMessage')
+data.setCell(1, 2, 'tests.TestCreationTest')
+data.setCell(1, 3, 50461);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'testCreatTestWithAnswerEliminatorTool')
+data.setCell(2, 2, 'tests.TestCreationTest')
+data.setCell(2, 3, 1);
 window.suiteTableData['TestSuite']= { tableData: data, tableDiv: 'times-div-TestSuite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 19 minutes</span>
+              <span class="suite-total-time">Total running time: 4 minutes</span>
               <div id="times-div-TestSuite">
               </div> <!-- times-div-TestSuite -->
             </div> <!-- times-div -->
@@ -227,30 +305,62 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">tests.HappyPathTest</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">tests.TestCreationTest</div> <!-- chronological-class-name -->
               <div class="configuration-suite before">
-                <span class="method-name">suiteSetUp(org.testng.TestRunner@746ebcbf)</span>
+                <span class="method-name">suiteSetUp(org.testng.TestRunner@6e01f9b0)</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-suite before -->
+              <div class="configuration-test before">
+                <span class="method-name">loadUnityMessagesProperty</span>
+                <span class="method-start">18 ms</span>
+              </div> <!-- configuration-test before -->
               <div class="configuration-class before">
-                <span class="method-name">classSetUp(org.testng.TestRunner@746ebcbf)</span>
-                <span class="method-start">14 ms</span>
+                <span class="method-name">classSetUp(org.testng.TestRunner@6e01f9b0)</span>
+                <span class="method-start">27 ms</span>
               </div> <!-- configuration-class before -->
               <div class="configuration-method before">
                 <span class="method-name">setUp</span>
-                <span class="method-start">2819 ms</span>
+                <span class="method-start">2602 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <span class="method-name">runPath</span>
-                <span class="method-start">4108 ms</span>
+                <img src="failed.png">
+                </img>
+                <span class="method-name">testAddtest</span>
+                <span class="method-start">40309 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">1166308 ms</span>
+                <span class="method-start">276942 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">276943 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testCreatTestWithAnswerEliminatorTool</span>
+                <span class="method-start">311193 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">311195 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">311197 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">testItemAlertMessage</span>
+                <span class="method-start">344835 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">395303 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-class after">
                 <span class="method-name">classTearDown</span>
-                <span class="method-start">1166309 ms</span>
+                <span class="method-start">395303 ms</span>
               </div> <!-- configuration-class after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

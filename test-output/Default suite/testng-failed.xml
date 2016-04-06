@@ -3,15 +3,16 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="tests.StandardsTest">
+      <class name="tests.TestCreationTest">
         <methods>
-          <include name="classSetUp"/>
-          <include name="testVerifyStandardResourcesForStudent"/>
-          <include name="testViewInstructionalResources"/>
           <include name="suiteSetUp"/>
           <include name="loadUnityMessagesProperty"/>
+          <include name="testAddtest"/>
+          <include name="testItemAlertMessage"/>
+          <include name="classSetUp"/>
+          <include name="testCreatTestWithAnswerEliminatorTool"/>
         </methods>
-      </class> <!-- tests.StandardsTest -->
+      </class> <!-- tests.TestCreationTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

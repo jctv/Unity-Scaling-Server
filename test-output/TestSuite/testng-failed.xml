@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Failed suite [TestSuite]">
+  <parameter name="password" value="ctribin1"/>
+  <parameter name="browser" value="chrome"/>
+  <parameter name="filePath" value="D:\Drivers\chromedriver.exe"/>
+  <parameter name="waitingTime" value="30"/>
+  <parameter name="type" value="Local"/>
+  <parameter name="userName" value="bil/ctribin"/>
+  <parameter name="url" value="http://uat.8pnds.com/login.html"/>
   <parameter name="platform" value="Any"/>
   <parameter name="hubAddress" value="${hubAddress}"/>
-  <parameter name="waitingTime" value="30"/>
-  <parameter name="filePath" value="D:\Selenium\chromedriver.exe"/>
-  <parameter name="browser" value="chrome"/>
-  <parameter name="userName" value="bil/ctribin"/>
-  <parameter name="type" value="Local"/>
-  <parameter name="password" value="ctribin1"/>
-  <parameter name="url" value="http://uat.8pnds.com/login.html"/>
   <test name="Unity(failed)">
     <classes>
-      <class name="tests.HappyPathTest">
+      <class name="tests.TestCreationTest">
         <methods>
-          <include name="classSetUp"/>
-          <include name="runPath"/>
-          <include name="classTearDown"/>
-          <include name="suiteSetUp"/>
-          <include name="tearDown"/>
           <include name="setUp"/>
+          <include name="suiteSetUp"/>
+          <include name="loadUnityMessagesProperty"/>
+          <include name="testAddtest"/>
+          <include name="testItemAlertMessage"/>
+          <include name="classSetUp"/>
+          <include name="classTearDown"/>
+          <include name="tearDown"/>
         </methods>
-      </class> <!-- tests.HappyPathTest -->
+      </class> <!-- tests.TestCreationTest -->
     </classes>
   </test> <!-- Unity(failed) -->
 </suite> <!-- Failed suite [TestSuite] -->

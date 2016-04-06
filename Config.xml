@@ -2,8 +2,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TestSuite" parallel="false">
 <parameter name="browser" value="chrome"/>
-<parameter name="filePath" value="D:\Selenium\chromedriver.exe"/> <!-- /usr/bin/google-chrome -->
-<parameter name="url" value="http://uat.8pnds.com/login.html"/>
+<parameter name="filePath" value="D:\Drivers\chromedriver.exe"/> <!-- /usr/bin/google-chrome -->
+<parameter name="url" value="http://qa.8pnds.com/login.html"/>
 <parameter name="platform" value="Any"/>
 <parameter name="type" value="Local"/>
 <parameter name="hubAddress" value="${hubAddress}"/>
@@ -13,7 +13,7 @@
 
  <test name="Unity">
     <classes>
-     <class name="tests.HappyPathTest">
+     <class name="tests.TestCreationTest">
      </class>
  </classes>
 

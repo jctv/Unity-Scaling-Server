@@ -92,10 +92,12 @@ public class Delivery extends BasePage {
 	@FindBy(xpath = "//i[@class='button_opt fa fa-minus-square-o fa-2x lineReader']")
 	public WebElement lineReaderIcon;
 	
+	@FindBy(className="answerEliminator")
+	public WebElement answerEliminatorIcon;
+	
 	@FindBy(xpath = "//i[@class='button_opt fa fa-search fa-2x magnifier']")
 	public WebElement magifierIcon;
-	
-	
+		
 	@FindBy(xpath = "//i[@class='fa fa-chevron-right']")
 	public WebElement rightArrow;
 	
