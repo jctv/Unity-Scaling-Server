@@ -76,14 +76,6 @@ public WebElement deletLastIcon;
 @FindBy(xpath = "(//button[@title='Edit'])[last()]")
 public WebElement editLastIcon;
 
-@FindBy(id = "globalModalDeleteButton")
-public WebElement globalModalDeleteButton;
-
-@FindBy(id = "globalModalInfoOkButton")
-public WebElement globalModalInfoOkButton;
-
-
-
 public String createProfile(String name, String tile, String type, String resolution, String system, String browser, String version){
 	waitForElementAndClick(createProfileButton);
 	waitForElementAndSendKeys(machineProfileCreateInputName, name);
