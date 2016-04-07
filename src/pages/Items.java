@@ -21,13 +21,6 @@ public class Items extends BasePage {
 	@FindBy(id = "contentCreateInputName")
 	public WebElement itemCreateInputName;
 
-
-	@FindBy(id = "searchAutoComplete")
-	public WebElement itemSearchAutoComplete;
-
-	@FindBy(id = "searchButton")
-	public WebElement itemSearchButton;
-
 	@FindBy(id = "contentCreateInputDescription")
 	public WebElement itemCreateInputDescription;
 
@@ -84,8 +77,6 @@ public class Items extends BasePage {
 	@FindBy(xpath = "/html/body/div[22]/div[3]/div/button[1]/span")
 	public WebElement confirmationMessageDefect;
 	
-	
-
 
 	@FindBy(id = "itemSaved")
 	public WebElement itemSaved;
@@ -147,15 +138,6 @@ public class Items extends BasePage {
 
 	@FindBy(xpath = "//*[@id='object-select']/div/div/div/div/div[5]/ul/li[2]/div/label/input")
 	public WebElement standards5;
-
-	@FindBy(id = "globalModalOKCancelSaveButton")
-	public WebElement globalModalOKCancelSaveButton;
-
-	@FindBy(xpath = "//button[@class='btn btn-xs btn-link editRow']")
-	public WebElement itemEditIcon;
-
-	@FindBy(xpath = "//button[@class='btn btn-xs btn-link deleteRow']")
-	public WebElement itemDeleteIcon;
 
 	@FindBy(id = "globalModalDelete")
 	public WebElement deleteItemPopUp;
@@ -501,10 +483,10 @@ public class Items extends BasePage {
 	}
 	public void searchItem(String item) {
 		try {
-			itemSearchAutoComplete.clear();
+			searchAutoComplete.clear();
 			customeWaitTime(10);
-			waitForElementAndSendKeys(itemSearchAutoComplete, item);
-			waitForElementAndClick(itemSearchButton);
+			waitForElementAndSendKeys(searchAutoComplete, item);
+			waitForElementAndClick(searchButton);
 			customeWaitTime(3);
 		} catch (Exception e) {
 
@@ -589,10 +571,10 @@ public class Items extends BasePage {
 
 	public void deleteItem(String itemName) {
 		try {
-			itemSearchAutoComplete.clear();
+			searchAutoComplete.clear();
 			searchItem(itemName);
 			customeWaitTime(5);
-			waitForElementAndClick(itemDeleteIcon);
+			waitForElementAndClick(deleteIconList);
 			customeWaitTime(5);
 			if (deleteItemPopUp.isDisplayed()) {
 				waitForElementAndClick(deletebuttonItemPopUp);

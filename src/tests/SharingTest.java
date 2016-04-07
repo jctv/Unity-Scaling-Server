@@ -253,7 +253,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
-		Assert.assertFalse(itemsPage.itemEditIcon.isEnabled());
+		Assert.assertFalse(itemsPage.editIconList.isEnabled());
 		/*dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
@@ -315,7 +315,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
-		Assert.assertTrue(itemsPage.itemEditIcon.isEnabled());
+		Assert.assertTrue(itemsPage.editIconList.isEnabled());
 		/*itemsPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
@@ -378,7 +378,7 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
-		Assert.assertFalse(itemsPage.itemEditIcon.isEnabled());
+		Assert.assertFalse(itemsPage.editIconList.isEnabled());
 		Assert.assertEquals(itemsPage.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
 		/*itemsPage.logOut();
 		customeWaitTime(5);
@@ -441,8 +441,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
-		Assert.assertFalse(itemsPage.itemEditIcon.isEnabled());
-        Assert.assertTrue(itemsPage.itemDeleteIcon.isEnabled());
+		Assert.assertFalse(itemsPage.editIconList.isEnabled());
+        Assert.assertTrue(itemsPage.deleteIconList.isEnabled());
         /*itemsPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"),
@@ -505,8 +505,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
-		Assert.assertTrue(itemsPage.itemEditIcon.isEnabled());
-        Assert.assertFalse(itemsPage.itemDeleteIcon.isEnabled());
+		Assert.assertTrue(itemsPage.editIconList.isEnabled());
+        Assert.assertFalse(itemsPage.deleteIconList.isEnabled());
        /* itemsPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
@@ -569,8 +569,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
-		Assert.assertTrue(itemsPage.itemEditIcon.isEnabled());
-        Assert.assertTrue(itemsPage.itemDeleteIcon.isEnabled());
+		Assert.assertTrue(itemsPage.editIconList.isEnabled());
+        Assert.assertTrue(itemsPage.deleteIconList.isEnabled());
 		Assert.assertEquals(itemsPage.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
         dashBoardPage.logOut();
 		/*customeWaitTime(5);
@@ -637,8 +637,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
-		Assert.assertTrue(itemsPage.itemEditIcon.isEnabled());
-        Assert.assertTrue(itemsPage.itemDeleteIcon.isEnabled());
+		Assert.assertTrue(itemsPage.editIconList.isEnabled());
+        Assert.assertTrue(itemsPage.deleteIconList.isEnabled());
 		Assert.assertEquals(itemsPage.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
 		itemNameByTeacher = "I1_"  + itemBankName;
 		
@@ -655,7 +655,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		Assert.assertEquals(itemsBankPage.itemCount.getText(),"2","Verifying the Item count after adding item in shared bank");
-	/*	itemsBankPage.viewIcon.click();
+	/*	itemsBankPage.previewIconList.click();
 		itemsBankPage.deleteItemBank(itemBankName);
 		//itemsBankPage.logOut();
 		returnToDashboard();*/
@@ -715,8 +715,8 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		itemsPage = dashBoardPage.goToItems();
 		itemsPage.searchItem(itemName);
-		Assert.assertTrue(itemsPage.itemEditIcon.isEnabled());
-        Assert.assertTrue(itemsPage.itemDeleteIcon.isEnabled());
+		Assert.assertTrue(itemsPage.editIconList.isEnabled());
+        Assert.assertTrue(itemsPage.deleteIconList.isEnabled());
 		Assert.assertEquals(itemsPage.getSharedItemBank(itemBankName),itemBankName ,"Verifying Shared Item bank is available in Item bank drop down");
 		itemsPage.deleteItem(itemName);
         dashBoardPage.logOut();	
@@ -731,7 +731,7 @@ public class SharingTest extends BaseTest {
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		customeWaitTime(5);
 		Assert.assertEquals(itemsBankPage.itemCount.getText(),"0","Verifying the Item count after deleting item in shared bank");
-		itemsBankPage.viewIcon.click();
+		itemsBankPage.previewIconList.click();
 		/*itemsBankPage.deleteItemBank(itemBankName);
 		//itemsBankPage.logOut();
 		returnToDashboard();*/
@@ -864,10 +864,10 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.searchTest(testName);
-		Assert.assertFalse(testCreationPage.testEditIcon.isEnabled());
-		Assert.assertFalse(testCreationPage.testDeleteIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
+		Assert.assertFalse(testCreationPage.editIconList.isEnabled());
+		Assert.assertFalse(testCreationPage.deleteIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.copyIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.previewIconList.isEnabled());
 		/*dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
@@ -968,10 +968,10 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.searchTest(testName);
-		Assert.assertTrue(testCreationPage.testEditIcon.isEnabled());
-		Assert.assertFalse(testCreationPage.testDeleteIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.editIconList.isEnabled());
+		Assert.assertFalse(testCreationPage.deleteIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.copyIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.previewIconList.isEnabled());
 		/*dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
@@ -1072,10 +1072,10 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.searchTest(testName);
-		Assert.assertFalse(testCreationPage.testEditIcon.isEnabled());
-		Assert.assertFalse(testCreationPage.testDeleteIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
+		Assert.assertFalse(testCreationPage.editIconList.isEnabled());
+		Assert.assertFalse(testCreationPage.deleteIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.copyIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.previewIconList.isEnabled());
 		Assert.assertEquals(testCreationPage.getSharedTestBank(testBankName),testBankName ,"Verifying Shared Test bank is available in Test bank drop down");
 		/*dashBoardPage.logOut();
 		customeWaitTime(5);
@@ -1178,10 +1178,10 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.searchTest(testName);
-		Assert.assertFalse(testCreationPage.testEditIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testDeleteIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
+		Assert.assertFalse(testCreationPage.editIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.deleteIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.copyIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.previewIconList.isEnabled());
 		Assert.assertEquals(testCreationPage.getSharedTestBank(testBankName),testBankName ,"Verifying Shared Test bank is available in Test bank drop down");
 		/*dashBoardPage.logOut();
 		customeWaitTime(5);
@@ -1284,10 +1284,10 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.searchTest(testName);
-		Assert.assertFalse(testCreationPage.testEditIcon.isEnabled());
-		Assert.assertFalse(testCreationPage.testDeleteIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
+		Assert.assertFalse(testCreationPage.editIconList.isEnabled());
+		Assert.assertFalse(testCreationPage.deleteIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.copyIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.previewIconList.isEnabled());
 		/*dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
@@ -1386,10 +1386,10 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.searchTest(testName);
-		Assert.assertTrue(testCreationPage.testEditIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testDeleteIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.editIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.deleteIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.copyIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.previewIconList.isEnabled());
 		/*dashBoardPage.logOut();
 		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("autoschoolAdmin"), unitytestdata.getProperty("genericPassword"));
@@ -1491,10 +1491,10 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.searchTest(testName);
-		Assert.assertTrue(testCreationPage.testEditIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testDeleteIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.editIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.deleteIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.copyIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.previewIconList.isEnabled());
 		testNameByTeacher = "T1_"  + testBankName;
 		testCreationPage.createTest(testNameByTeacher , testBankName , itemName);
 		returnToDashboard();
@@ -1603,10 +1603,10 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.searchTest(testName);
-		Assert.assertTrue(testCreationPage.testEditIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testDeleteIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testCopyIcon.isEnabled());
-		Assert.assertTrue(testCreationPage.testViewIcon.isEnabled());
+		Assert.assertTrue(testCreationPage.editIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.deleteIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.copyIconList.isEnabled());
+		Assert.assertTrue(testCreationPage.previewIconList.isEnabled());
 		testCreationPage.deleteTest(testName);
 		dashBoardPage.logOut();
 		customeWaitTime(5);
@@ -1899,8 +1899,8 @@ public class SharingTest extends BaseTest {
 		testCreationPage = dashBoardPage.goToTestCreation();
 		testCreationPage.searchTest(testName);
 		String createdTestId = testCreationPage.getTestId();
-		Assert.assertFalse(testCreationPage.testDeleteIcon.isEnabled());
-		Assert.assertFalse(testCreationPage.testEditIcon.isEnabled());
+		Assert.assertFalse(testCreationPage.deleteIconList.isEnabled());
+		Assert.assertFalse(testCreationPage.editIconList.isEnabled());
 		customeWaitTime(5);
 		sechedulePage = testCreationPage.navigateToScheduleFromListings();
 		customeWaitTime(5);
@@ -1961,7 +1961,7 @@ public class SharingTest extends BaseTest {
 		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		itemsBankPage.searchItemBank(itemBankName);
-		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+		itemsBankPage.waitForElementAndClick(itemsBankPage.previewIconList);
 		String itemCountOfBank = itemsBankPage.itemCount.getText();
 		itemsBankPage.openItemBankShareScreen();
 		itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "READ,WRITE,CREATE,DELETE,ADMIN");
@@ -1975,9 +1975,9 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		itemsBankPage.searchItemBank(itemBankName);
-		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+		itemsBankPage.waitForElementAndClick(itemsBankPage.previewIconList);
 		Assert.assertEquals(itemsBankPage.itemCount.getText().trim(),itemCountOfBank.trim(),"Verifying the Item count");
-		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+		itemsBankPage.waitForElementAndClick(itemsBankPage.previewIconList);
 		//itemsBankPage.logOut();
 		returnToDashboard();
 
@@ -2013,9 +2013,9 @@ public class SharingTest extends BaseTest {
 		returnToDashboard();
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		itemsBankPage.searchItemBank(itemBankName);
-		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+		itemsBankPage.waitForElementAndClick(itemsBankPage.previewIconList);
 		String itemCountOfBank = itemsBankPage.itemCount.getText();
-		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+		itemsBankPage.waitForElementAndClick(itemsBankPage.previewIconList);
 		itemsBankPage.openItemBankShareScreen();
 		itemsBankPage.shareItemBank(unitytestdata.getProperty("autoTeacher1"), "READ,WRITE,CREATE,DELETE,ADMIN");
 		itemsBankPage.closeItemBankShareScreen();
@@ -2028,15 +2028,15 @@ public class SharingTest extends BaseTest {
 		customeWaitTime(5);
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		itemsBankPage.searchItemBank(itemBankName);
-		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+		itemsBankPage.waitForElementAndClick(itemsBankPage.previewIconList);
 		Assert.assertEquals(itemsBankPage.itemCount.getText().trim(),itemCountOfBank.trim(),"Verifying the Item count");
-		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+		itemsBankPage.waitForElementAndClick(itemsBankPage.previewIconList);
 		//itemsBankPage.logOut();
 		returnToDashboard();
 
 	}
 	private void assertItemBankStatisticsPanelContent(){
-		itemsBankPage.waitForElementAndClick(itemsBankPage.viewIcon);
+		itemsBankPage.waitForElementAndClick(itemsBankPage.previewIconList);
 		customeWaitTime(5);
 		Assert.assertTrue(itemsBankPage.itemBankStatisticsPanel.isDisplayed(),"Verifying the Item Bank statisticsPanel is expanded");
 		Assert.assertEquals(itemsBankPage.waitAndGetElementText(itemsBankPage.itemCount),"1","Verifying the Item count");
