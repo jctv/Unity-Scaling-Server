@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import pages.DashBoard;
+import pages.Delivery;
 import pages.Items;
 import pages.ItemsBank;
 import pages.Login;
@@ -24,11 +25,12 @@ public class TestCreationTest extends BaseTest {
 	TestsBank testBankPage;
 	Items itemsPage;
 	ItemsBank itemsBankPage;
+	Delivery previewTestPage;
 	Properties unitymessages = null;
 	Properties unitytestcreationdata = null ;
 
-	String defaultUser = "admin";
-	String defaultPassword = "@simple1";
+	String defaultUser = "nteacher1";
+	String defaultPassword = "12345";
 	
 	String unityMessageFile = "src" + File.separator + "resources"
 			+ File.separator + "unitymessages.properties";
@@ -45,7 +47,6 @@ public class TestCreationTest extends BaseTest {
 	
 	public TestCreationTest() {
 		super();
-
 	}
 	
 	@BeforeTest
@@ -59,7 +60,7 @@ public class TestCreationTest extends BaseTest {
 		System.out.println("Load Unity url - " + url);
 		driver.get(url);
 		loginPage = new Login(driver);
-		System.out.println("******** logging as System Admin -- " + defaultUser
+		System.out.println("******** logging as Teacher -- " + defaultUser
 				+ "******** ");
 		dashBoardPage = loginPage.loginSuccess(defaultUser,
 				defaultPassword);
@@ -185,6 +186,7 @@ public class TestCreationTest extends BaseTest {
 		itemsBankPage.createBank(itemBankName, "desc");
 		returnToDashboard();
 		itemsPage = dashBoardPage.goToItems();
+		System.out.println("itemsPage, line 188");
 		itemsPage.createItem(itemName, itemBankName);
 		returnToDashboard();
 	    testBankPage = dashBoardPage.goToTestsBank();
@@ -197,6 +199,24 @@ public class TestCreationTest extends BaseTest {
 	    testCreationPage.createTest(testName, testBankName, itemName);
 	    testCreationPage.searchTest(testName);
 		Assert.assertEquals(testCreationPage.waitAndGetElementText(testCreationPage.testNameList).trim(), testName);
+		testCreationPage.backToDashboard();
+    }
+    
+    @Test(priority = 2)
+    public void testCreatTestWithAnswerEliminatorTool(){
+    	long timestamp = System.currentTimeMillis();
+		testName =  unitytestcreationdata.getProperty("testName") + timestamp;
+    	testCreationPage =  dashBoardPage.goToTestCreation();
+    	customeWaitTime(5);
+    	testCreationPage.createTestWithAnswerEliminatorTool(testName, testBankName, itemName);
+    	customeWaitTime(5);
+    	testCreationPage.searchTest(testName);
+		Assert.assertEquals(testCreationPage.waitAndGetElementText(testCreationPage.testNameList).trim(), testName);
+    	testCreationPage.waitForAnElementAndClick(testCreationPage.testViewIcon);
+    	customeWaitTime(5);
+    	previewTestPage = testCreationPage.previewTest();
+    	customeWaitTime(5);
+    	Assert.assertTrue(previewTestPage.waitForElementVisible(previewTestPage.answerEliminatorIcon));
     }
 	
 }

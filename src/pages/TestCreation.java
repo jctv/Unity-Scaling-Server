@@ -13,6 +13,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.gargoylesoftware.htmlunit.WaitingRefreshHandler;
+
 public class TestCreation extends BasePage {
 
 	BasePage base;
@@ -77,6 +79,8 @@ public class TestCreation extends BasePage {
 	@FindBy(id = "magnification-check")
 	public WebElement magnificationCheckBox;
 	
+	@FindBy (id = "answer_eliminator-check")
+	public WebElement answerEliminatorCheckBox;
 	
 	@FindBy(xpath = "//*[@id='book']/option[7]")
 	public WebElement bookOption;
@@ -99,7 +103,7 @@ public class TestCreation extends BasePage {
 	@FindBy(xpath = "//*[@id='metadataFields']/div/form/div[3]/button")
 	public WebElement saveDetailsButton;
 
-	@FindBy(xpath = "//*[@id='mandatoryFields']/form/div[5]/button")
+	@FindBy(className = "tools-button")
 	public WebElement toolsButton;
 
 	@FindBy(id = "calculator-check")
@@ -138,7 +142,7 @@ public class TestCreation extends BasePage {
 	@FindBy(xpath = ".//*[@id='globalModalViewBody']/div/form/div[1]/div/select")
 	public WebElement bankDropDown;
 	
-	@FindBy(xpath = "//button[@class='btn btn-xs btn-link editRow']")
+	@FindBy(className = "fa-edit']")
 	public WebElement testEditIcon;
 	
 	@FindBy(xpath = "//button[@class='btn btn-xs btn-link deleteRow']")
@@ -210,14 +214,15 @@ public class TestCreation extends BasePage {
 	@FindBy(css =".link i")
 	public WebElement backToTestDashboardLink;
 	
-	@FindBy(xpath = "//button[@class='btn btn-primary pull-right btn-sm tools-save']")
+	@FindBy(className = "tools-save']")
 	public WebElement toolSaveButton;
 	
 	@FindBy(id = "magnification-time")
 	public WebElement selectMagnificationTime;
 	
-	
-	
+	@FindBy(css=".expandedRowContainer #viewTest i.fa-eye")
+	public WebElement testItemsPreviewViewTestButton;
+		
 	public void createTest(String testName , String testBankName ,  String itemName) {
 		try {
 			waitForElementAndClick(createTestLink);
@@ -325,7 +330,6 @@ public class TestCreation extends BasePage {
 				
 			}
 			waitForElementAndSendKeys(testContentField, "N/A");
-
 			waitForElementAndSendKeys(testGradeField, "05");
 			waitForElementAndClick(saveTestButton);
 			customeWaitTime(2);
@@ -342,8 +346,67 @@ public class TestCreation extends BasePage {
 			customeWaitTime(2);
 		} catch (Exception e) {
 			System.out.println("Test "+ testName +" Creation Failed ");
-		}
-		 
+		} 
+	}
+	
+	public void createTestWithAnswerEliminatorTool(	String testName , String testBankName ,  
+													String itemName) 
+	{
+			try {
+				waitForElementAndClick(createTestLink);
+				customeWaitTime(10);
+				if(bankDropDown.isDisplayed()){
+					selectOption(bankDropDown, testBankName);
+
+				}else{
+					selectTestBank(testBankName);
+				}
+				customeWaitTime(2);
+				waitForElementAndSendKeys(contentCreateInputName, testName);
+				waitForElementAndSendKeys(contentCreateInputDescription, testName);
+				waitForElementAndClick(createAndEditButton);
+				clearSearchFilter();
+				waitForElementAndSendKeys(searchAutoCompleteField,
+						itemName);
+				waitForElementAndClick(searchButton);
+				waitForElementAndClick(item1);
+				dragAndDrop(item1, target);
+				clearSearchFilter();
+				System.out.println("Items " + itemName + " added to the test " + testName);
+				waitForElementAndSendKeys(testContentField, "N/A");
+				selectOption(testContentField, "N/A");
+				waitForElementAndSendKeys(testGradeField, "05");
+				selectOption(testGradeField, "05");
+				testGradeField.click();
+				waitForElementAndClick(toolsButton);
+				waitForAnElementAndClick(answerEliminatorCheckBox);
+				waitForAnElementAndClick(toolSaveButton);
+				waitForElementAndClick(saveTestButton);
+				waitForElementAndClick(xbutton);
+
+				try {
+					waitForElementAndClick(xbutton);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				/*waitForElementAndClick(toolsButton);
+				waitForElementAndClick(calculator_check);
+				waitForElementAndClick(ruler_check);
+				waitForElementAndClick(saveToolsButton);
+				waitForElementAndClick(okButton);*/
+				customeWaitTime(5);
+				System.out.println("Test "+ testName +" created successfully ");
+				backToListing();
+				customeWaitTime(5);
+				/*waitForElementAndClick(homeLink);
+				try {
+					waitForElementAndClick(homeLink);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}*/
+			} catch (Exception e) {
+				System.out.println("Test "+ testName +" Creation Failed ");
+			}
 	}
 	
 	public void searchTest(String test){
@@ -355,11 +418,8 @@ public class TestCreation extends BasePage {
 		  customeWaitTime(5);
 		}catch(Exception e){
 			System.out.println("Unable to find the Test  -->  "  + test);
-
-		}
-		
+		}		
 	}
-	
 	
 	public String getSharedTestBank(String testBankName){
 		String testBank = null ;
@@ -369,12 +429,11 @@ public class TestCreation extends BasePage {
 		List<WebElement > itemBankOptions = getDropDownOptions(selectTestBank);
 		for (WebElement itemBankOption : itemBankOptions){
 			try{
-			if(itemBankOption.getText().equals(testBankName)){
-			   System.out.println(itemBankOption.getText());
-			   testBank = itemBankOption.getText();
-			   break;
-			}
-			
+				if(itemBankOption.getText().equals(testBankName)){
+					System.out.println(itemBankOption.getText());
+					testBank = itemBankOption.getText();
+					break;
+				}		
 			}catch(Exception e ){
 				System.out.println(testBankName + " is not available in Test bank drop down" );
 			}
@@ -497,9 +556,7 @@ public class TestCreation extends BasePage {
 			}catch(Exception e ){
 				System.out.println(option + " is not available" );
 			}
-		}
-		
-		
+		}	
 	}
 	
 	public String filterItemBank(String itemBankName) {
@@ -581,6 +638,11 @@ public class TestCreation extends BasePage {
 		waitForElementAndClick(backToTestDashboardLink); 
 	}
 	
+	public Delivery previewTest(){
+		waitForAnElementAndClick(testItemsPreviewViewTestButton);
+		return new Delivery(driver);
+	}
+	
 	
 	public void enableTestTools(String tools) {
 		try {
@@ -605,12 +667,13 @@ public class TestCreation extends BasePage {
 					break;
 				case "Line Reader":
 					waitForElementAndClick(lineReaderToolCheckBox);
-					break;	
-					
+					break;
 				case "Magnification":
 					waitForElementAndClick(magnificationCheckBox);
 					break;	
-					
+				case "Answer Eliminator":
+					waitForAnElementAndClick(answerEliminatorCheckBox);
+					break;
 				case "Additional Tools":
 					// TODO
 					break;
