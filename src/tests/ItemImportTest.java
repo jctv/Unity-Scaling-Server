@@ -259,7 +259,7 @@ public class ItemImportTest extends BaseTest {
 				"DEFINED");
 		Assert.assertEquals(itemsPage.itemBankList.getText().trim(),
 				itemBankName);
-		itemsPage.itemEditIcon.click();
+		itemsPage.editIconList.click();
 		waitTime();
 		Assert.assertEquals(itemsPage.getInteractionType("Text Entry").trim(),
 				"Text Entry");

@@ -52,12 +52,6 @@ public class TestCreation extends BasePage {
 	@FindBy(xpath = "//*[@id='tGrade']/option[6]")
 	public WebElement testGradeOption;
 
-	@FindBy(id = "searchAutoComplete")
-	public WebElement searchAutoCompleteField;
-
-	@FindBy(id = "searchButton")
-	public WebElement searchButton;
-
 	@FindBy(xpath = "//*[@id='sortable1']/li")
 	public WebElement item1;
 
@@ -115,9 +109,6 @@ public class TestCreation extends BasePage {
 	@FindBy(xpath = "//*[@id='globalModalViewBody']/div/form[9]/div/div/button")
 	public WebElement saveToolsButton;
 
-	@FindBy(id = "globalModalInfoOkButton")
-	public WebElement okButton;
-
 	@FindBy(id = "sortable2")
 	public WebElement target;
 	
@@ -141,18 +132,6 @@ public class TestCreation extends BasePage {
 	
 	@FindBy(xpath = ".//*[@id='globalModalViewBody']/div/form/div[1]/div/select")
 	public WebElement bankDropDown;
-	
-	@FindBy(className = "fa-edit']")
-	public WebElement testEditIcon;
-	
-	@FindBy(xpath = "//button[@class='btn btn-xs btn-link deleteRow']")
-	public WebElement testDeleteIcon;
-	
-	@FindBy(xpath = "//button[@class='btn btn-xs btn-link copyRow']")
-	public WebElement testCopyIcon;
-	
-	@FindBy(xpath = "//button[@class='btn btn-xs btn-link previewRow']")
-	public WebElement testViewIcon;
 	
 	@FindBy(xpath = "//select[@name='bank']")
 	public WebElement selectTestBank;
@@ -217,6 +196,9 @@ public class TestCreation extends BasePage {
 	@FindBy(className = "tools-save']")
 	public WebElement toolSaveButton;
 	
+	@FindBy(id = "magnification-time")
+	public WebElement selectMagnificationTime;
+	
 	@FindBy(css=".expandedRowContainer #viewTest i.fa-eye")
 	public WebElement testItemsPreviewViewTestButton;
 		
@@ -237,7 +219,7 @@ public class TestCreation extends BasePage {
 			waitForElementAndSendKeys(contentCreateInputDescription, testName);
 			waitForElementAndClick(createAndEditButton);
 			clearSearchFilter();
-			waitForElementAndSendKeys(searchAutoCompleteField,
+			waitForElementAndSendKeys(searchAutoComplete,
 					itemName);
 			waitForElementAndClick(searchButton);
 			waitForElementAndClick(item1);
@@ -363,7 +345,7 @@ public class TestCreation extends BasePage {
 				waitForElementAndSendKeys(contentCreateInputDescription, testName);
 				waitForElementAndClick(createAndEditButton);
 				clearSearchFilter();
-				waitForElementAndSendKeys(searchAutoCompleteField,
+				waitForElementAndSendKeys(searchAutoComplete,
 						itemName);
 				waitForElementAndClick(searchButton);
 				waitForElementAndClick(item1);
@@ -441,10 +423,10 @@ public class TestCreation extends BasePage {
 	
 	public void deleteTest(String testName){
 		try{
-		searchAutoCompleteField.clear();
+			searchAutoComplete.clear();
 		searchTest(testName);	
 		customeWaitTime(5);
-		waitForElementAndClick(testDeleteIcon);
+		waitForElementAndClick(deleteIconList);
 		customeWaitTime(5);
 		if(deleteTestPopUp.isDisplayed()){
 		   waitForElementAndClick(deleteButtonTestPopUp);
@@ -459,7 +441,7 @@ public class TestCreation extends BasePage {
 	public String getTestId(){
 		String testId = null;
 		try{
-		testId =  waitAndGetElementAttribute(testViewIcon,"data-id" );
+		testId =  waitAndGetElementAttribute(previewIconList,"data-id" );
 		 System.out.println("Created  Test  id is >>  " + testId);
 		
 		}catch(Exception e){
@@ -469,12 +451,12 @@ public class TestCreation extends BasePage {
 	}
 	
 	public Schedule navigateToScheduleFromListings() {
-		waitForElementAndClick(testViewIcon);
+		waitForElementAndClick(previewIconList);
 		customeWaitTime(5);
 		waitForElementAndClick(scheduleTestLink);
 		customeWaitTime(5);
 		try {
-			waitForElementAndClick(testViewIcon);
+			waitForElementAndClick(previewIconList);
 			customeWaitTime(5);
 			waitForElementAndClick(scheduleTestLink);
 			customeWaitTime(5);			
@@ -693,7 +675,8 @@ public class TestCreation extends BasePage {
 
 		  WebElement magnifierScale = driver.findElement(By
 					.xpath("//input[@value='"+scale+"']"));
-		  waitForElementAndClick(magnifierScale);
+		  //waitForElementAndClick(magnifierScale);
+		  selectOption(selectMagnificationTime , scale);
 		  customeWaitTime(5);
 		  waitForElementAndClick(toolSaveButton);
 		 customeWaitTime(5);

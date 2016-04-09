@@ -124,7 +124,6 @@ public class BasePage {
 	public WebElement globalModalDeleteCancelButton1;
 
 	
-	
 	@FindBy(id = "globalModalUploadOkButton")
 	public WebElement globalModalUploadOkButton;
 	
@@ -719,4 +718,6 @@ public class BasePage {
 		
 		
 	}
+	
+	
 }

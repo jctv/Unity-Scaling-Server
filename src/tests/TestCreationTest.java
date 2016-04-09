@@ -212,7 +212,7 @@ public class TestCreationTest extends BaseTest {
     	customeWaitTime(5);
     	testCreationPage.searchTest(testName);
 		Assert.assertEquals(testCreationPage.waitAndGetElementText(testCreationPage.testNameList).trim(), testName);
-    	testCreationPage.waitForAnElementAndClick(testCreationPage.testViewIcon);
+    	testCreationPage.waitForAnElementAndClick(testCreationPage.previewIconList);
     	customeWaitTime(5);
     	previewTestPage = testCreationPage.previewTest();
     	customeWaitTime(5);

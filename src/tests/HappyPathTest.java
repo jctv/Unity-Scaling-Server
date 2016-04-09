@@ -85,7 +85,7 @@ public class HappyPathTest extends BaseTest {
 	
 	Properties unitytestdata;
 	
-	String domain = "";
+	String domain = "auto/";
 	String genericPassword;
 
 	String school;
@@ -121,8 +121,8 @@ public class HappyPathTest extends BaseTest {
 		System.out.println("Unity login url -- >  "+url);
 		driver.get(url);
 		loginPage = new Login(driver);
-		dashBoardPage = loginPage.loginSuccess(domain + unitytestdata.getProperty("defaultAdmin"),
-				unitytestdata.getProperty("defaultPassword"));
+		dashBoardPage = loginPage.loginSuccess(domain + unitytestdata.getProperty("defaultAutoAdmin"),
+				unitytestdata.getProperty("defaultAutoPassword"));
 		customeWaitTime(3);
 	}
 

@@ -501,7 +501,7 @@ public void verifyStudentHandScore(String studentLName , int itemCount , String 
 	}
   
 	public Map <Integer , List<String>> getStudentReport() {
-		WebElement Webtable = driver.findElement(By.xpath("DataTables_Table_0"));
+		WebElement Webtable = driver.findElement(By.xpath("//*[@id='DataTables_Table_0']"));
 		List<WebElement> TotalRowCount = Webtable.findElements(By
 				.xpath("//*[@id='DataTables_Table_0']/tbody/tr"));
 
