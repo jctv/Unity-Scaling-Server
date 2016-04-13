@@ -169,8 +169,8 @@ public class DashBoard extends BasePage {
 	@FindBy(id = "tile_view_standard") 
 	public WebElement standardTile;
 	
-	
-	
+	@FindBy(id = "XXXXXXXX") 
+	public WebElement accommodotionTile;
 	
 	
 	public boolean goToTile(String tileName){
@@ -657,6 +657,7 @@ public class DashBoard extends BasePage {
 		return new Standards(driver);
 	}
 	
+	
 	public void navigateToTileAndBackToHome() {
 		try{
 		 WebElement tiles = driver
@@ -776,6 +777,23 @@ public class DashBoard extends BasePage {
 			//TOOD
 			}
 
+	}
+	
+	public Accommodation goToAccomadation(){
+		customeWaitTime(2);		
+		try {
+			waitForElementAndDoubleClick(accommodotionTile);	
+			customeWaitTime(2);
+			waitForJsProcess();
+			if(globalModalInfoOkButton.isDisplayed()){
+				System.out.println("Device not supported");
+			}
+		} catch (Exception e) {
+			System.out.println("Unable to go to the Accommodaton Tile page");
+		}
+		
+		return new Accommodation(driver);
+		
 	}
 	
 
