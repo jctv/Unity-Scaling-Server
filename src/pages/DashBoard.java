@@ -169,7 +169,7 @@ public class DashBoard extends BasePage {
 	@FindBy(id = "tile_view_standard") 
 	public WebElement standardTile;
 	
-	@FindBy(id = "XXXXXXXX") 
+	@FindBy(id = "tile_view_accessibility") 
 	public WebElement accommodotionTile;
 	
 	
