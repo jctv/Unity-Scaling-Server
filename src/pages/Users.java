@@ -165,6 +165,9 @@ public class Users extends BasePage {
 	public WebElement stateIDBullet;
 	@FindBy(xpath = "(//a[@class='jqtree_common jqtree-toggler'])[6]")
 	public WebElement gradeBullet;
+	
+	@FindBy(id = "accommodation")
+	public WebElement accommodationCheckBox;
 
 	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 	String createdUsers = "";
@@ -465,5 +468,27 @@ public class Users extends BasePage {
 		}
 		
 		
+	}
+	
+	public void editStudentAccommodation(String studentName, boolean enable) {
+		try {
+			searchUser(studentName);
+			waitTime();
+			waitForElementAndClick(editIconList);
+			waitTime();
+			if (enable) {
+				if (!accommodationCheckBox.isSelected()) {
+					waitForElementAndClick(accommodationCheckBox);
+				}
+
+			} else {
+				if (accommodationCheckBox.isSelected()) {
+					waitForElementAndClick(accommodationCheckBox);
+				}
+			}
+
+		} catch (Exception e) {
+
+		}
 	}
 }

@@ -75,6 +75,13 @@ public class Accommodation extends BasePage {
 	@FindBy(xpath = "//button[@class='btn btn-primary pull-right accessibility-save']")
 	public WebElement accommodationSaveButton ;
 	
+	@FindBy(xpath = ".//*[@id='accessibility']/tr/td/div/div[1]")
+	public WebElement studentNameInfo ;
+	
+	@FindBy(xpath = ".//*[@id='globalModalView']/div/div/div[1]/button")
+	public WebElement accommodationCloseButton ;
+	
+	
 	public boolean searchStudent(String criteria) {
 		try {
 			waitTime();
@@ -122,4 +129,5 @@ public class Accommodation extends BasePage {
 		return validator;
 		
 	}
+	
 }

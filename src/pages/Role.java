@@ -2,7 +2,9 @@ package pages;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -45,7 +47,7 @@ public class Role extends BasePage {
 
 	@FindBy(id = "roleCreateCancel")
 	public WebElement roleCreateCancelButton;
-
+	
 	public void enableTile(String user , String id , boolean isEnabled) {
 		try {
 			
@@ -156,4 +158,32 @@ public class Role extends BasePage {
 		
 
 	}
+	
+	
+	public Map <String , Boolean> getTilePermission(String tileName , String role){
+		Map<String  , Boolean> tilePemission = null; 
+		tilePemission = new HashMap<String, Boolean>();    
+		try{
+			waitForElementPresenceAndClick("//tr[./td[text()='" + role
+					+ "']]//span[text()='" + tileName + "']");
+			
+			WebElement permissionOptions = driver.findElement(By.xpath(".//*[@id='permission_form'"));
+			List<WebElement> TotalPermissions = permissionOptions.findElements(By.tagName("div"));
+			
+			for(int i= 1 ;i<= TotalPermissions.size(); i++){
+				WebElement permissionLabel = driver .findElement(By.xpath(".//*[@id='permission_form']//div[" + i + "]/label"));
+				WebElement permissionLabelCheckBox = driver .findElement(By.xpath(".//*[@id='permission_form']//div[" + i + "]/label/..//input"));
+				String permissonType = waitAndGetElementText(permissionLabel);
+				Boolean permissionCheckStatus = permissionLabelCheckBox.isSelected();
+				tilePemission.put(permissonType, permissionCheckStatus);
+			}
+			
+		}catch(Exception e){
+			
+		}
+		return tilePemission;
+		
+	} 
+	
+  	
 }
