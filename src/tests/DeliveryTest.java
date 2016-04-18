@@ -58,6 +58,7 @@ public class DeliveryTest extends BaseTest {
 	String testName2;
 	String testName3;
 	String testName4;
+	String testName5;
 
 	String testBank;
 	String itemBank;
@@ -68,7 +69,8 @@ public class DeliveryTest extends BaseTest {
 	String testid2;
 	String testid3;
 	String testid4;
-
+	String testid5;
+	
 	String testroster;
 	String testschool;
 	
@@ -167,6 +169,10 @@ public class DeliveryTest extends BaseTest {
 					testBank, itemBank, itemCount);
 		customeWaitTime(5);
 		
+		testName5 =  "T_Alternate_Color_background" + timestamp;
+		testCreationPage.createTestWithMultipleItems(testName4,
+					testBank, itemBank, itemCount);
+		customeWaitTime(5);
 		
 		testCreationPage.searchTest(testName);
 		testid = testCreationPage.getTestId();
@@ -196,6 +202,11 @@ public class DeliveryTest extends BaseTest {
 		testCreationPage.waitForElementAndClick(testCreationPage.editIconList); 
 		testCreationPage.enableTestTools("Magnification");
 		testCreationPage.setMagnificationScale(scale_2_5x);
+		
+		testCreationPage.searchTest(testName5);
+		testid5 = testCreationPage.getTestId();
+		testCreationPage.waitForElementAndClick(testCreationPage.editIconList); 
+		testCreationPage.enableTestTools("Alternate Color Text/Background");
 		
 		
 		returnToDashboard();
@@ -227,6 +238,11 @@ public class DeliveryTest extends BaseTest {
 							   testroster, "N/A", testName4, "Red", "120",
 						"100%", "Yes");
 						waitTime();		
+						
+						 sechedulePage.scheduleTest(testschool,
+								   testroster, "N/A", testName5, "Red", "120",
+							"100%", "Yes");
+							waitTime();		
 					
 	   loginPage = sechedulePage.logOut();
 	
@@ -311,6 +327,48 @@ public class DeliveryTest extends BaseTest {
 	}
 	
 	
+	@Test(priority = 5)
+	public void testAlternateColorTextAndBackgroundTool (){
+		driver.get(url);
+	    loginPage = new Login(driver);
+		    customeWaitTime(5);
+		    System.out.println("******** logging as the student ********");
+		    dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testStudent1"),unitytestdata.getProperty("genericPassword"));
+			waitTime();
+			dashBoardPage.addTiles();
+			waitTime();
+			deliveryPage = dashBoardPage.goToDelivery();
+			deliveryPage.startScheduledTest(testid5);
+			softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.adjustColorIcon));
+			
+			deliveryPage.selectColorAndBackGround("Black on White");
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("blackColor")));
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("whiteBGColor")));
+			
+			
+			deliveryPage.selectColorAndBackGround("White on Black");
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("whiteColor")));
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("blackBGColor")));
+			
+			deliveryPage.selectColorAndBackGround("Black on Cream");
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("blackColor")));
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("creamBGColor")));
+			
+			deliveryPage.selectColorAndBackGround("Black on Light Blue");
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("blackColor")));
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("lightBlueBGColor")));
+			
+			deliveryPage.selectColorAndBackGround("Black on Light Magenta");
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("blackColor")));
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("lightmagentaBGColor")));
+
+			
+			deliveryPage.selectColorAndBackGround("Yellow on Blue");
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("yellowColor")));
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("blueBGColor")));
+
+	}
+	
 	
 	/**
 	 * Login as teacher 
@@ -322,7 +380,7 @@ public class DeliveryTest extends BaseTest {
 	 * Verify the confirmation message
 	 */
 	
-	@Test(priority = 5)
+	@Test(priority = 6)
 	public void testVerifyExitMessgage(){
 		driver.get(url);
 		loginPage = new Login(driver);

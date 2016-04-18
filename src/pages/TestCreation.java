@@ -201,6 +201,10 @@ public class TestCreation extends BasePage {
 	
 	@FindBy(css=".expandedRowContainer #viewTest i.fa-eye")
 	public WebElement testItemsPreviewViewTestButton;
+	
+	@FindBy(id = "adjust_color-check")
+	public WebElement alternateColorAndBackgroundCheckBox;
+	
 		
 	public void createTest(String testName , String testBankName ,  String itemName) {
 		try {
@@ -653,6 +657,9 @@ public class TestCreation extends BasePage {
 				case "Answer Eliminator":
 					waitForAnElementAndClick(answerEliminatorCheckBox);
 					break;
+				case "Alternate Color Text/Background":
+					waitForAnElementAndClick(alternateColorAndBackgroundCheckBox);
+					break;	
 				case "Additional Tools":
 					// TODO
 					break;
