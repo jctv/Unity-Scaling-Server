@@ -168,6 +168,10 @@ public class Users extends BasePage {
 	
 	@FindBy(id = "accommodation")
 	public WebElement accommodationCheckBox;
+	
+	@FindBy(xpath = "//button[@class='btn btn-primary pull-right user-save']")
+	public WebElement userSaveButton;
+	
 
 	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 	String createdUsers = "";
@@ -486,7 +490,7 @@ public class Users extends BasePage {
 					waitForElementAndClick(accommodationCheckBox);
 				}
 			}
-
+			waitForElementAndClick(userSaveButton);
 		} catch (Exception e) {
 
 		}
