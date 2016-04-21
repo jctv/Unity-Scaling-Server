@@ -12,6 +12,11 @@ import org.openqa.selenium.support.PageFactory;
 
 public class Media extends BasePage{
 	
+	/**
+	 * Contractor 
+	 * @param driver
+	 */
+	
 	public Media(WebDriver driver) {
 		super(driver);
 		PageFactory.initElements(driver, this);
@@ -108,10 +113,10 @@ public class Media extends BasePage{
 	
 	
 	/**
-	 * 
+	 * This is the method for upload the media
 	 * @param filepath
 	 * @param itemBankName
-	 * @return
+	 * @return upload success status
 	 */
 	public boolean uploadMedia(String filepath , String itemBankName){
 		boolean isMediaUploadSuccessful = false ;
@@ -138,11 +143,12 @@ public class Media extends BasePage{
 	}
 	
 	
-	
+	/**
+	 * This is the method for search the media
+	 * @param media
+	 */
 	public void searchMedia(String media) {
 		try {
-			//searchAutoComplete.clear();
-			//waitTime();
 			waitForElementAndSendKeys(searchAutoComplete, media);
 			waitForElementAndClick(searchButton);
 			waitTime();
@@ -154,11 +160,12 @@ public class Media extends BasePage{
 
 	}
 	
+	/**
+	 * This is the method for deleting the media
+	 * @param itemName
+	 */
 	public void deleteMedia(String itemName) {
 		try {
-			/*searchAutoComplete.clear();
-			searchMedia(itemName);
-			waitTime();*/
 			waitForElementAndClick(deleteIconList);
 			customeWaitTime(2);
 			waitForElementAndClick(globalModalDeleteButton);
@@ -170,7 +177,11 @@ public class Media extends BasePage{
 
 	}
 
-	
+	/**
+	 * This is the method for filer media by item bank
+	 * @param media
+	 * @param itemBank
+	 */
  public void filterMediaByItemBank(String media , String itemBank){	 
 		try {
 			waitForElementAndClick(banksFilterNav);
@@ -193,8 +204,6 @@ public class Media extends BasePage{
 					+ "for item bank " + itemBank);
 
 		}
-	 
-	 
   }
 	
 }
