@@ -76,6 +76,17 @@ public WebElement deletLastIcon;
 @FindBy(xpath = "(//button[@title='Edit'])[last()]")
 public WebElement editLastIcon;
 
+/**
+ * This is method for creating the machine profile
+ * @param name
+ * @param tile
+ * @param type
+ * @param resolution
+ * @param system
+ * @param browser
+ * @param version
+ * @return profile Name
+ */
 public String createProfile(String name, String tile, String type, String resolution, String system, String browser, String version){
 	waitForElementAndClick(createProfileButton);
 	waitForElementAndSendKeys(machineProfileCreateInputName, name);
@@ -91,6 +102,17 @@ public String createProfile(String name, String tile, String type, String resolu
 	return lastAddedProfile.getText();
 	
 }
+
+/**
+ * This is the method for editing the profile 
+ * @param name
+ * @param tile
+ * @param type
+ * @param resolution
+ * @param browser
+ * @param version
+ * @return profile name 
+ */
 public String editProfile(String name, String tile, String type, String resolution, String browser, String version){
 	
 	waitForElementAndSendKeys(searchAutoComplete, name);
@@ -116,8 +138,13 @@ public String editProfile(String name, String tile, String type, String resoluti
 	
 }
 
+/**
+ * This is the method for deleting the profile
+ * @param name
+ * @return deleted message
+ */
+
 public String deleteProfile(String name){
-	
 	waitForElementAndSendKeys(searchAutoComplete, name);
 	searchButton.click();
 	waitTime();
@@ -126,7 +153,6 @@ public String deleteProfile(String name){
 	waitForElementAndClick(globalModalDeleteButton);
 	waitTime();
 	return "deleted";
-	
 }
 
 
