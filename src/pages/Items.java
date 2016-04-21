@@ -300,6 +300,11 @@ public class Items extends BasePage {
 		PageFactory.initElements(driver, this);
 	}
 
+	/**
+	 * 
+	 * @param name
+	 * @param itemBankName
+	 */
 	public void createItem(String name, String itemBankName) {
 		try{
 		customeWaitTime(5);
@@ -456,6 +461,7 @@ public class Items extends BasePage {
 	}
 
 	public void addStandards() {
+		try{
 		customeWaitTime(5);
 		waitForElementAndClick(standardColumn);
 		waitForElementAndClick(standards1);
@@ -464,12 +470,16 @@ public class Items extends BasePage {
 		waitForElementAndClick(standards4);
 		waitForElementAndClick(standards5);
 		waitForElementAndClick(globalModalOKCancelSaveButton);
+		
+		}catch(Exception e){}
+		System.out.println("ERROR - While adding standard");
 
 	}
 
 
 
 	public String getStrandCategory(){
+		try{
 		waitForElementAndClick(standardColumn);
 		customeWaitTime(3);
 		waitForElementAndClick(standards1);
@@ -479,12 +489,16 @@ public class Items extends BasePage {
 		waitForElementAndClick(standards3);
 		customeWaitTime(2);
 		waitForElementAndClick(standards4);
+		
+		}catch(Exception e){
+			
+			System.out.println("ERROR - While getting  standard  name");
+			
+		}
 		return standardsDomain.getText();
 	}
 	public void searchItem(String item) {
 		try {
-			searchAutoComplete.clear();
-			customeWaitTime(10);
 			waitForElementAndSendKeys(searchAutoComplete, item);
 			waitForElementAndClick(searchButton);
 			customeWaitTime(3);
@@ -571,7 +585,6 @@ public class Items extends BasePage {
 
 	public void deleteItem(String itemName) {
 		try {
-			searchAutoComplete.clear();
 			searchItem(itemName);
 			customeWaitTime(5);
 			waitForElementAndClick(deleteIconList);
@@ -707,120 +720,195 @@ public class Items extends BasePage {
 
 
 	}
-
+/**
+ * @param name
+ * @return
+ */
 	public String updateItemName(String name ){
+		try{
 		waitForElementAndClick(itemNameList);
 		customeWaitTime(2);
 		waitForElementAndSendKeys(itemNameListInput, name);
-		//itemNameListInput.clear();
 		customeWaitTime(2);
-		//itemNameListInput.sendKeys(name);
-		//customeWaitTime(5);
-		//waitAndFocus(itemNamePreviewColoumn);
 		waitForElementAndClick(resultListCount);
-		//itemNamePreviewColoumn.click();
 		customeWaitTime(2);
+		}catch(Exception e){
+			System.out.println("ERROR-  while updating the item name");
+		}
 		return itemNameList.getText();
 	}
 
+	/**
+	 * 
+	 * @param title
+	 * @return
+	 */
 
 	public String updateItemTitle(String title ){
+		try{
 		waitForElementAndClick(itemTilteList);
-		//itemTilteList.click();
 		customeWaitTime(2);
 		waitForElementAndSendKeys(itemTitleListInput, title);
-		//itemTitleListInput.clear();
-		//customeWaitTime(5);
-		//itemTitleListInput.sendKeys(title);
 		customeWaitTime(2);
 		waitForElementAndClick(resultListCount);
 		customeWaitTime(2);
+		}catch(Exception e){
+			System.out.println("ERROR-  while updating the item title");
+
+		}
 		return itemTilteList.getText();
 	}
 
-
+   /**
+    * 
+    * @param contentArea
+    * @return
+    */
 	public  String updateItemContentArea(String contentArea){
+		try{
 		waitForElementAndClick(itemContentAreaList);
-		//itemContentAreaList.click();
 		customeWaitTime(5);
 		selectOption(itemContentAreaSelectList , contentArea );
 		customeWaitTime(5);
 		waitForElementAndClick(resultListCount);
 		customeWaitTime(5);
+		}catch(Exception e){
+			System.out.println("ERROR-  while updating the content area");
+
+		}
 		return itemContentAreaList.getText();
 	}
+	
+	/**
+	 * 
+	 * @param grade
+	 * @return
+	 */
 
 	public  String updateItemGrade(String grade){
+		try{
 		waitForElementAndClick(itemGradeList);
-		//itemGradeList.click();
 		customeWaitTime(2);
 		selectOption(itemGradeSelectList , grade );
 		customeWaitTime(5);
 		waitForElementAndClick(resultListCount);
 		customeWaitTime(5);
+		}catch(Exception e){
+			System.out.println("ERROR-  while updating the grade");
+
+		}
 		return itemGradeList.getText();
 	}
 
+	/**
+	 * 
+	 * @param bloom
+	 * @return
+	 */
 	public String updateItemBloom(String bloom ){
+		try{
 		waitForElementAndClick(itemBloomList);
-		//itemBloomList.click();
 		customeWaitTime(5);
 		waitForElementAndSendKeys(itemBloomListInput, bloom);
-		//itemBloomListInput.clear();
-		//customeWaitTime(2);
-		//itemBloomListInput.sendKeys(bloom);
 		customeWaitTime(5);
 		waitForElementAndClick(resultListCount);
 		customeWaitTime(5);
+		
+		}catch(Exception e){
+			
+			System.out.println("ERROR-  while updating the item Bloom");
+
+		}
 		return itemBloomList.getText();
 	}
+	
+	/**
+	 * 
+	 * @param dok
+	 * @return
+	 */
 
 	public  String updateItemDOK(String dok){
+		try{
 		waitForElementAndClick(itemDepthOfKnowledgeList);
-		//itemDepthOfKnowledgeList.click();
 		customeWaitTime(5);
 		selectOption(itemDepthOfKnowledgeSelectList , dok );
 		customeWaitTime(5);
 		waitForElementAndClick(resultListCount);
 		customeWaitTime(5);
+		}catch(Exception e){
+			System.out.println("ERROR-  while updating the item dok");
+
+		}
 		return itemDepthOfKnowledgeList.getText();
 	}
 
-
+    /**
+     * 
+     * @param difficulty
+     * @return
+     */
 	public String updateItemDifficulty(String difficulty){
+		try{
 		waitForElementAndClick(itemDifficultyList);
-		//itemDifficultyList.click();
 		customeWaitTime(2);
 		selectOption(itemDifficultySelectList , difficulty );
 		customeWaitTime(2);
 		waitForElementAndClick(resultListCount);
 		customeWaitTime(2);
+		}catch(Exception e){
+			System.out.println("ERROR-  while updating the item difficulty");
+
+		}
 		return itemDifficultyList.getText();
 	}
 
+	/**
+	 * 
+	 * @param lifeCycle
+	 * @return
+	 */
 	public String updateItemLifeCycle(String lifeCycle){
+		try{
 		waitForElementAndClick(itemLifeCycleList);
-		//itemLifeCycleList.click();
 		customeWaitTime(5);
 		selectOption(itemLifeCycleSelectList , lifeCycle);
 		customeWaitTime(5);
 		waitForElementAndClick(resultListCount);
 		customeWaitTime(5);
+		}catch(Exception e){
+			System.out.println("ERROR-  while updating the item Life cycle");
+
+		}
 		return itemLifeCycleList.getText();
 	}
 
+	/**
+	 * 
+	 * @param readability
+	 * @return
+	 */
 	public String updateItemReadability(String readability ){
+		try{
 		waitForElementAndClick(itemReadabilityList);
-		//itemReadabilityList.click();
 		customeWaitTime(2);
 		waitForElementAndSendKeys(itemReadabilityListInput, readability);
 		customeWaitTime(2);
 		customeWaitTime(2);
 		waitForElementAndClick(resultListCount);
 		customeWaitTime(2);
+		}catch(Exception e){
+			System.out.println("ERROR-  while updating the item readability");
+
+		}
 		return itemReadabilityList.getText();
 	}
 	
+	/**
+	 * 
+	 * @param item
+	 * @param filepath
+	 */
 	
 	public void uploadMediaToItem(String item , String filepath){
 		try{

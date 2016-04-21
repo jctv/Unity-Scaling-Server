@@ -704,7 +704,6 @@ public class BasePage {
 			}
 	}
 	
-	
 	public void waitAndSwitchToDefaultContent(){
 		try{
 			driver.switchTo().defaultContent();
@@ -714,10 +713,45 @@ public class BasePage {
 			
 		}
 		
-		
-		
-		
 	}
 	
+	public boolean waitAndElementSelected(WebElement element){
+		try{
+			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+			wait.until(ExpectedConditions.visibilityOf(element));
+			if(element.isSelected()){
+				validator = true;
+			}
+		}catch(Exception e){
+			
+		}
+		return validator;
+	}
+	
+	public boolean waitAndElementEnabled(WebElement element){
+		try{
+			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+			wait.until(ExpectedConditions.visibilityOf(element));
+			if(element.isEnabled()){
+				validator = true;
+			}
+		}catch(Exception e){
+			
+		}
+		return validator;
+	}
+	
+	public boolean waitAndElementDisplayed(WebElement element){
+		try{
+			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+			wait.until(ExpectedConditions.visibilityOf(element));
+			if(element.isDisplayed()){
+				validator = true;
+			}
+		}catch(Exception e){
+			
+		}
+		return validator;
+	}
 	
 }
