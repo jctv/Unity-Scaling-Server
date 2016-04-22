@@ -247,4 +247,26 @@ public class AccommodationTest extends BaseTest{
 		deliveryPage.exitAndFinishTest();
 		
 	}
+    
+    @Test(priority = 5 )
+    public void testVerifyAccommodationToolDisabledInTestDelivery(){
+    	driver.get(url);
+		loginPage = new Login(driver);
+		dashBoardPage = loginPage.loginSuccess(studentName2,
+				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage.addTiles();
+		deliveryPage = dashBoardPage.goToDelivery();
+		deliveryPage.startScheduledTest(testid1);
+		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.answerMaskingIcon));
+		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.answerEliminatorIcon));
+		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.adjustColorIcon));
+		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.lineReaderIcon));
+		deliveryPage.exitAndFinishTest();
+		deliveryPage.startScheduledTest(testid2);
+		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.answerMaskingIcon));
+		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.answerEliminatorIcon));
+		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.adjustColorIcon));
+		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.lineReaderIcon));
+		deliveryPage.exitAndFinishTest();
+    }
 }
