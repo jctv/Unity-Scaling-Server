@@ -117,6 +117,7 @@ public class Schedule extends BasePage {
 	public WebElement cancelPastEvent;
 
 	/**
+	 * This is the method for schedule the test
 	 * @param school
 	 * @param roster
 	 * @param contetArea

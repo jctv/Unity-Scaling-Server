@@ -46,7 +46,10 @@ public class Permission extends BasePage{
 	@FindBy(xpath = "//button[@class='btn btn-primary acl-save']")
 	public WebElement aclSaveButton;
 	
-	
+	/**
+	 * This is the method for selecting the methods
+	 * @param orgName
+	 */
 	public void selectOrganization(String orgName) {
 		try {
 			waitForElementAndClick(organizationTab);
@@ -67,7 +70,11 @@ public class Permission extends BasePage{
 	}
 	
 
-
+/**
+ * This is method for selecting object
+ * @param object
+ * @param bankName
+ */
 	public void selectObject(String object, String bankName) {
 		try {
 			waitForElementAndClick(objectTab);
@@ -90,6 +97,11 @@ public class Permission extends BasePage{
 		}
 	}
 
+	/**
+	 * This is the method for adding acl permission
+	 * @param permissions
+	 * @param orgName
+	 */
 	public void addAcl(String permissions, String orgName) {
 		waitForElementAndClick(addAclButton);
 		customeWaitTime(5);
@@ -157,7 +169,10 @@ public class Permission extends BasePage{
 
 	}
 	
-	
+	/**
+	 * This is the delete acl
+	 * @param aclName
+	 */
 	public void deleteAcl(String aclName){
 		WebElement orgTobeSelected = driver.findElement(By
 				.xpath("//div[text()='ACL for "+ aclName +"']/../div[2]/button[@class='delete-acl btn btn-warning btn-xs pull-right']"));

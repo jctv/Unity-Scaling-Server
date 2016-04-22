@@ -207,7 +207,7 @@ public class TestCreation extends BasePage {
 	
 	
 	/**
-	 * 
+	 * This is the method for creating the test
 	 * @param testName
 	 * @param testBankName
 	 * @param itemName
@@ -722,7 +722,7 @@ public class TestCreation extends BasePage {
 	}
 	
 	/**
-	 * 
+	 * This is the method for set magnification scale
 	 * @param scale
 	 */
 	public void setMagnificationScale(String scale){
