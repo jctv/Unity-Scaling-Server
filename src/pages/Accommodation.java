@@ -38,7 +38,6 @@ public class Accommodation extends BasePage {
 	@FindBy(xpath = "//span[text()='Middle Name']/../..//input")
 	public WebElement middleNameFilterInputField;
 	
-	
 	@FindBy(xpath = "//span[text()='Last Name']")
 	public WebElement lastNameFilterNav;
 	
@@ -50,6 +49,9 @@ public class Accommodation extends BasePage {
 	
 	@FindBy(xpath = "//span[text()='State ID']/../..//input")
 	public WebElement stateIdFilterInputField;
+	
+	@FindBy(css = "#globalModalView .modal-content")
+	public WebElement accommodationModal;
 	
 	@FindBy(xpath = "//*[@id='region-workspace']/div/div/div[2]/div/div/div[3]/table/tbody/tr[1]")
 	public WebElement rowOneGrid;
@@ -69,6 +71,9 @@ public class Accommodation extends BasePage {
 	@FindBy(id = "linereader")
 	public WebElement lineReadercheckBox;
 	
+	@FindBy(className = "editRow")
+	public WebElement editAccommodationsButton;
+	
 	@FindBy(id = "magnification")
 	public WebElement magnificationcheckBox;
 	
@@ -80,8 +85,7 @@ public class Accommodation extends BasePage {
 	
 	@FindBy(xpath = ".//*[@id='globalModalView']/div/div/div[1]/button")
 	public WebElement accommodationCloseButton ;
-	
-	
+		
 	public boolean searchStudent(String criteria) {
 		try {
 			waitTime();
@@ -93,10 +97,7 @@ public class Accommodation extends BasePage {
 		}
 		return validator;
 	}
-
 	
-	
-
 	public boolean filterStudent(String name , String  criteria){
 		try {
 			switch (criteria) {
@@ -108,7 +109,6 @@ public class Accommodation extends BasePage {
 				waitForElementAndClick(middleNameFilterNav);
 				waitForElementAndSendKeys(middleNameFilterInputField, name); 
 				break;
-		
 			case "Last Name":
 				waitForElementAndClick(lastNameFilterNav);
 				waitForElementAndSendKeys(lastNameFilterInputField, name); 
@@ -126,8 +126,7 @@ public class Accommodation extends BasePage {
 		} catch (Exception e) {
 			System.out.println("Record not found");
 		}
-		return validator;
-		
+		return validator;	
 	}
 	
 }
