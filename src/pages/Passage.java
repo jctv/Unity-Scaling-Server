@@ -101,6 +101,15 @@ public class Passage extends BasePage {
 		}
 
 	}
+	
+	/**
+	 * This is method for creating the passage for a perticular passage
+	 * @param itemBank
+	 * @param passageName
+	 * @param desc
+	 * @param filepath
+	 * @return passage creation success status
+	 */
 
 	public boolean createPassage(String itemBank, String passageName,
 			String desc, String filepath) {
@@ -142,6 +151,11 @@ public class Passage extends BasePage {
 
 	}
 
+	/**
+	 * This is the method for searching the passage
+	 * @param passage
+	 * @return passage Name
+	 */
 	public String searchPassage(String passage) {
 		try {
 			waitAndClearField(searchAutoComplete);
@@ -159,6 +173,10 @@ public class Passage extends BasePage {
 
 	}
 
+	/**
+	 * This is method for deleting the passage
+	 * @param passage
+	 */
 	public void deletePassage(String passage) {
 		try {
 			searchPassage(passage);
@@ -175,6 +193,11 @@ public class Passage extends BasePage {
 
 	}
 
+	/**
+	 * This is the method to get the passage results
+	 * @param value
+	 * @return
+	 */
 	public List<WebElement> listOfResults(String value) {
 		customeWaitTime(2);
 		List<WebElement> recordsList = driver.findElements(By
@@ -183,6 +206,12 @@ public class Passage extends BasePage {
 		return recordsList;
 	}
 
+	/**
+	 * This is the method to filter the passage
+	 * @param arg
+	 * @param value
+	 * @return
+	 */
 	public boolean filterByArgunent(String arg, String value) {
 
 		switch (arg) {
@@ -204,6 +233,12 @@ public class Passage extends BasePage {
 				Integer.toString(this.listOfResults(value).size()));
 	}
 
+	/**
+	 * This is the method for filter the Passage
+	 * @param arg
+	 * @param value
+	 * @return
+	 */
 	public boolean filterByCheck(String arg, String value) {
 
 		switch (arg) {

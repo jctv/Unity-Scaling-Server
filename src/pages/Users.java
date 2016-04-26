@@ -168,12 +168,21 @@ public class Users extends BasePage {
 	
 	@FindBy(id = "accommodation")
 	public WebElement accommodationCheckBox;
+	
+	@FindBy(xpath = "//button[@class='btn btn-primary pull-right user-save']")
+	public WebElement userSaveButton;
+	
 
 	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 	String createdUsers = "";
 	String statusMessage;
 	private int usersToCreate = 2;
 
+	/**
+	 * This is method for search user
+	 * @param criteria
+	 * @return
+	 */
 	public boolean searchUser(String criteria) {
 		try {
 			waitTime();
@@ -189,6 +198,11 @@ public class Users extends BasePage {
 	}
 
 
+	/**
+	 * This is the method for create user 
+	 * @param school
+	 * @return list of users
+	 */
 	public String createUser(String school) {
 		for (int x = 0; x <= usersToCreate; x++) {
 			waitTime();
@@ -256,6 +270,16 @@ public class Users extends BasePage {
 		return createdUsers;
 	}
 
+	/**
+	 * This is method for create specific user
+	 * @param firstName
+	 * @param lastName
+	 * @param newPassword
+	 * @param confirmPassword
+	 * @param newRole
+	 * @param organization
+	 * @return
+	 */
 	public String createSpecificUser(String firstName, String lastName,
 			String newPassword, String confirmPassword, String newRole,
 			String organization) {
@@ -293,6 +317,12 @@ public class Users extends BasePage {
 		return statusMessage;
 	}
 
+	/**
+	 * This is the method for delete the created user for an organizations
+	 * @param createdUsers
+	 * @param org
+	 * @return
+	 */
 	public String deleteCreatedUsers(String[] createdUsers , String org) {
 
 		try {
@@ -321,6 +351,12 @@ public class Users extends BasePage {
 		return statusMessage;
 	}
 
+	/**
+	 * This is the method for edit user 
+	 * @param User
+	 * @param newPassword
+	 * @return
+	 */
 	public boolean editUserSucess(String User, String newPassword) {
 		waitTime();
 		searchUser(User);
@@ -331,6 +367,12 @@ public class Users extends BasePage {
 		return validador;
 	}
 
+	/**
+	 * This is the method for edit user
+	 * @param User
+	 * @param newPassword
+	 * @return
+	 */
 	public boolean editUserCancel(String User, String newPassword) {
 		waitTime();
 		searchUser(User);
@@ -341,6 +383,15 @@ public class Users extends BasePage {
 		return validador;
 	}
 
+	/**
+	 * This is the method for enter the user informations
+	 * @param firstName
+	 * @param lastName
+	 * @param newPassword
+	 * @param repeatPassword
+	 * @param newRole
+	 * @param organization
+	 */
 	public void enterUserInformation(String firstName, String lastName,
 			String newPassword, String repeatPassword, String newRole,
 			String organization) {
@@ -369,6 +420,9 @@ public class Users extends BasePage {
 	 * 
 	 * @param option
 	 */
+	/**
+	 * @param option
+	 */
 	public void selectOrganization(String option) {
 		/*selectOrgDropDown.click();
 		waitTime();*/
@@ -390,11 +444,18 @@ public class Users extends BasePage {
 
 	}
 
+	/**
+	 * This is method to get filtered user
+	 * @return
+	 */
 	public String filterMyUsers() {
 		waitForElementAndClick(searchMine);
 		return waitAndGetElementText(encouteredRecords);
 	}
 	
+	/**
+	 * @return
+	 */
 	public List<WebElement> listOfResults(){
 		customeWaitTime(2);
 		List<WebElement> recordsList = driver.findElements(By.xpath("//td[text()='teacher' and @class='watable-col-first_name']"));
@@ -402,6 +463,12 @@ public class Users extends BasePage {
 		return recordsList;
 	} 
 
+	/**
+	 * This is the method for filter the user
+	 * @param arg
+	 * @param value
+	 * @return
+	 */
 	public boolean filterByArgunent(String arg, String value) {
 
 		switch (arg) {
@@ -429,6 +496,12 @@ public class Users extends BasePage {
 	}
 
 	
+	/**
+	 * This methpd for filter user by different 
+	 * @param arg
+	 * @param value
+	 * @return
+	 */
 	public boolean filterByCheck(String arg, String value) {
 
 		switch (arg) {
@@ -449,11 +522,11 @@ public class Users extends BasePage {
 		return waitAndGetElementText(encouteredRecords).contains(Integer.toString(this.listOfResults().size()));
 	}
 	
-    /**
-     * 
-     * 
-     * @param user
-     */
+    
+	/**
+	 * This is the method for deleting the user
+	 * @param user
+	 */
 	public void deleteUser(String user){
 		try{
 			searchUser(user);
@@ -470,6 +543,11 @@ public class Users extends BasePage {
 		
 	}
 	
+	/**
+	 * This is the method for edit the student accommodations
+	 * @param studentName
+	 * @param enable
+	 */
 	public void editStudentAccommodation(String studentName, boolean enable) {
 		try {
 			searchUser(studentName);
@@ -486,7 +564,7 @@ public class Users extends BasePage {
 					waitForElementAndClick(accommodationCheckBox);
 				}
 			}
-
+			waitForElementAndClick(userSaveButton);
 		} catch (Exception e) {
 
 		}

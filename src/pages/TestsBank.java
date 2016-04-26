@@ -106,6 +106,11 @@ public class TestsBank extends BasePage {
 	
 	
 
+	/**
+	 * This is the method for create bank
+	 * @param bankName
+	 * @param descBank
+	 */
 	public void createBank(String bankName, String descBank) {
 		try {
 			waitTime();
@@ -124,6 +129,10 @@ public class TestsBank extends BasePage {
 	}
 	
 	
+	/**
+	 * This is the method for search test bank
+	 * @param testBank
+	 */
 	public void searchTestBank(String testBank){
 		try{
 		  waitTime();
@@ -140,6 +149,9 @@ public class TestsBank extends BasePage {
 	}
 	
 	
+	/**
+	 * This is the method for opening the sharing screen
+	 */
 	public void openTestBankShareScreen(){
 		 try{
 			 waitForElementAndClick(testBankShareButton);
@@ -153,6 +165,9 @@ public class TestsBank extends BasePage {
 	
 	
 	
+	/**
+	 * This is the method for closing the sharing screen
+	 */
 	public void closeTestBankShareScreen(){
 		try{
 			 waitForElementAndClick(testBankCloseShareButton);
@@ -166,9 +181,14 @@ public class TestsBank extends BasePage {
 	}
 	
 	
+	/**
+	 * This is the method for sharing the test bank
+	 * @param user
+	 * @param permissions
+	 * @return
+	 */
 	public String shareTestBank(String user, String permissions) {
         String selectedTeacher = null;
- 
  
         try {
             String lastname = user.substring(1);
@@ -228,6 +248,10 @@ public class TestsBank extends BasePage {
     }
  
 	
+	/**
+	 * This method for deleting the test bank
+	 * @param testBank
+	 */
 	public void deleteTestBank(String testBank){
 		try{
 		searchTestBank(testBank);	
@@ -244,6 +268,10 @@ public class TestsBank extends BasePage {
 		
 	}
 
+	/**
+	 * This method for filter the test bank
+	 * @param testBankName
+	 */
 	public void filterTestBank(String testBankName){
 		try{
 			customeWaitTime(5);

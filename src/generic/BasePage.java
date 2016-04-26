@@ -221,9 +221,18 @@ public class BasePage {
 	
 	
 	/** Constructor */
+	/**
+	 * 
+	 * @param driver
+	 */
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 
 	public String getCurrentUrl() {
 		return driver.getCurrentUrl();
@@ -243,6 +252,11 @@ public class BasePage {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * 
+	 * @param seconds
+	 */
 	public void customeWaitTime(int seconds) {
 
 		try {
@@ -255,6 +269,11 @@ public class BasePage {
 
 	}
 
+	/**
+	 * 
+	 * @param element
+	 * @return
+	 */
 	public boolean waitForElementVisible(WebElement element) {
 
 		try {
@@ -271,7 +290,11 @@ public class BasePage {
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * @param path
+	 * @return
+	 */
 	public boolean waitForElementInVisible(String path) {
 
 		try {
@@ -286,17 +309,26 @@ public class BasePage {
 		}
 	}
 	
-	
-	public void dragAndDrop(WebElement item, WebElement target) {
+	/**
+	 * 
+	 * @param source
+	 * @param target
+	 */
+	public void dragAndDrop(WebElement source, WebElement target) {
 		customeWaitTime(5);
 		try {
-			(new Actions(driver)).dragAndDrop(item, target).perform();
+			(new Actions(driver)).dragAndDrop(source, target).perform();
 		} catch (Exception e) {
 
 			System.out.println("Drag and Drop Failed");
 		}
 	}
 
+	/**
+	 * 
+	 * @param helpLink
+	 * @return
+	 */
 	public boolean addHelp(WebElement helpLink) {
 		waitTime();
 		try {
@@ -316,6 +348,13 @@ public class BasePage {
 		return validator;
 	}
 
+	/**
+	 * 
+	 * @param allElements
+	 * @param column
+	 * @param criteria
+	 * @return
+	 */
 	public boolean searchFilters(List<WebElement> allElements,
 			WebElement column, String criteria) {
 		try {
@@ -359,6 +398,10 @@ public class BasePage {
 		return validator;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean navigateNetxPage() {
 		try {
 			nextPageButton.click();
@@ -369,6 +412,10 @@ public class BasePage {
 		return validator;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean navigateBackPage() {
 		try {
 			backPageButton.click();
@@ -393,6 +440,12 @@ public class BasePage {
 
 	}
 	
+	/**
+	 * 
+	 * @param element
+	 * @return
+	 */
+	
 	public boolean waitForAnElementAndClick(final WebElement element) {
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		try {
@@ -408,6 +461,10 @@ public class BasePage {
 
 	}
 
+	/**
+	 * 
+	 * @param element
+	 */
 	public void waitForElementAndDoubleClick(WebElement element) {
 
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
@@ -431,6 +488,12 @@ public class BasePage {
 		}
 
 	}
+	
+	/**
+	 * 
+	 * @param element
+	 * @param keys
+	 */
 
 	public void waitForElementAndSendKeys(WebElement element, String keys) {
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
@@ -459,6 +522,11 @@ public class BasePage {
 		searchAutoComplete.sendKeys(Keys.DELETE);
 	}
 	
+	/**
+	 * 
+	 * @param dropDownListBox
+	 * @param option
+	 */
 	public void selectOption(WebElement dropDownListBox, String option) {
 			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 			try {
@@ -486,6 +554,10 @@ public class BasePage {
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public DashBoard backToDashboard() {
 		this.waitForJsProcess();
 		waitForElementAndClick(dashBoardPage);
@@ -493,6 +565,10 @@ public class BasePage {
 		return new DashBoard(driver);
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public DashBoard navigateToHomePageByBackButton() {
 		this.waitForJsProcess();
 		waitForElementAndClick(backbutton);
@@ -500,12 +576,18 @@ public class BasePage {
 		return new DashBoard(driver);
 	}
 	
-	
+	/**
+	 * back to listing
+	 */
 	public void backToListing(){
 		waitForElementAndClick(backbutton);
 		waitTime();
 	}
 
+	/**
+	 * 
+	 * @param element
+	 */
 	public void waitAndFocus(WebElement element) {
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		
@@ -538,6 +620,11 @@ public class BasePage {
 
 	}
 
+	/**
+	 * 
+	 * @param dropDownBox
+	 * @return
+	 */
 	public List<WebElement> getDropDownOptions(WebElement dropDownBox) {
 		List<WebElement> options = null;
 		try {
@@ -554,7 +641,11 @@ public class BasePage {
 	}
 
 
-
+/**
+ * 
+ * @param dropDownBox
+ * @return
+ */
 	public WebElement getSelectedOption(WebElement dropDownBox){
 		WebElement options = null;
 		try{
@@ -575,6 +666,11 @@ public class BasePage {
 		customeWaitTime(20);
 	}
 
+	
+	/**
+	 * 
+	 * @param element
+	 */
 	public void waitAndClearField(WebElement element) {
 		try{
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
@@ -586,7 +682,11 @@ public class BasePage {
 		}
 	}
 
-	
+	/**
+	 * 
+	 * @param element
+	 * @return
+	 */
 	public String waitAndGetElementText(WebElement element){
 		try{
 			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
@@ -599,6 +699,13 @@ public class BasePage {
 		return element.getText();
 		
 	}
+	
+	/**
+	 * 
+	 * @param element
+	 * @param attribute
+	 * @return
+	 */
 	
 	public String waitAndGetElementAttribute(WebElement element , String attribute){
 		try{
@@ -629,6 +736,11 @@ public class BasePage {
 		 
 	}
 	
+	/**
+	 * 
+	 * @param xpath
+	 * @return
+	 */
 	public String  waitForElementPresenceAndGetText(String xpath){
 		String text = "";
 		try {
@@ -653,6 +765,10 @@ public class BasePage {
 		 return text;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Login logOut() {
 		try {
 			waitForElementAndClick(userDrop);
@@ -693,7 +809,10 @@ public class BasePage {
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * @param frameId
+	 */
 	public void waitAndSwitchTOFrame(String frameId){
 		try{
 			driver.switchTo().frame(frameId);
@@ -704,7 +823,6 @@ public class BasePage {
 			}
 	}
 	
-	
 	public void waitAndSwitchToDefaultContent(){
 		try{
 			driver.switchTo().defaultContent();
@@ -714,10 +832,60 @@ public class BasePage {
 			
 		}
 		
-		
-		
-		
 	}
 	
+	/**
+	 * 
+	 * @param element
+	 * @return
+	 */
+	public boolean waitAndElementSelected(WebElement element){
+		try{
+			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+			wait.until(ExpectedConditions.visibilityOf(element));
+			if(element.isSelected()){
+				validator = true;
+			}
+		}catch(Exception e){
+			
+		}
+		return validator;
+	}
+	
+	/**
+	 * 
+	 * @param element
+	 * @return
+	 */
+	public boolean waitAndElementEnabled(WebElement element){
+		try{
+			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+			wait.until(ExpectedConditions.visibilityOf(element));
+			if(element.isEnabled()){
+				validator = true;
+			}
+		}catch(Exception e){
+			
+		}
+		return validator;
+	}
+	
+	/**
+	 * 
+	 * @param element
+	 * @return
+	 */
+	public boolean waitAndElementDisplayed(WebElement element){
+		try{
+			WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+			wait.until(ExpectedConditions.visibilityOf(element));
+			if(element.isDisplayed()){
+				validator = true;
+			}
+		}catch(Exception e){
+			
+		}
+		return validator;
+	}
 	
 }

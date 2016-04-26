@@ -68,6 +68,9 @@ public class Standards extends BasePage {
 	@FindBy(xpath = "//div[contains(@id,'ember')]/div/div[3]/div/a/div[1]/img")
 	public WebElement resourcePic;
 	
+	/**
+	 * This is the method for adding the standard 
+	 */
 	public void installStandards() {
 		try {
 			
@@ -87,6 +90,9 @@ public class Standards extends BasePage {
 	}
 	
 	
+	/**
+	 * This is the method to open the instructional resources
+	 */
 	public void openViewInstructionalResources(){
 		try{
 			waitForElementAndClick(openEdFolderNav);
@@ -108,6 +114,9 @@ public class Standards extends BasePage {
 	}
 	
 	
+	/**
+	 * This is the method for method for verify all the resources
+	 */
 	public void verifyAllResources() {
 		try {
 			WebElement resourceGroup = driver.findElement(By
@@ -145,6 +154,10 @@ public class Standards extends BasePage {
 
 	}
 	
+	/**
+	 * This is the method to close the resource pop up
+	 * @return
+	 */
 	 public Reports closeResourcePopUP(){
 		  try{
 			waitForElementAndClick(closeButton);

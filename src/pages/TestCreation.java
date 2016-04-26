@@ -201,7 +201,17 @@ public class TestCreation extends BasePage {
 	
 	@FindBy(css=".expandedRowContainer #viewTest i.fa-eye")
 	public WebElement testItemsPreviewViewTestButton;
-		
+	
+	@FindBy(id = "adjust_color-check")
+	public WebElement alternateColorAndBackgroundCheckBox;
+	
+	
+	/**
+	 * This is the method for creating the test
+	 * @param testName
+	 * @param testBankName
+	 * @param itemName
+	 */
 	public void createTest(String testName , String testBankName ,  String itemName) {
 		try {
 			waitForElementAndClick(createTestLink);
@@ -328,6 +338,12 @@ public class TestCreation extends BasePage {
 		} 
 	}
 	
+	/**
+	 * 
+	 * @param testName
+	 * @param testBankName
+	 * @param itemName
+	 */
 	public void createTestWithAnswerEliminatorTool(	String testName , String testBankName ,  
 													String itemName) 
 	{
@@ -388,10 +404,12 @@ public class TestCreation extends BasePage {
 			}
 	}
 	
+	/**
+	 * 
+	 * @param test
+	 */
 	public void searchTest(String test){
 		try{
-		 searchAutoComplete.clear();
-		  customeWaitTime(5);
 		  waitForElementAndSendKeys(searchAutoComplete, test);
 		  waitForElementAndClick(searchButton);
 		  customeWaitTime(5);
@@ -399,7 +417,11 @@ public class TestCreation extends BasePage {
 			System.out.println("Unable to find the Test  -->  "  + test);
 		}		
 	}
-	
+	/**
+	 * 
+	 * @param testBankName
+	 * @return
+	 */
 	public String getSharedTestBank(String testBankName){
 		String testBank = null ;
 		customeWaitTime(5);
@@ -420,10 +442,12 @@ public class TestCreation extends BasePage {
 		return testBank;
 	}
 	
-	
+	/**
+	 * 
+	 * @param testName
+	 */
 	public void deleteTest(String testName){
 		try{
-			searchAutoComplete.clear();
 		searchTest(testName);	
 		customeWaitTime(5);
 		waitForElementAndClick(deleteIconList);
@@ -467,7 +491,11 @@ public class TestCreation extends BasePage {
 
 	}
 	
-	
+	/**
+	 * 
+	 * @param testBank
+	 * @param copyTestName
+	 */
 	public void copyTest(String testBank ,String copyTestName) {
 		try {
 			selectOption(selectCopyTestBank, testBank);
@@ -486,6 +514,14 @@ public class TestCreation extends BasePage {
 
 	}
 	
+	/**
+	 * 
+	 * @param testBank
+	 * @param testName
+	 * @param copyTestName
+	 * @param itemIndex
+	 * @param copiedTestCount
+	 */
 	public void copyMultipleTest(String testBank , String testName , String copyTestName , int itemIndex , int copiedTestCount){
     	int testCount = 0;
     	try{
@@ -520,7 +556,7 @@ public class TestCreation extends BasePage {
 	 * @param option
 	 */
 	public void selectTestBank(String option){
-		testBankDropdown.click();
+		waitForElementAndClick(testBankDropdown);
 		customeWaitTime(5);
 		waitForElementAndSendKeys(searchItemBankInputField, option);
 		customeWaitTime(5);
@@ -538,6 +574,11 @@ public class TestCreation extends BasePage {
 		}	
 	}
 	
+	/**
+	 * 
+	 * @param itemBankName
+	 * @return
+	 */
 	public String filterItemBank(String itemBankName) {
 		try {
 			customeWaitTime(5);
@@ -580,7 +621,11 @@ public class TestCreation extends BasePage {
 
 	}
 
-	
+	/**
+	 * 
+	 * @param testBank
+	 * @return
+	 */
 	public String filterTestByTestBank(String testBank) {
 		try {
 			customeWaitTime(5);
@@ -613,6 +658,7 @@ public class TestCreation extends BasePage {
 
 	}
 	
+	
 	public void goToTestDashBoard(){
 		waitForElementAndClick(backToTestDashboardLink); 
 	}
@@ -622,7 +668,10 @@ public class TestCreation extends BasePage {
 		return new Delivery(driver);
 	}
 	
-	
+	/**
+	 * 
+	 * @param tools
+	 */
 	public void enableTestTools(String tools) {
 		try {
 			waitForElementAndClick(toolsButton); 
@@ -653,6 +702,9 @@ public class TestCreation extends BasePage {
 				case "Answer Eliminator":
 					waitForAnElementAndClick(answerEliminatorCheckBox);
 					break;
+				case "Alternate Color Text/Background":
+					waitForAnElementAndClick(alternateColorAndBackgroundCheckBox);
+					break;	
 				case "Additional Tools":
 					// TODO
 					break;
@@ -669,13 +721,13 @@ public class TestCreation extends BasePage {
 
 	}
 	
+	/**
+	 * This is the method for set magnification scale
+	 * @param scale
+	 */
 	public void setMagnificationScale(String scale){
 		try{
 		  waitForElementAndClick(toolsButton); 
-
-		  WebElement magnifierScale = driver.findElement(By
-					.xpath("//input[@value='"+scale+"']"));
-		  //waitForElementAndClick(magnifierScale);
 		  selectOption(selectMagnificationTime , scale);
 		  customeWaitTime(5);
 		  waitForElementAndClick(toolSaveButton);

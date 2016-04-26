@@ -90,11 +90,10 @@ public class SisImport extends BasePage{
 	}
 
 	
+	
 	/**
-	 * 
+	 * This is the method for sis import
 	 * @param filepath
-	 * @param itemBankName
-	 * @param authoringTool
 	 * @return
 	 */
 	public boolean sisImport(String filepath){

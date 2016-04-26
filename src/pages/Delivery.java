@@ -119,7 +119,17 @@ public class Delivery extends BasePage {
 	@FindBy(xpath = "//div[@class='access-magnifier-view-content']")
 	public WebElement magnifierViewContentScal;
 	
+	@FindBy(xpath = "//i[@class='button_opt fa fa-adjust fa-2x adjustColor']")
+	public WebElement adjustColorIcon;
 	
+	@FindBy(xpath = "//h4[text()='Adjust Color Text/Background']")
+	public WebElement adjustColorPopUp;
+	
+	@FindBy(xpath = "//div[@class='modal fade modeless adjust-color-modal in']//button[@class='btn btn-primary ok-button']")
+	public WebElement adjustColorOkButton;
+	
+	@FindBy(xpath = "//div[@class='pm-item']")
+	public WebElement displayedItem;
 
 	public void takeTest() {
 
@@ -673,6 +683,23 @@ public class Delivery extends BasePage {
 
 		}
 
+	}
+	
+	public void selectColorAndBackGround(String colorOption){
+		
+		try{
+			waitForElementAndClick(adjustColorIcon);
+			customeWaitTime(2);
+			WebElement colorRadioButton = driver.findElement(By
+					.xpath("//span[text()='" + colorOption + "']/../input"));
+			waitForElementAndClick(colorRadioButton);
+			waitForElementAndClick(adjustColorOkButton);
+			customeWaitTime(2);
+		}catch(Exception e){
+			System.out.println("Error - while selecting the color");
+
+		}
+		
 	}
 
 }

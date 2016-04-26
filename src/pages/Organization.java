@@ -115,7 +115,17 @@ public class Organization extends BasePage {
 	@FindBy(xpath = ".//*[@id='treeNavigation']/ul//span")
 	public WebElement orgInTree;
 	
+	@FindBy(xpath = ".//*[@id='globalModalView']/div/div/div[1]/button")
+	public WebElement userCloseButton;
 	
+	
+	
+	 
+	/**
+	 * This is the method for Creating the root organization  - Country
+	 * @param name
+	 * @param type
+	 */
 	public void createOrganizationNode(String name, String type) {
 		try {
 			waitForElementAndClick(createNewOrganization);
@@ -132,6 +142,10 @@ public class Organization extends BasePage {
 		System.out.println(type + " Created");
 	}
 
+	/**
+	 * This is the method for creating the school
+	 * @param name
+	 */
 	public void createNewOrganization(String name) {
 		try {
 			waitForElementAndClick(createNewOrganization);
@@ -148,6 +162,10 @@ public class Organization extends BasePage {
 
 	}
 
+	/**
+	 * This is the method for deleting the Organization
+	 * @param org
+	 */
 	public void deleteCreatedOrganization(String org) {
 		try {
 			WebElement schoolCreated = driver
@@ -166,6 +184,11 @@ public class Organization extends BasePage {
 		}
 
 	}
+	
+	/**
+	 * This is the method for move the cursor to the organization  
+	 * @param orgName
+	 */
 
 	public void moveToOrganization(String orgName) {
 		try {
@@ -185,6 +208,10 @@ public class Organization extends BasePage {
 
 	}
 
+	/**
+	 * This is the method for selecting the parent organization
+	 * @param orgName
+	 */
 	
 	public void selectParentOrgInTree(String orgName){
 		try{
@@ -204,6 +231,14 @@ public class Organization extends BasePage {
 		
 		
 	}
+	
+	/**
+	 * This is the method for creating the organization hierarchy  state >> dist >> School
+	 * @param stateOrgName
+	 * @param distOrgName
+	 * @param schoolOrgName
+	 * @param orgType
+	 */
 	public void addOrganization(String stateOrgName, String distOrgName,
 			String schoolOrgName, String orgType) {
 		try {
@@ -316,6 +351,13 @@ public class Organization extends BasePage {
 
 	}
 
+	/**
+	 * This is the method for deleting the organization hierarchy school >> Dist >> State
+	 * @param stateOrgName
+	 * @param distOrgName
+	 * @param schoolOrgName
+	 * @param orgType
+	 */
 	public void deleteOrganization(String stateOrgName, String distOrgName,
 			String schoolOrgName, String orgType) {
 		try {
@@ -456,6 +498,30 @@ public class Organization extends BasePage {
 
 	}
 	
+	
+	/*public Users moveToCreateUser(){
+		try{
+			waitForElementAndClick(createUserLink);
+			waitTime();
+			waitForElementAndClick(userCloseButton);
+			waitTime();
+		}catch(Exception e){
+			
+		}
+		return new Users(driver);
+	}*/
+	
+	/**
+	 * This is the method for creating the method 
+	 * @param firstName
+	 * @param lastName
+	 * @param newPassword
+	 * @param confirmPassword
+	 * @param newRole
+	 * @param organization
+	 * @return
+	 */
+	
 	public String createSpecificUser(String firstName, String lastName,
 			String newPassword, String confirmPassword, String newRole,
 			String organization) {
@@ -495,7 +561,11 @@ public class Organization extends BasePage {
 	}
 
 	
-	
+	/**
+	 * This is the method to get the State Name
+	 * @param state
+	 * @return State Name
+	 */
 	public String getStateFromOrgTree(String state){
 		String stateName = null;
 		try{
@@ -508,6 +578,13 @@ public class Organization extends BasePage {
 		return stateName;
 	}
 	
+	/**
+	 * This is the method for Dist Name 
+	 * 
+	 * @param state
+	 * @param dist
+	 * @return  District Name
+	 */
 	public String getDistFromOrgTree(String state , String dist ){
 		String distName = null;
 		try{
@@ -524,7 +601,14 @@ public class Organization extends BasePage {
 	}
 	
 	
-	
+	/**
+	 * This is method to get the org name
+	 * @param state
+	 * @param dist
+	 * @param school
+	 * @param orgType
+	 * @return org Name
+	 */
 	public String getOrgNameInTree(String state ,String dist, String school , String orgType){
 		String orgName = null;
 		try{

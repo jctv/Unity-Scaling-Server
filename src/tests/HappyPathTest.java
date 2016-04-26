@@ -95,6 +95,14 @@ public class HappyPathTest extends BaseTest {
 	String testBank;
 	String itemName ;
 	
+	String bankDesc;
+	String contentArea;
+	String calenderRedColor;
+	String testMaxTime;
+	String yes;
+	String choiceLast;
+	String testMaxGoal;
+	
   	Map<Integer , List<String>> studentReport = new HashMap<Integer, List<String>>();    
 
 	public HappyPathTest() {
@@ -106,12 +114,20 @@ public class HappyPathTest extends BaseTest {
 	public void loadUnityMessagesProperty(){
 		unitytestdata = getUnityMessagesProperty(unityTestDataFile);
 		genericPassword = unitytestdata.getProperty("genericPassword");
-		roster = unitytestdata.getProperty("happyPathRoster") + timestmap ;
+		roster = unitytestdata.getProperty("happyPathRoster") + timestmap;
 		school = unitytestdata.getProperty("happyPathSchool") + timestmap;
 		testName = unitytestdata.getProperty("happypathTestName");
 		itemBank = unitytestdata.getProperty("happypathItemBankName");
 		testBank = unitytestdata.getProperty("happypathTestBankName");
 		itemName = unitytestdata.getProperty("happyPathItemName");
+
+		bankDesc = unitytestdata.getProperty("bankdesc");
+		contentArea = unitytestdata.getProperty("testContentArea");
+		calenderRedColor = unitytestdata.getProperty("calenderRedColor");
+		testMaxTime = unitytestdata.getProperty("testMaxTime");
+		yes = unitytestdata.getProperty("toolYes");
+		choiceLast = unitytestdata.getProperty("choiceFour");
+		testMaxGoal = unitytestdata.getProperty("testMaxGoal");
 
 		
 	}
@@ -167,7 +183,7 @@ public class HappyPathTest extends BaseTest {
 		itemsBankPage = dashBoardPage.goToItemsBank();
 		waitTime();
 		System.out.println("******** Item bank creation ********");
-		itemsBankPage.createBank(itemBank, "QA");
+		itemsBankPage.createBank(itemBank, bankDesc);
 		waitTime();
 		returnToDashboard();
 		customeWaitTime(5);
@@ -184,7 +200,7 @@ public class HappyPathTest extends BaseTest {
 		testBankPage = dashBoardPage.goToTestsBank();
 		waitTime();
 		System.out.println("******** test bank creation ********");
-		testBankPage.createBank(testBank, "QA");
+		testBankPage.createBank(testBank, bankDesc);
 		returnToDashboard();
 		customeWaitTime(5);
 		waitTime();
@@ -202,8 +218,8 @@ public class HappyPathTest extends BaseTest {
 		waitTime();
 	    System.out.println("******** Event creation ********");
 	   sechedulePage.scheduleTest(school,
-				roster, "N/A", testName, "Red", "120",
-		"100%", "Yes");
+				roster, contentArea, testName, calenderRedColor, testMaxTime,
+				testMaxGoal, yes);
 		waitTime();
 	//returnToDashboard();
 	loginPage = sechedulePage.logOut();
@@ -217,7 +233,7 @@ public class HappyPathTest extends BaseTest {
     deliveryPage = dashBoardPage.goToDelivery();
     waitTime();
     System.out.println("******** Taking the scheduled test ********");
-       deliveryPage.takeAndVefiryTestResults("100%",
+       deliveryPage.takeAndVefiryTestResults(testMaxGoal,
     "4,4,4,4,4,4,4,4,4,4");
    reportsPage = deliveryPage.goToTestDetailReport(testName);
    customeWaitTime(5);

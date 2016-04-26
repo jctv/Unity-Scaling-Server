@@ -145,7 +145,10 @@ public class Reports extends BasePage {
 
 	List <String> itemInfo = new ArrayList <String> ();
 	
-	
+	/**
+	 * This is the method for view the report
+	 * @return
+	 */
 	public String viewReport() {
 		try {
 
@@ -158,6 +161,10 @@ public class Reports extends BasePage {
 
 	}
 
+	/**
+	 * This is the method for search  the report for a criteria
+	 * @param reportCriteria
+	 */
 	public void SearchReport(String reportCriteria) {
 		try {
 			waitAndClearField(searchAutoComplete);
@@ -173,6 +180,10 @@ public class Reports extends BasePage {
 				+ reportCriteria);
 	}
 
+	/**
+	 * This is the method for filter the report by content area
+	 * @param contentArea
+	 */
 	public void filterReportByContentArea(String contentArea) {
 		try {
 			waitForElementAndClick(contentAreaFilter);
@@ -192,6 +203,10 @@ public class Reports extends BasePage {
 
 	}
 
+	/**
+	 * This is the method for filter the report by Class Roster
+	 * @param className
+	 */
 	public void filterReportByClassRoster(String className) {
 		try {
 			customeWaitTime(10);
@@ -219,18 +234,34 @@ public class Reports extends BasePage {
 		}
 	}
 
+	/**
+	 * This is the method to get the test name
+	 * @param testName
+	 * @return  test name
+	 */
 	public String getTestName(String testName) {
 		WebElement reportTestName = driver.findElement(By
 				.xpath("//div[text()='" + testName + "']"));
 		return reportTestName.getText();
 	}
 
+	/**
+	 * This is the method to get the test duration
+	 * @param testName
+	 * @return
+	 */
 	public String getTestDuration(String testName) {
 		WebElement reportTestDuration = driver.findElement(By
 				.xpath("//div[text()='" + testName + "']/../div[2]//span[2]"));
 		return reportTestDuration.getText();
 	}
 
+	
+	/**
+	 * This the method to get the number of  student completed the test
+	 * @param testName
+	 * @return student name
+	 */
 	public String getNoOfStudentCompletedTest(String testName) {
 		WebElement countStudentCompletedTest = driver
 				.findElement(By
@@ -240,6 +271,11 @@ public class Reports extends BasePage {
 		return countStudentCompletedTest.getText();
 	}
 
+	/**
+	 * This is the method to get the count of student for who started the test
+	 * @param testName
+	 * @return count student started 
+	 */
 	public String getNoOfStudentStartedTest(String testName) {
 		WebElement countStudentStartedTest = driver
 				.findElement(By.xpath("//div[text()='" + testName
@@ -247,6 +283,11 @@ public class Reports extends BasePage {
 		return countStudentStartedTest.getText();
 	}
 
+	/**
+	 * This is the method for get the count of not started student
+	 * @param testName
+	 * @return
+	 */
 	public String getNoOfStudentNotStartedTest(String testName) {
 		WebElement countStudentNotStartedTest = driver
 				.findElement(By
@@ -256,6 +297,13 @@ public class Reports extends BasePage {
 		return countStudentNotStartedTest.getText();
 	}
 
+	/**
+	 * This is the method to get the student quantile
+	 * @param testName
+	 * @param index
+	 * @param desc
+	 * @return
+	 */
 	public String getNoOfStudentInQuantile(String testName, int index,
 			String desc) {
 		WebElement studentCount = driver
@@ -269,6 +317,11 @@ public class Reports extends BasePage {
 		return studentCount.getText();
 	}
 
+	/**
+	 * This is method to get the toltal score
+	 * @param testName
+	 * @return
+	 */
 	public String getTotalScore(String testName) {
 		WebElement totalScore = driver
 				.findElement(By
@@ -278,6 +331,13 @@ public class Reports extends BasePage {
 		return totalScore.getText();
 	}
 
+	
+	/**
+	 * This is the method for get the report category
+	 * @param testName
+	 * @param index
+	 * @return
+	 */
 	public String getReportCategory(String testName, int index) {
 		WebElement reportCategory = driver
 				.findElement(By
@@ -289,6 +349,12 @@ public class Reports extends BasePage {
 		return reportCategory.getText();
 	}
 
+	/**
+	 * This method to get report category
+	 * @param testName
+	 * @param index
+	 * @return category
+	 */
 	public String getReportCategoryPercent(String testName, int index) {
 		WebElement reportCategoryPercent = driver
 				.findElement(By
@@ -300,6 +366,10 @@ public class Reports extends BasePage {
 		return reportCategoryPercent.getText();
 	}
 
+	/**
+	 * This is the method to navigate the test detail 
+	 * @param testEvent 
+	 */
 	public void openTestEventDetail(String testEvent) {
 		try{
 		WebElement testEventName = driver.findElement(By.xpath("//div[text()='"
@@ -314,10 +384,22 @@ public class Reports extends BasePage {
 		}
 	}
 
+	/**
+	 * This is the method for get the test event title
+	 * @return
+	 */
 	public String getTestEventTitle() {
 		return waitAndGetElementText(testEventTitle);
 	}
 
+	
+	/**
+	 * This is the method to get the test event detail
+	 * @param lastName
+	 * @param index
+	 * @param desc
+	 * @return
+	 */
 	public String getTestEventDetail(String lastName, int index, String desc) {
 		customeWaitTime(5);
 		WebElement testEventInfo = driver.findElement(By.xpath("//td[text()='"
@@ -326,6 +408,12 @@ public class Reports extends BasePage {
 
 	}
 
+	/**
+	 * This is the method to get the class average detail
+	 * @param index
+	 * @param desc
+	 * @return
+	 */
 	public String getTestClassAverageDetail(int index, String desc) {
 		customeWaitTime(5);
 		WebElement testEventInfo = driver.findElement(By
@@ -334,6 +422,11 @@ public class Reports extends BasePage {
 		return waitAndGetElementText(testEventInfo);
 	}
 
+	
+	/**
+	 * This is the method to get the test detail by performace level
+	 * @param quantile
+	 */
 	public void filterTestDetailByPerformanceLevel(String quantile) {
 		waitForElementAndClick(testPerformanceLevel);
 		customeWaitTime(2);
@@ -344,6 +437,10 @@ public class Reports extends BasePage {
 		customeWaitTime(5);
 	}
 
+	/**
+	 * This is the method for filter by test detail by status
+	 * @param status
+	 */
 	public void filterTestDetailByStatus(String status) {
 		waitForElementAndClick(testStatus);
 		customeWaitTime(2);
@@ -354,6 +451,11 @@ public class Reports extends BasePage {
 		customeWaitTime(5);
 	}
 
+	/**
+	 * This is the method for
+	 * @param status
+	 * @return
+	 */
 	public boolean verifyStudentsByStatus(String status) {
 		int usersByStatus = Integer
 				.parseInt(waitForElementPresenceAndGetText("(//div[@data-status='"
@@ -369,6 +471,10 @@ public class Reports extends BasePage {
 		}
 	}
 
+	/**
+	 * This is the method for navigate to Hand Score
+	 * @return
+	 */
 	public HandScoring navigateToHandScore() {
 		try{
 		waitForElementAndClick(HandscoreThisTestButton);
@@ -380,7 +486,11 @@ public class Reports extends BasePage {
 	}
 	
 	
-
+/**
+ * This is the method to get the score status  
+ * @param studentLName
+ * @return status
+ */
  public String getScoreStatusinTestDetail(String studentLName){
 	 String status = "";
 	 try{

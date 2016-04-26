@@ -1,6 +1,7 @@
 package tests;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import org.testng.Assert;
@@ -9,10 +10,22 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import pages.Accommodation;
+import pages.ClassRoster;
 import pages.DashBoard;
+import pages.Delivery;
+import pages.Domain;
+import pages.HandScoring;
+import pages.Items;
+import pages.ItemsBank;
 import pages.Login;
+import pages.Organization;
+import pages.Reports;
 import pages.Role;
+import pages.Schedule;
 import pages.SisImport;
+import pages.Standards;
+import pages.TestCreation;
+import pages.TestsBank;
 import pages.Users;
 import generic.BaseTest;
 
@@ -24,6 +37,13 @@ public class AccommodationTest extends BaseTest{
 	SisImport sisImportPage;
 	Users usersPage;
 	Role rolePage;
+	ClassRoster classRosterPage;
+	TestCreation testCreationPage;
+	Schedule sechedulePage;
+	Delivery deliveryPage;
+	ItemsBank itemsBankPage;
+	TestsBank testBankPage;
+	Items itemsPage;
 
 	public AccommodationTest() {
 		super();
@@ -32,35 +52,33 @@ public class AccommodationTest extends BaseTest{
 
 	Properties unitytestdata;
 	Properties unityuserdata;
-
 	
 	String resourcesLocation = "src" + File.separator + "resources"
 			+ File.separator;
 	
 	String accommodation = "accommodation" + File.separator;
-	
 	String unityTestDataFile = resourcesLocation  + "unitytestdata.properties";
-	
 	String unityUserDataFile = resourcesLocation  + "unityUsersData.properties";
-
-	
 	String orgnizationFile= "organization.zip";
-	
 	String importUserFileLocation;
-	
 	String manualStudentF1;
 	String manualStudentF2;
-	
 	String manualStudentL1;
 	String manualStudentL2;
-	
+	String studentName1;
+	String studentName2;
 	String schoolName;
-	
+	String rosterName;
 	String student = "Student";
-	
 	String genericPassword;
-	
 	String importStdudentL1;
+	String testName;
+	String itemBank;
+	String testBank;
+	String itemName;
+	String copiedtest;
+	String testid1 , testid2;
+	long timeStamp= System.currentTimeMillis();
 	
 	@BeforeTest
 	public void loadUnityMessagesProperty(){
@@ -74,6 +92,11 @@ public class AccommodationTest extends BaseTest{
 		schoolName = unityuserdata.getProperty("ackSchooName");
 		importStdudentL1 = unityuserdata.getProperty("importStdudentL1");
 		genericPassword = unitytestdata.getProperty("genericPassword");
+		
+		testName = unitytestdata.getProperty("accommodationTestName") + timeStamp;
+		itemBank = unitytestdata.getProperty("accommodationItemBankName") + timeStamp;
+		testBank = unitytestdata.getProperty("accommodationTestBankName") + timeStamp;
+		itemName = unitytestdata.getProperty("accommodationItemName") + timeStamp;
 	}
 	
 	@BeforeClass
@@ -94,8 +117,29 @@ public class AccommodationTest extends BaseTest{
 		waitTime();
 		usersPage.editStudentAccommodation(manualStudentL1, true);
 		usersPage.createSpecificUser(manualStudentF2, manualStudentL2, genericPassword, genericPassword, student, schoolName);
-		accommodationPage = dashBoardPage.goToAccomadation();
-		
+		ArrayList<String> createdStudent = new ArrayList<String>();
+		studentName1 = manualStudentF1 + manualStudentL1;
+		studentName2 = manualStudentF2 + manualStudentL2;
+		createdStudent.add(studentName1);
+		createdStudent.add(studentName2);
+		dashBoardPage = usersPage.backToDashboard();
+		classRosterPage = dashBoardPage.goToClassRoster();
+		waitTime();
+		System.out.println("******** Class Roster creation ********");
+		rosterName = "CR" + timeStamp;
+		classRosterPage.createRoster(createdStudent, schoolName,
+				rosterName);
+		classRosterPage.returnClassRosterHome();
+		returnToDashboard();
+	   accommodationPage = dashBoardPage.goToAccomadation();
+	   accommodationPage.searchStudent(manualStudentL1);
+	   accommodationPage.waitForAnElementAndClick(accommodationPage.editIconList);
+	   accommodationPage.checkAlternateColorTextBackground(true);
+	   accommodationPage.checkAnswerEliminator(true);
+	   accommodationPage.checkAnswerMasking(true);
+	   accommodationPage.checkLineReader(true);
+	   accommodationPage.saveAccommodationAssignment();
+
 	}
 	
 	@Test(priority = 1)
@@ -124,7 +168,105 @@ public class AccommodationTest extends BaseTest{
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("defaultAdmin"),
 				unitytestdata.getProperty("defaultPassword"));
 		rolePage = dashBoardPage.goToRole();
-		//Assert.assertEquals(false, rolePage.getTilePermission("Accommodations", "Teacher").get("Create"));
-		;
+		Assert.assertFalse(rolePage.getTilePermission("Accommodations", "Teacher").get("Create"));
+		
 	}
+	
+
+    @Test(priority = 4 )
+	public void testVerifyAccomationToolsOnTestDelivery(){
+    	driver.get(url);
+		loginPage = new Login(driver);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("ackSchooladmin"),
+				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage.addTiles();
+		//
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		waitTime();
+		System.out.println("******** Item bank creation ********");
+		itemsBankPage.createBank(itemBank, "QA");
+		waitTime();
+		returnToDashboard();
+		customeWaitTime(5);
+		itemsPage = dashBoardPage.goToItems();
+		waitTime();
+		System.out.println("******** Items creation ********");
+		itemsPage.createItem(itemName, itemBank);
+		returnToDashboard();
+		testBankPage = dashBoardPage.goToTestsBank();
+		waitTime();
+		System.out.println("******** test bank creation ********");
+		testBankPage.createBank(testBank, "QA");
+		returnToDashboard();
+		customeWaitTime(5);
+		waitTime();
+		testCreationPage = dashBoardPage.goToTestCreation();
+		waitTime();
+		System.out.println("******** Test creation ********");
+		testCreationPage.createTest(testName, testBank, itemName);
+		customeWaitTime(5);
+		copiedtest = "copy_" + testName;
+		testCreationPage.copyTest(testBank, copiedtest);
+		
+		testCreationPage.searchTest(testName);
+		testid1 = testCreationPage.getTestId();
+		
+		testCreationPage.searchTest(copiedtest);
+		testid2 = testCreationPage.getTestId();
+		//testCreationPage.goToTestDashBoard();
+		returnToDashboard();
+		customeWaitTime(5);
+		sechedulePage = dashBoardPage.goToSchedule();
+		waitTime();
+	    System.out.println("******** Event creation ********");
+	   sechedulePage.scheduleTest(schoolName,
+				rosterName, "N/A", testName, "Red", "120",
+		"100%", "Yes");
+	   
+	   sechedulePage.scheduleTest(schoolName,
+				rosterName, "N/A", copiedtest, "Red", "120",
+		"100%", "No");
+	   
+		waitTime();
+		loginPage = sechedulePage.logOut();	
+		dashBoardPage = loginPage.loginSuccess(studentName1,
+				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage.addTiles();
+		deliveryPage = dashBoardPage.goToDelivery();
+		deliveryPage.startScheduledTest(testid1);
+		softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.answerMaskingIcon));
+		softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.answerEliminatorIcon));
+		softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.adjustColorIcon));
+		softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.lineReaderIcon));
+		deliveryPage.exitAndFinishTest();
+		deliveryPage.startScheduledTest(testid2);
+		softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.answerMaskingIcon));
+		softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.answerEliminatorIcon));
+		softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.adjustColorIcon));
+		softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.lineReaderIcon));
+		deliveryPage.exitAndFinishTest();
+		
+	}
+    
+    @Test(priority = 5 )
+    public void testVerifyAccommodationToolDisabledInTestDelivery(){
+    	driver.get(url);
+		loginPage = new Login(driver);
+		dashBoardPage = loginPage.loginSuccess(studentName2,
+				unitytestdata.getProperty("genericPassword"));
+		dashBoardPage.addTiles();
+		deliveryPage = dashBoardPage.goToDelivery();
+		deliveryPage.startScheduledTest(testid1);
+		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.answerMaskingIcon));
+		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.answerEliminatorIcon));
+		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.adjustColorIcon));
+		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.lineReaderIcon));
+		deliveryPage.exitAndFinishTest();
+		deliveryPage.startScheduledTest(testid2);
+		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.answerMaskingIcon));
+		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.answerEliminatorIcon));
+		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.adjustColorIcon));
+		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.lineReaderIcon));
+		deliveryPage.exitAndFinishTest();
+    }
 }

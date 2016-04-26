@@ -16,6 +16,10 @@ import generic.BasePage;
 
 public class Role extends BasePage {
 
+	/**
+	 * Constructor
+	 * @param driver
+	 */
 	public Role(WebDriver driver) {
 		super(driver);
 		PageFactory.initElements(driver, this);
@@ -24,6 +28,7 @@ public class Role extends BasePage {
 	@FindBy(xpath = "//a[text()='Create Role']")
 	public WebElement createRoleLink;
 
+	
 	@FindBy(xpath = "//td[text()='System Administrator']/..//td[@class='watable-col-add_tile']/button")
 	public WebElement systemAdminAddTileButton;
 
@@ -48,6 +53,12 @@ public class Role extends BasePage {
 	@FindBy(id = "roleCreateCancel")
 	public WebElement roleCreateCancelButton;
 	
+	/**
+	 * This is the method for enable the tile 
+	 * @param user
+	 * @param id
+	 * @param isEnabled
+	 */
 	public void enableTile(String user , String id , boolean isEnabled) {
 		try {
 			
@@ -75,6 +86,9 @@ public class Role extends BasePage {
 
 	}
 
+	/**
+	 * This is method for enable the create permission
+	 */
 	public void enableCreatePermissionItemImportTile() {
 		try {
 
@@ -95,6 +109,10 @@ public class Role extends BasePage {
 
 	}
 
+	/**
+	 * This is method for create the role
+	 * @param roleName
+	 */
 	public void createRole(String roleName) {
 		try {
 			waitForElementAndClick(createRoleLink);
@@ -111,6 +129,10 @@ public class Role extends BasePage {
 
 	}
 
+	/**
+	 * This is the method for delete role
+	 * @param roleName
+	 */
 	public void deleteRole(String roleName) {
 		try {
 			waitTime();
@@ -128,6 +150,12 @@ public class Role extends BasePage {
 
 	}
 
+	/**
+	 * This is the method for add permission
+	 * @param tileName
+	 * @param role
+	 * @param permissions
+	 */
 	public void addPermissions(String tileName, String role, String permissions) {
 		try {
 			List<String> permissionsToAdd = new ArrayList<String>(
@@ -145,6 +173,11 @@ public class Role extends BasePage {
 		
 	}
 
+	/**
+	 * This is the method for enabel tile for perticular user
+	 * @param role
+	 * @param tileName
+	 */
 	public void enableTileByRole(String role, String tileName) {
 		try {
 			waitForElementPresenceAndClick("//tr[./td[text()='" + role
@@ -160,6 +193,12 @@ public class Role extends BasePage {
 	}
 	
 	
+	/**
+	 * This is the method for get the tile permission
+	 * @param tileName
+	 * @param role
+	 * @return
+	 */
 	public Map <String , Boolean> getTilePermission(String tileName , String role){
 		Map<String  , Boolean> tilePemission = null; 
 		tilePemission = new HashMap<String, Boolean>();    

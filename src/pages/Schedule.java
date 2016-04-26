@@ -84,6 +84,10 @@ public class Schedule extends BasePage {
 	
 	@FindBy(id = "masterGoalSelect")
 	public WebElement masterGoalSelect;
+	
+	@FindBy(id = "timeLimit")
+	public WebElement timeLimitSelect;
+	
 
 	@FindBy(id = "masterToolSelect")
 	public WebElement masterToolSelect;
@@ -113,6 +117,7 @@ public class Schedule extends BasePage {
 	public WebElement cancelPastEvent;
 
 	/**
+	 * This is the method for schedule the test
 	 * @param school
 	 * @param roster
 	 * @param contetArea
@@ -151,8 +156,8 @@ public class Schedule extends BasePage {
 			waitForElementAndSendKeys(myColor, eventColor);
 			selectOption(myColor, eventColor);
 			
-			waitForElementAndSendKeys(masterTimeSelect, time);
-			selectOption(masterTimeSelect, time);
+			waitForElementAndSendKeys(timeLimitSelect, time);
+			selectOption(timeLimitSelect, time);
 			
 			waitForElementAndSendKeys(masterGoalSelect, goal);
 			selectOption(masterGoalSelect, goal);
@@ -204,8 +209,8 @@ public class Schedule extends BasePage {
 			waitForElementAndSendKeys(myColor, "Red");
 			selectOption(myColor, "Red");
 			
-			waitForElementAndSendKeys(masterTimeSelect, "120");
-			selectOption(masterTimeSelect, "120");
+			waitForElementAndSendKeys(timeLimitSelect, "120");
+			selectOption(timeLimitSelect, "120");
 			
 			waitForElementAndSendKeys(masterGoalSelect, "100%");
 			selectOption(masterGoalSelect, "100%");

@@ -34,6 +34,11 @@ public class ScoreProfile extends BasePage{
 	}
 	
 	
+	/**
+	 * This method to get the score profile Name
+	 * @param ProfileName
+	 * @return name 
+	 */
 	public String  getScoreProfileName(String ProfileName){
 		waitTime();
 		WebElement scoreProfileNameRow = driver
@@ -44,6 +49,11 @@ public class ScoreProfile extends BasePage{
 	}
 	
 	
+/**
+ * This is the method to get the score engine
+ * @param profileEngine
+ * @return engine
+ */
 public String getScoreProfileEngine(String profileEngine){
 	waitTime();
 	WebElement scoreProfileEngineRow = driver

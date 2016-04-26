@@ -111,7 +111,11 @@ public class ItemsBank extends BasePage {
 	public WebElement itemBankNameFilter;
 	
 	
-	
+	/**
+	 * This is method for creating the item bank
+	 * @param bank
+	 * @param description
+	 */
 	public void createBank(String bank, String description) {
 		try {
 			customeWaitTime(6);
@@ -130,11 +134,12 @@ public class ItemsBank extends BasePage {
 
 	}
 	
+	/**
+	 * This is method for search the item
+	 * @param itemBank
+	 */
 	public void searchItemBank(String itemBank){
 		try{
-		  customeWaitTime(5);
-		  searchAutoCompleteField.clear();
-		  customeWaitTime(5);
 		  waitForElementAndSendKeys(searchAutoCompleteField, itemBank);
 		  waitForElementAndClick(searchButton);
 		  customeWaitTime(5);
@@ -145,6 +150,9 @@ public class ItemsBank extends BasePage {
 		
 	}
 	
+	/**
+	 * This is  the method for opening the sharing screen
+	 */
 	public void openItemBankShareScreen(){
 		 try{
 			 waitForElementAndClick(shareButton);
@@ -156,7 +164,9 @@ public class ItemsBank extends BasePage {
 		
 	}
 	
-	
+	/**
+	 * This is the method for closing the sharing scren
+	 */
 	public void closeItemBankShareScreen(){
 		try{
 			 waitForElementAndClick(closeShareButton);
@@ -209,6 +219,12 @@ public class ItemsBank extends BasePage {
    	}
 	*/
        
+	/**
+	 * This is the method for sharing the item bank
+	 * @param user
+	 * @param permissions
+	 * @return
+	 */
    
 	public String shareItemBank(String user, String permissions) {
         String selectedTeacher = null;
@@ -273,6 +289,10 @@ public class ItemsBank extends BasePage {
     }
  
 	
+	/**
+	 * This is the method for delete the item bank
+	 * @param itemBank
+	 */
 	public void deleteItemBank(String itemBank){
 		try{
 		searchItemBank(itemBank);	
@@ -289,7 +309,10 @@ public class ItemsBank extends BasePage {
 		
 	}
 	
-	
+	/**
+	 * This is the method for filter the item bank
+	 * @param itemName
+	 */
 	public void filterItemBank(String itemName){
 		try{
 			customeWaitTime(5);

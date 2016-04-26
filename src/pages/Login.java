@@ -33,7 +33,12 @@ public class Login extends BasePage {
 	@FindBy(xpath = ".//*[@id='passwordFormGrp']/label")
 	public WebElement invalidUserAndPasswordLabel;
 	
-	
+	/**
+	 * This is the login method for unity
+	 * @param user
+	 * @param password
+	 * @return dashboard page instance
+	 */
 	public DashBoard loginSuccess(String user, String password) {
 		try {
 			waitForElementAndSendKeys(userField, user);
