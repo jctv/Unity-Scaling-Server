@@ -85,10 +85,6 @@ public class Accommodation extends BasePage {
 	
 	@FindBy(xpath = ".//*[@id='globalModalView']/div/div/div[1]/button")
 	public WebElement accommodationCloseButton ;
-<<<<<<< HEAD
-		
-=======
-	
 	
 	@FindBy(id = "additional_testing_time_multiplier_radio")
 	public WebElement additionalTestingTimeMultiplierRadioButton;
@@ -111,8 +107,6 @@ public class Accommodation extends BasePage {
 	@FindBy(id = "magnification-time")
 	public WebElement selectMagnificationTime;
 	
-	
->>>>>>> aed78a672277c843c26e1d116275b08f297ebcfc
 	public boolean searchStudent(String criteria) {
 		try {
 			waitTime();
