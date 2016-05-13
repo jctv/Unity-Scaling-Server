@@ -7,22 +7,22 @@
   <parameter name="waitingTime" value="30"/>
   <parameter name="type" value="Local"/>
   <parameter name="userName" value="bil/ctribin"/>
-  <parameter name="url" value="http://uat.8pnds.com/login.html"/>
+  <parameter name="url" value="http://qa.8pnds.com/login.html"/>
   <parameter name="platform" value="Any"/>
   <parameter name="hubAddress" value="${hubAddress}"/>
   <test name="Unity(failed)">
     <classes>
-      <class name="tests.HappyPathTest">
+      <class name="tests.ConfigurableDeliveryTest">
         <methods>
           <include name="suiteSetUp"/>
-          <include name="setUp"/>
+          <include name="testDeliveryScoreIsReportable"/>
+          <include name="loadUnityMessagesProperty"/>
           <include name="classSetUp"/>
           <include name="classTearDown"/>
           <include name="tearDown"/>
-          <include name="testHappyPath"/>
-          <include name="loadUnityMessagesProperty"/>
+          <include name="setUp"/>
         </methods>
-      </class> <!-- tests.HappyPathTest -->
+      </class> <!-- tests.ConfigurableDeliveryTest -->
     </classes>
   </test> <!-- Unity(failed) -->
 </suite> <!-- Failed suite [TestSuite] -->

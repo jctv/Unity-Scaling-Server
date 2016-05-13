@@ -33,7 +33,8 @@ public class Schedule extends BasePage {
 	@FindBy(xpath = "//div[@class= 'fc-time']")
 	public WebElement scheduledTestEvent;
 	
-	
+	@FindBy(id="isStudentScoreReportable")
+	public WebElement studentReportableDropDown;
 	
 	@FindBy(xpath = "//*[@id='region-workspace']/div/div[1]/div[2]/div/table/tbody/tr/td/div[2]/div/div[3]/table/tbody/tr/td[2]/div/a/div[1]/div[1]")
 	public WebElement createdEvent;
@@ -127,7 +128,9 @@ public class Schedule extends BasePage {
 	 * @param goal
 	 * @param tools
 	 */
-	public void scheduleTest(String school, String roster , String contetArea , String test , String eventColor, String time , String goal, String tools) {
+	public void scheduleTest(String school, String roster , String contetArea , String test , 
+							 String eventColor, String time , String goal, String tools,
+							 String isScoreReportable) {
 		try {
 			waitTime();
 			waitForElementAndClick(dayButton);
@@ -155,6 +158,17 @@ public class Schedule extends BasePage {
 			
 			waitForElementAndSendKeys(myColor, eventColor);
 			selectOption(myColor, eventColor);
+			
+			switch (isScoreReportable) {
+			case "true":
+				waitForElementAndClick(studentReportableDropDown);
+				selectOption(studentReportableDropDown, 1);
+				break;
+			case "false":
+				waitForElementAndClick(studentReportableDropDown);
+				waitForElementAndSendKeys(studentReportableDropDown, "W");
+				break;
+			}
 			
 			waitForElementAndSendKeys(timeLimitSelect, time);
 			selectOption(timeLimitSelect, time);

@@ -205,18 +205,90 @@ public class TestCreationTest extends BaseTest {
     @Test(priority = 2)
     public void testCreatTestWithAnswerEliminatorTool(){
     	long timestamp = System.currentTimeMillis();
-		testName =  unitytestcreationdata.getProperty("testName") + timestamp;
+    	String testWithAnswerEliminator;
+    	testWithAnswerEliminator =  unitytestcreationdata.getProperty("testName") + timestamp;
     	testCreationPage =  dashBoardPage.goToTestCreation();
     	customeWaitTime(5);
-    	testCreationPage.createTestWithAnswerEliminatorTool(testName, testBankName, itemName);
+    	testCreationPage.createTestWithAccommodationTool(testWithAnswerEliminator, testBankName, itemName, "answerEliminatorCheckBox");
     	customeWaitTime(5);
-    	testCreationPage.searchTest(testName);
-		Assert.assertEquals(testCreationPage.waitAndGetElementText(testCreationPage.testNameList).trim(), testName);
+    	testCreationPage.searchTest(testWithAnswerEliminator);
+		Assert.assertEquals(testCreationPage.waitAndGetElementText(testCreationPage.testNameList).trim(), testWithAnswerEliminator);
     	testCreationPage.waitForAnElementAndClick(testCreationPage.previewIconList);
     	customeWaitTime(5);
     	previewTestPage = testCreationPage.previewTest();
     	customeWaitTime(5);
     	Assert.assertTrue(previewTestPage.waitForElementVisible(previewTestPage.answerEliminatorIcon));
+    	customeWaitTime(5);
+    	previewTestPage.waitForAnElementAndClick(previewTestPage.exitButton);
+    	dashBoardPage = testCreationPage.returnToDashboard();
+    }
+    
+    @Test(priority = 3)
+    public void testCreatTestWithHighLighTool(){
+    	long timestamp = System.currentTimeMillis();
+    	String testWithHighlight;
+    	testWithHighlight =  unitytestcreationdata.getProperty("testName") + timestamp;
+    	testCreationPage =  dashBoardPage.goToTestCreation();
+    	customeWaitTime(5);
+    	testCreationPage.createTestWithAccommodationTool(testWithHighlight, testBankName, itemName, "highlight");
+    	customeWaitTime(5);
+    	testCreationPage.searchTest(testWithHighlight);
+		Assert.assertEquals(testCreationPage.waitAndGetElementText(testCreationPage.testNameList).trim(), testWithHighlight);
+    	testCreationPage.waitForAnElementAndClick(testCreationPage.previewIconList);
+    	customeWaitTime(5);
+    	previewTestPage = testCreationPage.previewTest();
+    	customeWaitTime(5);
+    	Assert.assertTrue(previewTestPage.waitForElementVisible(previewTestPage.highlitghTool));
+    	customeWaitTime(5);
+    	previewTestPage.waitForAnElementAndClick(previewTestPage.exitButton);
+    	dashBoardPage = testCreationPage.returnToDashboard();
+    }
+    
+    @Test(priority = 4)
+    public void testCreatTestWithNotePadTool(){
+    	long timestamp = System.currentTimeMillis();
+    	String testWithNotepad;
+    	testWithNotepad =  unitytestcreationdata.getProperty("testName") + timestamp;
+    	testCreationPage =  dashBoardPage.goToTestCreation();
+    	customeWaitTime(5);
+    	testCreationPage.createTestWithAccommodationTool(testWithNotepad, testBankName, itemName, "notepad");
+    	customeWaitTime(5);
+    	testCreationPage.searchTest(testWithNotepad);
+		Assert.assertEquals(testCreationPage.waitAndGetElementText(testCreationPage.testNameList).trim(), testWithNotepad);
+    	testCreationPage.waitForAnElementAndClick(testCreationPage.previewIconList);
+    	customeWaitTime(5);
+    	previewTestPage = testCreationPage.previewTest();
+    	customeWaitTime(5);
+    	Assert.assertTrue(previewTestPage.waitForElementVisible(previewTestPage.notepadTool));
+    	customeWaitTime(5);
+    	previewTestPage.waitForAnElementAndClick(previewTestPage.notepadTool);
+    	customeWaitTime(5);
+    	softAssert.assertTrue(previewTestPage.waitForElementVisible(previewTestPage.notepadDisplayed));
+    	customeWaitTime(5);
+    	
+    }
+    
+    @Test(priority = 5)
+    public void testCreatTestWithBookmarkTool(){
+    	long timestamp = System.currentTimeMillis();
+    	String testWithBookmark;
+    	testWithBookmark =  unitytestcreationdata.getProperty("testName") + timestamp;
+    	testCreationPage =  dashBoardPage.goToTestCreation();
+    	customeWaitTime(5);
+    	testCreationPage.createTestWithAccommodationTool(testWithBookmark, testBankName, itemName, "bookmark");
+    	customeWaitTime(5);
+    	testCreationPage.searchTest(testWithBookmark);
+		Assert.assertEquals(testCreationPage.waitAndGetElementText(testCreationPage.testNameList).trim(), testWithBookmark);
+    	testCreationPage.waitForAnElementAndClick(testCreationPage.previewIconList);
+    	customeWaitTime(5);
+    	previewTestPage = testCreationPage.previewTest();
+    	customeWaitTime(5);
+    	Assert.assertTrue(previewTestPage.waitForElementVisible(previewTestPage.bookmark));
+    	customeWaitTime(5);
+    	previewTestPage.waitForAnElementAndClick(previewTestPage.bookmark);
+    	customeWaitTime(5);
+    	softAssert.assertTrue(previewTestPage.waitForElementVisible(previewTestPage.bookmark));
+    	customeWaitTime(5);
     }
 	
 }

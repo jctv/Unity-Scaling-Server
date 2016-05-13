@@ -6,6 +6,7 @@ import java.util.List;
 
 import generic.BasePage;
 import generic.BaseTest;
+import net.sourceforge.htmlunit.corejs.javascript.ast.SwitchCase;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +15,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.gargoylesoftware.htmlunit.WaitingRefreshHandler;
+import com.google.common.base.CaseFormat;
+import com.thoughtworks.selenium.webdriven.commands.Highlight;
 
 public class TestCreation extends BasePage {
 
@@ -57,6 +60,15 @@ public class TestCreation extends BasePage {
 
 	@FindBy(id = "tDetails")
 	public WebElement detailsButton;
+	
+	@FindBy(id = "bookmark-check")
+	public WebElement bookMarkCheck;
+	
+	@FindBy(id = "highlighter-check")
+	public WebElement highlightCheck;
+	
+	@FindBy(id = "notepad-check")
+	public WebElement notepadCheck;
 
 	@FindBy(id = "class")
 	public WebElement classField;
@@ -205,6 +217,12 @@ public class TestCreation extends BasePage {
 	@FindBy(id = "adjust_color-check")
 	public WebElement alternateColorAndBackgroundCheckBox;
 	
+	@FindBy(id="notepad-check")
+	public WebElement notepadCheckBox;
+	
+	@FindBy(className="fa-home")
+	public WebElement homeButton;
+	
 	
 	/**
 	 * This is the method for creating the test
@@ -235,17 +253,6 @@ public class TestCreation extends BasePage {
 			waitForElementAndClick(item1);
 			dragAndDrop(item1, target);
 			clearSearchFilter();
-			/*for (int x = 0; x < 1; x++) {
-				String items = "item 2";
-				
-				//itemsArray[0] = items;
-				waitForElementAndSendKeys(searchAutoCompleteField,
-						items);
-				waitForElementAndClick(searchButton);
-				
-				dragAndDrop(item1, target);
-				clearSearchFilter();
-			}*/
 			System.out.println("Items " + itemName + " added to the test " + testName);
 			
 			waitForElementAndSendKeys(testContentField, "N/A");
@@ -257,31 +264,16 @@ public class TestCreation extends BasePage {
 			
 			waitForElementAndClick(saveTestButton);
 			waitForElementAndClick(xbutton);
-			/*waitForElementAndClick(detailsButton);
-			waitForElementAndSendKeys(keywordsField, testName);
-			waitForElementAndClick(saveDetailsButton);
-			waitForElementAndClick(okButton);*/
 
 			try {
 				waitForElementAndClick(xbutton);
 			} catch (Exception e) {
-				// TODO: handle exception
+			
 			}
-			/*waitForElementAndClick(toolsButton);
-			waitForElementAndClick(calculator_check);
-			waitForElementAndClick(ruler_check);
-			waitForElementAndClick(saveToolsButton);
-			waitForElementAndClick(okButton);*/
 			customeWaitTime(5);
 			System.out.println("Test "+ testName +" created successfully ");
 			backToListing();
 			customeWaitTime(5);
-			/*waitForElementAndClick(homeLink);
-			try {
-				waitForElementAndClick(homeLink);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}*/
 		} catch (Exception e) {
 			System.out.println("Test "+ testName +" Creation Failed ");
 		}
@@ -344,8 +336,8 @@ public class TestCreation extends BasePage {
 	 * @param testBankName
 	 * @param itemName
 	 */
-	public void createTestWithAnswerEliminatorTool(	String testName , String testBankName ,  
-													String itemName) 
+	public void createTestWithAccommodationTool(String testName , String testBankName ,  
+												String itemName, String accommodationTool) 
 	{
 			try {
 				waitForElementAndClick(createTestLink);
@@ -374,7 +366,23 @@ public class TestCreation extends BasePage {
 				selectOption(testGradeField, "05");
 				testGradeField.click();
 				waitForElementAndClick(toolsButton);
-				waitForAnElementAndClick(answerEliminatorCheckBox);
+				switch(accommodationTool){
+				case "answerEliminator":
+					waitForAnElementAndClick(answerEliminatorCheckBox);
+					break;
+				case "highlight":
+					waitForAnElementAndClick(highlightCheck);
+					break;
+				case "bookmark":
+					waitForAnElementAndClick(bookMarkCheck);
+					break;
+				case "notepad":
+					waitForAnElementAndClick(notepadCheck);
+					break;
+				case "maskinganswer":
+					waitForAnElementAndClick(answerMaskingToolCheckBox);
+					break;
+				}
 				waitForAnElementAndClick(toolSaveButton);
 				waitForElementAndClick(saveTestButton);
 				waitForElementAndClick(xbutton);
@@ -382,23 +390,8 @@ public class TestCreation extends BasePage {
 				try {
 					waitForElementAndClick(xbutton);
 				} catch (Exception e) {
-					// TODO: handle exception
 				}
-				/*waitForElementAndClick(toolsButton);
-				waitForElementAndClick(calculator_check);
-				waitForElementAndClick(ruler_check);
-				waitForElementAndClick(saveToolsButton);
-				waitForElementAndClick(okButton);*/
-				customeWaitTime(5);
-				System.out.println("Test "+ testName +" created successfully ");
-				backToListing();
-				customeWaitTime(5);
-				/*waitForElementAndClick(homeLink);
-				try {
-					waitForElementAndClick(homeLink);
-				} catch (Exception e) {
-					// TODO: handle exception
-				}*/
+			
 			} catch (Exception e) {
 				System.out.println("Test "+ testName +" Creation Failed ");
 			}
@@ -666,6 +659,11 @@ public class TestCreation extends BasePage {
 	public Delivery previewTest(){
 		waitForAnElementAndClick(testItemsPreviewViewTestButton);
 		return new Delivery(driver);
+	}
+	
+	public DashBoard returnToDashboard(){
+		 waitForAnElementAndClick(homeButton);
+		 return new DashBoard(driver);
 	}
 	
 	/**

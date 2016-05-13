@@ -219,7 +219,7 @@ public class HappyPathTest extends BaseTest {
 	    System.out.println("******** Event creation ********");
 	   sechedulePage.scheduleTest(school,
 				roster, contentArea, testName, calenderRedColor, testMaxTime,
-				testMaxGoal, yes);
+				testMaxGoal, yes, "true");
 		waitTime();
 	//returnToDashboard();
 	loginPage = sechedulePage.logOut();

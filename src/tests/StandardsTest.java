@@ -133,7 +133,7 @@ public class StandardsTest extends BaseTest{
 		System.out.println("******** Event creation ********");
 		sechedulePage.scheduleTest(SchoolName,
 				rosterName, "N/A", testName, "Red", "120",
-				"100%", "Yes");
+				"100%", "Yes","true");
 		waitTime();
 		returnToDashboard();
 		loginPage = dashBoardPage.logOut();

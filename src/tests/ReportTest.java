@@ -356,16 +356,16 @@ public class ReportTest extends BaseTest {
 		createdTestId10 = testCreationPage.getTestId();		
 		sechedulePage = dashBoardPage.goToSchedule();
 		customeWaitTime(2);
-		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName1, "Green", "110", "20%", "No");
-		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName2, "Green", "110", "20%", "No");
-		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName3, "Green", "110", "20%", "No");
-		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName4, "Green", "110", "20%", "No");
-		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName5, "Green", "110", "20%", "No");
-		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName6, "Green", "110", "20%", "No");
-		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName7, "Green", "110", "20%", "No");
-		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName8, "Green", "110", "20%", "No");
-		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName9, "Green", "110", "20%", "No");
-		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName10, "Green", "110", "100%", "Yes");
+		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName1, "Green", "110", "20%", "No","true");
+		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName2, "Green", "110", "20%", "No","true");
+		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName3, "Green", "110", "20%", "No","true");
+		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName4, "Green", "110", "20%", "No","true");
+		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName5, "Green", "110", "20%", "No","true");
+		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName6, "Green", "110", "20%", "No","true");
+		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName7, "Green", "110", "20%", "No","true");
+		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName8, "Green", "110", "20%", "No","true");
+		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName9, "Green", "110", "20%", "No","true");
+		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName10, "Green", "110", "100%", "Yes","true");
 
 			
 		

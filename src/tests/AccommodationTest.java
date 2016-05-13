@@ -221,11 +221,11 @@ public class AccommodationTest extends BaseTest{
 	    System.out.println("******** Event creation ********");
 	   sechedulePage.scheduleTest(schoolName,
 				rosterName, "N/A", testName, "Red", "120",
-		"100%", "Yes");
+		"100%", "Yes", "true");
 	   
 	   sechedulePage.scheduleTest(schoolName,
 				rosterName, "N/A", copiedtest, "Red", "120",
-		"100%", "No");
+		"100%", "No", "true");
 	   
 		waitTime();
 		loginPage = sechedulePage.logOut();	
