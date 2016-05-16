@@ -138,7 +138,7 @@ public class Users extends BasePage {
 	@FindBy(xpath = "/html/body/div[20]/div/ul/li[1]/a")
 	public WebElement selectOrg;
 
-	@FindBy(xpath = "//select[@id='userCreateOrg']")
+	@FindBy(xpath = "//button[@data-id='userCreateOrg']")
 	public WebElement selectOrgDropDown;
 
 	@FindBy(id = "first_name")
@@ -292,17 +292,11 @@ public class Users extends BasePage {
 			waitForElementAndSendKeys(lastNameField, lastName);
 			waitForElementAndSendKeys(password, newPassword);
 			waitForElementAndSendKeys(retypePassword, confirmPassword);
-			//waitForElementAndSendKeys(role, newRole);
-			//role.click();
-			selectOption(role , newRole);
-			if(selectOrgDropDown.isDisplayed()){
-				selectOption(selectOrgDropDown , organization);
-			}else{
-				waitForElementAndClick(searchOrgButton);
-				waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
-			}
-			waitForElementAndClick(globalModalViewTitle);
-			//globalModalViewTitle.click();
+			waitForElementAndSendKeys(role, newRole);
+			role.click();
+			waitForElementAndClick(searchOrgButton);
+			waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
+			globalModalViewTitle.click();
 			waitTime();
 			waitForElementAndClick(submit);
 			try {
@@ -574,22 +568,5 @@ public class Users extends BasePage {
 		} catch (Exception e) {
 
 		}
-	}
-	
-
-	public String getUserUuid(String user){
-		String userUuid = null;
-		try{
-			searchUser(user);
-			userUuid =  waitAndGetElementAttribute(previewIconList,"data-id" );
-			System.out.println("Created  user   uuid is >>  " + userUuid);
-
-		}catch(Exception e){
-			
-			 System.out.println("Unable to get  the user  uuid >>  " + userUuid);
-
-		}
-		
-		return userUuid;
 	}
 }

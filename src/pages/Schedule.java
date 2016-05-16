@@ -3,7 +3,6 @@ package pages;
 import generic.BasePage;
 import generic.BaseTest;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -116,10 +115,6 @@ public class Schedule extends BasePage {
 	
 	@FindBy(id = "cancelPastEvent")
 	public WebElement cancelPastEvent;
-	
-	@FindBy(id = "isStudentScoreReportable")
-	public WebElement selectReportScore;
-	
 
 	/**
 	 * This is the method for schedule the test
@@ -237,136 +232,6 @@ public class Schedule extends BasePage {
 			System.out.println("Event creation failed");
 		}
 
-		
-	}
-	
-	
-	/**
-	 * This is the method for save  the test event
-	 * @param school
-	 * @param roster
-	 * @param contetArea
-	 * @param test
-	 * @param eventColor
-	 * @param time
-	 * @param goal
-	 * @param tools
-	 */
-	public void saveTestEvent(String school, String roster , String contetArea , String test , String reportScore , String eventColor, String time , String goal, String tools) {
-		try {
-			waitTime();
-			waitForElementAndClick(dayButton);
-			
-			while(waitForElementVisible(scheduledTestEvent)){
-				waitForElementAndClick(nextButton);
-			}
-			waitForElementAndClick(nextButton);
-			customeWaitTime(1);
-			(new Actions(driver)).doubleClick(calendarArea).build().perform();
-			(new Actions(driver)).doubleClick().build().perform();
-			System.out.println("click on calendar");
-
-			waitForElementAndSendKeys(schoolName, school);
-			selectOption(schoolName, school);
-			
-			waitForElementAndSendKeys(className, roster);
-			selectOption(className, roster);
-			
-			waitForElementAndSendKeys(contentLevel, contetArea);
-			selectOption(contentLevel, contetArea);
-
-			waitForElementAndSendKeys(name, test);
-			selectOption(name, test);
-			
-			waitForElementAndSendKeys(myColor, eventColor);
-			selectOption(myColor, eventColor);
-			
-			waitForElementAndSendKeys(timeLimitSelect, time);
-			selectOption(timeLimitSelect, time);
-			
-			waitForElementAndSendKeys(masterGoalSelect, goal);
-			selectOption(masterGoalSelect, goal);
-			
-			waitForElementAndSendKeys(masterToolSelect, tools);
-			selectOption(masterToolSelect, tools);
-			waitForElementAndClick(btnCreate);
-			System.out.println(test + "event is created & Saved");
-		} catch (Exception e) {
-			System.out.println(test + "Event creation failed");
-		}
-
-		
-	}
-	
-	public void startTestEvent(){
-		try{
-			waitForElementAndClick(scheduledTestEvent);
-			System.out.println("click on event");
-			customeWaitTime(5);
-			waitForElementAndClick(startNowEventClick);
-			waitTime();
-			//waitForElementAndClick(homeLink);
-			System.out.println("Test Event started");
-			
-		}catch(Exception e){
-			
-			System.out.println("Event creation failed");
-
-		}
-		
-		
-	}
-	
-	public void openTestEvent(){
-		try{
-			waitForElementAndClick(scheduledTestEvent);
-			waitTime();
-		}catch(Exception e){
-			
-		}
-	}
-	
-	
-	public boolean getStudentCheckBoxStatus(String studentuuid){
-		WebElement studentCheckbox = null;
-
-		try{
-		studentCheckbox = driver.findElement(By
-				.xpath("//input[@value='" + studentuuid + "']"));
-		
-		}catch(Exception e){
-			
-		}
-		return studentCheckbox.isSelected();
-	}
-	
-	public void addStudentToScheduledTest(String studentuuid , String goal , String tools ){
-		try{
-			WebElement studentCheckbox = driver.findElement(By
-					.xpath("//input[@value='" + studentuuid + "']"));
-			if(!studentCheckbox.isSelected()){
-				System.out.println("By default student check is not  selected");
-				
-			}else{
-				System.out.println("Error - By default student check was selected ");
-			}
-			
-			waitForElementAndClick(studentCheckbox);
-			WebElement stududentGoalSelect = driver.findElement(By
-					.xpath("//select [@data-uuid='" + studentuuid + "' and contains(@id,'goalSelect')]"));
-			selectOption(stududentGoalSelect , goal);
-			
-			WebElement stududentToolSelect = driver.findElement(By
-					.xpath("//select [@data-uuid='" + studentuuid + "' and contains(@id,'toolSelect')]"));
-			selectOption(stududentToolSelect , goal);
-
-			waitForElementAndClick(btnCreate);
-
-		}catch(Exception e ){
-			
-			System.out.println("Error - while adding the new  student for scheduled roster  ");
-			
-		}
 		
 	}
 
