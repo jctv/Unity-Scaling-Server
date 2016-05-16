@@ -428,9 +428,16 @@ public class Items extends BasePage {
 
 	}
 
-	public void createHandScoringItem(String name) {
+	public void createHandScoringItem(String name, String itemBankName) {
 		customeWaitTime(5);
 		waitForElementAndClick(createItemButton);
+		customeWaitTime(3);
+		if(selectItemBank.isDisplayed()){
+			selectOption(selectItemBank, itemBankName);
+		}else{
+			selectItemBank(itemBankName);
+		}
+		customeWaitTime(5);
 		waitForElementAndSendKeys(itemCreateInputName, name);
 		waitForElementAndSendKeys(itemCreateInputDescription, "Description");
 		waitForElementAndClick(itemCreateEditInputSubmit);
@@ -453,11 +460,9 @@ public class Items extends BasePage {
 
 		System.out.println("The Item has been created");
 		customeWaitTime(5);
-		backToListing();;
+		backToListing();
 		customeWaitTime(5);
 		this.addStandards();
-		waitForElementAndClick(backToDashboard);
-
 	}
 
 	public void addStandards() {

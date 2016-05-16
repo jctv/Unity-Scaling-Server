@@ -179,19 +179,19 @@ public class HandScoringTests extends BaseTest {
 		System.out.println("******** Event creation ********");
 		sechedulePage.scheduleTest(testSchool,
 				testrosterName, "N/A", testName1, "Red", "120",
-				"100%", "Yes");
+				"100%", "Yes","true");
 		sechedulePage.scheduleTest(testSchool,
 				testrosterName, "N/A", testName2, "Red", "120",
-				"100%", "Yes");
+				"100%", "Yes","true");
 		sechedulePage.scheduleTest(testSchool,
 				testrosterName, "N/A", testName3, "Red", "120",
-				"100%", "Yes");
+				"100%", "Yes","true");
 		sechedulePage.scheduleTest(testSchool,
 				testrosterName, "N/A", testName4, "Red", "120",
-				"100%", "Yes");
+				"100%", "Yes","true");
 		sechedulePage.scheduleTest(testSchool,
 				testrosterName, "N/A", testName5, "Red", "120",
-				"100%", "Yes");
+				"100%", "Yes","true");
 		waitTime();
 		returnToDashboard();
 		loginPage = dashBoardPage.logOut();

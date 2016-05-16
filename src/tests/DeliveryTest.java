@@ -59,6 +59,8 @@ public class DeliveryTest extends BaseTest {
 	String testName3;
 	String testName4;
 	String testName5;
+	String testName6;
+	String testName7;
 
 	String testBank;
 	String itemBank;
@@ -70,6 +72,8 @@ public class DeliveryTest extends BaseTest {
 	String testid3;
 	String testid4;
 	String testid5;
+	String testid6;
+	String testid7;
 	
 	String testroster;
 	String testschool;
@@ -116,7 +120,7 @@ public class DeliveryTest extends BaseTest {
 	public void setUp() {
 		driver.get(url);
 		loginPage = new Login(driver);
-		System.out.println("******** logging as student  ********");
+		System.out.println("******** logging as teacher  ********");
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testTeacher1"),unitytestdata.getProperty("genericPassword"));
 		waitTime();
 		dashBoardPage.addTiles();
@@ -170,9 +174,17 @@ public class DeliveryTest extends BaseTest {
 		customeWaitTime(5);
 		
 		testName5 =  "T_Alternate_Color_background" + timestamp;
-		testCreationPage.createTestWithMultipleItems(testName4,
+		testCreationPage.createTestWithMultipleItems(testName5,
 					testBank, itemBank, itemCount);
 		customeWaitTime(5);
+		
+		testName6 = "T_With_Reportable_Score" + timestamp;
+		testCreationPage.createTestWithMultipleItems(testName6,
+				testBank, itemBank, itemCount);
+		
+		testName7 = "T_With_Non_Reportable_Score" + timestamp;
+		testCreationPage.createTestWithMultipleItems(testName7,
+				testBank, itemBank, itemCount);
 		
 		testCreationPage.searchTest(testName);
 		testid = testCreationPage.getTestId();
@@ -208,41 +220,32 @@ public class DeliveryTest extends BaseTest {
 		testCreationPage.waitForElementAndClick(testCreationPage.editIconList); 
 		testCreationPage.enableTestTools("Alternate Color Text/Background");
 		
+		testCreationPage.searchTest(testName6);
+		testid6 = testCreationPage.getTestId();
 		
+		testCreationPage.searchTest(testName7);
+		testid7 = testCreationPage.getTestId();
 		returnToDashboard();
 		customeWaitTime(5);
 		sechedulePage = dashBoardPage.goToSchedule();
 		waitTime();
 	    System.out.println("******** Event creation ********");
-	     sechedulePage.scheduleTest(testschool,
-			   testroster, "N/A", testName, "Red", "120",
-		"100%", "Yes");
+	     sechedulePage.scheduleTest(testschool, testroster, "N/A", testName, "Red", "120","100%", "Yes", "true");
 		waitTime();
-		
-		 sechedulePage.scheduleTest(testschool,
-				   testroster, "N/A", testName1, "Red", "120",
-			"100%", "Yes");
-			waitTime();
-			
-			 sechedulePage.scheduleTest(testschool,
-					   testroster, "N/A", testName2, "Red", "120",
-				"100%", "Yes");
-				waitTime();
-				
-				
-				 sechedulePage.scheduleTest(testschool,
-						   testroster, "N/A", testName3, "Red", "120",
-					"100%", "Yes");
-					waitTime();
-					 sechedulePage.scheduleTest(testschool,
-							   testroster, "N/A", testName4, "Red", "120",
-						"100%", "Yes");
-						waitTime();		
-						
-						 sechedulePage.scheduleTest(testschool,
-								   testroster, "N/A", testName5, "Red", "120",
-							"100%", "Yes");
-							waitTime();		
+		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName1, "Red","120","100%", "Yes", "true");
+		waitTime();	
+		sechedulePage.scheduleTest(testschool,testroster,"N/A", testName2, "Red", "120","100%", "Yes", "true");
+		waitTime();		
+		sechedulePage.scheduleTest(testschool,testroster, "N/A", testName3, "Red", "120","100%", "Yes", "true");
+		waitTime();
+		sechedulePage.scheduleTest(testschool,testroster, "N/A", testName4, "Red", "120","100%", "Yes", "true");
+		waitTime();		
+		sechedulePage.scheduleTest(testschool,testroster, "N/A", testName5, "Red", "120","100%", "Yes","true");
+		waitTime();
+		sechedulePage.scheduleTest(testschool,testroster, "N/A", testName6, "Red", "120","100%", "Yes","true");
+		waitTime();
+		sechedulePage.scheduleTest(testschool,testroster, "N/A", testName7, "Red", "120","100%", "Yes","false");
+		waitTime();
 					
 	   loginPage = sechedulePage.logOut();
 	
@@ -369,7 +372,35 @@ public class DeliveryTest extends BaseTest {
 
 	}
 	
+	@Test(priority = 6)
+	public void testDeliveryWithReportableScore(){
+		driver.get(url);
+	    loginPage = new Login(driver);
+		    customeWaitTime(5);
+		    System.out.println("******** logging as the student ********");
+		    dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testStudent1"),unitytestdata.getProperty("genericPassword"));
+			waitTime();
+			dashBoardPage.addTiles();
+			waitTime();
+			deliveryPage = dashBoardPage.goToDelivery();
+			deliveryPage.startScheduledTest(testid6);
 	
+	}
+	
+	@Test(priority = 7)
+	public void testDeliveryWithNonReportableScore(){
+		driver.get(url);
+	    loginPage = new Login(driver);
+		    customeWaitTime(5);
+		    System.out.println("******** logging as the student ********");
+		    dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testStudent1"),unitytestdata.getProperty("genericPassword"));
+			waitTime();
+			dashBoardPage.addTiles();
+			waitTime();
+			deliveryPage = dashBoardPage.goToDelivery();
+			deliveryPage.startScheduledTest(testid7);
+	
+	}
 	/**
 	 * Login as teacher 
 	 * Create test 
@@ -380,7 +411,7 @@ public class DeliveryTest extends BaseTest {
 	 * Verify the confirmation message
 	 */
 	
-	@Test(priority = 6)
+	@Test(priority = 8)
 	public void testVerifyExitMessgage(){
 		driver.get(url);
 		loginPage = new Login(driver);
@@ -402,7 +433,7 @@ public class DeliveryTest extends BaseTest {
 		testCreationPage.backToDashboard();
 		sechedulePage = dashBoardPage.goToSchedule();
 		customeWaitTime(5);
-		sechedulePage.scheduleTest(school, roster, "N/A", testName, "Green", "120", "100%", "No");
+		sechedulePage.scheduleTest(school, roster, "N/A", testName, "Green", "120", "100%", "No", "true");
 		returnToDashboard();
 		dashBoardPage.logOut();
 		customeWaitTime(5);

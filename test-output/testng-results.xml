@@ -1,55 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="TestSuite" duration-ms="1373937" started-at="2016-04-22T19:23:38Z" finished-at="2016-04-22T19:46:32Z">
+  <suite name="TestSuite" duration-ms="1601261" started-at="2016-05-13T08:20:40Z" finished-at="2016-05-13T08:47:21Z">
     <groups>
     </groups>
-    <test name="Unity" duration-ms="1373937" started-at="2016-04-22T19:23:38Z" finished-at="2016-04-22T19:46:32Z">
-      <class name="tests.HappyPathTest">
-        <test-method status="PASS" signature="suiteSetUp(org.testng.ITestContext)[pri:0, instance:tests.HappyPathTest@4c203ea1]" name="suiteSetUp" is-config="true" duration-ms="14" started-at="2016-04-22T14:23:38Z" finished-at="2016-04-22T14:23:38Z">
+    <test name="Unity" duration-ms="1601261" started-at="2016-05-13T08:20:40Z" finished-at="2016-05-13T08:47:21Z">
+      <class name="tests.ConfigurableDeliveryTest">
+        <test-method status="PASS" signature="suiteSetUp(org.testng.ITestContext)[pri:0, instance:tests.ConfigurableDeliveryTest@4c203ea1]" name="suiteSetUp" is-config="true" duration-ms="108" started-at="2016-05-13T03:20:40Z" finished-at="2016-05-13T03:20:40Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@b5cc23a]]>
+                <![CDATA[org.testng.TestRunner@21362712]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- suiteSetUp -->
-        <test-method status="PASS" signature="loadUnityMessagesProperty()[pri:0, instance:tests.HappyPathTest@4c203ea1]" name="loadUnityMessagesProperty" is-config="true" duration-ms="4" started-at="2016-04-22T14:23:38Z" finished-at="2016-04-22T14:23:38Z">
+        <test-method status="PASS" signature="loadUnityMessagesProperty()[pri:0, instance:tests.ConfigurableDeliveryTest@4c203ea1]" name="loadUnityMessagesProperty" is-config="true" duration-ms="14" started-at="2016-05-13T03:20:40Z" finished-at="2016-05-13T03:20:40Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- loadUnityMessagesProperty -->
-        <test-method status="PASS" signature="classSetUp(org.testng.ITestContext)[pri:0, instance:tests.HappyPathTest@4c203ea1]" name="classSetUp" is-config="true" duration-ms="7129" started-at="2016-04-22T14:23:38Z" finished-at="2016-04-22T14:23:45Z">
+        <test-method status="PASS" signature="classSetUp(org.testng.ITestContext)[pri:0, instance:tests.ConfigurableDeliveryTest@4c203ea1]" name="classSetUp" is-config="true" duration-ms="11262" started-at="2016-05-13T03:20:40Z" finished-at="2016-05-13T03:20:52Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@b5cc23a]]>
+                <![CDATA[org.testng.TestRunner@21362712]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- classSetUp -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:tests.HappyPathTest@4c203ea1]" name="setUp" is-config="true" duration-ms="27997" started-at="2016-04-22T14:23:45Z" finished-at="2016-04-22T14:24:13Z">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:tests.ConfigurableDeliveryTest@4c203ea1]" name="setUp" is-config="true" duration-ms="44835" started-at="2016-05-13T03:20:52Z" finished-at="2016-05-13T03:21:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="testHappyPath()[pri:0, instance:tests.HappyPathTest@4c203ea1]" name="testHappyPath" duration-ms="1337682" started-at="2016-04-22T14:24:13Z" finished-at="2016-04-22T14:46:31Z">
+        <test-method status="PASS" signature="testDeliveryScoreIsReportable()[pri:0, instance:tests.ConfigurableDeliveryTest@4c203ea1]" name="testDeliveryScoreIsReportable" duration-ms="1096657" started-at="2016-05-13T03:21:36Z" finished-at="2016-05-13T03:39:53Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testHappyPath -->
-        <test-method status="PASS" signature="classTearDown()[pri:0, instance:tests.HappyPathTest@4c203ea1]" name="classTearDown" is-config="true" duration-ms="1108" started-at="2016-04-22T14:46:31Z" finished-at="2016-04-22T14:46:32Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- classTearDown -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:tests.HappyPathTest@4c203ea1]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-04-22T14:46:31Z" finished-at="2016-04-22T14:46:31Z">
+        </test-method> <!-- testDeliveryScoreIsReportable -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:tests.ConfigurableDeliveryTest@4c203ea1]" name="tearDown" is-config="true" duration-ms="1" started-at="2016-05-13T03:39:53Z" finished-at="2016-05-13T03:39:53Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-      </class> <!-- tests.HappyPathTest -->
+        <test-method status="PASS" signature="testDeliveryScoreIsNonReportable()[pri:0, instance:tests.ConfigurableDeliveryTest@4c203ea1]" name="testDeliveryScoreIsNonReportable" duration-ms="446766" started-at="2016-05-13T03:39:53Z" finished-at="2016-05-13T03:47:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testDeliveryScoreIsNonReportable -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:tests.ConfigurableDeliveryTest@4c203ea1]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-05-13T03:47:20Z" finished-at="2016-05-13T03:47:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="PASS" signature="classTearDown()[pri:0, instance:tests.ConfigurableDeliveryTest@4c203ea1]" name="classTearDown" is-config="true" duration-ms="1461" started-at="2016-05-13T03:47:20Z" finished-at="2016-05-13T03:47:21Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- classTearDown -->
+      </class> <!-- tests.ConfigurableDeliveryTest -->
     </test> <!-- Unity -->
   </suite> <!-- TestSuite -->
 </testng-results>

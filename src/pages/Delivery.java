@@ -50,7 +50,7 @@ public class Delivery extends BasePage {
 	@FindBy(xpath = "//*[@id='HSAlgebra1']")
 	public WebElement hsAlgebra1LinkXpath;
 
-	@FindBy(xpath = "//*[@id='testDelivery']/div/div[1]/div[1]/div/div[3]")
+	@FindBy(className = "fa-sign-out")
 	public WebElement exitButton;
 
 	@FindBy(xpath = "//button[contains(@class,'finish-test-link')]")
@@ -103,6 +103,27 @@ public class Delivery extends BasePage {
 	
 	@FindBy(xpath = "//div[@class='access-answer-mask']")
 	public WebElement accessAnswerMask;
+	
+	@FindBy(className="notepad")
+	public WebElement notepadTool;
+	
+	@FindBy(className="highlighter")
+	public WebElement highlitghTool;
+	
+	@FindBy(className="bookmark")
+	public WebElement bookmark;
+	
+	@FindBy(css=".bookmark-item-number span")
+	public WebElement bookMarkListElement;
+	
+	@FindBy(className="button_review ")
+	public WebElement reviewBookmarks;
+	
+	@FindBy(className="access-notepad-container")
+	public WebElement notepadDisplayed;
+	
+	@FindBy(className="access-notepad-text")
+	public WebElement notepadTextArea;
 	
 	@FindBy(xpath = "//div[@class='i-choice']/div")
 	public List<WebElement> itemsAnswerChoiceCount;
@@ -313,14 +334,14 @@ public class Delivery extends BasePage {
 			customeWaitTime(10);
 		}
 
-        customeWaitTime(3);
+        customeWaitTime(5);
 		if(btn.isEnabled()){
 			waitForElementAndClick(btn);
 		}
 		waitForElementAndClick(exitButton);
 		customeWaitTime(5);
 		waitForElementAndClick(finishTestButton);
-		customeWaitTime(5);
+		customeWaitTime(8);
 		waitForElementVisible(lastSocredTest);
 		System.out.println("/////********///// "+lastSocredTest.getText().equals(expectedScore));
 		
