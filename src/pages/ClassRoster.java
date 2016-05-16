@@ -148,7 +148,7 @@ public class ClassRoster extends BasePage {
 			waitForElementAndSendKeys(rosterNameField, name);
 			selectOption(gradeField, "Any");
 			waitForElementAndSendKeys(descriptionField, "QA roster");
-			
+			selectOption(selectSchoolField, school);
 			waitTime();
 			System.out.println("Adding the created students");			
 			for (String student : students) {
@@ -183,11 +183,11 @@ public class ClassRoster extends BasePage {
 	
 	
 	public void searchRoster(String rosterName){
-		waitTime();
-		searchAutoComplete.clear();
-		waitTime();
+		//waitTime();
+		//searchAutoComplete.clear();
+	    waitTime();
 		waitForElementAndSendKeys(searchAutoComplete, rosterName);
-		waitTime();
+		waitTime ();
 		waitForElementAndClick(searchButton);
 		waitTime();
 	}
@@ -222,6 +222,40 @@ public class ClassRoster extends BasePage {
 		waitForElementAndClick(classRosterHomeLink);
 		
 	}
+	
+	/**
+	 * This is the method for editing the roster by adding new student
+	 * @param roster
+	 * @param student
+	 */
+	
+	public void editRosterAddStudent(String roster , String  student){
+		try{
+			searchRoster(roster);
+			waitForElementAndClick(editIconList);
+			waitTime();
+			waitTime();
+			waitForElementAndSendKeys(searchAutoCompleteField, student);
+			waitForElementAndClick(searchButton);
+			customeWaitTime(5);
+			waitAndFocus(element);
+			waitForElementAndClick(element);
+			customeWaitTime(5);
+			dragAndDrop(element, target);
+			waitForElementAndClick(saveRosterButton);
+			waitForElementAndClick(confirmOkButton);
+			waitTime();
+			System.out.println(student + " added to Class Roster -- > " + roster);
+			
+		}catch(Exception e ){
+			System.out.println("Error ---  while adding the "+ student +  " to roster " + roster );
+
+		}
+		
+		
+		
+	}
+	
 	
 	
 }
