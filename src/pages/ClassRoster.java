@@ -148,6 +148,14 @@ public class ClassRoster extends BasePage {
 			waitForElementAndSendKeys(rosterNameField, name);
 			selectOption(gradeField, "Any");
 			waitForElementAndSendKeys(descriptionField, "QA roster");
+			
+			if(selectSchoolField.isDisplayed()){
+				selectOption(selectSchoolField , school);
+			}else{
+				waitForElementAndClick(schoolDropDownButton);
+				waitForElementAndSendKeys(schoolSearchInputField, school);
+			}
+			
 			selectOption(selectSchoolField, school);
 			waitTime();
 			System.out.println("Adding the created students");			

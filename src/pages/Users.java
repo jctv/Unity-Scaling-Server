@@ -169,7 +169,7 @@ public class Users extends BasePage {
 	@FindBy(id = "accommodation")
 	public WebElement accommodationCheckBox;
 	
-	@FindBy(xpath = "//button[@class='btn btn-primary pull-right user-save']")
+	@FindBy(xpath = "//button[@class='btn btn-primary pull-right user-save btn-danger']")
 	public WebElement userSaveButton;
 	
 
@@ -185,11 +185,11 @@ public class Users extends BasePage {
 	 */
 	public boolean searchUser(String criteria) {
 		try {
-			waitTime();
-			searchAutoComplete.sendKeys(criteria);
-			searchAutoComplete.sendKeys(Keys.ENTER);
-
-			waitTime();
+			waitForElementAndSendKeys(searchAutoComplete, criteria);
+			waitForElementAndClick(searchButton);
+			customeWaitTime(3);
+			//searchAutoComplete.sendKeys(criteria);
+			//searchAutoComplete.sendKeys(Keys.ENTER);
 			validador = rowOneGrid.isDisplayed();
 		} catch (Exception e) {
 			System.out.println("Record not found");
@@ -299,7 +299,7 @@ public class Users extends BasePage {
 				selectOption(selectOrgDropDown , organization);
 			}else{
 				waitForElementAndClick(searchOrgButton);
-				waitForElementAndSendKeys(searchOrgFieldInput, "Automated");
+				waitForElementAndSendKeys(searchOrgFieldInput, organization);
 			}
 			waitForElementAndClick(globalModalViewTitle);
 			//globalModalViewTitle.click();
@@ -356,7 +356,7 @@ public class Users extends BasePage {
 		waitForElementAndClick(homeLink);
 		return statusMessage;
 	}
-
+	
 	/**
 	 * This is the method for edit user 
 	 * @param User
@@ -571,6 +571,11 @@ public class Users extends BasePage {
 				}
 			}
 			waitForElementAndClick(userSaveButton);
+			waitTime();
+
+			waitForElementAndClick(globalModalInfoOkButton);
+			waitTime();
+			
 		} catch (Exception e) {
 
 		}
