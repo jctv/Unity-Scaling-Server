@@ -12,17 +12,17 @@
   <parameter name="hubAddress" value="${hubAddress}"/>
   <test name="Unity(failed)">
     <classes>
-      <class name="tests.ConfigurableDeliveryTest">
+      <class name="tests.HappyPathTest">
         <methods>
           <include name="suiteSetUp"/>
-          <include name="testDeliveryScoreIsReportable"/>
-          <include name="loadUnityMessagesProperty"/>
+          <include name="setUp"/>
           <include name="classSetUp"/>
           <include name="classTearDown"/>
           <include name="tearDown"/>
-          <include name="setUp"/>
+          <include name="testHappyPath"/>
+          <include name="loadUnityMessagesProperty"/>
         </methods>
-      </class> <!-- tests.ConfigurableDeliveryTest -->
+      </class> <!-- tests.HappyPathTest -->
     </classes>
   </test> <!-- Unity(failed) -->
 </suite> <!-- Failed suite [TestSuite] -->

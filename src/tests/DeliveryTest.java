@@ -61,6 +61,9 @@ public class DeliveryTest extends BaseTest {
 	String testName5;
 	String testName6;
 	String testName7;
+	String testName8;
+	String testName9;
+	String testName10;
 
 	String testBank;
 	String itemBank;
@@ -74,6 +77,9 @@ public class DeliveryTest extends BaseTest {
 	String testid5;
 	String testid6;
 	String testid7;
+	String testid8;
+	String testid9;
+	String testid10;
 	
 	String testroster;
 	String testschool;
@@ -178,12 +184,24 @@ public class DeliveryTest extends BaseTest {
 					testBank, itemBank, itemCount);
 		customeWaitTime(5);
 		
-		testName6 = "T_With_Reportable_Score" + timestamp;
+		testName6 = "T_Bookmark" + timestamp;
 		testCreationPage.createTestWithMultipleItems(testName6,
 				testBank, itemBank, itemCount);
 		
-		testName7 = "T_With_Non_Reportable_Score" + timestamp;
+		testName7 = "T_Notepad" + timestamp;
 		testCreationPage.createTestWithMultipleItems(testName7,
+				testBank, itemBank, itemCount);
+		
+		testName8= "T_Highlight" + timestamp;
+		testCreationPage.createTestWithMultipleItems(testName8,
+				testBank, itemBank, itemCount);
+		
+		testName9 = "T_With_Reportable_Score" + timestamp;
+		testCreationPage.createTestWithMultipleItems(testName9,
+				testBank, itemBank, itemCount);
+		
+		testName10 = "T_With_Non_Reportable_Score" + timestamp;
+		testCreationPage.createTestWithMultipleItems(testName10,
 				testBank, itemBank, itemCount);
 		
 		testCreationPage.searchTest(testName);
@@ -222,9 +240,24 @@ public class DeliveryTest extends BaseTest {
 		
 		testCreationPage.searchTest(testName6);
 		testid6 = testCreationPage.getTestId();
+		testCreationPage.waitForElementAndClick(testCreationPage.editIconList); 
+		testCreationPage.enableTestTools("highlight");
 		
 		testCreationPage.searchTest(testName7);
 		testid7 = testCreationPage.getTestId();
+		testCreationPage.waitForElementAndClick(testCreationPage.editIconList); 
+		testCreationPage.enableTestTools("notepad");
+		
+		testCreationPage.searchTest(testName8);
+		testid8 = testCreationPage.getTestId();
+		testCreationPage.waitForElementAndClick(testCreationPage.editIconList); 
+		testCreationPage.enableTestTools("bookmark");
+				
+		testCreationPage.searchTest(testName9);
+		testid9 = testCreationPage.getTestId();
+		
+		testCreationPage.searchTest(testName10);
+		testid10 = testCreationPage.getTestId();
 		returnToDashboard();
 		customeWaitTime(5);
 		sechedulePage = dashBoardPage.goToSchedule();
@@ -242,9 +275,15 @@ public class DeliveryTest extends BaseTest {
 		waitTime();		
 		sechedulePage.scheduleTest(testschool,testroster, "N/A", testName5, "Red", "120","100%", "Yes","true");
 		waitTime();
-		sechedulePage.scheduleTest(testschool,testroster, "N/A", testName6, "Red", "120","100%", "Yes","true");
+		sechedulePage.scheduleTest(testschool,testroster, "N/A", testName6, "Red", "120","100%", "Yes", "true");
+		waitTime();		
+		sechedulePage.scheduleTest(testschool,testroster, "N/A", testName7, "Red", "120","100%", "Yes","true");
 		waitTime();
-		sechedulePage.scheduleTest(testschool,testroster, "N/A", testName7, "Red", "120","100%", "Yes","false");
+		sechedulePage.scheduleTest(testschool,testroster, "N/A", testName8, "Red", "120","100%", "Yes","true");
+		waitTime();
+		sechedulePage.scheduleTest(testschool,testroster, "N/A", testName8, "Red", "120","100%", "Yes","true");
+		waitTime();
+		sechedulePage.scheduleTest(testschool,testroster, "N/A", testName9, "Red", "120","100%", "Yes","false");
 		waitTime();
 					
 	   loginPage = sechedulePage.logOut();
@@ -282,11 +321,8 @@ public class DeliveryTest extends BaseTest {
 			softAssert.assertTrue(deliveryPage.verifyAnswerMasking());
 			deliveryPage.waitForAnElementAndClick(deliveryPage.firstItem);
 			waitTime();
-			deliveryPage.verifyAnswerMaskToggling();
-
-			
+			deliveryPage.verifyAnswerMaskToggling();			
 	}
-	
 	
 	@Test(priority = 3)
 	public void testLineReaderTool(){
@@ -304,7 +340,6 @@ public class DeliveryTest extends BaseTest {
 			deliveryPage.verifyLineReaderPopUpToggling();
 			deliveryPage.waitForAnElementAndClick(deliveryPage.firstItem);
 			deliveryPage.waitForAnElementAndClick(deliveryPage.lineReaderIcon);
-
 	}
 	
 	@Test(priority = 4)
@@ -347,8 +382,7 @@ public class DeliveryTest extends BaseTest {
 			deliveryPage.selectColorAndBackGround("Black on White");
 			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("blackColor")));
 			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("whiteBGColor")));
-			
-			
+					
 			deliveryPage.selectColorAndBackGround("White on Black");
 			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("whiteColor")));
 			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("blackBGColor")));
@@ -365,14 +399,63 @@ public class DeliveryTest extends BaseTest {
 			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("blackColor")));
 			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("lightmagentaBGColor")));
 
-			
 			deliveryPage.selectColorAndBackGround("Yellow on Blue");
 			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("yellowColor")));
 			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.displayedItem, "style").contains(unitytestdata.getProperty("blueBGColor")));
-
 	}
 	
 	@Test(priority = 6)
+	public void testHighlitghtTool(){
+		    driver.get(url);
+		    loginPage = new Login(driver);
+		    customeWaitTime(5);
+		    System.out.println("******** logging as the student ********");
+		    dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testStudent1"),unitytestdata.getProperty("genericPassword"));
+			waitTime();
+			dashBoardPage.addTiles();
+			waitTime();
+			deliveryPage = dashBoardPage.goToDelivery();
+			deliveryPage.startScheduledTest(testid6);
+			softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.highlitghTool));
+			deliveryPage.waitForElementAndClick(deliveryPage.highlitghTool);
+			softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.highlighterToolColor));
+	}
+	
+	@Test(priority = 7)
+	public void testNotepadTool(){
+		    driver.get(url);
+		    loginPage = new Login(driver);
+		    customeWaitTime(5);
+		    System.out.println("******** logging as the student ********");
+		    dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testStudent1"),unitytestdata.getProperty("genericPassword"));
+			waitTime();
+			dashBoardPage.addTiles();
+			waitTime();
+			deliveryPage = dashBoardPage.goToDelivery();
+			deliveryPage.startScheduledTest(testid7);
+			softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.notepadTool));
+			deliveryPage.waitForElementAndClick(deliveryPage.notepadTool);
+			softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.notepadDisplayed));
+	}
+	
+	@Test(priority = 8)
+	public void testBookMarkTool(){
+		    driver.get(url);
+		    loginPage = new Login(driver);
+		    customeWaitTime(5);
+		    System.out.println("******** logging as the student ********");
+		    dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testStudent1"),unitytestdata.getProperty("genericPassword"));
+			waitTime();
+			dashBoardPage.addTiles();
+			waitTime();
+			deliveryPage = dashBoardPage.goToDelivery();
+			deliveryPage.startScheduledTest(testid8);
+			softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.bookmark));
+			deliveryPage.waitForElementAndClick(deliveryPage.notepadTool);
+			softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.notepadDisplayed));
+	}
+	
+	@Test(priority = 9)
 	public void testDeliveryWithReportableScore(){
 		driver.get(url);
 	    loginPage = new Login(driver);
@@ -384,10 +467,9 @@ public class DeliveryTest extends BaseTest {
 			waitTime();
 			deliveryPage = dashBoardPage.goToDelivery();
 			deliveryPage.startScheduledTest(testid6);
-	
 	}
 	
-	@Test(priority = 7)
+	@Test(priority = 10)
 	public void testDeliveryWithNonReportableScore(){
 		driver.get(url);
 	    loginPage = new Login(driver);
@@ -399,7 +481,6 @@ public class DeliveryTest extends BaseTest {
 			waitTime();
 			deliveryPage = dashBoardPage.goToDelivery();
 			deliveryPage.startScheduledTest(testid7);
-	
 	}
 	/**
 	 * Login as teacher 
@@ -411,7 +492,7 @@ public class DeliveryTest extends BaseTest {
 	 * Verify the confirmation message
 	 */
 	
-	@Test(priority = 8)
+	@Test(priority = 11)
 	public void testVerifyExitMessgage(){
 		driver.get(url);
 		loginPage = new Login(driver);

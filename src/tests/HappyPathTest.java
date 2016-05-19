@@ -85,7 +85,7 @@ public class HappyPathTest extends BaseTest {
 	
 	Properties unitytestdata;
 	
-	String domain = "auto/";
+	String domain = "autom/";
 	String genericPassword;
 
 	String school;

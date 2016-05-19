@@ -66,9 +66,6 @@ public class TestCreation extends BasePage {
 	
 	@FindBy(id = "highlighter-check")
 	public WebElement highlightCheck;
-	
-	@FindBy(id = "notepad-check")
-	public WebElement notepadCheck;
 
 	@FindBy(id = "class")
 	public WebElement classField;
@@ -377,7 +374,7 @@ public class TestCreation extends BasePage {
 					waitForAnElementAndClick(bookMarkCheck);
 					break;
 				case "notepad":
-					waitForAnElementAndClick(notepadCheck);
+					waitForAnElementAndClick(notepadCheckBox);
 					break;
 				case "maskinganswer":
 					waitForAnElementAndClick(answerMaskingToolCheckBox);
@@ -703,6 +700,15 @@ public class TestCreation extends BasePage {
 				case "Alternate Color Text/Background":
 					waitForAnElementAndClick(alternateColorAndBackgroundCheckBox);
 					break;	
+				case "Bookmark":
+					waitForAnElementAndClick(bookMarkCheck);
+					break;
+				case "Notepad":
+					waitForAnElementAndClick(notepadCheckBox);
+					break;
+				case "Highlight":
+					waitForAnElementAndClick(highlightCheck);
+					break;
 				case "Additional Tools":
 					// TODO
 					break;

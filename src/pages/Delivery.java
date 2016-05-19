@@ -110,6 +110,9 @@ public class Delivery extends BasePage {
 	@FindBy(className="highlighter")
 	public WebElement highlitghTool;
 	
+	@FindBy(className="access-highlighter-container")
+	public WebElement highlighterToolColor;
+	
 	@FindBy(className="bookmark")
 	public WebElement bookmark;
 	
