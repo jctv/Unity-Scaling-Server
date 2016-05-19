@@ -113,11 +113,11 @@ public class AccommodationTest extends BaseTest{
 		dashBoardPage.addTiles();
 		waitTime();
 		
-		sisImportPage = dashBoardPage.goToSisImport();
+		/*sisImportPage = dashBoardPage.goToSisImport();
 		waitTime();
 		sisImportPage.sisImport(importUserFileLocation);
 		sisImportPage.refreshPage();
-		sisImportPage.backToDashboard();
+		sisImportPage.backToDashboard();*/
 		
 		usersPage = dashBoardPage.goToUsers();
 		usersPage.createSpecificUser(manualStudentF1, manualStudentL1, genericPassword, genericPassword, student, schoolName);
