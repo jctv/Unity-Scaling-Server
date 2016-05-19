@@ -113,11 +113,11 @@ public class AccommodationTest extends BaseTest{
 		dashBoardPage.addTiles();
 		waitTime();
 		
-		/*sisImportPage = dashBoardPage.goToSisImport();
+		sisImportPage = dashBoardPage.goToSisImport();
 		waitTime();
 		sisImportPage.sisImport(importUserFileLocation);
 		sisImportPage.refreshPage();
-		sisImportPage.backToDashboard();*/
+		sisImportPage.backToDashboard();
 		
 		usersPage = dashBoardPage.goToUsers();
 		usersPage.createSpecificUser(manualStudentF1, manualStudentL1, genericPassword, genericPassword, student, schoolName);
@@ -148,6 +148,7 @@ public class AccommodationTest extends BaseTest{
 	   accommodationPage.checkAnswerMasking(true);
 	   accommodationPage.checkLineReader(true);
 	   accommodationPage.saveAccommodationAssignment();
+	   customeWaitTime(5);
 
 		}catch(Exception e){
 		    System.out.println("Error ## -  While setting the Accommodaton test data");
@@ -166,6 +167,7 @@ public class AccommodationTest extends BaseTest{
 	 
 	@Test(priority = 2)
 	public void testverifyAccommodationForManualUser(){
+		customeWaitTime(5);
 		softAssert.assertTrue(accommodationPage.searchStudent(manualStudentL1));
 		accommodationPage.waitForAnElementAndClick(accommodationPage.editIconList);
 		softAssert.assertTrue(accommodationPage.waitAndGetElementText(accommodationPage.studentNameInfo).contains(manualStudentL1));
@@ -180,9 +182,12 @@ public class AccommodationTest extends BaseTest{
 		loginPage = new Login(driver);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("defaultAdmin"),
 				unitytestdata.getProperty("defaultPassword"));
+		customeWaitTime(5);
 		rolePage = dashBoardPage.goToRole();
-		Assert.assertFalse(rolePage.getTilePermission("Accommodations", "Teacher").get("Create"));
-		
+		customeWaitTime(5);
+		//Assert.assertFalse(rolePage.getTilePermission("Accommodations", "Teacher").get("Create"));
+		Assert.assertFalse(rolePage.getTilePermissionStatus("Accommodations", "Teacher","edit"));
+
 	}
 	
 
@@ -219,11 +224,14 @@ public class AccommodationTest extends BaseTest{
 		testCreationPage.createTest(testName, testBank, itemName);
 		customeWaitTime(5);
 		copiedtest = "copy_" + testName;
-		testCreationPage.copyTest(testBank, copiedtest);
-		
 		testCreationPage.searchTest(testName);
+		testCreationPage.waitForElementAndClick(testCreationPage.copyIconList);
+		customeWaitTime(2);
+		testCreationPage.copyTest(testBank, copiedtest);
+		testCreationPage.waitForElementAndClick(testCreationPage.globalModalInfoOkButton);
+		testCreationPage.searchTest(testName);
+		customeWaitTime(2);
 		testid1 = testCreationPage.getTestId();
-		
 		testCreationPage.searchTest(copiedtest);
 		testid2 = testCreationPage.getTestId();
 		//testCreationPage.goToTestDashBoard();
@@ -232,7 +240,7 @@ public class AccommodationTest extends BaseTest{
 		sechedulePage = dashBoardPage.goToSchedule();
 		waitTime();
 	    System.out.println("******** Event creation ********");
-	   sechedulePage.scheduleTest(schoolName,
+	    sechedulePage.scheduleTest(schoolName,
 				rosterName, "N/A", testName, "Red", "120",
 		"100%", "Yes", "true");
 	   
@@ -242,17 +250,22 @@ public class AccommodationTest extends BaseTest{
 	   
 		waitTime();
 		loginPage = sechedulePage.logOut();	
+		customeWaitTime(5);
 		dashBoardPage = loginPage.loginSuccess(studentName1,
 				unitytestdata.getProperty("genericPassword"));
 		dashBoardPage.addTiles();
 		deliveryPage = dashBoardPage.goToDelivery();
+		customeWaitTime(5);
 		deliveryPage.startScheduledTest(testid1);
+		customeWaitTime(2);
 		softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.answerMaskingIcon));
 		softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.answerEliminatorIcon));
 		softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.adjustColorIcon));
 		softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.lineReaderIcon));
 		deliveryPage.exitAndFinishTest();
+		customeWaitTime(5);
 		deliveryPage.startScheduledTest(testid2);
+		customeWaitTime(2);
 		softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.answerMaskingIcon));
 		softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.answerEliminatorIcon));
 		softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.adjustColorIcon));
@@ -261,21 +274,26 @@ public class AccommodationTest extends BaseTest{
 		
 	}
     
-    @Test(priority = 5 )
+    @Test(priority = 5)
     public void testVerifyAccommodationToolDisabledInTestDelivery(){
     	driver.get(url);
 		loginPage = new Login(driver);
 		dashBoardPage = loginPage.loginSuccess(studentName2,
 				unitytestdata.getProperty("genericPassword"));
 		dashBoardPage.addTiles();
+		customeWaitTime(5);
 		deliveryPage = dashBoardPage.goToDelivery();
+		customeWaitTime(5);
 		deliveryPage.startScheduledTest(testid1);
+		customeWaitTime(2);
 		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.answerMaskingIcon));
 		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.answerEliminatorIcon));
 		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.adjustColorIcon));
 		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.lineReaderIcon));
 		deliveryPage.exitAndFinishTest();
+		customeWaitTime(5);
 		deliveryPage.startScheduledTest(testid2);
+		customeWaitTime(2);
 		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.answerMaskingIcon));
 		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.answerEliminatorIcon));
 		softAssert.assertFalse(deliveryPage.waitForElementVisible(deliveryPage.adjustColorIcon));

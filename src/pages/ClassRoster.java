@@ -92,7 +92,7 @@ public class ClassRoster extends BasePage {
 	@FindBy(xpath = "//button[@data-id='rosterSchool']")
 	public WebElement schoolDropDownButton;
 	
-	@FindBy(xpath = "//div[@class='btn-group bootstrap-select select-search-by-name-organization open']//input")
+	@FindBy(xpath = "//div[@class='btn-group bootstrap-select form-control select-search-by-name-organization open']//input")
 	public WebElement schoolSearchInputField;
 	
 	@FindBy(xpath = "//div[@class='btn-group bootstrap-select select-search-by-name-organization open']//ul/li[1]/a/span[1]")
