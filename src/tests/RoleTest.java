@@ -58,7 +58,7 @@ public class RoleTest extends BaseTest{
 		rolePage.createRole(roleName);
 		waitTime();
 		waitTime();
-		Assert.assertEquals(rolePage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("roleCreated").replace("role_name", roleName).trim());
+		Assert.assertEquals(rolePage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("roleCreated").trim());
 		rolePage.waitForElementAndClick(rolePage.globalModalInfoOkButton);
 		waitTime();
 		waitTime();

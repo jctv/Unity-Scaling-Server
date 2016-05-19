@@ -60,7 +60,8 @@ public class ScoreProfileTest extends BaseTest {
 	   * Delete domain
 	   */
 	  
-	@Test
+	 //Temparary disbled this test as it is creating domain
+	@Test(enabled= false)
 	public void testDefaultScoreProfileForNewDomain() {
 		String domainAbbreviation = "auto"+ System.currentTimeMillis();
 		String domainName = "Test Auto don't Delete manually "
