@@ -326,6 +326,7 @@ public class Items extends BasePage {
 		customeWaitTime(5);
 		// waitForElementAndSendKeys(templates, "Choice");
 		selectOption(templates, "Choice");
+		customeWaitTime(2);
 		waitForElementAndClick(textEditorSaveButton);
 		customeWaitTime(2);
 		clickOnConfirmationMessage();

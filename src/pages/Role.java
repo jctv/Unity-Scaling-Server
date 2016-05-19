@@ -224,5 +224,21 @@ public class Role extends BasePage {
 		
 	} 
 	
+	public boolean getTilePermissionStatus(String tileName , String role , String permissionType){
+		try{
+			waitForElementPresenceAndClick("//tr[./td[text()='" + role
+					+ "']]//span[text()='" + tileName + "']");
+			waitTime();
+			WebElement permissionTypeOptions = driver.findElement(By.xpath("//input[@data-id='"+permissionType+"']"));
+			validator = permissionTypeOptions.isSelected();
+			waitForElementAndClick(globalModalOKCancelSaveButton);
+		}catch(Exception e){
+			
+			
+		}
+		return validator;
+		
+	}
+	
   	
 }
