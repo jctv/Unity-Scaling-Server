@@ -135,11 +135,8 @@ public class TestsBank extends BasePage {
 	 */
 	public void searchTestBank(String testBank){
 		try{
-		  waitTime();
-		  testBankSearchAutoCompleteField.clear();
-		  waitTime();
-		  waitForElementAndSendKeys(testBankSearchAutoCompleteField, testBank);
-		  waitForElementAndClick(testBankSearchButton);
+		  waitForElementAndSendKeys(searchAutoComplete, testBank);
+		  waitForElementAndClick(searchButton);
 		  waitTime();
 		}catch(Exception e){
 			System.out.println("Unable to find the test bank "  + testBank);

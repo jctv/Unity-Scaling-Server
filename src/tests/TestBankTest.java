@@ -67,14 +67,16 @@ public class TestBankTest extends BaseTest {
 	public void testCreateTestBank(){
 		testBankPage.waitForElementAndClick(testBankPage.resetSearchFilter);
 		testBankPage.searchTestBank(testBankName);
-		Assert.assertEquals(testBankPage.waitAndGetElementText(testBankPage.testBankNameField), testBankPage);
+		customeWaitTime(5);
+		Assert.assertEquals(testBankPage.waitAndGetElementText(testBankPage.testBankNameField), testBankName);
 	}
 	
-	@Test(priority = 2)
+	@Test(priority =2)
 	public void testFilterItemBank(){
 		testBankPage.waitForElementAndClick(testBankPage.resetSearchFilter);
-		waitTime();
+		customeWaitTime(5);
 		testBankPage.filterTestBank(testBankName);
+		customeWaitTime(5);
 		Assert.assertEquals(testBankPage.waitAndGetElementText(testBankPage.testBankNameField), testBankName);
 	}
 	
@@ -82,17 +84,12 @@ public class TestBankTest extends BaseTest {
 	public void testBankAlertMessages(){
 		testBankPage.waitForElementAndClick(testBankPage.resetSearchFilter);
 		testBankPage.searchTestBank(testBankName);
-		waitTime();
+		customeWaitTime(5);
 		testBankPage.waitForElementAndClick(testBankPage.deleteIconList);
-		waitTime();
+		customeWaitTime(2);
 		Assert.assertEquals(testBankPage.globalModalDeleteBody.getText().trim(), unitymessages.getProperty("testBankDelete").trim());
-		testBankPage.waitForElementAndClick(testBankPage.globalModalDeleteCancelButton1);
+		testBankPage.waitForElementAndClick(testBankPage.globalModalDeleteButton);
 		waitTime();
-	}
-	
-	@AfterClass
-	public void cleanupData(){
-		testBankPage.deleteTestBank(testBankName);
 	}
 	
 }
