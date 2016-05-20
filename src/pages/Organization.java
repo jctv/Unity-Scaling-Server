@@ -49,7 +49,7 @@ public class Organization extends BasePage {
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
 	public WebElement backToDashboard;
 
-	@FindBy(xpath = "//a[text()='Create User']")
+	@FindBy(xpath = "//span[text()='Create User']")
 	public WebElement createUserLink;
 
 	@FindBy(id = "userCreateInputFName")
@@ -118,8 +118,8 @@ public class Organization extends BasePage {
 	@FindBy(xpath = ".//*[@id='globalModalView']/div/div/div[1]/button")
 	public WebElement userCloseButton;
 	
-	
-	
+	@FindBy(xpath = "//select[@id='userCreateOrg']")
+	public WebElement selectOrgDropDown;
 	 
 	/**
 	 * This is the method for Creating the root organization  - Country
@@ -534,12 +534,17 @@ public class Organization extends BasePage {
 			waitForElementAndSendKeys(lastNameField, lastName);
 			waitForElementAndSendKeys(password, newPassword);
 			waitForElementAndSendKeys(retypePassword, confirmPassword);
-			waitForElementAndSendKeys(role, newRole);
-			role.click();
-			waitForElementAndClick(searchOrgButton);
-			waitForElementAndSendKeys(searchOrgFieldInput, organization);
-			selectOrganization(organization);
-			globalModalViewTitle.click();
+			//waitForElementAndSendKeys(role, newRole);
+			//role.click();
+			selectOption(role , newRole);
+			if(selectOrgDropDown.isDisplayed()){
+				selectOption(selectOrgDropDown , organization);
+			}else{
+				waitForElementAndClick(searchOrgButton);
+				waitForElementAndSendKeys(searchOrgFieldInput, organization);
+			}
+			waitForElementAndClick(globalModalViewTitle);
+			//globalModalViewTitle.click();
 			waitTime();
 			waitForElementAndClick(submit);
 			try {
@@ -557,8 +562,7 @@ public class Organization extends BasePage {
 		if (statusMessage.contains("Passwords Don't Match!")) {
 			waitForElementAndClick(createUserLink);
 		}
-		return statusMessage;
-	}
+		return statusMessage;	}
 
 	
 	/**

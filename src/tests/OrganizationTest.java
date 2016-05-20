@@ -53,7 +53,6 @@ public class OrganizationTest extends BaseTest{
 	String userLastName;
 	
 
-
 	public OrganizationTest() {
 		super();
 		
@@ -89,6 +88,7 @@ public class OrganizationTest extends BaseTest{
 	
 	@BeforeClass
 	public void setUp() {
+		try{
 		driver.get(url);
 		loginPage = new Login(driver);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("defaultAdmin"),
@@ -99,16 +99,20 @@ public class OrganizationTest extends BaseTest{
 		orgPage = dashBoardPage.goToOrganization();
 		customeWaitTime(10);
 		orgPage.addOrganization(orgStateName, "", "", stateType);
-		customeWaitTime(2);
+		customeWaitTime(5);
 		//orgPage.refreshPage();
 		//customeWaitTime(5);
 		orgPage.addOrganization(orgStateName, orgDistName, "", distType);
-		customeWaitTime(2);
+		customeWaitTime(5);
 		//orgPage.refreshPage();
 		//customeWaitTime(5);
 		orgPage.addOrganization(orgStateName, orgDistName, orgSchoolName, schoolType);
-		customeWaitTime(2);
+		customeWaitTime(5);
 		orgPage.refreshPage();
+		
+		}catch(Exception e ){
+		 System.out.println("Error # while setting the orgamization data");
+		}
 	}
 	
 	
@@ -121,12 +125,12 @@ public class OrganizationTest extends BaseTest{
 	 */
 	
 	@Test(priority = 1)
-	public void testVerifyCreatedOrgListedInTree(){
-		Assert.assertEquals(orgStateName, orgPage.getOrgNameInTree(orgStateName ,"", "" , stateType));
+	public void testCreatedOrgInTree(){
+		softAssert.assertEquals(orgStateName, orgPage.getOrgNameInTree(orgStateName ,"", "" , stateType));
 		customeWaitTime(5);
-		Assert.assertEquals(orgDistName, orgPage.getOrgNameInTree(orgStateName ,orgDistName, "" , distType));
+		softAssert.assertEquals(orgDistName, orgPage.getOrgNameInTree(orgStateName ,orgDistName, "" , distType));
 		customeWaitTime(5);
-		Assert.assertEquals(orgSchoolName, orgPage.getOrgNameInTree(orgStateName ,orgDistName, orgSchoolName, schoolType));
+		softAssert.assertEquals(orgSchoolName, orgPage.getOrgNameInTree(orgStateName ,orgDistName, orgSchoolName, schoolType));
 		orgPage.refreshPage();
 		customeWaitTime(5);
 		/*orgPage.deleteOrganization(orgStateName, orgDistName, orgSchoolName, schoolType);
@@ -155,10 +159,10 @@ public class OrganizationTest extends BaseTest{
 		orgPage.selectParentOrgInTree(orgStateName);
 		orgPage.waitForElementAndClick(orgPage.firstUserAddButton);
 		customeWaitTime(2);
-		Assert.assertEquals(orgPage.waitAndGetElementText(orgPage.firstRowFirstNameUser) + " " +orgPage.waitAndGetElementText(orgPage.firstRowFirstNameUser), orgPage.waitAndGetElementText(orgPage.firstAddedUserRow));
+		softAssert.assertEquals(orgPage.waitAndGetElementText(orgPage.firstRowFirstNameUser) + " " +orgPage.waitAndGetElementText(orgPage.firstRowFirstNameUser), orgPage.waitAndGetElementText(orgPage.firstAddedUserRow));
 		orgPage.waitForElementAndClick(orgPage.firstAddedUserDeleteButton);
 		customeWaitTime(2);
-		Assert.assertFalse(orgPage.firstAddedUserRow.isDisplayed());
+		softAssert.assertFalse(orgPage.waitForElementVisible(orgPage.firstAddedUserRow));
 	}
 	
 	
@@ -176,7 +180,7 @@ public class OrganizationTest extends BaseTest{
 		orgPage.waitForElementAndSendKeys(orgPage.userLastNameSerachField, userLastName);
 		orgPage.waitForElementAndClick(orgPage.groupLabel);
 		customeWaitTime(2);
-		Assert.assertEquals(orgPage.waitAndGetElementText(orgPage.firstRowFirstNameUser) + " " +orgPage.waitAndGetElementText(orgPage.firstRowLastNameUser), schoolAdminFirstName + " " + userLastName );
+		softAssert.assertEquals(orgPage.waitAndGetElementText(orgPage.firstRowFirstNameUser) + " " +orgPage.waitAndGetElementText(orgPage.firstRowLastNameUser), schoolAdminFirstName + " " + userLastName );
 		customeWaitTime(2);
 		
 		orgPage.createSpecificUser(teacherFirstName, userLastName, genericPassword, genericPassword, teacher, orgSchoolName);
@@ -184,13 +188,13 @@ public class OrganizationTest extends BaseTest{
 		orgPage.waitForElementAndSendKeys(orgPage.userLastNameSerachField, userLastName);
 		orgPage.waitForElementAndClick(orgPage.groupLabel);
 		customeWaitTime(2);
-		Assert.assertEquals(orgPage.waitAndGetElementText(orgPage.firstRowFirstNameUser) + " " +orgPage.waitAndGetElementText(orgPage.firstRowLastNameUser), teacherFirstName + " " + userLastName );
+		softAssert.assertEquals(orgPage.waitAndGetElementText(orgPage.firstRowFirstNameUser) + " " +orgPage.waitAndGetElementText(orgPage.firstRowLastNameUser), teacherFirstName + " " + userLastName );
 		orgPage.createSpecificUser(studentFirstName, userLastName, genericPassword, genericPassword, student, orgSchoolName);
 		orgPage.waitForElementAndSendKeys(orgPage.userFirstNameSerachField, studentFirstName);
 		orgPage.waitForElementAndSendKeys(orgPage.userLastNameSerachField, userLastName);
 		orgPage.waitForElementAndClick(orgPage.groupLabel);
 		customeWaitTime(2);
-		Assert.assertEquals(orgPage.waitAndGetElementText(orgPage.firstRowFirstNameUser) + " " +orgPage.waitAndGetElementText(orgPage.firstRowLastNameUser), studentFirstName + " " + userLastName );
+		softAssert.assertEquals(orgPage.waitAndGetElementText(orgPage.firstRowFirstNameUser) + " " +orgPage.waitAndGetElementText(orgPage.firstRowLastNameUser), studentFirstName + " " + userLastName );
 		
 	}
 	
@@ -213,9 +217,9 @@ public class OrganizationTest extends BaseTest{
 		orgPage.deleteOrganization(orgStateName, "", "", stateType);
 		orgPage.refreshPage();
 		customeWaitTime(5);
-		Assert.assertFalse(orgPage.waitAndGetElementText(orgPage.orgInTree).contains(orgStateName));
-		Assert.assertFalse(orgPage.waitAndGetElementText(orgPage.orgInTree).contains(orgDistName));
-		Assert.assertFalse(orgPage.waitAndGetElementText(orgPage.orgInTree).contains(orgSchoolName));
+		softAssert.assertFalse(orgPage.waitAndGetElementText(orgPage.orgInTree).contains(orgStateName));
+		softAssert.assertFalse(orgPage.waitAndGetElementText(orgPage.orgInTree).contains(orgDistName));
+		softAssert.assertFalse(orgPage.waitAndGetElementText(orgPage.orgInTree).contains(orgSchoolName));
 
 	}
 	
@@ -239,7 +243,7 @@ public class OrganizationTest extends BaseTest{
 		String orgSchoolName = "School" + orgStateName;
 		orgPage.addOrganization(orgStateName, "", "", stateType);
 		waitTime();
-		Assert.assertEquals(orgPage.globalModalInfoBody.getText().trim(), unitymessagesdata.getProperty("orgCreated").replace("org_name", orgStateName).trim());
+		softAssert.assertEquals(orgPage.globalModalInfoBody.getText().trim(), unitymessagesdata.getProperty("orgCreated").replace("org_name", orgStateName).trim());
 		waitTime();
 		orgPage.waitForElementAndClick(orgPage.globalModalInfoOkButton);
 		waitTime();
@@ -247,7 +251,7 @@ public class OrganizationTest extends BaseTest{
 		waitTime();
 		waitTime();
 		orgPage.addOrganization(orgStateName, orgDistName, "", distType);
-		Assert.assertEquals(orgPage.globalModalInfoBody.getText().trim(), unitymessagesdata.getProperty("orgCreated").replace("org_name", orgDistName).trim());
+		softAssert.assertEquals(orgPage.globalModalInfoBody.getText().trim(), unitymessagesdata.getProperty("orgCreated").replace("org_name", orgDistName).trim());
 		waitTime();
 		orgPage.waitForElementAndClick(orgPage.globalModalInfoOkButton);
 		waitTime();
@@ -255,7 +259,7 @@ public class OrganizationTest extends BaseTest{
 		waitTime();
 		waitTime();
 		orgPage.addOrganization(orgStateName, orgDistName, orgSchoolName, schoolType);
-		Assert.assertEquals(orgPage.globalModalInfoBody.getText().trim(), unitymessagesdata.getProperty("orgCreated").replace("org_name", orgSchoolName).trim());
+		softAssert.assertEquals(orgPage.globalModalInfoBody.getText().trim(), unitymessagesdata.getProperty("orgCreated").replace("org_name", orgSchoolName).trim());
 		waitTime();
 		orgPage.waitForElementAndClick(orgPage.globalModalInfoOkButton);
 		waitTime();
@@ -264,7 +268,7 @@ public class OrganizationTest extends BaseTest{
 		waitTime();
 		orgPage.deleteOrganization(orgStateName, orgDistName, orgSchoolName, schoolType);
 		waitTime();
-		Assert.assertEquals(orgPage.globalModalOKCancelBody.getText().trim(), unitymessagesdata.getProperty("emptyOrgDelete").trim());
+		softAssert.assertEquals(orgPage.globalModalOKCancelBody.getText().trim(), unitymessagesdata.getProperty("emptyOrgDelete").trim());
 		waitTime();
 		orgPage.waitForElementAndClick(orgPage.globalModalOKCancelSaveButton);
 		waitTime();
@@ -274,7 +278,7 @@ public class OrganizationTest extends BaseTest{
 		
 		orgPage.deleteOrganization(orgStateName, orgDistName, "", distType);
 		waitTime();
-		Assert.assertEquals(orgPage.globalModalOKCancelBody.getText().trim(), unitymessagesdata.getProperty("emptyOrgDelete").trim());
+		softAssert.assertEquals(orgPage.globalModalOKCancelBody.getText().trim(), unitymessagesdata.getProperty("emptyOrgDelete").trim());
 		waitTime();
 		orgPage.waitForElementAndClick(orgPage.globalModalOKCancelSaveButton);
 		waitTime();
@@ -283,7 +287,7 @@ public class OrganizationTest extends BaseTest{
 		waitTime();
 		orgPage.deleteOrganization(orgStateName, "", "", stateType);
 		waitTime();
-		Assert.assertEquals(orgPage.globalModalOKCancelBody.getText().trim(), unitymessagesdata.getProperty("emptyOrgDelete").trim());
+		softAssert.assertEquals(orgPage.globalModalOKCancelBody.getText().trim(), unitymessagesdata.getProperty("emptyOrgDelete").trim());
 		waitTime();
 		orgPage.waitForElementAndClick(orgPage.globalModalOKCancelSaveButton);
 		waitTime();
