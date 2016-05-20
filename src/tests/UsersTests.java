@@ -11,6 +11,7 @@ import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -24,9 +25,9 @@ import pages.Users;
 
 public class UsersTests extends BaseTest {
 
-	Login loginPageObject;
-	DashBoard dashBoardPageObject;
-	Users usersPageObject;
+	Login loginPage;
+	DashBoard dashBoardPage;
+	Users usersPage;
 
 	Properties unitymessages;
 	String unityMessageFile = "src" + File.separator + "resources"
@@ -50,26 +51,26 @@ public class UsersTests extends BaseTest {
 		 
 	}
 
-	@BeforeMethod
+	@BeforeTest
 	public void loadUnityMessagesProperty() {
 		unitymessages = getUnityMessagesProperty(unityMessageFile);
 		unityUsersData = getUnityMessagesProperty(unityUsersDataFile);
 		firstName = unityUsersData.getProperty("tOneName");
 		organization = unityUsersData.getProperty("school");
-		lastName = unityUsersData.getProperty("tOneLastName");
+		lastName = unityUsersData.getProperty("tOneLastName")+ System.currentTimeMillis();
 		genericPassword = unityUsersData.getProperty("genericPassword");
 		role = unityUsersData.getProperty("tOneName");
 		// unitymessages.getProperty(key)
 
 	}
 
-	
+	@BeforeClass
 	public void setUp() {	
 		System.out.println("Before Method");
 		driver.get(url);
-		loginPageObject = new Login(driver);
-		dashBoardPageObject = loginPageObject.loginSuccess("admin", "@simple1");
-		waitTime();
+		loginPage = new Login(driver);
+		dashBoardPage = loginPage.loginSuccess("admin", "@simple1");
+		customeWaitTime(5);
 	}
 
 
@@ -81,12 +82,11 @@ public class UsersTests extends BaseTest {
 	 */
 
 	@Test(priority = 1)
-	public void testUserCreationAlertMessages() {
-		this.setUp();
-		usersPageObject = dashBoardPageObject.goToUsers();
-		waitTime();
-		
-		softAssert.assertEquals(usersPageObject.createSpecificUser(firstName,
+	public void testUserAlertMessages() {
+		//this.setUp();
+		usersPage = dashBoardPage.goToUsers();
+		customeWaitTime(5);
+		softAssert.assertEquals(usersPage.createSpecificUser(firstName,
 				lastName, genericPassword, "12345789", role, organization),
 				unitymessages.getProperty("userpassworddontmatch"));
 		customeWaitTime(2);
@@ -96,7 +96,7 @@ public class UsersTests extends BaseTest {
 				.replace("last_name", lastName)
 				.replace("user_name",
 						firstName.substring(0, 1).toLowerCase() + lastName));
-		softAssert.assertTrue(usersPageObject.createSpecificUser(firstName,
+		softAssert.assertTrue(usersPage.createSpecificUser(firstName,
 				lastName, genericPassword, genericPassword, role, organization)
 				.equalsIgnoreCase(
 						unitymessages
@@ -107,7 +107,53 @@ public class UsersTests extends BaseTest {
 										"user_name",
 										firstName.substring(0, 1).toLowerCase()
 												+ lastName)));
+		customeWaitTime(5);
+		usersPage.searchUser(firstName.toLowerCase().substring(0, 1)
+				+ lastName);
+		waitTime();
+		usersPage.waitForElementAndClick(usersPage.editIconList);
+		waitTime();
+		usersPage.waitForElementAndClick(usersPage.saveButton);
+		waitTime();
+		Assert.assertTrue((usersPage.globalModalInfoBody.getText().trim())
+				.contains(unitymessages.getProperty("usernochange")));
+		usersPage
+				.waitForElementAndClick(usersPage.globalModalInfoOkButton);
+		waitTime();
+		usersPage.last_name.clear();
+		usersPage.waitForElementAndClick(usersPage.saveButton);
+		customeWaitTime(2);
+		Assert.assertTrue(usersPage.globalModalInfoBody.getText().trim()
+				.contains(unitymessages.getProperty("userinvaliddata")));
+		usersPage
+				.waitForElementAndClick(usersPage.globalModalInfoOkButton);
+		waitTime();
+		usersPage.waitForElementAndSendKeys(usersPage.last_name,
+				lastName);
+		waitTime();
+		waitTime();
+		usersPage.waitForElementAndClick(usersPage.userSaveButton);
+		waitTime();
+		waitTime();
+		Assert.assertTrue(usersPage.globalModalInfoBody.getText().trim()
+				.contains(unitymessages.getProperty("usersaved")));
+		usersPage.waitForElementAndClick(usersPage.globalModalInfoOkButton);
+		
+		/*usersPage.searchUser(firstName.toLowerCase().substring(0, 1)
+				+ lastName);
+		waitTime();
+		waitTime();*/
+		customeWaitTime(5);
+		usersPage.waitForElementAndClick(usersPage.deleteIconList);
+		waitTime();
+		waitTime();
+		
+		softAssert.assertTrue(usersPage.globalModalDeleteBody.getText().contains(unitymessages.getProperty("userDelete").replace("first_name", firstName).replace("last_name", lastName)));
+		waitTime();
 
+		usersPage
+				.waitForElementAndClick(usersPage.globalModalDeleteButton);
+		
 	}
 
 	/**
@@ -120,39 +166,40 @@ public class UsersTests extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 2)
+	@Test(enabled = false)
 	public void testUserEditingAlertMessages() {
 		waitTime();
-		usersPageObject.searchUser(firstName.toLowerCase().substring(0, 1)
+		usersPage.searchUser(firstName.toLowerCase().substring(0, 1)
 				+ lastName);
 		waitTime();
-		usersPageObject.waitForElementAndClick(usersPageObject.editIconList);
+		usersPage.waitForElementAndClick(usersPage.editIconList);
 		waitTime();
-		usersPageObject.waitForElementAndClick(usersPageObject.saveButton);
+		usersPage.waitForElementAndClick(usersPage.saveButton);
 		waitTime();
-		Assert.assertTrue((usersPageObject.globalModalInfoBody.getText().trim())
+		Assert.assertTrue((usersPage.globalModalInfoBody.getText().trim())
 				.contains(unitymessages.getProperty("usernochange")));
-		usersPageObject
-				.waitForElementAndClick(usersPageObject.globalModalInfoOkButton);
+		usersPage
+				.waitForElementAndClick(usersPage.globalModalInfoOkButton);
 		waitTime();
-		usersPageObject.last_name.clear();
-		usersPageObject.waitForElementAndClick(usersPageObject.saveButton);
+		usersPage.last_name.clear();
+		usersPage.waitForElementAndClick(usersPage.saveButton);
 		customeWaitTime(2);
-		Assert.assertTrue(usersPageObject.globalModalInfoBody.getText().trim()
+		Assert.assertTrue(usersPage.globalModalInfoBody.getText().trim()
 				.contains(unitymessages.getProperty("userinvaliddata")));
-		usersPageObject
-				.waitForElementAndClick(usersPageObject.globalModalInfoOkButton);
+		usersPage
+				.waitForElementAndClick(usersPage.globalModalInfoOkButton);
 		waitTime();
-		usersPageObject.waitForElementAndSendKeys(usersPageObject.last_name,
+		usersPage.waitForElementAndSendKeys(usersPage.last_name,
 				lastName);
 		waitTime();
 		waitTime();
-		usersPageObject.waitForElementAndClick(usersPageObject.saveButton);
+		usersPage.waitForElementAndClick(usersPage.userSaveButton);
 		waitTime();
 		waitTime();
-		Assert.assertTrue(usersPageObject.globalModalInfoBody.getText().trim()
+		Assert.assertTrue(usersPage.globalModalInfoBody.getText().trim()
 				.contains(unitymessages.getProperty("usersaved")));
-
+		usersPage.waitForElementAndClick(usersPage.globalModalInfoOkButton);
+		
 	}
 
 	/**
@@ -161,60 +208,60 @@ public class UsersTests extends BaseTest {
 	 * 
 	 */
 
-	@Test(priority = 3)
+	@Test(enabled = false)
 	public void testUserDeleteAlertMessage() {
-		usersPageObject.searchAutoComplete.clear();
+		usersPage.searchAutoComplete.clear();
 		waitTime();
-		usersPageObject.searchUser(firstName.toLowerCase().substring(0, 1)
+		usersPage.searchUser(firstName.toLowerCase().substring(0, 1)
 				+ lastName);
 		waitTime();
 		waitTime();
-		usersPageObject.waitForElementAndClick(usersPageObject.deleteIconList);
+		usersPage.waitForElementAndClick(usersPage.deleteIconList);
 		waitTime();
 		waitTime();
 		
-		softAssert.assertTrue(usersPageObject.globalModalDeleteBody.getText().contains(unitymessages.getProperty("userDelete").replace("first_name", firstName).replace("last_name", lastName)));
+		softAssert.assertTrue(usersPage.globalModalDeleteBody.getText().contains(unitymessages.getProperty("userDelete").replace("first_name", firstName).replace("last_name", lastName)));
 		waitTime();
 
-		usersPageObject
-				.waitForElementAndClick(usersPageObject.globalModalDeleteButton);
+		usersPage
+				.waitForElementAndClick(usersPage.globalModalDeleteButton);
 	}
 
 	
-	@Test(priority =4)
+	@Test(enabled =false)
 	public void testFilterUserByMyUsersFilter(){
-	softAssert.assertFalse(foundRecords.equals(usersPageObject.filterMyUsers()),"Filter by my users is not working");
-	usersPageObject.waitForElementAndClick(usersPageObject.resetSearchFilter);
+	softAssert.assertFalse(foundRecords.equals(usersPage.filterMyUsers()),"Filter by my users is not working");
+	usersPage.waitForElementAndClick(usersPage.resetSearchFilter);
 	}
-	@Test(priority =5)
+	@Test(enabled =false)
 	public void testFilterUserByFirstName(){
-	softAssert.assertTrue(usersPageObject.filterByArgunent("firstName","Teacher" ),"Filter by my firstName is not working");
-	usersPageObject.waitForElementAndClick(usersPageObject.resetSearchFilter);
+	softAssert.assertTrue(usersPage.filterByArgunent("firstName","Teacher" ),"Filter by my firstName is not working");
+	usersPage.waitForElementAndClick(usersPage.resetSearchFilter);
 	}
-	@Test(priority =6)
+	@Test(enabled =false)
 	public void testFilterUserBymiddleName(){
-	softAssert.assertTrue(usersPageObject.filterByArgunent("middleName","middle" ),"Filter by my middleName is not working");
-	usersPageObject.waitForElementAndClick(usersPageObject.resetSearchFilter);
+	softAssert.assertTrue(usersPage.filterByArgunent("middleName","middle" ),"Filter by my middleName is not working");
+	usersPage.waitForElementAndClick(usersPage.resetSearchFilter);
 	}
-	@Test(priority =7)
+	@Test(enabled =false)
 	public void testFilterUserByLastNameName(){
-	softAssert.assertTrue(usersPageObject.filterByArgunent("lastName","camilo" ),"Filter by my lastName is not working");
-	usersPageObject.waitForElementAndClick(usersPageObject.resetSearchFilter);
+	softAssert.assertTrue(usersPage.filterByArgunent("lastName","camilo" ),"Filter by my lastName is not working");
+	usersPage.waitForElementAndClick(usersPage.resetSearchFilter);
 	}
-	@Test(priority =8)
+	@Test(enabled =false)
 	public void testFilterUserByStateId(){
-	softAssert.assertTrue(usersPageObject.filterByArgunent("stateId","123" ),"Filter by my statedId is not working");
-	usersPageObject.waitForElementAndClick(usersPageObject.resetSearchFilter);
+	softAssert.assertTrue(usersPage.filterByArgunent("stateId","123" ),"Filter by my statedId is not working");
+	usersPage.waitForElementAndClick(usersPage.resetSearchFilter);
 	}
 	
-	@Test(priority =9)
+	@Test(enabled =false)
 	public void testFilterUserByGrade(){
-	softAssert.assertTrue(usersPageObject.filterByCheck("grade","05" ),"Filter by my grade is not working");
-	usersPageObject.waitForElementAndClick(usersPageObject.resetSearchFilter);
+	softAssert.assertTrue(usersPage.filterByCheck("grade","05" ),"Filter by my grade is not working");
+	usersPage.waitForElementAndClick(usersPage.resetSearchFilter);
 	}
-	@Test(priority =10)
+	@Test(enabled =false)
 	public void testFilterUserByRole(){
-	softAssert.assertTrue(usersPageObject.filterByCheck("role","Teacher" ),"Filter by my role is not working");
-	usersPageObject.waitForElementAndClick(usersPageObject.resetSearchFilter);
+	softAssert.assertTrue(usersPage.filterByCheck("role","Teacher" ),"Filter by my role is not working");
+	usersPage.waitForElementAndClick(usersPage.resetSearchFilter);
 	}
 }
