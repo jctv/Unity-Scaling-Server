@@ -52,6 +52,7 @@ public class ItemBankTest extends BaseTest {
 	
 	@BeforeClass
 	public void setUp() {
+		try{
 		driver.get(url);
 		loginPage = new Login(driver);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("defaultAdmin"),
@@ -65,6 +66,10 @@ public class ItemBankTest extends BaseTest {
 		waitTime();
 		itemBankPage.createBank(itemBankName, itemBankDesc);
 		waitTime();
+		
+		}catch(Exception e){
+			System.out.println("Error # - Item bank set up failed");
+		}
 	}
 	
 	@Test(priority =1)
@@ -88,6 +93,7 @@ public class ItemBankTest extends BaseTest {
 		itemBankPage.waitForElementAndClick(itemBankPage.resetSearchFilter);
 		waitTime();
 		itemBankPage.filterItemBank(itemBankName);
+		waitTime();
 		Assert.assertEquals(itemBankPage.waitAndGetElementText(itemBankPage.itemBankNameField), itemBankName);
 	}
 	
@@ -96,12 +102,12 @@ public class ItemBankTest extends BaseTest {
 		itemBankPage.waitForElementAndClick(itemBankPage.resetSearchFilter);
 		itemBankPage.searchItemBank(itemBankName);
 		waitTime();
-		/*itemBankPage.waitForElementAndClick(itemBankPage.exportIconList);
+		itemBankPage.waitForElementAndClick(itemBankPage.exportIconList);
 		waitTime();
 		Assert.assertEquals(itemBankPage.globalModalInfoBody.getText().trim(), unitymessages.getProperty("itemBankExport").trim());
 		waitTime();
 		itemBankPage.waitForElementAndClick(itemBankPage.globalModalInfoOkButton);
-		waitTime();*/
+		waitTime();
 		itemBankPage.waitForElementAndClick(itemBankPage.deleteIconList);
 		waitTime();
 		waitTime();
