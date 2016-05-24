@@ -64,6 +64,8 @@ public class DeliveryTest extends BaseTest {
 	String testName8;
 	String testName9;
 	String testName10;
+	String testName11;
+
 
 	String testBank;
 	String itemBank;
@@ -80,7 +82,8 @@ public class DeliveryTest extends BaseTest {
 	String testid8;
 	String testid9;
 	String testid10;
-	
+	String testid11;
+
 	String testroster;
 	String testschool;
 	
@@ -124,6 +127,7 @@ public class DeliveryTest extends BaseTest {
 
 	@BeforeMethod
 	public void setUp() {
+		try{
 		driver.get(url);
 		loginPage = new Login(driver);
 		System.out.println("******** logging as teacher  ********");
@@ -152,6 +156,7 @@ public class DeliveryTest extends BaseTest {
 		waitTime();
 		testCreationPage = dashBoardPage.goToTestCreation();
 		waitTime();
+		
 		testName = "T_" + timestamp;
 		System.out.println("******** Test creation ********");
 		testCreationPage.createTestWithMultipleItems(testName,
@@ -202,6 +207,10 @@ public class DeliveryTest extends BaseTest {
 		
 		testName10 = "T_With_Non_Reportable_Score" + timestamp;
 		testCreationPage.createTestWithMultipleItems(testName10,
+				testBank, itemBank, itemCount);
+		
+		testName11 = "T_Rooler" + timestamp;
+		testCreationPage.createTestWithMultipleItems(testName11,
 				testBank, itemBank, itemCount);
 		
 		testCreationPage.searchTest(testName);
@@ -258,6 +267,12 @@ public class DeliveryTest extends BaseTest {
 		
 		testCreationPage.searchTest(testName10);
 		testid10 = testCreationPage.getTestId();
+		
+		testCreationPage.searchTest(testName11);
+		testid8 = testCreationPage.getTestId();
+		testCreationPage.waitForElementAndClick(testCreationPage.editIconList); 
+		testCreationPage.enableTestTools("Ruler");
+		
 		returnToDashboard();
 		customeWaitTime(5);
 		sechedulePage = dashBoardPage.goToSchedule();
@@ -285,8 +300,15 @@ public class DeliveryTest extends BaseTest {
 		waitTime();
 		sechedulePage.scheduleTest(testschool,testroster, "N/A", testName9, "Red", "120","100%", "Yes","false");
 		waitTime();
+		
+		sechedulePage.scheduleTest(testschool,testroster, "N/A", testName11, "Red", "120","100%", "Yes","true");
+		waitTime();
 					
 	   loginPage = sechedulePage.logOut();
+	   
+		}catch(Exception e){
+			System.out.println("Failed -- Delivery tile test data set up ");
+		}
 	
 	}
 	
@@ -482,6 +504,52 @@ public class DeliveryTest extends BaseTest {
 			deliveryPage = dashBoardPage.goToDelivery();
 			deliveryPage.startScheduledTest(testid7);
 	}
+	
+	@Test(priority = 11)
+	public void testRulerTool(){
+		    driver.get(url);
+		    loginPage = new Login(driver);
+		    customeWaitTime(5);
+		    System.out.println("******** logging as the student ********");
+		    dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testStudent1"),unitytestdata.getProperty("genericPassword"));
+			waitTime();
+			dashBoardPage.addTiles();
+			waitTime();
+			deliveryPage = dashBoardPage.goToDelivery();
+			deliveryPage.startScheduledTest(testid11);
+			softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.rulerIcon));
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.rulerElement, "style").contains("scale(1)"));
+			deliveryPage.waitForAnElementAndClick(deliveryPage.zoomPlusButton);
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.rulerElement, "style").contains("scale(1.1)"));
+			deliveryPage.waitForAnElementAndClick(deliveryPage.zoomPlusButton);
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.rulerElement, "style").contains("scale(1.2)"));
+			deliveryPage.waitForAnElementAndClick(deliveryPage.zoomPlusButton);
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.rulerElement, "style").contains("scale(1.3)"));
+			deliveryPage.waitForAnElementAndClick(deliveryPage.zoomPlusButton);
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.rulerElement, "style").contains("scale(1.4)"));
+			deliveryPage.waitForAnElementAndClick(deliveryPage.zoomMinusButton);
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.rulerElement, "style").contains("scale(1.3)"));
+			deliveryPage.waitForAnElementAndClick(deliveryPage.zoomMinusButton);
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.rulerElement, "style").contains("scale(1.2)"));
+
+			deliveryPage.waitForAnElementAndClick(deliveryPage.zoomMinusButton);
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.rulerElement, "style").contains("scale(1.1)"));
+
+			deliveryPage.waitForAnElementAndClick(deliveryPage.zoomMinusButton);
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.rulerElement, "style").contains("scale(1)"));
+
+			deliveryPage.waitForAnElementAndClick(deliveryPage.zoomMinusButton);
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.rulerElement, "style").contains("scale(0.9)"));
+
+			deliveryPage.waitForAnElementAndClick(deliveryPage.zoomMinusButton);
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.rulerElement, "style").contains("scale(0.8)"));
+
+			deliveryPage.waitForAnElementAndClick(deliveryPage.zoomMinusButton);
+			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.rulerElement, "style").contains("scale(0.7)"));
+
+
+			
+	}
 	/**
 	 * Login as teacher 
 	 * Create test 
@@ -492,7 +560,7 @@ public class DeliveryTest extends BaseTest {
 	 * Verify the confirmation message
 	 */
 	
-	@Test(priority = 11)
+	@Test(priority = 12)
 	public void testVerifyExitMessgage(){
 		driver.get(url);
 		loginPage = new Login(driver);
@@ -536,5 +604,6 @@ public class DeliveryTest extends BaseTest {
 	}
 	
 
+	
 	
 }
