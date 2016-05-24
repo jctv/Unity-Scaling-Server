@@ -39,11 +39,13 @@ public class ClassRosterTest extends BaseTest{
     ArrayList<String> createdUsersA = new ArrayList<String>();
 
     String createdStudent;
-    
 	String rosterName;
 	String schoolName;
 	String grade ;
 	String desciption;
+	String studentF1;
+	String studentL1;
+    String userPassword;
 	
 	long timestamp;
 	
@@ -57,10 +59,20 @@ public class ClassRosterTest extends BaseTest{
 		unitymessages = getUnityMessagesProperty(unityMessageFile);
 		unitytestdata = getUnityMessagesProperty(unityTestDataFile);
 		unityRosterdata = getUnityMessagesProperty(unityRosterDataFile);
+		timestamp = System.currentTimeMillis();
+		schoolName = unityRosterdata.getProperty("schoolName")+ timestamp;
+		studentF1 =unityRosterdata.getProperty("s_FirstName");
+		studentL1 = unityRosterdata.getProperty("s_LastName") + timestamp;
+		rosterName = unityRosterdata.getProperty("rosterName") + timestamp;
+		userPassword = unityRosterdata.getProperty("password");
+		grade = unityRosterdata.getProperty("grade");
+		desciption  = unityRosterdata.getProperty("rosterDesc");
+
 	}
 
 	@BeforeClass
 	public void setUp() {
+		try{
 		driver.get(url);
 		loginPage = new Login(driver);
 		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("defaultAdmin"),
@@ -69,21 +81,18 @@ public class ClassRosterTest extends BaseTest{
 		dashBoardPage.addTiles();
 		waitTime();
 		usersPage = dashBoardPage.goToUsers();
-		waitTime();
-		 timestamp = System.currentTimeMillis();
-		schoolName = unityRosterdata.getProperty("schoolName");
-		String userMessage = usersPage.createSpecificUser(unityRosterdata.getProperty("s_FirstName"), unityRosterdata.getProperty("s_LastName") + timestamp , unityRosterdata.getProperty("password"), unityRosterdata.getProperty("password"), "Student", schoolName);
-		createdStudent = userMessage.split("user name - ")[1].split(" !")[0];
+		customeWaitTime(5);
+		usersPage.createSpecificUser(studentF1, studentL1 , userPassword, userPassword, "Student", schoolName);
+		createdStudent = studentF1.substring(0, 1) + studentL1;
 		returnToDashboard();
-		rosterName = unityRosterdata.getProperty("rosterName") + timestamp;
-		grade = unityRosterdata.getProperty("grade");
-		desciption  = unityRosterdata.getProperty("rosterDesc");
 		classRosterPage = dashBoardPage.goToClassRoster();
 		createdUsersA.add(createdStudent);
 		classRosterPage.createRoster(createdUsersA, schoolName, rosterName);
 		//classRosterPage.backToDashboard();
 		classRosterPage.waitForElementAndClick(classRosterPage.backToRoster);
-
+		}catch(Exception e){
+			System.out.println("Error # while setting up the class roster data");
+		}
 	}
 	
 	
@@ -205,7 +214,6 @@ public class ClassRosterTest extends BaseTest{
 	
 	
 	@AfterClass
-	
 	public void cleanUpData(){
 		customeWaitTime(2);
 		classRosterPage.searchRoster(rosterName);
