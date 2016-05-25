@@ -1,7 +1,12 @@
 package tests;
 
+import java.io.File;
+import java.util.Properties;
+
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import pages.DashBoard;
@@ -17,34 +22,73 @@ public class ScoreProfileTest extends BaseTest {
 	ScoreProfile scoreProfilePage;
 	Domain domainPage;
 	
-	String defaultUser = "admin";
-	String defaultPassword = "@simple1";
-	
+	String defaultAdmin;
+	String defaultPassword;
+	String resourcesLocation = "src" + File.separator + "resources"
+			+ File.separator;
 	private static final String MAP_ENGINE = "Map";
 	private static final String HAND_ENGINE = "Hand";
 	private static final String MATCH_ENGINE = "Match";
+	private static final String CRASE_ENGINE = "CRASE";
 	private static final String MAP_PROFILE = "Map";
 	private static final String HAND_PROFILE = "Hand";
 	private static final String MATCH_PROFILE = "Match";
+	private static final String CRASE_PROFILE = "Automated Scoring";
 	
-	  
+	String desc = "Score profile desc";
+
+	
+	
+	String unityTestDataFile = resourcesLocation  + "unitytestdata.properties";
+
+	Properties unitytestdata;
+
 	
 	public ScoreProfileTest() {
 		super();
 		
 	}
 
+	@BeforeTest
+	public void loadUnityMessagesProperty(){
+		unitytestdata = getUnityMessagesProperty(unityTestDataFile);
+		defaultAdmin = unitytestdata.getProperty("defaultAdmin");
+		defaultPassword = unitytestdata.getProperty("defaultPasswordq");
+	}
+
 	
 	@BeforeMethod
 	public void setUp() {
+		try{
 		driver.get(url);
 		loginPage = new Login(driver);
-		dashBoardPage = loginPage.loginSuccess(defaultUser,
+		dashBoardPage = loginPage.loginSuccess(defaultAdmin,
 				defaultPassword);
 		waitTime();
 		//dashBoardPage.addTiles();
 		waitTime();
+		
+		}catch(Exception e){
+			
+			System.out.println("Failed - Score propfile set up");
+		}
 	}
+	
+	
+	@Test
+	public void testCreateCRASEScoreProfile(){
+		dashBoardPage.addTiles();
+		customeWaitTime(6);
+		scoreProfilePage = dashBoardPage.goToScoreProfile();
+		customeWaitTime(6);
+		scoreProfilePage.createScoreProfile(CRASE_PROFILE, desc, CRASE_ENGINE);
+		Assert.assertEquals(
+				scoreProfilePage.getScoreProfileEngine(CRASE_ENGINE),
+				CRASE_ENGINE);
+		Assert.assertEquals(scoreProfilePage.getScoreProfileName(CRASE_PROFILE),
+				CRASE_PROFILE);
+	}
+	
 	
 	/**
 	   * Login into the Unity as a super admin
@@ -77,7 +121,7 @@ public class ScoreProfileTest extends BaseTest {
 		customeWaitTime(6);
 		dashBoardPage.logOut();
 		dashBoardPage = loginPage.loginSuccess(domainAbbreviation + "/"
-				+ defaultUser, "password");
+				+ defaultAdmin, "password");
 		waitTime();
 		dashBoardPage.addTiles();
 		customeWaitTime(6);
@@ -103,11 +147,12 @@ public class ScoreProfileTest extends BaseTest {
 		scoreProfilePage.backToDashboard();
 		customeWaitTime(6);
 		dashBoardPage.logOut();
-		dashBoardPage = loginPage.loginSuccess(defaultUser, defaultPassword);
+		dashBoardPage = loginPage.loginSuccess(defaultAdmin, defaultPassword);
 		waitTime();
 		domainPage = dashBoardPage.goToDomain();
 		customeWaitTime(12);
 		domainPage.deleteDomain(domainAbbreviation);
 	}
+	
 
 }

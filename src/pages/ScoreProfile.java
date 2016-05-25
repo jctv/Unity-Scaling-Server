@@ -14,18 +14,25 @@ public class ScoreProfile extends BasePage{
 	public WebElement creatScoreProfileButton;
 	
 	
-	@FindBy(name = "name")
+	@FindBy(name = "profileName")
 	public WebElement scoreProfileNameField;
 	
-	@FindBy(name = "description")
+	@FindBy(name = "profileDescription")
 	public WebElement scoreProfileDescField;
 	
-	@FindBy(name = "engine")
+	@FindBy(id = "profileEngine")
 	public WebElement selectScoreEngine;
 	
 	@FindBy(xpath = "//*[@id='region-navigation']/div/a")
 	public WebElement backToDashboard;
 
+	@FindBy(id = "profileCreateInputSubmit")
+	public WebElement profileCreateButton;
+	
+	@FindBy(id = "profileCreateInputEdit")
+	public WebElement profileCreateEditButton;
+	
+	
 	
 
 	public ScoreProfile(WebDriver driver) {
@@ -64,4 +71,15 @@ public String getScoreProfileEngine(String profileEngine){
 		
 	}
 
+
+public void createScoreProfile(String name , String desc , String engine){
+	try{
+		waitForElementAndSendKeys(scoreProfileNameField , name );
+		waitForElementAndSendKeys(scoreProfileDescField , desc );
+		selectOption(selectScoreEngine, engine);
+		waitForElementAndClick(profileCreateButton);
+	}catch(Exception e){
+		System.out.println("Error- While creating  " + engine  +"score profile ");
+	}
+  }
 }
