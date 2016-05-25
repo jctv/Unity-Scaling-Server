@@ -269,7 +269,7 @@ public class DeliveryTest extends BaseTest {
 		testid10 = testCreationPage.getTestId();
 		
 		testCreationPage.searchTest(testName11);
-		testid8 = testCreationPage.getTestId();
+		testid11 = testCreationPage.getTestId();
 		testCreationPage.waitForElementAndClick(testCreationPage.editIconList); 
 		testCreationPage.enableTestTools("Ruler");
 		
@@ -278,6 +278,7 @@ public class DeliveryTest extends BaseTest {
 		sechedulePage = dashBoardPage.goToSchedule();
 		waitTime();
 	    System.out.println("******** Event creation ********");
+	    
 	     sechedulePage.scheduleTest(testschool, testroster, "N/A", testName, "Red", "120","100%", "Yes", "true");
 		waitTime();
 		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName1, "Red","120","100%", "Yes", "true");
@@ -516,8 +517,14 @@ public class DeliveryTest extends BaseTest {
 			dashBoardPage.addTiles();
 			waitTime();
 			deliveryPage = dashBoardPage.goToDelivery();
+			customeWaitTime(5);
 			deliveryPage.startScheduledTest(testid11);
+			customeWaitTime(5);
 			softAssert.assertTrue(deliveryPage.waitForElementVisible(deliveryPage.rulerIcon));
+			deliveryPage.waitForAnElementAndClick(deliveryPage.rulerIcon);
+			customeWaitTime(2);
+			deliveryPage.dragAndDrop(deliveryPage.rulerDrag, deliveryPage.rulerDrop);
+			customeWaitTime(2);
 			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.rulerElement, "style").contains("scale(1)"));
 			deliveryPage.waitForAnElementAndClick(deliveryPage.zoomPlusButton);
 			softAssert.assertTrue(deliveryPage.waitAndGetElementAttribute(deliveryPage.rulerElement, "style").contains("scale(1.1)"));
@@ -602,8 +609,6 @@ public class DeliveryTest extends BaseTest {
     	customeWaitTime(2);
 		
 	}
-	
-
 	
 	
 }

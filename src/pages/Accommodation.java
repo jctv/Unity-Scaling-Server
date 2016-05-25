@@ -107,10 +107,7 @@ public class Accommodation extends BasePage {
 	@FindBy(id = "magnification-time")
 	public WebElement selectMagnificationTime;
 	
-<<<<<<< HEAD
 
-=======
->>>>>>> a46ab5e6ccd44008de914a6ad0699fd8279d1504
 	public boolean searchStudent(String criteria) {
 		try {
 			waitTime();

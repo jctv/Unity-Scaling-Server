@@ -161,11 +161,20 @@ public class Delivery extends BasePage {
 	@FindBy(xpath = "//i[@class='button_opt fa fa-minus-circle fa-2x pageZoom zoomMinus']")
 	public WebElement zoomMinusButton;
 	
-	@FindBy(xpath = "//i[@class='button_opt fa fa-eraser fa-2x rulerInch active_tool']")
+	@FindBy(xpath = "//i[@class='button_opt fa fa-eraser fa-2x rulerInch']")
 	public WebElement rulerIcon;
 	
 	@FindBy(xpath = "//*[@id='ruler-In']")
 	public WebElement rulerElement;
+	
+	@FindBy(xpath = "//div[@id='form_Ruler']")
+	public WebElement rulerDrag;
+	
+	@FindBy(xpath = "//div[@class='i-choice']")
+	public WebElement rulerDrop;
+	
+	
+	
 	
 	
 	public void takeTest() {
