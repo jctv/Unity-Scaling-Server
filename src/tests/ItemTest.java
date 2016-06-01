@@ -26,11 +26,14 @@ public class ItemTest extends BaseTest{
 	Items itemsPage;
 	Properties unitymessages;
 
-	String defaultUser = "admin";
-	String defaultPassword = "@simple1";
+	String defaultUser;
+	String defaultPassword;
 	
 	String unityMessageFile = "src" + File.separator + "resources"
 			+ File.separator + "unitymessages.properties";
+	String unityTestDataFile = "src" + File.separator + "resources"
+			+ File.separator  + "unitytestdata.properties";
+
 	
 	String loggedUser = "qa/admin";
 	String genericPassword = "password";
@@ -50,13 +53,20 @@ public class ItemTest extends BaseTest{
 	String updatedItemReadability;
 	String interactionChoice = "Choice";
 	String interactionTextEntry = "Text Entry";
+	String extendedTextEntry = "Extended Text";
+
 	String simpleMatchScoreProfile = "Simple Match";
 	String mapScoreProfile = "Map";
+	String craseScoreProfile = "Crase";
+
 	String handScoreProfile  = "Hand Scoring";
 	String choiceCorrectAnswer = "set D correct Answer";
 	String  textEntryCorrcetAnswer = "Auto Text Entry";
 	
 	long timestamp;
+	
+	Properties unitytestdata;
+
 
 	public ItemTest() {
 		super();
@@ -66,6 +76,9 @@ public class ItemTest extends BaseTest{
 	@BeforeTest
 	public void loadUnityMessagesProperty(){
 		unitymessages = getUnityMessagesProperty(unityMessageFile);
+		unitytestdata = getUnityMessagesProperty(unityMessageFile);
+		defaultUser = unitytestdata.getProperty("defaultAdmin");
+		defaultPassword = unitytestdata.getProperty("defaultPassword");
 		
 	}
 	
@@ -411,6 +424,25 @@ public class ItemTest extends BaseTest{
 		itemsBankPage.deleteItemBank(itemBankName);*/
 	}
 	
+	@Test(priority = 6)
+	public void testCreateItemWithCraseScoreProfile(){
+		itemName = "act18_aa36_unity";
+		itemsPage.createItem(itemName, itemBankName ,extendedTextEntry , craseScoreProfile , textEntryCorrcetAnswer);
+		itemsPage.searchItem(itemName);
+		Assert.assertEquals(itemsPage.itemNameList.getText().trim(), itemName);
+		Assert.assertEquals(itemsPage.itemTilteList.getText().trim(), "Description");
+		Assert.assertEquals(itemsPage.itemPointsList.getText().trim(), "1");
+		Assert.assertEquals(itemsPage.itemBankList.getText().trim(), itemBankName);
+		itemsPage.deleteItem(itemName);
+	}
+	
+	@Test(priority = 7)
+	public void testCraseItemCreateAlert(){
+		itemName = "invalid_act18_aa36_unity";
+		itemsPage.createItem(itemName, itemBankName ,extendedTextEntry , craseScoreProfile , textEntryCorrcetAnswer);
+		Assert.assertEquals(itemsPage.globalModalInfoBody.getText().trim(), "This Item does not exist in Crase, please change Scoring Profile to Hand");
+	}
+
 	
 	@AfterClass
 	public void cleanUpData(){

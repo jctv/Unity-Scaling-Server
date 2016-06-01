@@ -44,7 +44,10 @@ public class TestCreationTest extends BaseTest {
 	String copiedTestName;
 	String itemBankName;
 	String itemName;
-	
+	String extendedTextEntry = "Extended Text";
+	String craseScoreProfile = "Crase";
+	String  textEntryCorrcetAnswer = "Auto Text Entry";
+
 	public TestCreationTest() {
 		super();
 	}
@@ -289,6 +292,32 @@ public class TestCreationTest extends BaseTest {
     	customeWaitTime(5);
     	softAssert.assertTrue(previewTestPage.waitForElementVisible(previewTestPage.bookmark));
     	customeWaitTime(5);
+    }
+    
+    @Test(priority = 6)
+    public void testCreateTestWithCraseProfileItem(){
+    	long timestamp = System.currentTimeMillis();
+		testBankName = unitytestcreationdata.getProperty("testBankName") + timestamp ;
+		testName =  unitytestcreationdata.getProperty("testName") + timestamp;
+		itemBankName = unitytestcreationdata.getProperty("itemBankName") + timestamp ;
+		itemName =  unitytestcreationdata.getProperty("itemName") + timestamp;
+		itemsBankPage = dashBoardPage.goToItemsBank();
+		itemsBankPage.createBank(itemBankName, "desc");
+		returnToDashboard();
+		itemsPage = dashBoardPage.goToItems();
+		itemsPage.createItem(itemName, itemBankName ,extendedTextEntry , craseScoreProfile , textEntryCorrcetAnswer);
+		returnToDashboard();
+	    testBankPage = dashBoardPage.goToTestsBank();
+	    customeWaitTime(2);
+		testBankPage.createBank(testBankName, "Desc");
+	    customeWaitTime(5);
+	    returnToDashboard();
+	    testCreationPage = dashBoardPage.goToTestCreation();
+	    customeWaitTime(5);
+	    testCreationPage.createTest(testName, testBankName, itemName);
+	    testCreationPage.searchTest(testName);
+		Assert.assertEquals(testCreationPage.waitAndGetElementText(testCreationPage.testNameList).trim(), testName);
+		testCreationPage.backToDashboard();
     }
 	
 }
