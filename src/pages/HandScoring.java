@@ -156,6 +156,17 @@ public class HandScoring extends BasePage {
 	@FindBy(xpath = ".//div[label[text()='Type']]/div/p")
 	private WebElement itemType; 
 	
+	@FindBy(xpath = "//td[@class='watable-col-roster']")
+	public List<WebElement> rosterFoundList;
+	
+	@FindBy(className = "filtered-list-stats-total")
+	public WebElement totalResultCount;
+	
+	@FindBy(className = "watable-col-content_area")
+	public List <WebElement> contentAreaFoundList;
+	
+	
+	
 	public void filterClass(String className ){
 	try{
 		waitForElementAndClick(classFilter); 
@@ -328,6 +339,18 @@ public class HandScoring extends BasePage {
 	
 	public void clickOnNextStudentAnswer(int index){
 		handScoredItemsList.get(index).click();
+	}
+	
+	public List <WebElement> getRosterList(){
+		return rosterFoundList;
+	}
+	
+	public String getResult(){
+		return waitAndGetElementText(totalResultCount);
+	}
+	
+	public List <WebElement> getContentAreaList(){
+		return contentAreaFoundList;
 	}
 	
 }

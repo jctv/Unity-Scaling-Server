@@ -40,35 +40,12 @@ public class HandScoringTests extends BaseTest {
 	HandScoring handScoringPage;
 	Delivery deliveryPage;
 	Role rolePage;
-
-
-	String itemBankName ;
-	String itemName ;
-	String copiedItemName;
-	String testBankName;
-	String testName1;
-	String testName2;
-	String testName3;
-	String testName4;
-	String testName5;
-
-	String extendedTextEntry;
-	String testSchool;
-	String createdTestId1;
-	String createdTestId2;
-	String createdTestId3;
-	String createdTestId4;
-	String createdTestId5;
-	String notStartedTest;
 	
-	String extendedTextAnswer;
-	
-	String testrosterName;
+	String itemBankName , itemName ,copiedItemName, testBankName , testName1 , testName2, testName3, testName4, testName5, testName6, extendedTextEntry,
+	testSchool, createdTestId1, createdTestId2, createdTestId3, createdTestId4, createdTestId5, notStartedTest, createdTestId6, extendedTextAnswer, testrosterName , handScoreProfile;
 	
 	int itemCount = 10;
-	
-	String handScoreProfile;
-	
+		
 	String desc = "description";
 	
 	String resourcesLocation = "src" + File.separator + "resources"
@@ -144,6 +121,8 @@ public class HandScoringTests extends BaseTest {
 		testName4 = "Dont start_4_" + timestamp;
 		
 		testName5 = "HandScore" + timestamp;
+		
+		testName6 = "TestSearch_"  + timestamp;
 
 
 		testCreationPage = dashBoardPage.goToTestCreation();
@@ -157,6 +136,8 @@ public class HandScoringTests extends BaseTest {
 				testBankName, itemBankName, itemCount);
 		
 		testCreationPage.createTestWithMultipleItems(testName5,
+				testBankName, itemBankName, itemCount);
+		testCreationPage.createTestWithMultipleItems(testName6,
 				testBankName, itemBankName, itemCount);
 		customeWaitTime(5);
 		
@@ -191,6 +172,9 @@ public class HandScoringTests extends BaseTest {
 				"100%", "Yes","true");
 		sechedulePage.scheduleTest(testSchool,
 				testrosterName, "N/A", testName5, "Red", "120",
+				"100%", "Yes","true");
+		sechedulePage.scheduleTest(testSchool,
+				testrosterName, "N/A", testName6, "Red", "120",
 				"100%", "Yes","true");
 		waitTime();
 		returnToDashboard();
@@ -484,5 +468,56 @@ public class HandScoringTests extends BaseTest {
 		customeWaitTime(5);
 		softAssert.assertFalse(reportPage.waitForElementVisible(reportPage.HandscoreThisTestButton));
 		
+	}
+	
+	@Test(priority = 7)
+	public void testFilterHandScoreTestbyName(){
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testDomainTeacher"),
+				unitytestdata.getProperty("genericPassword"));
+		waitTime();
+		handScoringPage = dashBoardPage.goToHandScoring();
+		waitTime();
+		handScoringPage.filterTest(testName6);
+		softAssert.assertTrue(handScoringPage.waitAndGetElementText(handScoringPage.testInListing).contains(testName6));
+	}
+	
+	@Test(priority = 8)
+	public void testFilterHandScoreTestbyRoster(){
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testDomainTeacher"),
+				unitytestdata.getProperty("genericPassword"));
+		waitTime();
+		handScoringPage = dashBoardPage.goToHandScoring();
+		waitTime();
+		handScoringPage.filterClass(testrosterName);
+		customeWaitTime(5);
+		for(int i = 0 ; i < handScoringPage.getRosterList().size(); i++){
+			softAssert.assertTrue(handScoringPage.waitAndGetElementText(handScoringPage.getRosterList().get(i)).contains(testrosterName));
+		}
+	}
+	
+	@Test(priority = 9)
+	public void testFilterHandScoreTestbyContentArea(){
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testDomainTeacher"),
+				unitytestdata.getProperty("genericPassword"));
+		waitTime();
+		handScoringPage = dashBoardPage.goToHandScoring();
+		waitTime();
+		handScoringPage.filterContentArea("N/A");
+		customeWaitTime(5);
+		for(int i = 0 ; i < handScoringPage.getContentAreaList().size(); i++){
+			softAssert.assertTrue(handScoringPage.waitAndGetElementText(handScoringPage.getContentAreaList().get(i)).contains(testrosterName));
+		}
+	}
+	
+	@Test(priority = 10)
+	public void testFilterHandScoreTestbyItems(){
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testDomainTeacher"),
+				unitytestdata.getProperty("genericPassword"));
+		waitTime();
+		handScoringPage = dashBoardPage.goToHandScoring();
+		waitTime();
+		handScoringPage.filterHandScoringItems("Yes");
+		customeWaitTime(5);
+		softAssert.assertFalse(handScoringPage.getResult().isEmpty());
 	}
 }
