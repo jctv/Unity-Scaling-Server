@@ -294,6 +294,10 @@ public class Items extends BasePage {
 	@FindBy(xpath = ".//*[@id='tinymce']")
 	public WebElement htmlTabBodyArea;
 	
+	@FindBy(id = "maxpoints")
+	public WebElement maxpointsInputField;
+	
+	
 	
 	public Items(WebDriver driver) {
 		super(driver);
@@ -396,7 +400,9 @@ public class Items extends BasePage {
     		customeWaitTime(5);
             break;
         case "Extended Text":
-        	
+        	if(getSelectedOption(scoreProfile).getText().equals(scoringType)){
+            	waitForElementAndSendKeys(maxpointsInputField, "12");
+        	}
         	 //Currentlry Not require to set the answer for extended text entry
         	
         	/*waitForElementAndSendKeys(extendedTextArea, setAnswer);

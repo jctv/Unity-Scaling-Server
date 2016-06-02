@@ -60,9 +60,11 @@ public class ReportTest extends BaseTest {
 	String itemName ;
 	String testBankName ;
 	
-	String testName1 , testName2 , testName3 ,testName4 ,testName5 ,testName6 , testName7 , testName8,testName9 ,testName10;
-	String itemBankName1  , itemBankName2 , itemBankName3 , itemBankName4 , itemBankName5 , itemBankName6, itemBankName7 ,itemBankName8 , itemBankName9 ,itemBankName10 ;
-	String createdTestId1 , createdTestId2 , createdTestId3 , createdTestId4 ,createdTestId5 ,createdTestId6 , createdTestId7 ,createdTestId8,createdTestId9,createdTestId10;
+	String extendedTextCraseAnswer;
+	
+	String testName1 , testName2 , testName3 ,testName4 ,testName5 ,testName6 , testName7 , testName8,testName9 ,testName10, craseTestName;
+	String itemBankName1  , itemBankName2 , itemBankName3 , itemBankName4 , itemBankName5 , itemBankName6, itemBankName7 ,itemBankName8 , itemBankName9 ,itemBankName10,craseItemBank ;
+	String createdTestId1 , createdTestId2 , createdTestId3 , createdTestId4 ,createdTestId5 ,createdTestId6 , createdTestId7 ,createdTestId8,createdTestId9,createdTestId10, craseTestId;
 
 	String itemStrandCategory;
 	
@@ -76,13 +78,17 @@ public class ReportTest extends BaseTest {
 	String copyItemName;
 	String interactionChoice;
 	String interactionTextEntry;
+	String extendedTextInteraction;
 	String simpleMatchScoreProfile;
 	String mapScoreProfile;
 	String handScoreProfile;
+	String craseScoreProfile;
 	String choiceCorrectAnswer;
 	
 	String testroster;
 	String testschool;
+	
+	String craseItemName = "act18_aa36_unity";
 
 	String testid;
 	int itemCount =5;
@@ -111,8 +117,12 @@ public class ReportTest extends BaseTest {
 		choiceCorrectAnswer = unitytestdata.getProperty("choiceCorrectAnswer");
 		
 		interactionTextEntry = unitytestdata.getProperty("interactionTextEntry");
+		extendedTextInteraction = unitytestdata.getProperty("interactionExtededText");
 		mapScoreProfile = unitytestdata.getProperty("mapScoreProfile");
 		handScoreProfile = unitytestdata.getProperty("handScoreProfile");
+		craseScoreProfile = unitytestdata.getProperty("craseScoreProfile");
+				
+		extendedTextCraseAnswer = unitytestdata.getProperty("extendedTextCraseAnswer");		
 
 		testroster = unitytestdata.getProperty("testRoster");
 		testschool =  unitytestdata.getProperty("testSchool");	
@@ -161,6 +171,11 @@ public class ReportTest extends BaseTest {
 
 		itemBankName10 = "IB10_" + System.currentTimeMillis();
 		itemsBankPage.createBank(itemBankName10, "desc");
+		
+		craseItemBank = "Crase_" + System.currentTimeMillis();
+		itemsBankPage.createBank(craseItemBank, "desc");
+
+		
 		returnToDashboard();
 		
 		customeWaitTime(2);
@@ -298,7 +313,12 @@ public class ReportTest extends BaseTest {
 		copiedItemName = "copy_" + itemName;
 		itemsPage.copyMultipleItems(itemBankName10, itemName, copiedItemName, 1, 4);
 		
+		//itemsPage.createItem(craseItemName, itemBankName10, interactionChoice , simpleMatchScoreProfile , choiceCorrectAnswer);	
 		
+		itemsPage.createItem(craseItemName, craseItemBank ,extendedTextInteraction , craseScoreProfile , textEntryCorrcetAnswer);
+		itemsPage.searchItem(craseItemName);
+		itemsPage.addStandards();
+
 		itemsPage.backToDashboard();
 		customeWaitTime(2);
 		testBankPage = dashBoardPage.goToTestsBank();
@@ -317,22 +337,27 @@ public class ReportTest extends BaseTest {
 		testName2 = "T2" + testBankName;
 		testCreationPage.createTestWithMultipleItems(testName2 , testBankName , itemBankName ,1);
 		
-		testName1 = "T3" + testBankName;
+		testName3 = "T3" + testBankName;
 		testCreationPage.createTestWithMultipleItems(testName3 , testBankName , itemBankName ,1);
-		testName1 = "T4" + testBankName;
+		testName4 = "T4" + testBankName;
 		testCreationPage.createTestWithMultipleItems(testName4 , testBankName , itemBankName ,1);
-		testName1 = "T5" + testBankName;
+		testName5 = "T5" + testBankName;
 		testCreationPage.createTestWithMultipleItems(testName5 , testBankName , itemBankName ,1);
-		testName1 = "T6" + testBankName;
+		testName6 = "T6" + testBankName;
 		testCreationPage.createTestWithMultipleItems(testName6 , testBankName , itemBankName ,1);
-		testName1 = "T7" + testBankName;
+		testName7 = "T7" + testBankName;
 		testCreationPage.createTestWithMultipleItems(testName7 , testBankName , itemBankName ,1);
-		testName1 = "T8" + testBankName;
+		testName8 = "T8" + testBankName;
 		testCreationPage.createTestWithMultipleItems(testName8 , testBankName , itemBankName ,1);
-		testName1 = "T9" + testBankName;
+		testName9 = "T9" + testBankName;
 		testCreationPage.createTestWithMultipleItems(testName9 , testBankName , itemBankName ,1);
-		testName1 = "T10" + testBankName;
+		
+		testName10 = "T10" + testBankName;
 				testCreationPage.createTestWithMultipleItems(testName10, testBankName , itemBankName ,1);
+				
+		craseTestName = "Crase_Test_" + testBankName;
+		
+		testCreationPage.createTest(craseTestName, testBankName, craseItemBank);		
 
 		testCreationPage.searchTest(testName1);
 		createdTestId1 = testCreationPage.getTestId();	
@@ -353,7 +378,11 @@ public class ReportTest extends BaseTest {
 		testCreationPage.searchTest(testName9);
 		createdTestId9 = testCreationPage.getTestId();		
 		testCreationPage.searchTest(testName10);
-		createdTestId10 = testCreationPage.getTestId();		
+		createdTestId10 = testCreationPage.getTestId();	
+		
+		testCreationPage.searchTest(craseTestName);
+		craseTestId = testCreationPage.getTestId();
+		
 		sechedulePage = dashBoardPage.goToSchedule();
 		customeWaitTime(2);
 		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName1, "Green", "110", "20%", "No","true");
@@ -366,8 +395,8 @@ public class ReportTest extends BaseTest {
 		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName8, "Green", "110", "20%", "No","true");
 		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName9, "Green", "110", "20%", "No","true");
 		sechedulePage.scheduleTest(testschool, testroster, "N/A", testName10, "Green", "110", "100%", "Yes","true");
+		sechedulePage.scheduleTest(testschool, testroster, "N/A", craseTestName, "Green", "110", "100%", "Yes","true");
 
-			
 		
 	}
 	
@@ -802,6 +831,45 @@ public class ReportTest extends BaseTest {
 
 	}
 	    
+	@Test(priority = 11)
+	public void testVerityReportForCraseProfile(){
+		driver.get(url);
+		loginPage = new Login(driver);
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testStudent1"), unitytestdata.getProperty("genericPassword"));
+		customeWaitTime(2);
+		dashBoardPage.addTiles();
+		customeWaitTime(2);
+		deliveryPage = dashBoardPage.goToDelivery();
+		waitTime();
+		System.out.println("******** Taking the scheduled test ********");
+		Assert.assertEquals(craseTestName, deliveryPage.getScheduledTest(craseTestId));
+		deliveryPage.startScheduledTest(craseTestId);
+		deliveryPage.takeTest(true , 1 ,"Extended Text" , extendedTextCraseAnswer);
+		
+		softAssert.assertTrue(craseTestName.equalsIgnoreCase(deliveryPage.getTestinHistoryTable(craseTestId)));
+		softAssert.assertEquals("100%", deliveryPage.getTestPercentCorrect(createdTestId1));
+		softAssert.assertEquals("1", deliveryPage.getTestNoOfItems(createdTestId1));
+		deliveryPage.backToDashboard();
+		customeWaitTime(2);
+		dashBoardPage.logOut();
+		customeWaitTime(2);	
+		dashBoardPage = loginPage.loginSuccess(unitytestdata.getProperty("testTeacher1"), unitytestdata.getProperty("genericPassword"));
+		customeWaitTime(2);
+		reportsPage = dashBoardPage.goToReports();
+		customeWaitTime(2);
+		//reportsPage.waitForElementAndClick(reportsPage.resetSearchFilter);
+		reportsPage.filterReportByContentArea("N/A");
+		reportsPage.filterReportByClassRoster(testroster);
+		customeWaitTime(2);
+		softAssert.assertEquals(craseTestName, reportsPage.getTestName(craseTestName));
+		softAssert.assertEquals(craseTestName, reportsPage.getTestDuration(craseTestName));
+		softAssert.assertEquals(reportsPage.getNoOfStudentCompletedTest(craseTestName) ,"1");
+		softAssert.assertEquals(reportsPage.getNoOfStudentNotStartedTest(craseTestName),"1");
+		softAssert.assertEquals(reportsPage.getNoOfStudentStartedTest(craseTestName),"0");
+		softAssert.assertEquals(reportsPage.getNoOfStudentInQuantile(craseTestName, 4, "All correct"),"1");
+
+		
+	}
 	@AfterMethod
 	public void cleanUp(){
 		/*returnToDashboard();	
