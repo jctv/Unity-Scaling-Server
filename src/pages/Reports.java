@@ -145,6 +145,16 @@ public class Reports extends BasePage {
 
 	List <String> itemInfo = new ArrayList <String> ();
 	
+	@FindBy(xpath = "//span[text()='Accommodations Report']")
+	public WebElement AccommodationsReportButton;
+	
+	
+	public AccommodationsReportDetail gotoAccommodationsReportDetail(){
+		waitForElementAndClick(AccommodationsReportButton);
+		return new AccommodationsReportDetail(driver);
+	}
+	
+	
 	/**
 	 * This is the method for view the report
 	 * @return
